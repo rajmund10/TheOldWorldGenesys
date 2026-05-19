@@ -1,0 +1,52 @@
+<div class="item-card {{ type }}">
+	<div class="imageAndName">
+		<img src="{{img}}" />
+		<span>{{ name }}</span>
+	</div>
+
+	<div class="description">{{{ description }}}</div>
+
+	{{!-- Armor: Defense, Soak --}}
+	{{#if (eq type 'armor')}}
+		<div class="details-grid">
+			<label class="defense">{{localize 'Genesys.Labels.Defense'}}</label>
+			<label class="soak">{{localize 'Genesys.Labels.Soak'}}</label>
+			<span class="defense">{{#if (gt system.defense 0)}}+{{/if}}{{ system.defense }}</span>
+			<span class="soak">{{#if (gt system.soak 0)}}+{{/if}}{{ system.soak }}</span>
+		</div>
+	{{/if}}
+
+	{{!-- Weapon: Damage, Critical, Range, Skill --}}
+	{{#if (or (eq type 'weapon') (eq type 'vehicleWeapon'))}}
+        {{#if (eq type 'vehicleWeapon')}}
+            <div class="details-grid weapon-firing-arc">
+                <label class="firing-arc">{{localize 'Genesys.Labels.FiringArc'}}</label>
+                <span class="firing-arc">{{ weapon.firingArc }}</span>
+            </div>
+        {{/if}}
+
+		<div class="details-grid">
+			<label class="skill">{{localize 'Genesys.Labels.Skill'}}</label>
+			<label class="range">{{localize 'Genesys.Labels.Range'}}</label>
+			<span class="skill">{{ weapon.skill }}</span>
+			<span class="range">{{localize (concat 'Genesys.Range.' (capitalize system.range))}}</span>
+		</div>
+
+		<div class="details-grid">
+			<label class="damage">{{localize 'Genesys.Labels.Damage'}}</label>
+			<label class="critical">{{localize 'Genesys.Labels.Critical'}}</label>
+			<span class="damage">{{ weapon.damage }}</span>
+			<span class="critical">{{ system.critical }}</span>
+		</div>
+	{{/if}}
+
+	{{!-- Armor & Weapon: Qualities --}}
+	{{#if qualities}}
+		<label>{{localize 'Genesys.Labels.Qualities'}}</label>
+		<div class="qualities">
+			{{#each qualities}}
+				<a class="quality" data-tooltip="{{or description 'Genesys.Tooltips.NoDescription'}}">{{name}} {{#if isRated}}{{rating}}{{/if}}</a>
+			{{/each}}
+		</div>
+	{{/if}}
+</div>

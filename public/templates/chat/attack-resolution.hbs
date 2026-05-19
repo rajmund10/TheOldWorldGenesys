@@ -1,0 +1,24 @@
+<div class="attack-resolution-card">
+	<h3>{{localize 'Genesys.AttackResolution.ResultTitle'}}</h3>
+	<p><strong>{{weaponName}}</strong> {{localize 'Genesys.AttackResolution.HitAgainst'}} <strong>{{targetName}}</strong>.</p>
+	<div class="attack-resolution-breakdown">
+		<span>{{localize 'Genesys.AttackResolution.RawDamage'}}</span>
+		<span>{{totalDamage}}</span>
+		<span>{{localize 'Genesys.AttackResolution.Soak'}}</span>
+		<span>{{baseSoak}}</span>
+		<span>{{localize 'Genesys.AttackResolution.Pierce'}}</span>
+		<span>{{pierce}}</span>
+		{{#if usedParry}}
+			<span>{{localize 'Genesys.AttackResolution.Parry'}}</span>
+			<span>-{{parryReduction}}</span>
+		{{/if}}
+		<span>
+			{{#if stunDamage}}
+				{{localize 'Genesys.AttackResolution.AppliedStrain'}}
+			{{else}}
+				{{localize 'Genesys.AttackResolution.AppliedWounds'}}
+			{{/if}}
+		</span>
+		<span>{{finalWounds}}</span>
+	</div>
+</div>

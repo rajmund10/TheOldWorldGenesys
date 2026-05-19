@@ -1,0 +1,17 @@
+<div class="symbol-spending-card">
+	<h3>{{localize 'Genesys.SymbolSpending.SummaryTitle'}}</h3>
+	{{#if entries}}
+		<ul class="symbol-spending-summary-list">
+			{{#each entries}}
+				<li>
+					<span>
+						<strong>{{label}}{{#if (gt uses 1)}} x{{uses}}{{/if}}</strong>
+					</span>
+					<span>{{{costHtml}}}</span>
+				</li>
+			{{/each}}
+		</ul>
+	{{else}}
+		<p>{{localize 'Genesys.SymbolSpending.NoSelected'}}</p>
+	{{/if}}
+</div>

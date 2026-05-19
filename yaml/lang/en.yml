@@ -1,0 +1,798 @@
+﻿TYPES:
+  Actor:
+    character: Character
+    minion: Minion
+    rival: Rival
+    nemesis: Nemesis
+    vehicle: Vehicle
+
+  Item:
+    # Character Creation Items
+    ability: Special Ability
+    archetype: Archetype
+    career: Career
+    injury: Critical Injury/Hit
+    skill: Skill
+    talent: Talent
+    specialization: Specialization
+    profession: Profession
+
+    # Equipment Items
+    armor: Armor
+    consumable: Consumable
+    container: Container
+    gear: Gear
+    magicAccessory: Magic Accessory
+    quality: Item Quality
+    weapon: Weapon
+    vehicleWeapon: Vehicle Weapon
+
+# Genesys
+Genesys:
+  # System Strings
+  System:
+    Name: Genesys
+
+  # System Settings
+  Settings:
+    SkillsCompendium: Skills Compendium
+    SkillsCompendiumHint: An Item compendium containing all of the skills that should be applied to new characters. Changing this value will have no impact on existing characters.
+    DefaultDifficulty: Default Difficulty
+    DefaultDifficultyHint: >-
+      The default dice pool modifications that should be added to the dice pool when doing a check. This default might be ignored in cases were the difficulty is known.
+      For an explanation of all the possible modifications and their glyph please check [[Dice-Pool-Modification-Glyphs|Dice Pool Modification Glyphs]].
+    Money: Currency Label
+    MoneyHint: The name (such as Gold, Credits, Cash, Doubloons, etc) used for Currency in the system.
+    CareerSkillRanks: Career Skill Ranks
+    CareerSkillRanksHint: Number of skills you can select from your Career Skills list during character creation.
+    UncoupleSkillsAlternateRule: Uncouple Skills from Characteristics
+    UncoupleSkillsAlternateRuleHint: Allows selecting an alternative Characteristic for a skill in the dice prompt window, per the Uncoupling Skills from Characteristics alternate rule (Core Rulebook, p.205).
+    ShowDamageOnFailure: Show Attack Damage On Failure
+    ShowDamageOnFailureHint: Whether to show Damage, Critical, and Qualities on attack roll chat cards even when the roll was a failure.
+    SkillForInjuries: Resilience Skill Name
+    SkillForInjuriesHint: Name of the skill used when recovering from Critical Injuries.
+    SkillForRepairingVehicleHits: Mechanics Skill Name
+    SkillForRepairingVehicleHitsHint: Name of the skill used when recovering from Critical Hits.
+    DicePoolCollapseModifications: Collapse the Pool Modifications Section
+    DicePoolCollapseModificationsHint: If enabled the 'Pool Modifications' section on the dice pool prompt will be collapsed during the initial render.
+    DicePoolAutoApplyModifications: Auto-Apply Pool Modifications
+    DicePoolAutoApplyModificationsHint: If enabled all the modifications that can affect the dice pool will be applied when opening the dice pool prompt.
+    DicePoolChanceToSucceedByPermutation: Calculate the Chance to Succeed for Dice Pools
+    DicePoolChanceToSucceedByPermutationHint: >-
+      If enabled this will spawn a Web Worker that calculates the exact chance to succeed.
+      However, if the dice pool uses a super-characteristic the calculated value is lower than the true value because it assumes that the pool doesn't explode.
+      For dice pools that use super-characteristics you can get a more accurate value by using simulations.
+    DicePoolChanceToSucceedBySimulation: Approximate the Chance to Succeed for Dice Pools
+    DicePoolChanceToSucceedBySimulationHint: >-
+      The number of simulated rolls to run in order to approximate the chance to succeed.
+      Be mindful when increasing this number since it will have a direct impact on Foundry's performance; a good number to start is 100. If a value of 0 is provided this feature is disabled.
+      This setting is ignored if the chance is already being calculated some other way.
+    SuperCharacteristics: Super-Characteristics
+    SuperCharacteristicsHint: Allows marking characteristics as being 'super' during character creation, per the Super-Characteristics optional rule (Core Rulebook, p.251).
+
+  # Tooltips
+  Tooltips:
+    NoDescription: No Description Available
+    IsInitiative: Whether the skill is commonly used for Initiative or not. Setting this to true will make it appear as an option in the combat tracker for mass rolls.
+    CycleInitiativeSkill: Cycle which initiative skill the combatant is using.
+    AddExtraInitiativeSlot: Adds an extra initiative slot.
+
+  # Dice Rolls
+  Rolls:
+    Dice: Dice
+    Results: Roll Results
+    Description:
+      Simple: 'Rolling<i class="fas fa-star {superChar}"></i>...'
+      Initiative: 'Rolling Initiative with <strong>{skill}<i class="fas fa-star {superChar}"></i></strong>...'
+      Characteristic: Rolling <strong>{characteristic}</strong>...
+      Skill: 'Rolling <strong>{skill} ({characteristic}<i class="fas fa-star {superChar}"></i>)</strong>...'
+      SkillWithoutCharacteristic: Rolling <strong>{skill}</strong>...
+      AttackCharacteristic: Attacking with <strong>{name}</strong> using <strong>{characteristic}</strong>!
+      AttackSkill: 'Attacking with <strong>{name}</strong> using <strong>{skill} ({characteristic}<i class="fas fa-star {superChar}"></i>)</strong>!'
+      AttackSkillWithoutCharacteristic: Attacking with <strong>{name}</strong> using <strong>{skill}</strong>!
+    Attack:
+      Critical: Critical
+      Label: Attack Results
+      Damage: Damage
+      Qualities: Attack Qualities
+    Summary:
+      Label: Summary
+      Successes: Successes
+      Failures: Failures
+      Advantage: Advantage
+      Threat: Threat
+      Triumph: Triumph
+      Despair: Despair
+  AttackResolution:
+    DefenseTitle: Defend Against Hit
+    ResultTitle: Attack Resolution
+    HitAgainst: hits
+    RawDamage: Damage before soak
+    Soak: Soak
+    Pierce: Pierce
+    WoundsWithoutParry: Wounds without Parry
+    StrainWithoutParry: Strain without Parry
+    UseParry: Use Parry
+    SkipParry: Do not use Parry
+    Parry: Parry
+    AppliedWounds: Applied wounds
+    AppliedStrain: Applied strain
+    CauseCritical: Cause Critical Injury
+    CriticalTitle: Critical Injury
+    SpendSymbols: Spend Symbols
+    SymbolSpendTitle: Spend Symbols
+    SymbolSpendHint: Choose how to spend the symbols from this attack.
+    ConfirmSymbolSpends: Confirm
+    CancelSymbolSpends: Cancel
+    RemainingAdvantages: Remaining Advantages
+    RemainingTriumphs: Remaining Triumphs
+    AdvantageShort: Advantage
+    TriumphShort: Triumph
+    SelectedSpends: Selected spends
+    NoSymbolSpends: No symbols spent yet.
+    CriticalByAdvantages: Critical Injury (Advantages)
+    CriticalByTriumph: Critical Injury (Triumph)
+    CriticalAdvantageBonus: Critical Injury bonus +10
+    OtherAdvantageSpend: Other Advantage spend
+    OtherTriumphSpend: Other Triumph spend
+    KnockdownNote: May require additional Advantages for larger targets.
+    D100Roll: d100 roll
+    AdvantageBonus: Advantage Bonus
+    PreviousInjuries: Previous injuries
+    Vicious: Vicious
+    Durable: Durable
+    CriticalResult: Critical result
+    MinionRemoved: The Critical Injury removes one minion from the group.
+    MissingData: Attack data could not be found.
+    MissingTarget: Attack target could not be found.
+    MissingCriticalTable: Critical Injury table was not found.
+
+  SymbolSpending:
+    Open: Spend Symbols
+    Title: Spend Symbols
+    Hint: Choose how to spend symbols from this roll. Narrative effects are posted as a chat summary.
+    PoolSummary: Symbol Summary
+    Confirm: Confirm
+    Cancel: Cancel
+    SummaryTitle: Spent Symbols
+    Positive: Positive Symbols
+    Negative: Negative Symbols
+    Magic: Magic
+    NoPermission: You cannot spend this side of the symbols.
+    AlreadySpent: This side of the symbols has already been resolved.
+    NoOptions: No options are available for the rolled symbols.
+    NoSelected: No symbol spends selected yet.
+    SelectedSpends: Selected spends
+    NotInEncounter: Symbols can only be spent during an active encounter.
+    Reset: Symbol spending pool restored.
+    ResetContext: Restore symbol spending
+    ResetFailed: Failed to restore symbol spending.
+    TableColumn: Table
+    WeaponColumn: Criticals and weapon qualities
+    CostPrefix: Cost
+    CostOne: 1 Advantage
+    CostTwo: 2 Advantages
+    CostThree: 3 Advantages
+    CostTriumph: Triumph
+    CostOneThreat: 1 Threat
+    CostTwoThreats: 2 Threats
+    CostThreeThreats: 3 Threats
+    CostDespair: Despair
+    RollTypes:
+      combat: Combat
+      magic: Magic
+      magicAttack: Magic Attack
+    Sources:
+      CombatPositive: Table I.6-2
+      CombatNegative: Table I.6-3
+      MagicNegative: Table III.2-4
+      ItemQuality: Item Qualities
+      ChaosManifestation: Chaos Manifestation
+
+  # Career Skill Prompt
+  CareerSkillPrompt:
+    Title: Career Skills
+    Hint: 'Select Career Skills to gain a rank:'
+    RemainingChoices: Remaining Choices
+    Confirm: Done
+
+  # Dice So Nice strings
+  DiceCat:
+    Normal: Genesys Dice
+    Custom: Genesys Dice (Customizable)
+  DiceColors:
+    Boost: Boost Die
+    Ability: Ability Die
+    Proficiency: Proficiency Die
+    Setback: Setback Die
+    Difficulty: Difficulty Die
+    Challenge: Challenge Die
+
+  # Difficulty Ranks
+  Difficulty:
+    Simple: Simple
+    Easy: Easy
+    Average: Average
+    Hard: Hard
+    Daunting: Daunting
+    Formidable: Formidable
+    Impossible: Impossible
+
+  Inventory:
+    Sections:
+      Armor: Armor
+      Consumable: Consumables
+      Container: Containers
+      Gear: Gear
+      Weapon: Weapons
+
+  # ActiveEffects System Strings
+  ActiveEffects:
+    Passive: Passive Effects
+    Temporary: Temporary Effects
+    Suppressed: Inactive Effects
+    Source: Source
+    Duration: Duration
+    ChangeKey: Effect Target
+    ChangeMode: Option
+    ChangeValue: Effect Value
+    Types:
+      ModifyCharacteristic: Modify Characteristic
+      ModifyStat: Modify Stat
+      ModifySkill: Modify Skill
+      ModifyDicePool:
+        GroupLabel: Modify Dice Pool
+        Options:
+          Check: Any Check
+          Characteristic: Uses Characteristic
+          Skill: Uses Skill
+
+  # Dice Prompt Labels
+  DicePrompt:
+    Title: Dice Pool
+    Roll: Roll!
+    Hint: Use the dice box on the right to add, upgrade, and downgrade. Click dice in the pool to remove them!
+    UseSuperCharacteristic: Roll as a super-characteristic
+    PoolModifications:
+      Title: Pool Modifications
+      DefaultDifficulty: Default Difficulty
+      ManualChanges: Manual Changes
+      SelfEffects: 'From Self: '
+      TargetEffects: 'From Target: '
+    ChanceToSucceed: 'Chance to Succeed:'
+    ChanceToSucceedByPermutationDisclaimer: The displayed probability is exact unless the dice pool includes a super-characteristic.
+    ChanceToSucceedBySimulationDisclaimer: The displayed probability is an approximation that uses the Monte Carlo method.
+
+  # Rewards Prompt Labels
+  RewardsPrompt:
+    Title: Rewards
+    Amount: Amount
+    Reason: Reason
+
+  # Character Skill Prompt Labels
+  CharacterSkillPrompt:
+    Title: Select User
+
+  # Clone Actor Prompt Labels
+  CloneActorPrompt:
+    Title: Drop Confirmation
+    OriginalMethod:
+      Label: Reference
+      Description: A reference to the actor will be saved.
+    CloneMethod:
+      Label: Clone
+      Description: >-
+        A clone of the dropped actor will be created and a reference to it will be saved.
+        Additionally, the cloned actor will appear on the 'Actors' directory as a new entry with the name specified below.
+      ActorNameLabel: New Name
+
+  Specializations:
+    EmptyTitle: No specialization assigned.
+    EmptyHint: Drag a specialization item onto your character sheet to assign it.
+    TalentUnavailable: This talent is not available yet. You must first purchase a connected talent.
+    CareerPathTitle: Profession Path
+    CareerPathHint: Select the current step in the character profession path.
+    CareerPathEmpty: This specialization has no profession progression defined yet.
+    ProfessionTier: Tier {tier}
+    ProfessionStage: Stage {stage}
+    ProfessionUnnamed: Unnamed Profession
+    ProfessionCurrent: Current Profession
+    ProfessionStatusCurrent: Current Stage
+    ProfessionStatusCompleted: Completed
+    ProfessionStatusUpcoming: Upcoming
+    ProfessionSetCurrent: Set Current
+    ProfessionAlternative: Alternative Branch
+    ProfessionPrerequisites: Prerequisites
+    ProfessionEffects: Effects
+    ProfessionInheritedEffects: Includes Lower-Tier Effects
+
+  Magic:
+    LockedTitle: Magic is locked.
+    LockedHint: Assign or configure a magical specialization to unlock this tab.
+    MissingRankTitle: Magic unlocked, but no usable rank
+    MissingRankHint: This tab is unlocked by {specialization}, but the character still needs at least 1 rank in {skill}.
+    RollPrimary: Roll {skill}
+    ActiveAccessory: Active Accessory
+    ActiveAccessoryHint: Choose which equipped magic accessory contributes its bonuses to spellcasting.
+    NoAccessory: No accessory
+    NoEquippedAccessories: Equip a magic accessory to make it available here.
+    AttackBonus: Attack +{bonus}
+    ActiveKnowledge: Active Knowledge
+    ActiveKnowledgeHint: Choose which Knowledge skill magic effects use when they scale with Knowledge ranks.
+    NoKnowledge: No Knowledge selected
+    NoKnowledgeSkills: Add a Knowledge skill to make it available here.
+    KnowledgeRank: Rank {rank}
+    Actions: Available Actions
+    ActionsHint: These are the spell action families surfaced for this specialization profile.
+    OldWorldTag: Old World
+    Profile: School Profile
+    ProfileHint: Use this summary as the anchor for what the specialization is supposed to do at the table.
+    SignatureEffects: Signature Effects
+    SpecialRules: Special Rules
+
+  MagicActionPrompt:
+    Title: Build {action}
+    UsesSkill: Uses {skill}
+    BaseDifficulty: Base Difficulty
+    AddedDifficulty: Added Difficulty
+    TotalDifficulty: Total Difficulty
+    SelectedEffects: Selected Effects
+    NoSelectedEffects: No additional effects selected yet.
+    AdditionalEffects: Additional Effects
+    NoAdditionalEffects: This action has no structured additional effects in the builder yet.
+    Repeatable: Repeatable
+    IncompatibleSelection: '{left} cannot be combined with {right}.'
+    AddEffect: Add Effect
+    RemoveEffect: Remove
+    OpenDicePrompt: Continue To Dice Pool
+    Cancel: Cancel
+
+  ChaosManifestation:
+    Title: Chaos Manifestation
+    Open: Resolve Chaos Manifestation
+    PromptHint: Choose one Manifestation caused by this roll.
+    Minor: Minor Manifestation
+    Moderate: Moderate Manifestation
+    Major: Major Manifestation
+    Catastrophic: Catastrophic Manifestation
+    UseStoryPoint: Use Story Point
+    Type: Type
+    UsedSymbols: Used Symbols
+    BaseRoll: Roll Result
+    CategoryModifier: Manifestation Size
+    EncounterModifier: Previous Manifestations
+    TalentModifier: Owned Talents
+    FinalResult: Manifestation Result
+    MissingTable: Chaos Manifestation table was not found.
+    MissingResult: No matching result found.
+    MissingActor: The caster could not be found.
+    GmOnly: Only the GM can resolve Chaos Manifestations.
+    AlreadyResolved: This roll has already caused a Manifestation.
+    Resolved: Manifestation resolved
+  SpecializationSheet:
+    Description: Specialization Description
+    DropTalent: Drag talents from a compendium onto the tree slots.
+    RemoveTalent: Right-click a talent to remove it from the tree.
+    ToggleConnection: Click connectors between slots to add or remove links.
+    ImportTree: Drop another specialization on this sheet to import its full talent tree, including connections.
+    ImportTreeEmpty: The dropped specialization does not contain a saved talent tree.
+    ImportTreeSuccess: Imported talent tree from {name}.
+    SpecializationData: Specialization Data
+    Cost: XP Cost
+    Requirements: Requirements
+    Benefits: Benefits
+    SocialStatus: Social Status
+    CareerSkills: Specialization Career Skills
+    DropCareerSkill: Drag skill items onto this sheet to add them as specialization career skills.
+    RemoveCareerSkill: Remove
+    GrantedItems: Granted Items
+    DropGrantedItem: Drag weapons, armor, gear, magic accessories, consumables, or containers onto this sheet to grant them with the specialization.
+    RemoveGrantedItem: Remove
+    MagicSection: Magic Unlock
+    MagicEnabled: Unlock Magic Tab
+    Tradition: Tradition
+    ArcanaTradition: Arcana
+    DivineTradition: Divine
+    School: School / Deity
+    None: None
+    Automatic: Choose a profile
+    LoreOverride: Lore Label Override
+    LorePlaceholder: 'Example: Lore of Death'
+    DeityOverride: Deity Label Override
+    DeityPlaceholder: 'Example: Sigmar'
+    AllowMiscast: Flag Miscast Risk
+    AllowOvercast: Flag Overcast Access
+    CareerPath: Profession Path
+    AddProfession: Add Profession
+    ProfessionStep: Profession {index}
+    RemoveProfession: Remove
+    ProfessionName: Profession Name
+    ProfessionTier: Tier
+    ProfessionAlternative: Alternative Branch
+    ProfessionPrerequisites: Prerequisites
+    ProfessionEffects: Effects
+    ProfessionInheritedEffects: Includes Lower-Tier Effects
+    NoProfessions: No profession progression defined for this specialization yet.
+
+  TalentTree:
+    AvailableXP: 'Available XP:'
+    GmMode: GM Mode
+    LockPlayerEdit: Lock player editing
+    UnlockPlayerEdit: Unlock player editing
+    Background: Background
+    BackgroundPlaceholder: Path to image...
+    PickImage: Pick image
+    LockBackground: Lock background dragging
+    UnlockBackground: Unlock background dragging
+    BackgroundLockedHint: Background locked - click the lock to unlock it
+    BackgroundDragHint: Drag the background to change its position
+    EditInstructions: Drag talents onto slots. Right-click removes them. Click the connections between cells to add or remove them.
+    ViewInstructions: Click a talent to purchase or refund it.
+    ConnectionInstructions: Click the connections between cells to add or remove them.
+    Ranked: Ranked
+    Passive: Passive
+
+  TalentPurchasePrompt:
+    PurchaseTitle: Purchase Talent
+    RefundTitle: Return Talent
+    CannotRefundTitle: Cannot Return Talent
+    PurchaseHeading: Purchase Talent
+    RefundHeading: Return Talent
+    PurchaseQuestion: 'Purchase talent <strong>"{talentName}"</strong> for <strong>{cost} XP</strong>?'
+    RefundQuestion: 'Return talent <strong>"{talentName}"</strong> and refund <strong>{cost} XP</strong>?'
+    Cancel: Cancel
+    PurchaseAction: 'Purchase ({cost} XP)'
+    RefundAction: 'Return ({cost} XP)'
+    RefundBlockedBelow: 'Cannot return this talent because "{talentName}" below depends on it.'
+    RefundBlockedRight: 'Cannot return this talent because "{talentName}" to the right depends on it.'
+    RefundBlockedLeft: 'Cannot return this talent because "{talentName}" to the left depends on it.'
+
+  # Experience Journal Labels
+  XPJournal:
+    Award: '<strong>XP Awarded by GM</strong>: {reason}'
+    Starting: <strong>Starting XP from Archetype</strong>
+    Characteristic: Increased <strong>{characteristic}</strong> to {rank}.
+    Skill: Increased <strong>{name}</strong> to {rank}.
+    NewTalent: 'Purchased Talent: <strong>{name}</strong> (Tier {tier}).'
+    TalentRank: Increased <strong>{name}</strong> to Rank {rank} (Effective Tier {tier}).
+
+  # Notification Prompts
+  Notifications:
+    GenericError: Unable to perform the desired action.
+    AlreadyHaveSpecialAbility: Unable to add {abilityName}; Special Abilities are not ranked, and you already have it!
+    TalentNotRanked: Unable to add {talentName}; It is not a ranked talent, and you already have it!
+    NoSkillsCompendium: Skills compendium setting is empty! Attempting to use default skills compendium.
+    MissingCompendium: Unable to load Skills Compendium '{name}'. Reconfigure the skills compendium in Genesys Settings.
+    WrongCompendiumType: Configured Skills Compendium '{name}' is a {type} Compendium, not an Item Compendium! Reconfigure the skills compendium in Genesys Settings.
+    NoSkillsInCompendium: Configured Skills Compendium '{name}' does not contain any skills. Reconfigure the skills compendium in Genesys Settings.
+    CharacterWithNoSkills: Character was created with no initial skill data since none were found on the configured Skills Compendium.
+    CannotDeleteCharacteristic: Cannot delete XP Journal Entry for characteristic '{characteristic}' - you must delete the advance to the next rank first!
+    CannotDeleteSkill: Cannot delete XP Journal Entry for skill '{name}' - you must delete the advance to the next rank first!
+    CannotAffordTalent: Cannot afford talent '{name}' ({cost}xp).
+    CannotAffordRankedTalent: Cannot afford to increase talent '{name}' to rank {newRank} ({cost}xp).
+    CannotDeleteNewTalent: Cannot delete XP Journal Entry for new talent '{name}' - you must delete the talent's rank increases first!
+    CannotDeleteExistingTalent: Cannot delete XP Journal Entry for increasing talent '{name}' to rank {rank} - you must delete the higher rank increases first!
+    CannotDeleteInvalidTalentPyramid: Cannot delete XP Journal Entry for talent of rank {rank} to preserve the talent pyramid structure. Try deleting talents of higher rank first.
+    CannotPurchaseTalentTier: Cannot purchase talents at tier {tier} - you must have at least {minimum} talents at rank {lowerTier} first.
+    NotEnoughXP: Not enough XP!
+    NotEnoughStoryPoints: You can't spend Story Points you don't have!
+    SelectOneTokenForAction: You need to selected a single token to perform this action.
+    SelectOneTargetForAttack: Target exactly one token before making an attack.
+    SelectNoneOrOneTokenForAction: You need to select no tokens, or a single token, to perform this action.
+    TokenIsNotCombatant: The selected token is not participating on the current combat.
+    CannotClaimOppositeSlot: You can't claim this initiative slot with {name} - it's on the wrong side!
+    CannotSelectActor: You do not have sufficient permission to select this Actor.
+    InvalidTokenTypeForAction: The selected token is of an invalid type to perform this action.
+    EffectsWereNotUpdatedAfterTransfer: There was an error updating the effects with the latest values for the transfered '{name}'.
+    NoRoleMembersWithAppropriateSkills: There are no role members that have the appropriate skills to perform this action.
+    TalentNotFound: Talent not found!
+    TalentManagedByTree: This talent is managed by the specialization tree.
+    FailedToAddTalentToCharacter: Failed to add talent to character!
+    PurchasedTalent: 'Purchased talent "{name}" for {cost} XP.'
+    FailedToPurchaseTalent: Failed to purchase talent!
+    RefundedTalent: 'Returned talent "{name}" and refunded {cost} XP.'
+    FailedToRefundTalent: Failed to return talent!
+
+  # Dialogs Prompts
+  Dialogs:
+    ConfirmDeleteItem:
+      Title: Confirm Removal
+      Content: This will remove the item. Do you want to proceed?
+
+  # Migration Related Messages
+  Migration:
+    MustPerformMigration: >-
+      MIGRATION NEEDED!: Some data needs to be migrated and failure to do so might corrupt the data or break functionality.
+      Please exit out of the world and wait for a GM to perform the migration.
+    StartingMigration: 'MIGRATION STARTED: Commencing {amount} migration(s); please be patient and do not close the application.'
+    StartingScriptMigration: 'MIGRATION STARTED [{id}]: Commencing migration.'
+    StoppedScriptMigration: 'MIGRATION STOPPED [{id}]: Encountered an error while migrating.'
+    CompletedScriptMigration: 'MIGRATION FINISHED [{id}]: Migration completed.'
+    MultipleSuccessfulMigration: 'MIGRATION VERSION UPDATED: At least one migration was completed successfully.'
+    StoppedMigration: >-
+      MIGRATION STOPPED: The migration has stopped due to some errors; consult the console log for what these errors are.
+      There are still {amount} migration(s) that haven't been performed.
+    CompletedMigration: 'MIGRATION FINISHED: All migrations done; thanks for your patience.'
+
+  # Story Points
+  StoryPoints:
+    Player: Player Story Points
+    GM: GM Story Points
+    Reset: Reset Story Points
+    Spend: Spend Point
+    ChatMessageGmPool: Spending a GM Story Point!
+    ChatMessagePlayerPool: Spending a Player Story Point!
+
+  # Localized strings used in TextEditor enrichers.
+  Enrichers:
+    Difficulty: '{difficulty} [{symbols}] {skill} check'  # e.g. Average [â™¦â™¦] Coercion Check
+    Opposed: 'Opposed {skill1} versus {skill2} check'
+
+  # Combat Tracker
+  CombatTracker:
+    RevokeInitiativeClaim: Revoke Initiative Claim
+
+  # Sheet Tab names
+  Tabs:
+    Skills: Skills
+    Combat: Combat
+    Talents: Talents
+    Specializations: Specializations
+    Magic: Magic
+    Inventory: Inventory
+    Effects: Effects
+    Journal: Journal
+    Description: Description
+    Data: Data
+    Details: Details
+    Duration: Duration
+    Miscellaneous: Miscellaneous
+    Crew: Crew
+    Attachments: Attachments
+
+  # Characteristics
+  Characteristics:
+    Brawn: Brawn
+    Agility: Agility
+    Intellect: Intellect
+    Cunning: Cunning
+    Willpower: Willpower
+    Presence: Presence
+
+  # Characteristic Abbreviations
+  CharacteristicAbbr:
+    Brawn: Br
+    Agility: Ag
+    Intellect: Int
+    Cunning: Cun
+    Willpower: Will
+    Presence: Pr
+
+  # Skill Categories
+  SkillCategory:
+    General: General
+    Magic: Magic
+    Combat: Combat
+    Social: Social
+    Knowledge: Knowledge
+
+  # Archetype Data
+  Archetype:
+    Abilities: Archetype Abilities
+    StartingWounds: Starting Wound Threshold
+    StartingStrain: Starting Strain Threshold
+    StartingCorruption: Starting Corruption Threshold
+    StartingXP: Starting Experience
+    GrantedItems: Granted Items
+
+  # Adversary Labels
+  Adversary:
+    MinionSkills: Skills (group only)
+    Skills: Skills
+    Talents: Talents
+    Abilities: Abilities
+    Equipment: Equipment
+    None: None.
+    Base: Base
+    Remaining: remaining
+
+  # Career Data
+  Career:
+    Skills: Career Skills
+    Key: Career Key
+    KeyHint: Stable technical key used to connect this career with specialization options.
+    AvailableSpecializations: Available Specializations
+    AvailableSpecializationsHint: Specialization keys that should be offered when this career is selected.
+    AddSpecializationKey: Add Specialization Key
+    EmptySpecializations: No specialization keys defined for this career yet.
+    SpecializationKeyPlaceholder: specialization-key
+
+  # Range Values
+  Range:
+    Engaged: Engaged
+    Short: Short
+    Medium: Medium
+    Long: Long
+    Extreme: Extreme
+    Strategic: Strategic
+
+  # Firing Arc
+  FiringArc:
+    Fore: Fore
+    Aft: Aft
+    Port: Port
+    Starboard: Starboard
+    All: All
+    None: None
+
+  # Dialog Groups
+  DialogGroups:
+    Item:
+      CharacterCreation: Character Creation
+      Equipment: Equipment
+      Other: Other
+    Actor:
+      Adversary: Adversary
+      Other: Other
+
+  # Equipment Data
+  Equipment:
+    DamageState:
+      Undamaged: Undamaged
+      Minor: Minor Damage
+      Moderate: Moderate Damage
+      Major: Major Damage
+    Dropdown:
+      Equip: Equip
+      Unequip: Unequip
+      Drop: Drop
+      PickUp: Pick Up
+      ToChat: To Chat
+      Edit: Edit
+      Delete: Delete
+
+  # Misc. Unsorted Labels (to be cleaned up later)
+  Labels:
+    Name: Name
+    CharacterName: Character Name
+    SpeciesArchetype: Species/Archetype
+    Career: Career
+    SocialStatus: Social Status
+    Soak: Soak
+    SoakValue: Soak Value
+    Wounds: Wounds
+    WoundThreshold: Wound Threshold
+    Strain: Strain
+    Corruption: Corruption
+    StrainThreshold: Strain Threshold
+    Defense: Defense
+    Threshold: Threshold
+    Current: Current
+    DefenseMelee: Melee
+    MeleeDefense: Melee Defense
+    DefenseRanged: Ranged
+    RangedDefense: Ranged Defense
+    TotalXP: Total XP
+    AvailableXP: Available XP
+    Characteristic: Characteristic
+    IsMagicSkill: Is Magic Skill
+    Source: Source
+    GeneralSkills: General Skills
+    MagicSkills: Magic Skills
+    CombatSkills: Combat Skills
+    SocialSkills: Social Skills
+    KnowledgeSkills: Knowledge Skills
+    Category: Category
+    Skills: Skills
+    Delete: Delete
+    Edit: Edit
+    NoCareer: No career selected - drag one over!
+    NoSocialStatus: No social status defined.
+    NoArchetype: No archetype selected - drag one over!
+    MarkCareerSkill: Mark As Career Skill
+    UnmarkCareerSkill: Unmark As Career Skill
+    MarkSuperCharacteristic: Mark As Super-Characteristic
+    UnmarkSuperCharacteristic: Unmark As Super-Characteristic
+    Motivations: Motivations
+    Strength: Strength
+    Flaw: Flaw
+    Desire: Desire
+    Fear: Fear
+    CharacterIllustration: Character Illustration
+    CharacterDescription: Character Description
+    Pronouns: Pronouns
+    Age: Age
+    Height: Height
+    Build: Build
+    Hair: Hair
+    Eyes: Eyes
+    NotableFeatures: Notable Features
+    Notes: Notes
+    XPJournal: XP Journal
+    Tier: Tier
+    Activation: Activation
+    ActivationAdvantages: Activation Cost - Advantages
+    ActivationTriumphs: Activation Cost - Triumphs
+    ActivationLimit: Activation Limit
+    Once: Once
+    Unlimited: Unlimited
+    UpToRating: Up to Rating
+    Rank: Rank
+    Ranked: Ranked
+    EffectsScaleWithRank: Effects scale with rank
+    Active: Active
+    Passive: Passive
+    Yes: Yes
+    No: No
+    Talents: Talents
+    SpecialAbilities: Special Abilities
+    TierCount: Tier {tier}
+    DeletedItemData: 'ERR: Deleted item {name}'
+    Add: Add
+    Encumbrance: Encumbrance
+    Price: Price
+    Rarity: Rarity
+    Damage: Damage
+    DamageCharacteristic: Damage From Characteristic
+    Critical: Critical
+    Range: Range
+    Quantity: Quantity
+    EncumbranceThreshold: Encumbrance Threshold
+    Encumbered: Encumbered!
+    RankUp: Rank Up
+    RankDown: Rank Down
+    FreeRankUp: Rank Up (Free)
+    FreeRankDown: Rank Down (Free)
+    IsRated: Is Rated?
+    Qualities: Qualities
+    Severity: Severity
+    Attacks: Attacks
+    Armor: Armor
+    CriticalInjuries: Critical Injuries
+    CriticalHits: Critical Hits
+    Injury: Injury
+    Hit: Hit
+    Skill: Skill
+    Crit: Crit
+    Special: Special
+    GroupSize: Group Size
+    SkillNotFound: Skill Not Found
+    IsInitiative: Initiative Skill?
+    Equipped: Equipped
+    Carried: Carried
+    Dropped: Dropped
+    NotApplicable: N/A
+    EffectiveTier: Effective Tier
+    Silhouette: Silhouette
+    Speed: Speed
+    Handling: Handling
+    HullTrauma: Hull Trauma
+    HullTraumaThreshold: Hull Trauma Threshold
+    SystemStrain: System Strain
+    SystemStrainThreshold: System Strain Threshold
+    Illustration: Illustration
+    Complement: Complement
+    Consumables: Consumables
+    PassengerCapacity: Passenger Capacity
+    EncumbranceCapacity: Encumbrance Capacity
+    Information: Information
+    Passengers: Passengers
+    Role: Role
+    Roles: Roles
+    OverCapacity: Over Capacity!
+    RoleSkills: Role Skills
+    FiringArc: Firing Arc
+    Select: Select
+    PerformCheck: Perform Check
+    GroupBy: Group By
+    Attack: Attack
+    Item: Item
+    Items: Items
+    CloseContainer: Close Container
+
+
+
+
+
+
+

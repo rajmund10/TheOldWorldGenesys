@@ -1,0 +1,29 @@
+# Build Artifacts
+/dist
+/lib
+/public/lang
+/public/system.json
+/public/template.json
+/public/dice
+/genesys-*.zip
+/Genesys.js
+/style.css
+
+# Node
+/node_modules
+yarn-*.log
+
+# IDEs
+.vscode/
+.idea/
+
+# Misc Files
+.env
+
+# Local / working files
+/.codex-temp/
+/.roo/
+/macros/
+/talenty/
+/screenshots/
+debug_*.js

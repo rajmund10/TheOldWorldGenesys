@@ -1,0 +1,25 @@
+<div class="attack-symbol-spend-card">
+	<h3>{{localize 'Genesys.AttackResolution.SymbolSpendTitle'}}</h3>
+	<p><strong>{{weaponName}}</strong></p>
+	{{#if entries}}
+		<ul class="attack-symbol-spend-list">
+			{{#each entries}}
+				<li>
+					<span>{{label}}{{#if (gt uses 1)}} x{{uses}}{{/if}}</span>
+					<span>
+						{{#if advantages}}{{advantages}} {{localize 'Genesys.AttackResolution.AdvantageShort'}}{{/if}}
+						{{#if triumphs}}{{#if advantages}}, {{/if}}{{triumphs}} {{localize 'Genesys.AttackResolution.TriumphShort'}}{{/if}}
+					</span>
+				</li>
+			{{/each}}
+		</ul>
+	{{else}}
+		<p>{{localize 'Genesys.AttackResolution.NoSymbolSpends'}}</p>
+	{{/if}}
+	<div class="attack-symbol-spend-remaining">
+		<span>{{localize 'Genesys.AttackResolution.RemainingAdvantages'}}</span>
+		<strong>{{remainingAdvantages}}</strong>
+		<span>{{localize 'Genesys.AttackResolution.RemainingTriumphs'}}</span>
+		<strong>{{remainingTriumphs}}</strong>
+	</div>
+</div>

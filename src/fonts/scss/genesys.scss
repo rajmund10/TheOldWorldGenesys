@@ -1,0 +1,82 @@
+/**
+ * Genesys Glyphs & Dice is available under the MIT License (https://github.com/themensch/FFG-Genesys-Glyphs-and-Dice/blob/master/LICENSE)
+ *
+ * The customized GenesysSymbols-Regular-Ligatures font is created using symbols from this font.
+ */
+
+@use '@scss/vars/colors.scss';
+
+@font-face {
+	font-family: 'Genesys Symbols';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('assets/fonts/GenesysSymbols-Regular-Ligatures.woff2') format('woff2');
+}
+
+.font-genesys-symbols {
+	font-family: 'Genesys Symbols', sans-serif;
+	min-height: 24px;
+
+	&.nolig {
+		font-variant-ligatures: none;
+	}
+
+	&.pool-modifications {
+		.die,
+		.symbol {
+			& + i.fas {
+				-webkit-text-stroke: 0 transparent;
+				text-stroke: 0 transparent;
+				color: black;
+				position: relative;
+				font-size: 0.5em;
+				top: -1em;
+			}
+		}
+
+		.symbol {
+			font-style: normal;
+		}
+	}
+}
+
+.die {
+	-webkit-text-stroke: 1px black;
+	text-stroke: 1px black;
+	font-style: normal;
+	font-family: 'Genesys Symbols', sans-serif;
+
+	// Ability & Difficulty Die
+	&.die-A,
+	&.die-Ability {
+		color: colors.$die-ability;
+	}
+
+	&.die-D,
+	&.die-Difficulty {
+		color: colors.$die-difficulty;
+	}
+
+	// Proficiency Die
+	&.die-P,
+	&.die-Proficiency {
+		color: colors.$die-proficiency;
+	}
+
+	&.die-C,
+	&.die-Challenge {
+		color: colors.$die-challenge;
+	}
+
+	// Boost Die
+	&.die-B,
+	&.die-Boost {
+		color: colors.$die-boost;
+	}
+
+	&.die-S,
+	&.die-Setback {
+		color: colors.$die-setback;
+	}
+}

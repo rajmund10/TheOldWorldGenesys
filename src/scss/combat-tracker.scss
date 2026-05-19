@@ -1,0 +1,36 @@
+@use '@scss/vars/colors.scss';
+
+#combat-tracker {
+	.active {
+		border-color: colors.$gold;
+	}
+
+	.initiative {
+		padding-right: 0.5em;
+	}
+
+	> :not(:last-child):not(.active) {
+		border-bottom: 1px dashed transparentize(colors.$gold, 0.6);
+	}
+
+	.initiative-skill {
+		display: inline-flex;
+		align-items: center;
+		color: black;
+		background: #aaa;
+		border: 1px solid colors.$blue;
+		border-radius: 4px;
+		padding: 2px;
+		font-size: 0.8em;
+		margin-right: 2px;
+		text-shadow: none;
+	}
+
+	.slot-pc {
+		background: transparentize(#155786, 0.7);
+	}
+
+	.slot-npc {
+		background: transparentize(#923414, 0.7);
+	}
+}

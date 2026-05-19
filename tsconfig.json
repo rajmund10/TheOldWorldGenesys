@@ -1,0 +1,56 @@
+{
+	"compilerOptions": {
+		"target": "ES2022",
+		"module": "ES2022",
+		"moduleResolution": "Node",
+
+		"baseUrl": ".",
+		"emitDeclarationOnly": true,
+		"declaration": true,
+		"declarationDir": "lib",
+
+		"strict": true,
+
+		"skipLibCheck": true,
+		"isolatedModules": true,
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"jsx": "preserve",
+
+		"allowJs": true,
+		"checkJs": true,
+
+		"noImplicitOverride": true,
+
+		"paths": {
+			"@/*": ["src/*"],
+		},
+		"lib": [
+			"ES2021",
+			"DOM"
+		],
+		"typeRoots": [
+			"node_modules",
+			"node_modules/handlebars",
+            "node_modules/@types",
+			"types"
+		],
+		"types": [
+			"dice-so-nice",
+			"foundry",
+			"handlebars",
+			"jquery",
+			"node",
+			"socket.io"
+		]
+	},
+	"include": [
+		"src/**/*.ts",
+		"src/**/*.d.ts",
+		"src/**/*.tsx",
+		"src/**/*.vue",
+	],
+	"exclude": [
+		"node_modules"
+	]
+}

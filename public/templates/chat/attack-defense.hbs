@@ -1,0 +1,30 @@
+<div class="attack-defense-card">
+	<h3>{{localize 'Genesys.AttackResolution.DefenseTitle'}}</h3>
+	<p><strong>{{weaponName}}</strong> {{localize 'Genesys.AttackResolution.HitAgainst'}} <strong>{{targetName}}</strong>.</p>
+	<div class="attack-resolution-breakdown">
+		<span>{{localize 'Genesys.AttackResolution.RawDamage'}}</span>
+		<span>{{totalDamage}}</span>
+		<span>{{localize 'Genesys.AttackResolution.Soak'}}</span>
+		<span>{{baseSoak}}</span>
+		<span>{{localize 'Genesys.AttackResolution.Pierce'}}</span>
+		<span>{{pierce}}</span>
+		<span>
+			{{#if stunDamage}}
+				{{localize 'Genesys.AttackResolution.StrainWithoutParry'}}
+			{{else}}
+				{{localize 'Genesys.AttackResolution.WoundsWithoutParry'}}
+			{{/if}}
+		</span>
+		<span>{{woundsWithoutParry}}</span>
+	</div>
+	<div class="attack-resolution-actions">
+		{{#if canParry}}
+			<button type="button" data-action="resolve-attack-defense" data-use-parry="true">
+				{{localize 'Genesys.AttackResolution.UseParry'}} (-{{parryReduction}})
+			</button>
+		{{/if}}
+		<button type="button" data-action="resolve-attack-defense" data-use-parry="false">
+			{{localize 'Genesys.AttackResolution.SkipParry'}}
+		</button>
+	</div>
+</div>

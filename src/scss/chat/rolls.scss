@@ -1,0 +1,256 @@
+@use '@scss/vars/colors.scss';
+
+$size: 2rem;
+
+.roll {
+	.dice-row,
+	.results-row,
+	.summary-row {
+		display: flex;
+		flex-direction: column;
+		flex-wrap: nowrap;
+		font-family: 'Bebas Neue', sans-serif;
+
+		label {
+			font-size: 1.5em;
+			color: colors.$blue;
+		}
+	}
+
+	.roll-description {
+		display: none;
+		font-family: 'Roboto', sans-serif;
+		/* Stary element - może być używany gdzie indziej, pozostawiamy */
+
+		.super-char {
+			color: colors.$gold;
+			padding-left: 0.2em;
+		}
+
+		.hide-it {
+			display: none;
+		}
+	}
+
+
+	.dice {
+		margin-top: 0.25em;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.25em;
+		padding-left: 0.5em;
+		padding-right: 0.5em;
+
+		.symbol {
+			display: grid;
+			grid-template-columns: $size;
+			grid-template-rows: $size;
+			width: $size;
+			height: $size;
+			font-family: 'Genesys Symbols', sans-serif;
+			align-items: center;
+			justify-items: center;
+			position: relative;
+			
+			img {
+				width: 80%;
+				height: 80%;
+				object-fit: contain;
+				transition: transform 0.2s ease, filter 0.2s ease;
+				filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
+				
+				&:hover {
+					transform: scale(1.1);
+					filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.4));
+				}
+			}
+		}
+
+		.result {
+			display: grid;
+			grid-template-columns: $size;
+			grid-template-rows: $size;
+			width: $size;
+			height: $size;
+			font-family: 'Genesys Symbols', sans-serif;
+			align-items: center;
+			justify-items: center;
+			position: relative;
+
+			& > div {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				flex-wrap: nowrap;
+
+				grid-column: 1 / span 1;
+				grid-row: 1 / span 1;
+				width: 100%;
+				height: 100%;
+			}
+
+			.type {
+				img {
+					width: 100%;
+					height: 100%;
+					object-fit: contain;
+					filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
+					transition: transform 0.2s ease, filter 0.2s ease;
+					
+					&:hover {
+						transform: scale(1.1);
+						filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
+					}
+				}
+
+				// Boost Die
+				&[data-type='B'] {
+					// Color handled by image
+				}
+
+				// Ability Die
+				&[data-type='A'] {
+					// Color handled by image
+				}
+
+				// Proficiency Die
+				&[data-type='P'] {
+					// Color handled by image
+				}
+
+				// Setback Die
+				&[data-type='S'] {
+					// Color handled by image
+				}
+
+				// Difficulty Die
+				&[data-type='I'] {
+					// Color handled by image
+				}
+
+				// Challenge Die
+				&[data-type='C'] {
+					// Color handled by image
+				}
+			}
+
+			.face {
+				position: relative;
+				font-size: 1.5em;
+				font-variant-ligatures: common-ligatures;
+				
+				img {
+					width: 80%;
+					height: 80%;
+					object-fit: contain;
+					filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+					transition: transform 0.2s ease, filter 0.2s ease;
+					
+					&:hover {
+						transform: scale(1.1);
+						filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.4));
+					}
+				}
+
+				&[data-type='S'],
+				&[data-type='I'],
+				&[data-type='C'] {
+					// Color handled by image
+				}
+			}
+		}
+	}
+
+	.net-results {
+		font-family: 'Genesys Symbols', sans-serif;
+		font-size: 1.25em;
+		padding: 0.1em 0 0.3em 0.5em;
+		margin-bottom: 0.15em;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.2em;
+		align-items: center;
+		min-height: 1.8em;
+		line-height: 1;
+
+		.dice-symbol {
+			width: 1.5em;
+			height: 1.5em;
+			display: block;
+			object-fit: contain;
+			transition: transform 0.2s ease, filter 0.2s ease;
+			filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
+
+			&:hover {
+				transform: scale(1.2);
+				filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
+			}
+		}
+	}
+
+	.summary-table {
+		display: grid;
+		grid-template-columns: /* Symbol */ auto /* Label */ auto /* Value */ 1fr;
+		grid-auto-rows: minmax(1.45em, auto) 1px;
+		align-items: center;
+		column-gap: 0.3em;
+		row-gap: 0.08em;
+
+		font-family: 'Roboto Serif', serif;
+		font-size: 1em;
+		padding-left: 0.5em;
+
+		.separator {
+			grid-column: 1 / span all;
+			width: 100%;
+			height: 1px;
+			border-bottom: 1px dashed colors.$light-blue;
+
+			&:last-child {
+				border-bottom: none;
+			}
+		}
+
+		.label {
+			font-weight: bold;
+		}
+
+		.count {
+			justify-self: right;
+			padding-right: 0.5em;
+		}
+
+		.symbol {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			font-family: 'Genesys Symbols', sans-serif;
+			width: 1.1em;
+			height: 1.1em;
+			margin-right: 0.3em;
+			object-fit: contain;
+			transition: transform 0.2s ease, filter 0.2s ease;
+			filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
+			align-self: center;
+
+			&:hover {
+				transform: scale(1.3);
+				filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
+			}
+		}
+	}
+
+	.chaos-manifestation-trigger {
+		margin-top: 0.45em;
+		padding: 0.35em 0.6em;
+		border: 1px solid colors.$gold;
+		border-radius: 0.35em;
+		background: transparentize(colors.$gold, 0.82);
+		color: colors.$dark-blue;
+		font-family: 'Bebas Neue', sans-serif;
+		letter-spacing: 0.04em;
+	}
+}

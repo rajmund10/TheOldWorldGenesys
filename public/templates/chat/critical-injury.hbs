@@ -1,0 +1,42 @@
+<div class="critical-injury-card">
+	<h3>{{localize 'Genesys.AttackResolution.CriticalTitle'}}</h3>
+	{{#if minionRemoved}}
+		<p>{{localize 'Genesys.AttackResolution.MinionRemoved'}}</p>
+	{{else}}
+		<div class="attack-resolution-breakdown">
+			<span>{{localize 'Genesys.AttackResolution.D100Roll'}}</span>
+			<span>{{baseRoll}}</span>
+			{{#if extraAdvantages}}
+				<span>{{localize 'Genesys.AttackResolution.AdvantageBonus'}}</span>
+				<span>+{{mul extraAdvantages 10}}</span>
+			{{/if}}
+			{{#if previousInjuries}}
+				<span>{{localize 'Genesys.AttackResolution.PreviousInjuries'}}</span>
+				<span>+{{mul previousInjuries 10}}</span>
+			{{/if}}
+			{{#if vicious}}
+				<span>{{localize 'Genesys.AttackResolution.Vicious'}}</span>
+				<span>+{{mul vicious 10}}</span>
+			{{/if}}
+			{{#if durable}}
+				<span>{{localize 'Genesys.AttackResolution.Durable'}}</span>
+				<span>-{{mul durable 10}}</span>
+			{{/if}}
+		</div>
+		<p><strong>{{localize 'Genesys.AttackResolution.CriticalResult'}}:</strong> {{finalResult}}</p>
+		{{#if injuryLink}}
+			<p>{{{injuryLink}}}</p>
+		{{else}}
+			{{#if injuryName}}
+				<p><strong>{{injuryName}}</strong></p>
+			{{/if}}
+		{{/if}}
+		{{#if injuryEffect}}
+			<div class="critical-injury-effect">{{{injuryEffect}}}</div>
+		{{else}}
+			{{#if injuryFallbackHtml}}
+				<div class="critical-injury-effect">{{{injuryFallbackHtml}}}</div>
+			{{/if}}
+		{{/if}}
+	{{/if}}
+</div>

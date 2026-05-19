@@ -1,0 +1,767 @@
+﻿TYPES:
+  Actor:
+    character: Postać
+    minion: Pachołek
+    rival: Rywal
+    nemesis: Nemezis
+    vehicle: Pojazd
+
+  Item:
+    ability: Zdolność specjalna
+    archetype: Archetyp
+    career: Kariera
+    injury: Krytyczne obrażenie/trafienie
+    skill: Umiejętność
+    talent: Talent
+    specialization: Specjalizacja
+    profession: Profesja
+    armor: Pancerz
+    consumable: Materiał eksploatacyjny
+    container: Pojemnik
+    gear: Ekwipunek
+    magicAccessory: Akcesorium magiczne
+    quality: Cecha przedmiotu
+    weapon: Broń
+    vehicleWeapon: Broń pojazdu
+
+Genesys:
+  System:
+    Name: Genesys
+
+  Settings:
+    SkillsCompendium: Kompendium umiejętności
+    SkillsCompendiumHint: Kompendium przedmiotów zawierające wszystkie umiejętności, które mają być dodawane nowym postaciom. Zmiana tej wartości nie wpłynie na już istniejące postaci.
+    DefaultDifficulty: Domyślna trudność
+    DefaultDifficultyHint: >-
+      Domyślne modyfikatory puli kości, które powinny zostać dodane podczas wykonywania testu.
+      Ta wartość może zostać pominięta, jeśli trudność testu jest znana.
+      Wyjaśnienie wszystkich modyfikatorów i ich glifów znajdziesz tutaj: [[Dice-Pool-Modification-Glyphs|Glify modyfikacji puli kości]].
+    Money: Nazwa waluty
+    MoneyHint: Nazwa waluty używanej w danej kampanii, np. złoto, kredyty, gotówka lub dublony.
+    CareerSkillRanks: Rangi umiejętności kariery
+    CareerSkillRanksHint: Liczba umiejętności, które można wybrać z listy umiejętności kariery podczas tworzenia postaci.
+    UncoupleSkillsAlternateRule: Rozłącz umiejętności od cech
+    UncoupleSkillsAlternateRuleHint: Pozwala wybrać alternatywną cechę dla umiejętności w oknie puli kości, zgodnie z opcjonalną zasadą rozłączania umiejętności od cech.
+    ShowDamageOnFailure: Pokazuj obrażenia przy niepowodzeniu
+    ShowDamageOnFailureHint: Określa, czy na kartach ataku na czacie mają być widoczne obrażenia, trafienie krytyczne i cechy broni nawet przy nieudanym rzucie.
+    SkillForInjuries: Nazwa umiejętności leczenia obrażeń krytycznych
+    SkillForInjuriesHint: Nazwa umiejętności używanej przy dochodzeniu do siebie po obrażeniach krytycznych.
+    SkillForRepairingVehicleHits: Nazwa umiejętności naprawy trafień krytycznych pojazdu
+    SkillForRepairingVehicleHitsHint: Nazwa umiejętności używanej przy naprawie trafień krytycznych pojazdu.
+    DicePoolCollapseModifications: Zwiń sekcję modyfikacji puli
+    DicePoolCollapseModificationsHint: Jeśli włączone, sekcja "Modyfikacje puli" będzie zwinięta przy początkowym renderowaniu okna rzutu.
+    DicePoolAutoApplyModifications: Automatycznie stosuj modyfikatory puli
+    DicePoolAutoApplyModificationsHint: Jeśli włączone, wszystkie modyfikatory mogące wpłynąć na pulę kości zostaną zastosowane przy otwieraniu okna rzutu.
+    DicePoolChanceToSucceedByPermutation: Oblicz szansę powodzenia puli kości
+    DicePoolChanceToSucceedByPermutationHint: >-
+      Po włączeniu system uruchomi Web Workera, który policzy dokładną szansę powodzenia.
+      Jeśli jednak pula korzysta z supercechy, wynik będzie zaniżony, bo obliczenie zakłada brak efektu eksplozji.
+      Dla pul wykorzystujących supercechy dokładniejsze wyniki można uzyskać przez symulację.
+    DicePoolChanceToSucceedBySimulation: Przybliż szansę powodzenia puli kości
+    DicePoolChanceToSucceedBySimulationHint: >-
+      Liczba symulowanych rzutów używana do przybliżenia szansy powodzenia.
+      Zwiększenie tej wartości bezpośrednio wpływa na wydajność Foundry; dobrym punktem wyjścia jest 100.
+      Wartość 0 wyłącza tę funkcję.
+      To ustawienie jest ignorowane, jeśli szansa jest już obliczana inną metodą.
+    SuperCharacteristics: Supercechy
+    SuperCharacteristicsHint: Pozwala oznaczać cechy jako supercechy podczas tworzenia postaci, zgodnie z opcjonalną zasadą supercech.
+
+  Tooltips:
+    NoDescription: Brak opisu
+    IsInitiative: Określa, czy ta umiejętność jest zwykle wykorzystywana do inicjatywy. Po włączeniu będzie dostępna w bojowym trackerze przy rzutach zbiorczych.
+    CycleInitiativeSkill: Zmień umiejętność wykorzystywaną przez kombatanta do inicjatywy.
+    AddExtraInitiativeSlot: Dodaje dodatkowy slot inicjatywy.
+
+  Rolls:
+    Dice: Kości
+    Results: Wyniki rzutu
+    Description:
+      Simple: 'Rzut<i class="fas fa-star {superChar}"></i>...'
+      Initiative: 'Rzut na inicjatywę przy użyciu <strong>{skill}<i class="fas fa-star {superChar}"></i></strong>...'
+      Characteristic: 'Rzut na <strong>{characteristic}</strong>...'
+      Skill: 'Rzut na <strong>{skill} ({characteristic}<i class="fas fa-star {superChar}"></i>)</strong>...'
+      SkillWithoutCharacteristic: 'Rzut na <strong>{skill}</strong>...'
+      AttackCharacteristic: 'Atak przy użyciu <strong>{name}</strong> oparty na cesze <strong>{characteristic}</strong>!'
+      AttackSkill: 'Atak przy użyciu <strong>{name}</strong> oparty na <strong>{skill} ({characteristic}<i class="fas fa-star {superChar}"></i>)</strong>!'
+      AttackSkillWithoutCharacteristic: 'Atak przy użyciu <strong>{name}</strong> oparty na <strong>{skill}</strong>!'
+    Attack:
+      Critical: Krytyk
+      Label: Wynik ataku
+      Damage: Obrażenia
+      Qualities: Cechy ataku
+    Summary:
+      Label: Podsumowanie
+      Successes: Sukcesy
+      Failures: Porażki
+      Advantage: Przewagi
+      Threat: Zagrożenia
+      Triumph: Triumfy
+      Despair: Rozpacze
+  AttackResolution:
+    DefenseTitle: Obrona przed trafieniem
+    ResultTitle: Rozstrzygnięcie ataku
+    HitAgainst: trafia
+    RawDamage: Obrażenia przed redukcją
+    Soak: Redukcja
+    Pierce: Przebicie
+    WoundsWithoutParry: Rany bez Parady
+    StrainWithoutParry: Zmęczenie bez Parady
+    UseParry: Użyj Parady
+    SkipParry: Nie używaj Parady
+    Parry: Parada
+    AppliedWounds: Zadane rany
+    AppliedStrain: Zadane zmęczenie
+    CauseCritical: Zadaj Uraz Krytyczny
+    CriticalTitle: Uraz Krytyczny
+    SpendSymbols: Wydaj symbole
+    SymbolSpendTitle: Wydawanie symboli
+    SymbolSpendHint: Wybierz, na co wydajesz symbole z tego ataku.
+    ConfirmSymbolSpends: Zatwierdź
+    CancelSymbolSpends: Anuluj
+    RemainingAdvantages: Pozostałe Przewagi
+    RemainingTriumphs: Pozostałe Triumfy
+    AdvantageShort: Przewagi
+    TriumphShort: Triumfy
+    SelectedSpends: Wybrane wydatki
+    NoSymbolSpends: Nie wydano jeszcze żadnych symboli.
+    CriticalByAdvantages: Uraz Krytyczny (Przewagi)
+    CriticalByTriumph: Uraz Krytyczny (Triumf)
+    CriticalAdvantageBonus: Premia do urazu +10
+    OtherAdvantageSpend: Inny wydatek Przewagi
+    OtherTriumphSpend: Inny wydatek Triumfu
+    KnockdownNote: Może wymagać dodatkowych Przewag przeciw większym celom.
+    D100Roll: Wynik rzutu k100
+    AdvantageBonus: Premia z Przewag
+    PreviousInjuries: Poprzednie urazy
+    Vicious: Morderczość
+    Durable: Wytrzymały
+    CriticalResult: Wynik urazu
+    MinionRemoved: Uraz Krytyczny eliminuje jednego pachołka z grupy.
+    MissingData: Nie znaleziono danych ataku.
+    MissingTarget: Nie znaleziono celu ataku.
+    MissingCriticalTable: Nie znaleziono tabeli Urazów Krytycznych.
+
+  SymbolSpending:
+    Open: Wydaj symbole
+    Title: Wydawanie symboli
+    Hint: Wybierz wydatki symboli dla tego rzutu. Efekty opisowe zostaną zapisane jako podsumowanie na czacie.
+    PoolSummary: Podsumowanie symboli
+    Confirm: Zatwierdź
+    Cancel: Anuluj
+    SummaryTitle: Wydane symbole
+    Positive: Pozytywne symbole
+    Negative: Negatywne symbole
+    Magic: Magia
+    ChaosManifestations: Manifestacje
+    NoPermission: Nie możesz wydawać tej strony symboli.
+    AlreadySpent: Ta strona symboli została już rozliczona.
+    NoOptions: Brak dostępnych opcji dla wyrzuconych symboli.
+    NoSelected: Nie wybrano jeszcze żadnych wydatków.
+    SelectedSpends: Wybrane wydatki
+    NotInEncounter: Symbole można wydawać tylko w aktywnym spotkaniu.
+    Reset: Przywrócono pulę symboli do wydania.
+    ResetContext: Przywróć wydawanie symboli
+    ResetFailed: Nie udało się przywrócić wydawania symboli.
+    TableColumn: Tabela
+    WeaponColumn: Krytyki i cechy broni
+    CostPrefix: Koszt
+    CostOne: 1 Przewaga
+    CostTwo: 2 Przewagi
+    CostThree: 3 Przewagi
+    CostTriumph: Triumf
+    CostOneThreat: 1 Zagrożenie
+    CostTwoThreats: 2 Zagrożenia
+    CostThreeThreats: 3 Zagrożenia
+    CostDespair: Katastrofa
+    RollTypes:
+      combat: Walka
+      magic: Magia
+      magicAttack: Atak magiczny
+    Sources:
+      CombatPositive: Tabela I.6-2
+      CombatNegative: Tabela I.6-3
+      MagicNegative: Tabela III.2-4
+      ItemQuality: Cechy przedmiotu
+      ChaosManifestation: Manifestacja Chaosu
+
+  CareerSkillPrompt:
+    Title: Umiejętności kariery
+    Hint: 'Wybierz umiejętności kariery, aby podnieść ich rangę:'
+    RemainingChoices: Pozostałe wybory
+    Confirm: Gotowe
+
+  DiceCat:
+    Normal: Kości Genesys
+    Custom: Kości Genesys (konfigurowalne)
+  DiceColors:
+    Boost: Kość wsparcia
+    Ability: Kość zdolności
+    Proficiency: Kość biegłości
+    Setback: Kość utrudnienia
+    Difficulty: Kość trudności
+    Challenge: Kość wyzwania
+
+  Difficulty:
+    Simple: Prosty
+    Easy: Łatwy
+    Average: Średni
+    Hard: Trudny
+    Daunting: Zniechęcający
+    Formidable: Potężny
+    Impossible: Niemożliwy
+
+  Inventory:
+    Sections:
+      Armor: Pancerze
+      Consumable: Materiały eksploatacyjne
+      Container: Pojemniki
+      Gear: Ekwipunek
+      Weapon: Bronie
+
+  ActiveEffects:
+    Passive: Efekty pasywne
+    Temporary: Efekty tymczasowe
+    Suppressed: Efekty nieaktywne
+    Source: Źródło
+    Duration: Czas trwania
+    ChangeKey: Cel efektu
+    ChangeMode: Opcja
+    ChangeValue: Wartość efektu
+    Types:
+      ModifyCharacteristic: Modyfikuj cechę
+      ModifyStat: Modyfikuj statystykę
+      ModifySkill: Modyfikuj umiejętność
+      ModifyDicePool:
+        GroupLabel: Modyfikuj pulę kości
+        Options:
+          Check: Dowolny test
+          Characteristic: Używa cechy
+          Skill: Używa umiejętności
+
+  DicePrompt:
+    Title: Pula kości
+    Roll: Rzuć!
+    Hint: Użyj panelu kości po prawej stronie, aby dodawać, ulepszać i pogarszać kości. Kliknij kość w puli, aby ją usunąć.
+    UseSuperCharacteristic: Rzuć jako supercecha
+    PoolModifications:
+      Title: Modyfikacje puli
+      DefaultDifficulty: Domyślna trudność
+      ManualChanges: Zmiany ręczne
+      SelfEffects: 'Od siebie: '
+      TargetEffects: 'Od celu: '
+    ChanceToSucceed: 'Szansa powodzenia:'
+    ChanceToSucceedByPermutationDisclaimer: Wyświetlane prawdopodobieństwo jest dokładne, chyba że pula kości zawiera supercechę.
+    ChanceToSucceedBySimulationDisclaimer: Wyświetlane prawdopodobieństwo jest przybliżeniem obliczanym metodą Monte Carlo.
+
+  RewardsPrompt:
+    Title: Nagrody
+    Amount: Ilość
+    Reason: Powód
+
+  CharacterSkillPrompt:
+    Title: Wybierz użytkownika
+
+  CloneActorPrompt:
+    Title: Potwierdzenie upuszczenia
+    OriginalMethod:
+      Label: Odwołanie
+      Description: Zostanie zapisane odwołanie do aktora.
+    CloneMethod:
+      Label: Klon
+      Description: >-
+        Zrzucony aktor zostanie sklonowany, a do systemu zapisane będzie odwołanie do tej kopii.
+        Dodatkowo sklonowany aktor pojawi się jako nowy wpis w katalogu Aktorów pod podaną niżej nazwą.
+      ActorNameLabel: Nowa nazwa
+
+  Specializations:
+    EmptyTitle: Nie przypisano specjalizacji.
+    EmptyHint: Przeciągnij przedmiot specjalizacji na kartę postaci, aby go przypisać.
+    TalentUnavailable: Ten talent nie jest jeszcze dostępny. Musisz najpierw kupić połączony talent.
+    CareerPathTitle: Ścieżka kariery
+    CareerPathHint: Wybierz obecny etap ścieżki kariery postaci.
+    CareerPathEmpty: Ta specjalizacja nie ma jeszcze zdefiniowanej ścieżki kariery.
+    ProfessionTier: Poziom {tier}
+    ProfessionStage: Etap {stage}
+    ProfessionUnnamed: Nienazwana profesja
+    ProfessionCurrent: Obecna profesja
+    ProfessionStatusCurrent: Obecny etap
+    ProfessionStatusCompleted: Ukończono
+    ProfessionStatusUpcoming: Nadchodzący
+    ProfessionSetCurrent: Ustaw jako obecną
+    ProfessionAlternative: Alternatywna odnoga
+    ProfessionPrerequisites: Wymagania
+    ProfessionEffects: Efekty
+    ProfessionInheritedEffects: Obejmuje efekty niższych etapów
+
+  Magic:
+    LockedTitle: Magia jest zablokowana.
+    LockedHint: Przypisz albo skonfiguruj specjalizację magiczną, aby odblokować tę zakładkę.
+    MissingRankTitle: Magia odblokowana, ale brak użytecznej rangi
+    MissingRankHint: Ta zakładka została odblokowana przez {specialization}, ale postać nadal potrzebuje co najmniej 1 rangi w {skill}.
+    RollPrimary: Rzuć {skill}
+    ActiveAccessory: Aktywne akcesorium
+    ActiveAccessoryHint: Wybierz, które założone akcesorium magiczne przekazuje swoje bonusy do czarowania.
+    NoAccessory: Bez akcesorium
+    NoEquippedAccessories: Załóż akcesorium magiczne, aby pojawiło się na tej liście.
+    AttackBonus: Atak +{bonus}
+    ActiveKnowledge: Aktywna wiedza
+    ActiveKnowledgeHint: Wybierz, z której umiejętności Wiedzy korzystają efekty skalujące się z jej rangami.
+    NoKnowledge: Nie wybrano wiedzy
+    NoKnowledgeSkills: Dodaj umiejętność wiedzy, aby pojawiła się na tej liście.
+    KnowledgeRank: Ranga {rank}
+    Actions: Dostępne akcje
+    ActionsHint: Rodziny akcji czarów dostępne dla tej tradycji.
+    OldWorldTag: Stary Świat
+    Profile: Profil tradycji
+    ProfileHint: Krótkie podsumowanie tego, czym ta magia zajmuje się przy stole.
+    SignatureEffects: Charakterystyczne efekty
+    SpecialRules: Zasady szczególne
+
+  MagicActionPrompt:
+    Title: 'Budowanie czaru: {action}'
+    UsesSkill: Używa {skill}
+    BaseDifficulty: Trudność bazowa
+    AddedDifficulty: Dodatkowa trudność
+    TotalDifficulty: Trudność łączna
+    SelectedEffects: Wybrane efekty
+    NoSelectedEffects: Nie wybrano jeszcze żadnych efektów dodatkowych.
+    AdditionalEffects: Efekty dodatkowe
+    NoAdditionalEffects: Ta akcja nie ma jeszcze zdefiniowanych efektów dodatkowych.
+    Repeatable: Wielokrotne
+    IncompatibleSelection: '{left} nie może być łączone z {right}.'
+    AddEffect: Dodaj efekt
+    RemoveEffect: Usuń
+    OpenDicePrompt: Przejdź do puli kości
+    Cancel: Anuluj
+
+  ChaosManifestation:
+    Title: Manifestacja Chaosu
+    Open: Rozstrzygnij Manifestację Chaosu
+    PromptHint: Wybierz jedną Manifestację wywołaną przez ten rzut.
+    Minor: Mała Manifestacja
+    Moderate: Umiarkowana Manifestacja
+    Major: Poważna Manifestacja
+    Catastrophic: Katastrofalna Manifestacja
+    UseStoryPoint: Użyj Punktu Opowieści
+    Type: Rodzaj
+    UsedSymbols: Użyte symbole
+    BaseRoll: Wynik rzutu k100
+    CategoryModifier: Wielkość manifestacji
+    EncounterModifier: Poprzednie manifestacje
+    TalentModifier: Posiadane talenty
+    FinalResult: Wynik manifestacji
+    MissingTable: Nie znaleziono tabeli Manifestacji Chaosu.
+    MissingResult: Nie znaleziono pasującego wyniku.
+    MissingActor: Nie znaleziono czarującego.
+    GmOnly: Tylko MG może rozstrzygać Manifestacje Chaosu.
+    AlreadyResolved: Ten rzut wywołał już Manifestację.
+    Resolved: Manifestacja rozstrzygnięta
+
+  SpecializationSheet:
+    Description: Opis specjalizacji
+    DropTalent: Przeciągnij talenty z kompendium na pola drzewka.
+    RemoveTalent: Kliknij talent prawym przyciskiem, aby usunąć go z drzewka.
+    ToggleConnection: Kliknij łączniki między polami, aby dodawać albo usuwać połączenia.
+    ImportTree: Upuść tutaj inną specjalizację, aby zaimportować całe drzewko talentów razem z połączeniami.
+    ImportTreeEmpty: Upuszczona specjalizacja nie zawiera zapisanego drzewka talentów.
+    ImportTreeSuccess: Zaimportowano drzewko talentów z {name}.
+    SpecializationData: Dane specjalizacji
+    Key: Klucz techniczny
+    Cost: Koszt PD
+    Requirements: Wymagania
+    Benefits: Korzyści
+    SocialStatus: Status społeczny
+    SocialStatusPlaceholder: 'Przykład: Srebrny 2'
+    CareerSkills: Umiejętności profesyjne specjalizacji
+    DropCareerSkill: Przeciągnij przedmioty umiejętności na tę kartę, aby dodać je jako umiejętności profesyjne specjalizacji.
+    RemoveCareerSkill: Usuń
+    GrantedItems: Przyznawane przedmioty
+    DropGrantedItem: Przeciągnij broń, pancerz, ekwipunek, akcesorium magiczne, przedmiot zużywalny albo pojemnik na tę kartę, aby przyznać go razem ze specjalizacją.
+    RemoveGrantedItem: Usuń
+    MagicSection: Odblokowanie magii
+    MagicEnabled: Odblokuj zakładkę magii
+    Tradition: Tradycja
+    ArcanaTradition: Moc Tajemna
+    DivineTradition: Moc Boska
+    School: Tradycja / bóstwo
+    None: Brak
+    Automatic: Wybierz profil
+    LoreOverride: Nadpisanie etykiety tradycji
+    LorePlaceholder: 'Przykład: Tradycja Śmierci'
+    DeityOverride: Nadpisanie etykiety bóstwa
+    DeityPlaceholder: 'Przykład: Sigmar'
+    AllowMiscast: Ryzyko manifestacji
+    AllowOvercast: Dostęp do przeciążenia
+    CareerPath: Ścieżka kariery
+    AddProfession: Dodaj profesję
+    ProfessionStep: Profesja {index}
+    RemoveProfession: Usuń
+    ProfessionName: Nazwa profesji
+    ProfessionTier: Poziom
+    ProfessionAlternative: Alternatywna odnoga
+    ProfessionPrerequisites: Wymagania
+    ProfessionEffects: Efekty
+    ProfessionInheritedEffects: Obejmuje efekty niższych etapów
+    NoProfessions: Ta specjalizacja nie ma jeszcze zdefiniowanej ścieżki kariery.
+
+  TalentTree:
+    AvailableXP: 'Dostępne PD:'
+    GmMode: Tryb MG
+    LockPlayerEdit: Zablokuj edycję graczy
+    UnlockPlayerEdit: Odblokuj edycję graczy
+    Background: Tło
+    BackgroundPlaceholder: Ścieżka do obrazka...
+    PickImage: Wybierz obrazek
+    LockBackground: Zablokuj przesuwanie tła
+    UnlockBackground: Odblokuj przesuwanie tła
+    BackgroundLockedHint: Tło zablokowane - kliknij kłódkę, aby je odblokować
+    BackgroundDragHint: Przeciągnij tło, aby zmienić jego położenie
+    EditInstructions: Przeciągnij talenty na sloty. Prawy przycisk usuwa. Kliknij połączenia między komórkami, aby je dodać lub usunąć.
+    ViewInstructions: Kliknij talent, aby go kupić albo zwrócić.
+    GmInstructions: Ten przycisk blokuje edycję graczy. Kliknij połączenia między komórkami, aby je dodać lub usunąć.
+    ConnectionInstructions: Kliknij połączenia między polami, aby je dodać albo usunąć.
+    Ranked: Rangowany
+    Passive: Pasywny
+
+  TalentPurchasePrompt:
+    PurchaseTitle: Kup talent
+    RefundTitle: Zwróć talent
+    CannotRefundTitle: Nie można zwrócić talentu
+    PurchaseHeading: Kup talent
+    RefundHeading: Zwróć talent
+    PurchaseQuestion: 'Kupić talent <strong>"{talentName}"</strong> za <strong>{cost} PD</strong>?'
+    RefundQuestion: 'Zwrócić talent <strong>"{talentName}"</strong> i odzyskać <strong>{cost} PD</strong>?'
+    Cancel: Anuluj
+    PurchaseAction: 'Kup ({cost} PD)'
+    RefundAction: 'Zwróć ({cost} PD)'
+    RefundBlockedBelow: 'Nie można zwrócić tego talentu, ponieważ zależy od niego talent "{talentName}" poniżej.'
+    RefundBlockedRight: 'Nie można zwrócić tego talentu, ponieważ zależy od niego talent "{talentName}" po prawej.'
+    RefundBlockedLeft: 'Nie można zwrócić tego talentu, ponieważ zależy od niego talent "{talentName}" po lewej.'
+
+  XPJournal:
+    Award: '<strong>PD przyznane przez MG</strong>: {reason}'
+    Starting: '<strong>Początkowe PD z archetypu</strong>'
+    Characteristic: 'Zwiększono <strong>{characteristic}</strong> do {rank}.'
+    Skill: 'Zwiększono <strong>{name}</strong> do {rank}.'
+    NewTalent: 'Zakupiono talent: <strong>{name}</strong> (Poziom {tier}).'
+    TalentRank: 'Zwiększono <strong>{name}</strong> do rangi {rank} (Efektywny poziom {tier}).'
+
+  Notifications:
+    GenericError: Nie udało się wykonać zadanej akcji.
+    AlreadyHaveSpecialAbility: Nie można dodać {abilityName}; zdolności specjalne nie mają rang, a ta postać już ją posiada!
+    TalentNotRanked: Nie można dodać {talentName}; ten talent nie jest rangowany, a postać już go posiada!
+    NoSkillsCompendium: Ustawienie kompendium umiejętności jest puste! Próba użycia domyślnego kompendium umiejętności.
+    MissingCompendium: Nie można wczytać kompendium umiejętności "{name}". Skonfiguruj kompendium umiejętności w ustawieniach Genesys.
+    WrongCompendiumType: Skonfigurowane kompendium umiejętności "{name}" ma typ {type}, a nie typ Item. Skonfiguruj poprawne kompendium w ustawieniach Genesys.
+    NoSkillsInCompendium: Skonfigurowane kompendium umiejętności "{name}" nie zawiera żadnych umiejętności. Wybierz inne w ustawieniach Genesys.
+    CharacterWithNoSkills: Postać została utworzona bez początkowych danych umiejętności, ponieważ w skonfigurowanym kompendium umiejętności nic nie znaleziono.
+    CannotDeleteCharacteristic: Nie można usunąć wpisu dziennika PD dla cechy "{characteristic}" - najpierw usuń awans do kolejnej rangi!
+    CannotDeleteSkill: Nie można usunąć wpisu dziennika PD dla umiejętności "{name}" - najpierw usuń awans do kolejnej rangi!
+    CannotAffordTalent: Nie stać cię na talent "{name}" ({cost} PD).
+    CannotAffordRankedTalent: Nie stać cię na zwiększenie talentu "{name}" do rangi {newRank} ({cost} PD).
+    CannotDeleteNewTalent: Nie można usunąć wpisu dziennika PD dla nowego talentu "{name}" - najpierw usuń zwiększenia jego rang!
+    CannotDeleteExistingTalent: Nie można usunąć wpisu dziennika PD dla zwiększenia talentu "{name}" do rangi {rank} - najpierw usuń wpisy wyższych rang!
+    CannotDeleteInvalidTalentPyramid: Nie można usunąć wpisu dziennika PD dla talentu rangi {rank}, aby zachować strukturę piramidy talentów. Spróbuj najpierw usunąć talenty wyższej rangi.
+    CannotPurchaseTalentTier: Nie można kupować talentów poziomu {tier} - musisz mieć co najmniej {minimum} talentów na poziomie {lowerTier}.
+    NotEnoughXP: Brak wystarczającej liczby PD!
+    NotEnoughStoryPoints: Nie możesz wydać Punktów Opowieści, których nie posiadasz!
+    SelectOneTokenForAction: Musisz zaznaczyć jeden token, aby wykonać tę akcję.
+    SelectOneTargetForAttack: Przed atakiem wskaż dokładnie jeden cel.
+    SelectNoneOrOneTokenForAction: Musisz nie zaznaczać żadnego tokena albo zaznaczyć tylko jeden token, aby wykonać tę akcję.
+    TokenIsNotCombatant: Wybrany token nie bierze udziału w aktualnej walce.
+    CannotClaimOppositeSlot: Nie możesz zająć tego slotu inicjatywy postacią {name} - to slot po przeciwnej stronie.
+    CannotSelectActor: Nie masz wystarczających uprawnień, aby wybrać tego aktora.
+    InvalidTokenTypeForAction: Wybrany token ma nieprawidłowy typ dla tej akcji.
+    EffectsWereNotUpdatedAfterTransfer: Wystąpił błąd przy aktualizacji efektów po przeniesieniu "{name}".
+    NoRoleMembersWithAppropriateSkills: Brakuje członków załogi z odpowiednimi umiejętnościami do wykonania tej akcji.
+    TalentNotFound: Nie znaleziono talentu!
+    TalentManagedByTree: Ten talent jest zarządzany przez drzewko specjalizacji.
+    FailedToAddTalentToCharacter: Nie udało się dodać talentu do postaci!
+    PurchasedTalent: 'Kupiono talent "{name}" za {cost} PD.'
+    FailedToPurchaseTalent: Nie udało się kupić talentu!
+    RefundedTalent: 'Zwrócono talent "{name}" i odzyskano {cost} PD.'
+    FailedToRefundTalent: Nie udało się zwrócić talentu!
+
+  Dialogs:
+    ConfirmDeleteItem:
+      Title: Potwierdź usunięcie
+      Content: Ta akcja usunie przedmiot. Czy chcesz kontynuować?
+
+  Migration:
+    MustPerformMigration: >-
+      WYMAGANA MIGRACJA! Części danych wymagają migracji, a jej brak może uszkodzić dane lub zepsuć działanie systemu.
+      Wyjdź ze świata i poczekaj, aż MG wykona migrację.
+    StartingMigration: 'ROZPOCZĘTO MIGRACJĘ: uruchamianie {amount} migracji; proszę o cierpliwość i nie zamykaj aplikacji.'
+    StartingScriptMigration: 'ROZPOCZĘTO MIGRACJĘ [{id}]: uruchamianie migracji.'
+    StoppedScriptMigration: 'PRZERWANO MIGRACJĘ [{id}]: podczas migracji wystąpił błąd.'
+    CompletedScriptMigration: 'ZAKOŃCZONO MIGRACJĘ [{id}]: migracja zakończona.'
+    MultipleSuccessfulMigration: 'ZAKTUALIZOWANO WERSJĘ MIGRACJI: co najmniej jedna migracja została zakończona pomyślnie.'
+    StoppedMigration: >-
+      PRZERWANO MIGRACJĘ: migracja została zatrzymana z powodu błędów; sprawdź log konsoli, aby poznać szczegóły.
+      Pozostało jeszcze {amount} niewykonanych migracji.
+    CompletedMigration: 'ZAKOŃCZONO MIGRACJĘ: wszystkie migracje zostały wykonane; dziękujemy za cierpliwość.'
+
+  StoryPoints:
+    Player: Punkty Opowieści graczy
+    GM: Punkty Opowieści MG
+    Reset: Resetuj Punkty Opowieści
+    Spend: Wydaj punkt
+    ChatMessageGmPool: MG wydaje Punkt Opowieści!
+    ChatMessagePlayerPool: Gracze wydają Punkt Opowieści!
+
+  Enrichers:
+    Difficulty: 'test {skill} [{symbols}] o trudności {difficulty}'
+    Opposed: 'test przeciwstawny {skill1} kontra {skill2}'
+
+  CombatTracker:
+    RevokeInitiativeClaim: Odbierz zajęty slot inicjatywy
+
+  Tabs:
+    Skills: Umiejętności
+    Combat: Walka
+    Talents: Talenty
+    Specializations: Specjalizacje
+    Magic: Magia
+    Inventory: Ekwipunek
+    Effects: Efekty
+    Journal: Dziennik
+    Description: Opis
+    Data: Dane
+    Details: Szczegóły
+    Duration: Czas trwania
+    Miscellaneous: Różne
+    Crew: Załoga
+    Attachments: Załączniki
+
+  Characteristics:
+    Brawn: Krzepa
+    Agility: Zręczność
+    Intellect: Intelekt
+    Cunning: Spryt
+    Willpower: Wola
+    Presence: Prezencja
+
+  CharacteristicAbbr:
+    Brawn: Kr
+    Agility: Zr
+    Intellect: Int
+    Cunning: Spr
+    Willpower: SW
+    Presence: Prez
+
+  SkillCategory:
+    General: Ogólne
+    Magic: Magia
+    Combat: Walka
+    Social: Społeczne
+    Knowledge: Wiedza
+
+  Archetype:
+    Abilities: Zdolności archetypu
+    StartingWounds: Początkowy próg ran
+    StartingStrain: Początkowy próg zmęczenia
+    StartingCorruption: Początkowy próg zepsucia
+    StartingXP: Początkowe PD
+    GrantedItems: Przyznane przedmioty
+
+  Adversary:
+    MinionSkills: Umiejętności (tylko grupa)
+    Skills: Umiejętności
+    Talents: Talenty
+    Abilities: Zdolności
+    Equipment: Ekwipunek
+    None: Brak.
+    Base: Bazowe
+    Remaining: pozostało
+
+  Career:
+    Skills: Umiejętności kariery
+    Key: Klucz kariery
+    KeyHint: Stały klucz techniczny używany do łączenia kariery z dostępnymi specjalizacjami.
+    AvailableSpecializations: Dostępne specjalizacje
+    AvailableSpecializationsHint: Klucze specjalizacji, które mają być dostępne po wybraniu tej kariery.
+    AddSpecializationKey: Dodaj klucz specjalizacji
+    EmptySpecializations: Ta kariera nie ma jeszcze zdefiniowanych kluczy specjalizacji.
+    SpecializationKeyPlaceholder: klucz-specjalizacji
+
+  Range:
+    Engaged: Zwarcie
+    Short: Krótki
+    Medium: Średni
+    Long: Daleki
+    Extreme: Ekstremalny
+    Strategic: Strategiczny
+
+  FiringArc:
+    Fore: Dziób
+    Aft: Rufa
+    Port: Lewa burta
+    Starboard: Prawa burta
+    All: Wszystkie
+    None: Brak
+
+  DialogGroups:
+    Item:
+      CharacterCreation: Tworzenie postaci
+      Equipment: Ekwipunek
+      Other: Inne
+    Actor:
+      Adversary: Przeciwnicy
+      Other: Inne
+
+  Equipment:
+    DamageState:
+      Undamaged: Nieuszkodzony
+      Minor: Lekkie uszkodzenia
+      Moderate: Umiarkowane uszkodzenia
+      Major: Ciężkie uszkodzenia
+    Dropdown:
+      Equip: Wyposaż
+      Unequip: Zdejmij
+      Drop: Upuść
+      PickUp: Podnieś
+      ToChat: Na czat
+      Edit: Edytuj
+      Delete: Usuń
+
+  Labels:
+    Name: Nazwa
+    CharacterName: Nazwa postaci
+    SpeciesArchetype: Rasa
+    Career: Kariera
+    SocialStatus: Status społeczny
+    Soak: Redukcja
+    SoakValue: Redukcja
+    Wounds: Rany
+    WoundThreshold: Próg ran
+    Strain: Zmęczenie
+    Corruption: Zepsucie
+    StrainThreshold: Próg zmęczenia
+    Defense: Obrona
+    Threshold: Próg
+    Current: Aktualne
+    DefenseMelee: Wręcz
+    MeleeDefense: Obrona wręcz
+    DefenseRanged: Dystans
+    RangedDefense: Obrona dystansowa
+    TotalXP: Łączne PD
+    AvailableXP: Dostępne PD
+    Characteristic: Cecha
+    IsMagicSkill: Czy to umiejętność magiczna
+    Source: Źródło
+    GeneralSkills: Umiejętności ogólne
+    MagicSkills: Umiejętności magiczne
+    CombatSkills: Umiejętności bojowe
+    SocialSkills: Umiejętności społeczne
+    KnowledgeSkills: Umiejętności wiedzy
+    Category: Kategoria
+    Skills: Umiejętności
+    Delete: Usuń
+    Edit: Edytuj
+    NoCareer: Nie wybrano kariery - przeciągnij ją tutaj!
+    NoSocialStatus: Nie określono statusu społecznego.
+    NoArchetype: Nie wybrano archetypu - przeciągnij go tutaj!
+    MarkCareerSkill: Oznacz jako umiejętność kariery
+    UnmarkCareerSkill: Usuń oznaczenie umiejętności kariery
+    MarkSuperCharacteristic: Oznacz jako supercechę
+    UnmarkSuperCharacteristic: Usuń oznaczenie supercechy
+    Motivations: Motywacje
+    Strength: Atut
+    Flaw: Słabość
+    Desire: Pragnienie
+    Fear: Lęk
+    CharacterIllustration: Ilustracja postaci
+    CharacterDescription: Opis postaci
+    Pronouns: Zaimki
+    Age: Wiek
+    Height: Wzrost
+    Build: Budowa
+    Hair: Włosy
+    Eyes: Oczy
+    NotableFeatures: Cechy charakterystyczne
+    Notes: Notatki
+    XPJournal: Dziennik PD
+    Tier: Poziom
+    Activation: Aktywacja
+    ActivationAdvantages: Koszt aktywacji - Przewagi
+    ActivationTriumphs: Koszt aktywacji - Triumfy
+    ActivationLimit: Limit aktywacji
+    Once: Raz
+    Unlimited: Bez limitu
+    UpToRating: Do wartości cechy
+    Rank: Ranga
+    Ranked: Rangowany
+    EffectsScaleWithRank: Efekty skalują się z rangą
+    Active: Aktywny
+    Passive: Pasywny
+    Yes: Tak
+    No: Nie
+    Talents: Talenty
+    SpecialAbilities: Zdolności specjalne
+    TierCount: Poziom {tier}
+    DeletedItemData: 'BŁĄD: usunięty przedmiot {name}'
+    Add: Dodaj
+    Encumbrance: Obciążenie
+    Price: Cena
+    Rarity: Rzadkość
+    Damage: Obrażenia
+    DamageCharacteristic: Obrażenia z cechy
+    Critical: Krytyk
+    Range: Zasięg
+    Quantity: Ilość
+    EncumbranceThreshold: Próg obciążenia
+    Encumbered: Obciążony!
+    RankUp: Zwiększ rangę
+    RankDown: Zmniejsz rangę
+    FreeRankUp: Zwiększ rangę (za darmo)
+    FreeRankDown: Zmniejsz rangę (za darmo)
+    IsRated: Czy ma wartość liczbową
+    Qualities: Cechy
+    Severity: Ciężkość
+    Attacks: Ataki
+    Armor: Pancerz
+    CriticalInjuries: Obrażenia krytyczne
+    CriticalHits: Trafienia krytyczne
+    Injury: Obrażenie
+    Hit: Trafienie
+    Skill: Umiejętność
+    Crit: Kryt.
+    Special: Specjalne
+    GroupSize: Liczebność grupy
+    SkillNotFound: Nie znaleziono umiejętności
+    Unskilled: Bez umiejętności
+    IsInitiative: Umiejętność inicjatywy?
+    Equipped: Wyposażony
+    Carried: Niesiony
+    Dropped: Upuszczony
+    NotApplicable: Nie dotyczy
+    EffectiveTier: Efektywny poziom
+    Silhouette: Sylwetka
+    Speed: Prędkość
+    Handling: Sterowność
+    HullTrauma: Kadłub
+    HullTraumaThreshold: Próg wytrzymałości kadłuba
+    SystemStrain: Zmęczenie systemu
+    SystemStrainThreshold: Próg zmęczenia systemu
+    Illustration: Ilustracja
+    Complement: Obsada
+    Consumables: Materiały eksploatacyjne
+    PassengerCapacity: Limit pasażerów
+    EncumbranceCapacity: Limit obciążenia
+    Information: Informacje
+    Passengers: Pasażerowie
+    Role: Rola
+    Roles: Role
+    OverCapacity: Przekroczono limit!
+    RoleSkills: Umiejętności roli
+    FiringArc: Łuk ostrzału
+    Select: Wybierz
+    PerformCheck: Wykonaj test
+    GroupBy: Grupuj według
+    Attack: Atak
+    Item: Przedmiot
+    Items: Przedmioty
+    CloseContainer: Zamknij pojemnik
+
+
+

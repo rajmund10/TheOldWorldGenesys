@@ -1,0 +1,143 @@
+<div class="roll roll-skill">
+	{{!-- Dice --}}
+	<div class="dice-row">
+		<label>{{localize 'Genesys.Rolls.Dice'}}</label>
+		<div class="dice">
+			{{#each results.faces as |faces die|}}
+				{{#each faces}}
+					<div class="result">
+						<div class="face" data-type="{{capitalize die}}">
+							<img src="{{dieFaceImage this die}}" alt="{{this}}" title="{{this}}">
+						</div>
+					</div>
+				{{/each}}
+			{{/each}}
+
+			{{#each results.extraSymbols as |count symbol|}}
+				{{#repeat count}}
+					<div class="symbol">
+						{{#if (eq symbol 's')}}
+							<img src="systems/genesys/dice/success.png" alt="s" title="Success">
+						{{else if (eq symbol 'f')}}
+							<img src="systems/genesys/dice/failure.png" alt="f" title="Failure">
+						{{else if (eq symbol 'a')}}
+							<img src="systems/genesys/dice/advantage.png" alt="a" title="Advantage">
+						{{else if (eq symbol 'h')}}
+							<img src="systems/genesys/dice/threat.png" alt="h" title="Threat">
+						{{else if (eq symbol 't')}}
+							<img src="systems/genesys/dice/triumph.png" alt="t" title="Triumph">
+						{{else if (eq symbol 'd')}}
+							<img src="systems/genesys/dice/despair.png" alt="d" title="Despair">
+						{{else}}
+							{{symbol}}
+						{{/if}}
+					</div>
+				{{/repeat}}
+			{{/each}}
+		</div>
+	</div>
+
+	{{!-- Formatted Results --}}
+	<div class="results-row">
+		<label>
+			{{localize 'Genesys.Rolls.Results'}}{{#if description}} {{{extractSkillInfo description}}}{{/if}}
+		</label>
+		<div class="net-results">
+			{{!-- Success --}}
+			{{#repeat (sub results.netSuccess results.totalTriumph)}}
+				<img class="dice-symbol" src="systems/genesys/dice/success.png" alt="s" title="Success">
+			{{/repeat}}
+
+			{{!-- Failure --}}
+			{{#repeat (sub results.netFailure results.totalDespair)}}
+				<img class="dice-symbol" src="systems/genesys/dice/failure.png" alt="f" title="Failure">
+			{{/repeat}}
+
+			{{!-- Advantage --}}
+			{{#repeat results.netAdvantage}}
+				<img class="dice-symbol" src="systems/genesys/dice/advantage.png" alt="a" title="Advantage">
+			{{/repeat}}
+
+			{{!-- Threat --}}
+			{{#repeat results.netThreat}}
+				<img class="dice-symbol" src="systems/genesys/dice/threat.png" alt="h" title="Threat">
+			{{/repeat}}
+
+			{{!-- Triumphs --}}
+			{{#repeat results.totalTriumph}}
+				<img class="dice-symbol" src="systems/genesys/dice/triumph.png" alt="t" title="Triumph">
+			{{/repeat}}
+
+			{{!-- Despair --}}
+			{{#repeat results.totalDespair}}
+				<img class="dice-symbol" src="systems/genesys/dice/despair.png" alt="d" title="Despair">
+			{{/repeat}}
+		</div>
+	</div>
+
+	{{!-- Summary --}}
+	<div class="summary-row">
+		<label>{{localize 'Genesys.Rolls.Summary.Label'}}</label>
+		<div class="summary-table">
+			{{!-- Success --}}
+			{{#if (gt results.netSuccess 0)}}
+				<img class="symbol" src="systems/genesys/dice/success.png" alt="s" title="Success">
+				<span class="label">{{localize 'Genesys.Rolls.Summary.Successes'}}</span>
+				<span class="count">{{results.netSuccess}}</span>
+
+				<div class="separator"></div>
+			{{/if}}
+
+			{{!-- Failure --}}
+			{{#if (gt results.netFailure 0)}}
+				<img class="symbol" src="systems/genesys/dice/failure.png" alt="f" title="Failure">
+				<span class="label">{{localize 'Genesys.Rolls.Summary.Failures'}}</span>
+				<span class="count">{{results.netFailure}}</span>
+
+				<div class="separator"></div>
+			{{/if}}
+
+			{{!-- Advantage --}}
+			{{#if (gt results.netAdvantage 0)}}
+				<img class="symbol" src="systems/genesys/dice/advantage.png" alt="a" title="Advantage">
+				<span class="label">{{localize 'Genesys.Rolls.Summary.Advantage'}}</span>
+				<span class="count">{{results.netAdvantage}}</span>
+
+				<div class="separator"></div>
+			{{/if}}
+
+			{{!-- Threat --}}
+			{{#if (gt results.netThreat 0)}}
+				<img class="symbol" src="systems/genesys/dice/threat.png" alt="h" title="Threat">
+				<span class="label">{{localize 'Genesys.Rolls.Summary.Threat'}}</span>
+				<span class="count">{{results.netThreat}}</span>
+
+				<div class="separator"></div>
+			{{/if}}
+
+			{{!-- Triumphs --}}
+			{{#if (gt results.totalTriumph 0)}}
+				<img class="symbol" src="systems/genesys/dice/triumph.png" alt="t" title="Triumph">
+				<span class="label">{{localize 'Genesys.Rolls.Summary.Triumph'}}</span>
+				<span class="count">{{results.totalTriumph}}</span>
+
+				<div class="separator"></div>
+			{{/if}}
+
+			{{!-- Despair --}}
+			{{#if (gt results.totalDespair 0)}}
+				<img class="symbol" src="systems/genesys/dice/despair.png" alt="d" title="Despair">
+				<span class="label">{{localize 'Genesys.Rolls.Summary.Despair'}}</span>
+				<span class="count">{{results.totalDespair}}</span>
+
+				<div class="separator"></div>
+			{{/if}}
+		</div>
+	</div>
+
+	{{#if symbolSpending}}
+		<button type="button" class="symbol-spending-trigger" data-action="spend-symbols">
+			{{localize 'Genesys.SymbolSpending.Open'}}
+		</button>
+	{{/if}}
+</div>

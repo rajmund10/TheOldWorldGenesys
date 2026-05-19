@@ -1,0 +1,46 @@
+id: genesys
+title: Genesys
+description: (ALPHA) Unofficial implementation of EDGE Studio's Genesys RPG System.
+version: 0.2.18
+compatibility:
+  minimum: 12
+  verified: 13
+  maximum: 13
+authors:
+  - name: Mezryss
+scripts:
+  - scripts/container-query-polyfill/container-query-polyfill.modern.js
+esmodules:
+  - Genesys.js
+styles:
+  - style.css
+languages:
+  - lang: en
+    name: English
+    path: lang/en.json
+  - lang: pl
+    name: Polski
+    path: lang/pl.json
+packs:
+  - name: crb-skills
+    label: Core Skills
+    system: genesys
+    path: ./packs/crb-skills.db
+    type: Item
+  - name: core-skills-polish
+    label: Core Skills (Polish)
+    system: genesys
+    path: ./packs/core-skills-polish
+    type: Item
+  - name: itemy
+    label: Itemy
+    system: genesys
+    path: ./packs/itemy
+    type: Item
+socket: true
+url: https://github.com/Mezryss/FVTT-Genesys
+bugs: https://github.com/Mezryss/FVTT-Genesys/issues
+changelog: https://github.com/Mezryss/FVTT-Genesys/blob/release/CHANGELOG.md
+license: https://github.com/Mezryss/FVTT-Genesys/blob/main/LICENSE
+manifest: https://github.com/Mezryss/FVTT-Genesys/releases/latest/download/manifest.json
+download: https://github.com/Mezryss/FVTT-Genesys/releases/latest/download/genesys.zip
