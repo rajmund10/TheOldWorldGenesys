@@ -14,7 +14,6 @@ All pull requests and forks must adhere to the following:
 - Use only Font Awesome Free icons in contributions. Font Awesome Pro icons are not permitted in this fork.
 - If adapting code from other sources, you must update the "Further Licenses" section below to indicate its licensing and include an appropriately-placed license file where applicable.
 - All contributions to this project, unless otherwise noted through licenses as mentioned above, fall under the project's MIT License.
-- AI-generated code contributions are not permitted under any circumstances.
 - Contributors who act in a bad faith, hateful, or otherwise harmful manner will be blocked from making future contributions. This includes notable behavior outside this system and its community.
 
 ## License
