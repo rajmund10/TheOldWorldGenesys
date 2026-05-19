@@ -5,7 +5,7 @@ version: 0.2.18
 compatibility:
   minimum: 12
   verified: 13
-  maximum: 13
+  maximum: 14
 authors:
   - name: Mezryss
     url: https://github.com/Mezryss/FVTT-Genesys
