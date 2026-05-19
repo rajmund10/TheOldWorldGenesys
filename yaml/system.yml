@@ -8,6 +8,9 @@ compatibility:
   maximum: 13
 authors:
   - name: Mezryss
+    url: https://github.com/Mezryss/FVTT-Genesys
+  - name: rajmund10
+    url: https://github.com/rajmund10/TheOldWorldGenesys
 scripts:
   - scripts/container-query-polyfill/container-query-polyfill.modern.js
 esmodules:
@@ -38,9 +41,9 @@ packs:
     path: ./packs/itemy
     type: Item
 socket: true
-url: https://github.com/Mezryss/FVTT-Genesys
-bugs: https://github.com/Mezryss/FVTT-Genesys/issues
-changelog: https://github.com/Mezryss/FVTT-Genesys/blob/release/CHANGELOG.md
-license: https://github.com/Mezryss/FVTT-Genesys/blob/main/LICENSE
-manifest: https://github.com/Mezryss/FVTT-Genesys/releases/latest/download/manifest.json
-download: https://github.com/Mezryss/FVTT-Genesys/releases/latest/download/genesys.zip
+url: https://github.com/rajmund10/TheOldWorldGenesys
+bugs: https://github.com/rajmund10/TheOldWorldGenesys/issues
+changelog: https://github.com/rajmund10/TheOldWorldGenesys/releases
+license: https://github.com/rajmund10/TheOldWorldGenesys/blob/main/LICENSE
+manifest: https://github.com/rajmund10/TheOldWorldGenesys/releases/latest/download/manifest.json
+download: https://github.com/rajmund10/TheOldWorldGenesys/releases/latest/download/genesys.zip

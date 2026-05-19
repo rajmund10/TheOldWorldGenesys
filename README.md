@@ -1,18 +1,18 @@
-# FVTT Genesys
-An implementation of [EDGE Studio](https://edge-studio.net/)'s Genesys roleplaying game.
+# The Old World Genesys
+An unofficial, modified Foundry VTT system for running Genesys in a Polish Old World campaign setup.
 
-## Fork Notice
-This repository is a fork/customized version of the original FVTT Genesys system by Mezryss.
+## Attribution
+This project is based on the original FVTT Genesys system by Mezryss.
 
-The original project is available at:
+Original project:
 https://github.com/Mezryss/FVTT-Genesys
 
-This fork keeps the original MIT license and attribution, while adding custom changes for a Polish Old World / Genesys campaign setup.
+This modified version keeps the original MIT license and attribution while adding custom Polish Old World content, sheets, compendia, and automation.
 
 ## Contributing
-All pull requests and forks must adhere to the following:
-- Use only Font Awesome Free icons in contributions. Font Awesome Pro icons are not permitted in this fork.
-- If adapting code from other sources, you must update the "Further Licenses" section below to indicate its licensing and include an appropriately-placed license file where applicable.
+All pull requests and modifications must adhere to the following:
+- Use only Font Awesome Free icons in contributions. Font Awesome Pro icons are not permitted in this project.
+- If adapting code from other sources, update the "Further Licenses" section below to indicate its licensing and include an appropriately placed license file where applicable.
 - All contributions to this project, unless otherwise noted through licenses as mentioned above, fall under the project's MIT License.
 - Contributors who act in a bad faith, hateful, or otherwise harmful manner will be blocked from making future contributions. This includes notable behavior outside this system and its community.
 
@@ -23,7 +23,7 @@ Code for this system is licensed under the [MIT License](https://mit-license.org
 Some components of this project are used under alternative licensing terms. Each of these components will be accompanied by its own nearby LICENSE file, and is noted below:
 
 #### Font Awesome Free
-> This fork uses only Font Awesome Free icons exposed by Foundry VTT and does not intentionally use Font Awesome Pro icons.
+> This project uses only Font Awesome Free icons exposed by Foundry VTT and does not intentionally use Font Awesome Pro icons.
 >
 > Contributors should only use Font Awesome Free icons or project-owned assets when adding new UI icons.
 
@@ -53,6 +53,6 @@ Some components of this project are used under alternative licensing terms. Each
 > **License:** [MIT](https://github.com/DerYeger/yeger/blob/main/packages/vue-masonry-wall/LICENSE)
 
 ## Copyright Disclaimer
-This project, and the creator of this project, are unaffiliated with EDGE Studios and Fantasy Flight Games. This is an unofficial, third-party system implementation built freely as a hobby project. Additionally, this project is unrelated to Genesys Foundry, EDGE Studios/Fantasy Flight's community content program for the Genesys RPG.
+This project, and the creator of this project, are unaffiliated with EDGE Studios, Fantasy Flight Games, Games Workshop, Cubicle 7, or any other rights holders of the referenced games and settings. This is an unofficial, third-party system implementation built freely as a hobby project.
 
 Genesys and its logo, and Genesys Foundry and its logo, are trademarks of Fantasy Flight Games in the U.S.A. and other countries. All Fantasy Flight Games characters and character names, and the distinctive likenesses thereof, are trademarks of Fantasy Flight Games. www.FantasyFlightGames.com.
