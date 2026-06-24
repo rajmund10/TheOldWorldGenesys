@@ -1,4 +1,3 @@
-import fs from 'fs';
 import gulp from 'gulp';
 const { dest, series, src } = gulp;
 
@@ -7,17 +6,8 @@ import gulpYaml from 'gulp-yaml';
 import gulpZip from 'gulp-zip';
 
 export function zip() {
-	let version;
-	try {
-		const systemJsonFile = fs.readFileSync('dist/system.json', { encoding: 'utf8' });
-		const systemJson = JSON.parse(systemJsonFile);
-		version = systemJson['version'];
-	} catch {
-		version = 'unknown';
-	}
-
 	return src('dist/**/*')
-		.pipe(gulpZip(`genesys-${version}.zip`))
+		.pipe(gulpZip('genesys.zip'))
 		.pipe(dest('.'));
 }
 
