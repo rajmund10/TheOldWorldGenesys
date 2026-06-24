@@ -4,10 +4,10 @@
 		<ul class="symbol-spending-summary-list">
 			{{#each entries}}
 				<li>
+					<span>{{{costHtml}}}</span>
 					<span>
 						<strong>{{label}}{{#if (gt uses 1)}} x{{uses}}{{/if}}</strong>
 					</span>
-					<span>{{{costHtml}}}</span>
 				</li>
 			{{/each}}
 		</ul>

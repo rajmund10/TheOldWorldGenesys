@@ -14,6 +14,9 @@ import ContextMenu from '@/vue/components/ContextMenu.vue';
 import MenuItem from '@/vue/components/MenuItem.vue';
 
 const rootContext = inject<ActorSheetContext<CharacterDataModel, CharacterSheet>>(RootContext)!;
+const props = withDefaults(defineProps<{ showSpecializationFields?: boolean }>(), {
+	showSpecializationFields: true,
+});
 
 const editLabel = game.i18n.localize('Genesys.Labels.Edit');
 const deleteLabel = game.i18n.localize('Genesys.Labels.Delete');
@@ -132,8 +135,8 @@ async function removeSpecialization(specialization?: GenesysItem<SpecializationD
 
 			<div class="underline"></div>
 
-			<label>{{ specializationLabel }}</label>
-			<div>
+			<label v-if="props.showSpecializationFields">{{ specializationLabel }}</label>
+			<div v-if="props.showSpecializationFields">
 				<span v-if="specialization" class="specialization">
 					<ContextMenu>
 						<template v-slot:menu-items>
@@ -154,10 +157,10 @@ async function removeSpecialization(specialization?: GenesysItem<SpecializationD
 				<span v-else>{{ noSpecializationLabel }}</span>
 			</div>
 
-			<div class="underline"></div>
+			<div v-if="props.showSpecializationFields" class="underline"></div>
 
-			<label><Localized label="Genesys.Labels.SocialStatus" /></label>
-			<div>
+			<label v-if="props.showSpecializationFields"><Localized label="Genesys.Labels.SocialStatus" /></label>
+			<div v-if="props.showSpecializationFields">
 				<span v-if="specialization" class="social-status">
 					<ContextMenu>
 						<template v-slot:menu-items>
@@ -176,7 +179,7 @@ async function removeSpecialization(specialization?: GenesysItem<SpecializationD
 				<span v-else><Localized label="Genesys.Labels.NoSocialStatus" /></span>
 			</div>
 
-			<div class="underline"></div>
+			<div v-if="props.showSpecializationFields" class="underline"></div>
 		</div>
 
 		<img :src="rootContext.data.actor.img" data-edit="img" :alt="rootContext.data.actor.name" />

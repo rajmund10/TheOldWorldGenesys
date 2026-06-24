@@ -32,6 +32,14 @@ function normalizeTalentName(name: string) {
 	return name.trim().toLocaleLowerCase();
 }
 
+function normalizeSpecializationName(name: string) {
+	return name
+		.trim()
+		.normalize('NFD')
+		.replace(/[\u0300-\u036f]/g, '')
+		.toLocaleLowerCase();
+}
+
 function uniqueNames(names: string[]) {
 	return Array.from(new Set(names.map((name) => name.trim()).filter(Boolean)));
 }
@@ -277,33 +285,16 @@ export default class CharacterSheet extends VueSheet(GenesysActorSheet<Character
 
 				clonedDroppedItem = [career];
 			} else if (droppedItem.type === 'specialization') {
-				// If it's a specialization, delete the old one and add the new one
-				const existingSpecialization = this.actor.items.find((i) => i.type === 'specialization');
-				const oldCareerSkills = existingSpecialization?.type === 'specialization' ? uniqueNames(((existingSpecialization as GenesysItem<SpecializationDataModel>).systemData.careerSkills ?? [])) : [];
-				if (existingSpecialization) {
-					await this.#deleteGrantedInventoryItems(existingSpecialization as GenesysItem<BaseItemDataModel>);
-					await existingSpecialization.delete();
-					// Wait a moment for the deletion to propagate
-					await new Promise(resolve => setTimeout(resolve, 100));
-				}
-				
-				// Let `super` handle the drop and save a reference to it.
-				clonedDroppedItem = await super._onDropItem(event, data);
+				const specialization = droppedItem as GenesysItem<SpecializationDataModel>;
+				const hasSpecialization = this.actor.items.some((item) => item.type === 'specialization');
+				const appliedSpecialization = hasSpecialization
+					? await this.purchaseAdditionalSpecialization(specialization)
+					: await this.applySpecialization(specialization, {
+							replaceExisting: false,
+							grantInventory: true,
+						});
 
-				const newSpecialization = Array.isArray(clonedDroppedItem) ? (clonedDroppedItem.find((item) => item.type === 'specialization') as GenesysItem<SpecializationDataModel> | undefined) : undefined;
-				if (newSpecialization) {
-					const newCareerSkills = uniqueNames(newSpecialization.systemData.careerSkills ?? []);
-					await this.#createGrantedInventoryItems(newSpecialization);
-					await this.syncCareerSkillFlags([...oldCareerSkills, ...newCareerSkills]);
-
-					const missingSkills = this.#missingSpecializationCareerSkills(newSpecialization);
-					if (missingSkills.length) {
-						ui.notifications.warn(`Specialization career skills not found on actor: ${missingSkills.join(', ')}.`);
-					}
-				}
-				
-				// Force rerender to update the specialization tab
-				await this.render();
+				clonedDroppedItem = appliedSpecialization ? [appliedSpecialization] : false;
 			} else {
 				// Let `super` handle the drop and save a reference to it.
 				clonedDroppedItem = await super._onDropItem(event, data);
@@ -419,6 +410,142 @@ export default class CharacterSheet extends VueSheet(GenesysActorSheet<Character
 		}
 
 		return clonedDroppedItem ?? false;
+	}
+
+	#getProfessionStepMap() {
+		const rawMap = this.actor.getFlag('genesys', 'professionStepBySpecialization');
+		return rawMap && typeof rawMap === 'object' ? (rawMap as Record<string, string>) : {};
+	}
+
+	#getUnlockedProfessionSteps(specialization: GenesysItem<SpecializationDataModel>) {
+		const path = specialization.systemData.professionPath ?? [];
+		const selectedProfessionId = this.#getProfessionStepMap()[specialization.id] || this.actor.systemData.mainProfessionId;
+		const currentIndex = path.findIndex((step, index) => (step.id || step.name || `profession-${index}`) === selectedProfessionId);
+		return currentIndex === -1 ? [] : path.slice(0, currentIndex + 1);
+	}
+
+	#getSpecializationDiscount(targetName: string) {
+		let bestDiscount: { cost: number; source: string } | null = null;
+		const discountPattern = /(\d+)\s*P[DX]\b[\s\S]{0,100}?zakup(?:u|ić)?\s+specjalizacji\s+([^.;,\n]+)/gi;
+		const normalizedTarget = normalizeSpecializationName(targetName);
+		const targetStem = normalizedTarget.slice(0, Math.min(8, normalizedTarget.length));
+
+		for (const specialization of this.actor.items.filter((item) => item.type === 'specialization') as GenesysItem<SpecializationDataModel>[]) {
+			for (const step of this.#getUnlockedProfessionSteps(specialization)) {
+				let match: RegExpExecArray | null;
+				while ((match = discountPattern.exec(step.effects ?? ''))) {
+					const cost = Number(match[1]);
+					const offerName = normalizeSpecializationName(match[2] ?? '');
+					const matchesTarget = offerName.includes(normalizedTarget) || normalizedTarget.includes(offerName) || (targetStem.length >= 5 && offerName.includes(targetStem));
+
+					if (Number.isFinite(cost) && matchesTarget && (!bestDiscount || cost < bestDiscount.cost)) {
+						bestDiscount = {
+							cost,
+							source: step.name || specialization.name,
+						};
+					}
+				}
+			}
+		}
+
+		return bestDiscount;
+	}
+
+	async purchaseAdditionalSpecialization(droppedSpecialization: GenesysItem<SpecializationDataModel>) {
+		const existingSpecializations = this.actor.items.filter((item) => item.type === 'specialization') as GenesysItem<SpecializationDataModel>[];
+		if (existingSpecializations.some((specialization) => normalizeSpecializationName(specialization.name) === normalizeSpecializationName(droppedSpecialization.name))) {
+			ui.notifications.info(`Postać ma już specjalizację "${droppedSpecialization.name}".`);
+			return null;
+		}
+
+		const defaultCost = droppedSpecialization.systemData.cost > 0 ? droppedSpecialization.systemData.cost : (existingSpecializations.length + 1) * 10;
+		const discount = this.#getSpecializationDiscount(droppedSpecialization.name);
+		const cost = discount && discount.cost < defaultCost ? discount.cost : defaultCost;
+		const source = discount && discount.cost < defaultCost ? discount.source : '';
+
+		if (this.actor.systemData.availableXP < cost) {
+			ui.notifications.error(game.i18n.localize('Genesys.Notifications.NotEnoughXP'));
+			return null;
+		}
+
+		const discountLine = source ? `<p><strong>Tańszy zakup:</strong> ${source}</p>` : '';
+		const confirmed = await Dialog.confirm({
+			title: 'Kup kolejną specjalizację',
+			content: `<p>Kupić specjalizację <strong>${droppedSpecialization.name}</strong> za <strong>${cost} XP</strong>?</p>${discountLine}`,
+			yes: () => true,
+			no: () => false,
+			defaultYes: false,
+		});
+
+		if (!confirmed) {
+			return null;
+		}
+
+		const purchasedSpecialization = await this.applySpecialization(droppedSpecialization, {
+			replaceExisting: false,
+			grantInventory: false,
+		});
+
+		await this.actor.update({
+			'system.experienceJournal.entries': [
+				...this.actor.systemData.experienceJournal.entries,
+				{
+					amount: -cost,
+					type: EntryType.Specialization,
+					data: {
+						name: purchasedSpecialization.name,
+						id: purchasedSpecialization.id,
+						cost,
+						source,
+					},
+				},
+			],
+		});
+		await this.actor.setFlag('genesys', 'activeSpecializationId', purchasedSpecialization.id);
+		await this.render();
+
+		return purchasedSpecialization;
+	}
+
+	async applySpecialization(
+		droppedSpecialization: GenesysItem<SpecializationDataModel>,
+		options: { replaceExisting?: boolean; grantInventory?: boolean } = {},
+	) {
+		const replaceExisting = options.replaceExisting ?? true;
+		const grantInventory = options.grantInventory ?? true;
+		const oldCareerSkills: string[] = [];
+
+		const existingSpecializations = this.actor.items.filter((i) => i.type === 'specialization') as GenesysItem<SpecializationDataModel>[];
+		const duplicateSpecialization = existingSpecializations.find((specialization) => normalizeTalentName(specialization.name) === normalizeTalentName(droppedSpecialization.name));
+		if (!replaceExisting && duplicateSpecialization) {
+			ui.notifications.info(`Postać ma już specjalizację "${droppedSpecialization.name}".`);
+			return duplicateSpecialization;
+		}
+
+		if (replaceExisting) {
+			for (const existingSpecialization of existingSpecializations) {
+				oldCareerSkills.push(...uniqueNames(existingSpecialization.systemData.careerSkills ?? []));
+				await this.#deleteGrantedInventoryItems(existingSpecialization as GenesysItem<BaseItemDataModel>);
+				await existingSpecialization.delete();
+			}
+		}
+
+		const [newSpecialization] = (await this._onDropItemCreate(droppedSpecialization.toObject())) as GenesysItem<SpecializationDataModel>[];
+		const newCareerSkills = uniqueNames(newSpecialization.systemData.careerSkills ?? []);
+
+		if (grantInventory) {
+			await this.#createGrantedInventoryItems(newSpecialization);
+		}
+
+		await this.syncCareerSkillFlags([...oldCareerSkills, ...newCareerSkills]);
+
+		const missingSkills = this.#missingSpecializationCareerSkills(newSpecialization);
+		if (missingSkills.length) {
+			ui.notifications.warn(`Specialization career skills not found on actor: ${missingSkills.join(', ')}.`);
+		}
+
+		await this.render();
+		return newSpecialization;
 	}
 
 	async #updateForArchetype(workingData: CharacterDataModel) {

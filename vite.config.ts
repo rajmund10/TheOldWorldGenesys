@@ -10,6 +10,7 @@ dotenvExpand.expand(env);
 
 const PROXY_HOST = process.env.VITE_PROXY_HOST ?? 'localhost';
 const PROXY_PORT = process.env.VITE_PROXY_PORT ?? 30000;
+const COPY_PUBLIC_DIR = process.env.VITE_COPY_PUBLIC_DIR !== 'false';
 
 /**
  * A list of aliases to be applied only in production.
@@ -53,7 +54,7 @@ export default defineConfig({
 			formats: ['es'], // ES Modules
 			fileName: 'Genesys',
 		},
-		copyPublicDir: true,
+		copyPublicDir: COPY_PUBLIC_DIR,
 	},
 	plugins: [pluginVue()],
 	resolve: {

@@ -6,6 +6,7 @@ import CharacterMeta from '@/vue/sheets/actor/character/CharacterMeta.vue';
 import CombatStat from '@/vue/components/character/CombatStat.vue';
 import Localized from '@/vue/components/Localized.vue';
 import EffectsView from '@/vue/views/EffectsView.vue';
+import { arrayFromItems } from '@/utils/collection';
 
 import JournalTab from '@/vue/sheets/actor/character/JournalTab.vue';
 import SkillsTab from '@/vue/sheets/actor/character/SkillsTab.vue';
@@ -29,7 +30,7 @@ const system = computed(() => {
 });
 const specializations = computed(() => {
 	context.renderKey;
-	return Array.from(actor.value.items).filter((item) => item.type === 'specialization') as GenesysItem<SpecializationDataModel>[];
+	return arrayFromItems<GenesysItem<SpecializationDataModel>>(actor.value.items).filter((item) => item.type === 'specialization');
 });
 const hasMagicAccess = computed(() => resolveMagicProfileFromSpecializations(specializations.value).enabled);
 
@@ -122,7 +123,7 @@ onBeforeUpdate(updateEffects);
 
 			<div class="tab" data-tab="combat"><CombatTab /></div>
 
-			<div class="tab" data-tab="talents"><TalentsTab /></div>
+			<div class="tab" data-tab="talents"><TalentsTab show-profession-talents /></div>
 
 			<div class="tab" data-tab="specializations">
 				<SpecializationsTab />

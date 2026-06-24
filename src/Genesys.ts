@@ -6,8 +6,6 @@
  * @file System Entry Point
  */
 
-console.log('%c[Genesys] CZY MNIE WIDZISZ? System loading...', 'background: #4a148c; color: white; font-size: 16px; padding: 4px 8px;');
-
 import { register as registerConfig, ready as readyConfigs } from '@/config';
 import { register as registerCombat } from '@/combat';
 import { register as registerSidebars } from '@/sidebar';
@@ -38,7 +36,6 @@ import { registerSymbolSpending } from '@/dice/SymbolSpending';
 import './scss/index.scss';
 
 Hooks.once('init', async () => {
-	console.log('%c[Genesys] init hook started', 'color: #4a148c; font-weight: bold;');
 	// System Documents
 	registerActors();
 	registerToken();
@@ -61,7 +58,6 @@ Hooks.once('init', async () => {
 });
 
 Hooks.once('ready', async () => {
-	console.log('%c[Genesys] ready hook - SYSTEM GOTOWY!', 'background: #2e7d32; color: white; font-size: 14px; padding: 4px 8px;');
 	const migrationVersion = game.settings.get<string>(SETTINGS_NAMESPACE, KEY_MIGRATION_VERSION) ?? '0.0.0';
 
 	readyConfigs();

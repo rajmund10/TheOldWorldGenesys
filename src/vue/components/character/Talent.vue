@@ -1,9 +1,11 @@
 <script lang="ts" setup>
-import { inject, ref } from 'vue';
+import { computed, inject, ref } from 'vue';
 import { ActorSheetContext, RootContext } from '@/vue/SheetContext';
 import CharacterDataModel from '@/actor/data/CharacterDataModel';
 import Localized from '@/vue/components/Localized.vue';
 import Enriched from '@/vue/components/Enriched.vue';
+import ContextMenu from '@/vue/components/ContextMenu.vue';
+import MenuItem from '@/vue/components/MenuItem.vue';
 
 const props = withDefaults(
 	defineProps<{
@@ -40,6 +42,8 @@ const rootContext = inject<ActorSheetContext<CharacterDataModel>>(RootContext)!;
 
 const expanded = ref(false);
 const talentRef = ref<HTMLElement | null>(null);
+const canDeleteTalent = computed(() => props.canDelete && rootContext.data.editable);
+const canOpenActionsMenu = computed(() => (props.ranked && props.canUpgrade) || rootContext.data.editable || canDeleteTalent.value);
 
 async function sendToChat() {
 	const enrichedDescription = await TextEditor.enrichHTML(props.description, { async: true });
@@ -79,19 +83,35 @@ async function sendToChat() {
 					{{ rank }}
 				</template>
 			</a>
-
-			<a v-if="ranked && canUpgrade" @click="emit('upgrade')"><i class="fas fa-arrow-circle-up"></i></a>
 		</span>
 		<div></div>
-		<span v-if="canDelete">
-			<a @click="emit('delete')"><i class="fas fa-trash"></i></a>
-		</span>
-		<span v-if="rootContext.data.editable">
-			<a @click="emit('open')"><i class="fas fa-edit"></i></a>
-		</span>
-		<span v-if="rootContext.data.editable">
-			<a @click="sendToChat()"><i class="fas fa-comment"></i></a>
-		</span>
+		<ContextMenu v-if="canOpenActionsMenu" class="actions" orientation="left" use-primary-click>
+			<template v-slot:menu-items>
+				<MenuItem v-if="ranked && canUpgrade" @click="emit('upgrade')">
+					<template v-slot:icon><i class="fas fa-arrow-circle-up"></i></template>
+					<Localized label="Genesys.Labels.RankUp" />
+				</MenuItem>
+
+				<hr v-if="ranked && canUpgrade && (rootContext.data.editable || canDeleteTalent)" />
+
+				<MenuItem v-if="rootContext.data.editable" @click="sendToChat()">
+					<template v-slot:icon><i class="fas fa-comment"></i></template>
+					<Localized label="Genesys.Equipment.Dropdown.ToChat" />
+				</MenuItem>
+
+				<MenuItem v-if="rootContext.data.editable" @click="emit('open')">
+					<template v-slot:icon><i class="fas fa-edit"></i></template>
+					<Localized label="Genesys.Labels.Edit" />
+				</MenuItem>
+
+				<MenuItem v-if="canDeleteTalent" @click="emit('delete')">
+					<template v-slot:icon><i class="fas fa-trash"></i></template>
+					<Localized label="Genesys.Labels.Delete" />
+				</MenuItem>
+			</template>
+
+			<a><i class="fas fa-ellipsis-vertical"></i></a>
+		</ContextMenu>
 		<div :class="`desc-container ${expanded ? 'active' : ''}`">
 			<div v-if="effectiveTier" class="tier-container">
 				<span class="tier"><Localized label="Genesys.Labels.Tier" />: {{ effectiveTier }}</span>
@@ -134,6 +154,10 @@ async function sendToChat() {
 		font-size: 1.1em;
 		display: flex;
 		gap: 0.25em;
+	}
+
+	.actions {
+		justify-self: end;
 	}
 
 	.desc-container {

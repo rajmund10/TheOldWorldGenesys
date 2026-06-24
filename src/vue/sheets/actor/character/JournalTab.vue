@@ -13,6 +13,12 @@ const context = inject<ActorSheetContext<CharacterDataModel>>(RootContext)!;
 
 const system = computed(() => context.data.actor.systemData);
 
+function specializationEntryText(entry: { data?: { name?: string; source?: string } }) {
+	const name = entry.data?.name ?? '';
+	const source = entry.data?.source;
+	return source ? `${name} (${source})` : name;
+}
+
 async function addXPJournalEntry() {
 	const award = await AwardXPPrompt.promptForXPAward();
 	if (!award) {
@@ -157,7 +163,10 @@ async function addXPJournalEntry() {
 
 			<div class="entries">
 				<div v-for="(entry, index) in system.experienceJournal.entries" :key="index" class="entry">
-					<div><Localized :label="`Genesys.XPJournal.${entry.type}`" :format-args="entry.data" enriched /></div>
+					<div v-if="entry.type === JournalEntryType.Specialization">
+						<strong>Zakup specjalizacji</strong>: {{ specializationEntryText(entry) }}
+					</div>
+					<div v-else><Localized :label="`Genesys.XPJournal.${entry.type}`" :format-args="entry.data" enriched /></div>
 					<div class="value">{{ entry.amount }}</div>
 					<a v-if="entry.type !== JournalEntryType.Starting" @click="removeJournalEntry(toRaw(context.data.actor), index)"><i class="fas fa-trash"></i></a>
 				</div>

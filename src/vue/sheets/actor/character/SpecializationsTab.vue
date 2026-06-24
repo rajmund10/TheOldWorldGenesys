@@ -6,12 +6,17 @@ import Localized from '@/vue/components/Localized.vue';
 import SpecializationDataModel, { type SpecializationProfessionStep } from '@/item/data/SpecializationDataModel';
 import GenesysItem from '@/item/GenesysItem';
 import TalentTree from '@/vue/components/character/TalentTree.vue';
+import { arrayFromItems } from '@/utils/collection';
 import type { TalentTreeData, TalentTreeNode } from '@/vue/components/character/TalentTreeTypes';
 import TalentPurchasePrompt from '@/app/TalentPurchasePrompt';
+import type CharacterSheet from '@/actor/sheets/CharacterSheet';
 
-const context = inject<ActorSheetContext<CharacterDataModel>>(RootContext)!;
+const context = inject<ActorSheetContext<CharacterDataModel, CharacterSheet>>(RootContext)!;
 
 type ProfessionStageState = 'current' | 'completed' | 'upcoming';
+
+const ACTIVE_SPECIALIZATION_FLAG = 'activeSpecializationId';
+const PROFESSION_BY_SPECIALIZATION_FLAG = 'professionStepBySpecialization';
 
 function t(key: string, fallback: string, formatArgs?: Record<string, string | number>): string {
 	if (game?.i18n) {
@@ -29,6 +34,7 @@ const actor = computed(() => {
 	context.renderKey;
 	return toRaw(reactiveActor.value);
 });
+
 const system = computed(() => {
 	context.renderKey;
 	return reactiveActor.value.systemData;
@@ -36,6 +42,7 @@ const system = computed(() => {
 const talentUnavailableMessage = t('Genesys.Specializations.TalentUnavailable', 'This talent is not available yet. You must first purchase a connected talent.');
 const notEnoughXpMessage = t('Genesys.Notifications.NotEnoughXP', 'Not enough XP.');
 const availableXpLabel = t('Genesys.TalentTree.AvailableXP', 'Available XP:');
+const activeSpecializationLabel = t('Genesys.Specializations.ActiveSpecialization', 'Aktywna specjalizacja');
 
 function createEmptyTreeData(): TalentTreeData {
 	return {
@@ -70,6 +77,16 @@ function professionId(step: SpecializationProfessionStep, index: number) {
 	return step.id || professionKey(step, index);
 }
 
+function getSpecializationProfessionPath(specialization: GenesysItem<SpecializationDataModel>) {
+	const systemDataPath = specialization.systemData?.professionPath;
+	if (Array.isArray(systemDataPath)) {
+		return systemDataPath;
+	}
+
+	const rawPath = (specialization.system as Partial<SpecializationDataModel> | undefined)?.professionPath;
+	return Array.isArray(rawPath) ? rawPath : [];
+}
+
 function getProfessionDisplayNumber(index: number) {
 	const previousBaseSteps = professionPath.value.slice(0, index).filter((step) => !step.isAlternative).length;
 	if (professionPath.value[index]?.isAlternative) {
@@ -84,13 +101,25 @@ const availableXP = computed(() => actor.value.systemData.availableXP ?? 0);
 const isGM = computed(() => game.user?.isGM || false);
 const specializations = computed(() => {
 	context.renderKey;
-	return Array.from(actor.value.items).filter((item) => item.type === 'specialization') as GenesysItem<SpecializationDataModel>[];
+	const actorItems = arrayFromItems<GenesysItem<SpecializationDataModel>>(actor.value.items);
+	return actorItems.filter((item) => item.type === 'specialization');
 });
-const mainSpecialization = computed(() => specializations.value[0] ?? null);
-const professionPath = computed(() => mainSpecialization.value?.systemData.professionPath ?? []);
+const activeSpecializationId = ref((actor.value.getFlag('genesys', ACTIVE_SPECIALIZATION_FLAG) as string | undefined) ?? '');
+const mainSpecialization = computed(() => specializations.value.find((specialization) => specialization.id === activeSpecializationId.value) ?? specializations.value[0] ?? null);
+const professionPath = computed(() => (mainSpecialization.value ? getSpecializationProfessionPath(mainSpecialization.value) : []));
 const selectedProfessionId = ref('');
 const currentProfessionIndex = computed(() => professionPath.value.findIndex((step, index) => isCurrentProfession(step, index)));
 const treeData = ref<TalentTreeData>(createEmptyTreeData());
+
+function getProfessionStepMap() {
+	const rawMap = actor.value.getFlag('genesys', PROFESSION_BY_SPECIALIZATION_FLAG);
+	return rawMap && typeof rawMap === 'object' ? { ...(rawMap as Record<string, string>) } : {};
+}
+
+function getSelectedProfessionIdForSpecialization(specialization: GenesysItem<SpecializationDataModel>) {
+	const professionStepMap = getProfessionStepMap();
+	return professionStepMap[specialization.id] || (specialization.id === specializations.value[0]?.id ? system.value.mainProfessionId : '');
+}
 
 async function loadTreeData(): Promise<TalentTreeData> {
 	const specialization = mainSpecialization.value;
@@ -116,9 +145,9 @@ watch(
 );
 
 watch(
-	() => system.value.mainProfessionId,
-	(newProfessionId) => {
-		selectedProfessionId.value = newProfessionId || '';
+	[mainSpecialization, () => system.value.mainProfessionId, activeSpecializationId],
+	([specialization]) => {
+		selectedProfessionId.value = specialization ? getSelectedProfessionIdForSpecialization(specialization) : '';
 	},
 	{ immediate: true },
 );
@@ -361,6 +390,15 @@ function getInheritedProfessionEffects(index: number) {
 		}));
 }
 
+async function setActiveSpecialization(specializationId: string) {
+	if (activeSpecializationId.value === specializationId) {
+		return;
+	}
+
+	activeSpecializationId.value = specializationId;
+	await actor.value.setFlag('genesys', ACTIVE_SPECIALIZATION_FLAG, specializationId);
+}
+
 async function setCurrentProfession(step: SpecializationProfessionStep, index: number) {
 	const currentProfessionId = professionId(step, index);
 	if (selectedProfessionId.value === currentProfessionId) {
@@ -371,6 +409,13 @@ async function setCurrentProfession(step: SpecializationProfessionStep, index: n
 	selectedProfessionId.value = currentProfessionId;
 
 	try {
+		if (mainSpecialization.value) {
+			await actor.value.setFlag('genesys', PROFESSION_BY_SPECIALIZATION_FLAG, {
+				...getProfessionStepMap(),
+				[mainSpecialization.value.id]: currentProfessionId,
+			});
+		}
+
 		await actor.value.update({
 			'system.mainProfessionId': currentProfessionId,
 		});
@@ -384,11 +429,23 @@ async function setCurrentProfession(step: SpecializationProfessionStep, index: n
 <template>
 	<div class="specializations-tab" :class="{ 'has-specialization': mainSpecialization }">
 		<template v-if="mainSpecialization">
+			<section v-if="specializations.length > 1" class="specialization-management">
+				<div class="active-specialization-picker">
+					<span>{{ activeSpecializationLabel }}</span>
+					<button
+						v-for="specialization in specializations"
+						:key="specialization.id"
+						type="button"
+						:class="{ active: specialization.id === mainSpecialization.id }"
+						@click="setActiveSpecialization(specialization.id)"
+					>
+						{{ specialization.name }}
+					</button>
+				</div>
+			</section>
+
 			<div class="talent-tree-fullscreen">
 				<div class="tree-header">
-					<div class="spec-name-display" :class="{ 'is-empty': !mainSpecialization.name?.trim() }">
-						{{ mainSpecialization.name }}
-					</div>
 					<div class="xp-display">
 						{{ availableXpLabel }} <span class="xp-val" :style="{ color: availableXP >= 0 ? '#2e7d32' : '#d32f2f' }">{{ availableXP }}</span>
 					</div>
@@ -398,7 +455,6 @@ async function setCurrentProfession(step: SpecializationProfessionStep, index: n
 					:tree-data="treeData"
 					:mode="isGM ? 'gm' : 'view'"
 					:available-xp="availableXP"
-					:specialization-name="mainSpecialization.name"
 					:show-header="false"
 					@update:tree-data="handleTreeDataUpdate"
 					@node-click="handleNodeClick"
@@ -470,6 +526,7 @@ async function setCurrentProfession(step: SpecializationProfessionStep, index: n
 								</div>
 							</div>
 						</div>
+
 					</article>
 				</div>
 
@@ -519,7 +576,7 @@ async function setCurrentProfession(step: SpecializationProfessionStep, index: n
 
 	.tree-header {
 		display: flex;
-		justify-content: space-between;
+		justify-content: flex-end;
 		align-items: center;
 		gap: 0.75rem;
 		padding: 0.5rem 0.75rem;
@@ -528,8 +585,7 @@ async function setCurrentProfession(step: SpecializationProfessionStep, index: n
 		border-radius: 0.75rem;
 		color: white;
 
-		.xp-display,
-		.spec-name-display {
+		.xp-display {
 			font-family: 'Bebas Neue', sans-serif;
 			letter-spacing: 0.03em;
 		}
@@ -543,15 +599,6 @@ async function setCurrentProfession(step: SpecializationProfessionStep, index: n
 			}
 		}
 
-		.spec-name-display {
-			flex: 1;
-			text-align: left;
-			font-size: 1.3em;
-
-			&.is-empty {
-				visibility: hidden;
-			}
-		}
 	}
 
 	.no-specializations {
@@ -820,6 +867,48 @@ async function setCurrentProfession(step: SpecializationProfessionStep, index: n
 
 	p {
 		margin-top: 0.2em;
+	}
+}
+
+.specialization-management {
+	display: flex;
+	flex: 0 0 auto;
+}
+
+.active-specialization-picker {
+	background: transparentize(colors.$light-blue, 0.8);
+	border: 1px solid transparentize(colors.$blue, 0.45);
+	border-radius: 0.85em;
+	padding: 0.55em 0.65em;
+}
+
+.active-specialization-picker {
+	display: flex;
+	align-items: center;
+	gap: 0.45em;
+	flex-wrap: wrap;
+
+	span {
+		font-family: 'Bebas Neue', sans-serif;
+		font-size: 1rem;
+		color: colors.$dark-blue;
+		margin-right: 0.2em;
+	}
+
+	button {
+		border: 1px solid rgba(39, 67, 90, 0.2);
+		border-radius: 0.55em;
+		background: rgba(255, 255, 255, 0.65);
+		color: colors.$dark-blue;
+		padding: 0.25em 0.6em;
+		font-family: 'Roboto Slab', serif;
+		font-size: 0.82rem;
+		cursor: pointer;
+
+		&.active {
+			border-color: rgba(199, 156, 75, 0.85);
+			background: rgba(255, 244, 214, 0.95);
+		}
 	}
 }
 

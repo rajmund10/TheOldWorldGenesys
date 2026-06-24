@@ -6,11 +6,11 @@ import CharacterMeta from '@/vue/sheets/actor/character/CharacterMeta.vue';
 import CombatStat from '@/vue/components/character/CombatStat.vue';
 import Localized from '@/vue/components/Localized.vue';
 import EffectsView from '@/vue/views/EffectsView.vue';
+import { arrayFromItems } from '@/utils/collection';
 
 import JournalTab from '@/vue/sheets/actor/character/JournalTab.vue';
 import SkillsTab from '@/vue/sheets/actor/character/SkillsTab.vue';
 import TalentsTab from '@/vue/sheets/actor/character/TalentsTab.vue';
-import SpecializationsTab from '@/vue/sheets/actor/character/SpecializationsTab.vue';
 import MagicTab from '@/vue/sheets/actor/character/MagicTab.vue';
 import InventoryTab from '@/vue/sheets/actor/character/InventoryTab.vue';
 import CombatTab from '@/vue/sheets/actor/character/CombatTab.vue';
@@ -29,7 +29,7 @@ const system = computed(() => {
 });
 const specializations = computed(() => {
 	context.renderKey;
-	return Array.from(actor.value.items).filter((item) => item.type === 'specialization') as GenesysItem<SpecializationDataModel>[];
+	return arrayFromItems<GenesysItem<SpecializationDataModel>>(actor.value.items).filter((item) => item.type === 'specialization');
 });
 const hasMagicAccess = computed(() => resolveMagicProfileFromSpecializations(specializations.value).enabled);
 
@@ -61,7 +61,6 @@ onMounted(() => {
 		sheetBodyRef.value.addEventListener('scroll', () => {
 			if (!isRestoringScroll.value && sheetBodyRef.value) {
 				savedScrollTop.value = sheetBodyRef.value.scrollTop;
-				console.log('[CharacterSheet] Scroll saved:', savedScrollTop.value);
 			}
 		});
 	}
@@ -71,14 +70,12 @@ onMounted(() => {
 	function saveScroll() {
 		if (sheetBodyRef.value) {
 			savedScrollTop.value = sheetBodyRef.value.scrollTop;
-			console.log('[CharacterSheet] Saving scroll before update:', savedScrollTop.value);
 		}
 	}
 
 	function restoreScroll() {
 		nextTick(() => {
 			if (sheetBodyRef.value) {
-				console.log('[CharacterSheet] Restoring scroll to:', savedScrollTop.value);
 				isRestoringScroll.value = true;
 				sheetBodyRef.value.scrollTop = savedScrollTop.value;
 				setTimeout(() => {
@@ -124,7 +121,7 @@ onMounted(() => {
 
 <template>
 	<div class="character-sheet">
-		<CharacterMeta />
+		<CharacterMeta :show-specialization-fields="false" />
 
 		<section class="combat-stat-row">
 			<CombatStat label="Genesys.Labels.SoakValue" :value="system.totalSoak" />
@@ -166,7 +163,6 @@ onMounted(() => {
 			<a class="item" data-tab="skills"><Localized label="Genesys.Tabs.Skills" /></a>
 			<a class="item" data-tab="combat"><Localized label="Genesys.Tabs.Combat" /></a>
 			<a class="item" data-tab="talents"><Localized label="Genesys.Tabs.Talents" /></a>
-			<a class="item" data-tab="specializations"><Localized label="Genesys.Tabs.Specializations" /></a>
 			<a v-if="hasMagicAccess" class="item" data-tab="magic"><Localized label="Genesys.Tabs.Magic" /></a>
 			<a class="item" data-tab="inventory"><Localized label="Genesys.Tabs.Inventory" /></a>
 			<a class="item" data-tab="effects"><Localized label="Genesys.Tabs.Effects" /></a>
@@ -181,8 +177,6 @@ onMounted(() => {
 			<div class="tab" data-tab="combat"><CombatTab /></div>
 
 			<div class="tab" data-tab="talents"><TalentsTab /></div>
-
-			<div class="tab" data-tab="specializations"><SpecializationsTab /></div>
 
 			<div v-if="hasMagicAccess" class="tab" data-tab="magic"><MagicTab /></div>
 

@@ -11,6 +11,8 @@ import CharacterDataModel from '@/actor/data/CharacterDataModel';
 import SkillDataModel from '@/item/data/SkillDataModel';
 import GenesysItem from '@/item/GenesysItem';
 import TalentDataModel from '@/item/data/TalentDataModel';
+import CareerDataModel from '@/item/data/CareerDataModel';
+import SpecializationDataModel from '@/item/data/SpecializationDataModel';
 import { Characteristic } from '@/data/Characteristics';
 import { CombatPool } from '@/data/Actors';
 
@@ -47,6 +49,11 @@ export enum EntryType {
 	 * XP spent to increase an existing talent's rank.
 	 */
 	TalentRank = 'TalentRank',
+
+	/**
+	 * XP spent to purchase an additional specialization.
+	 */
+	Specialization = 'Specialization',
 }
 
 /**
@@ -100,6 +107,60 @@ type TalentRankEntryData = {
 	tier: number;
 	rank: number;
 };
+
+type SpecializationEntryData = {
+	name: string;
+	id: string;
+	cost: number;
+	source?: string;
+};
+
+function normalizeSkillName(name: string) {
+	return name.trim().toLocaleLowerCase();
+}
+
+function careerSkillName(skill: unknown): string {
+	if (typeof skill === 'string') {
+		return skill;
+	}
+
+	if (skill && typeof skill === 'object' && 'name' in skill) {
+		return String((skill as { name?: unknown }).name ?? '');
+	}
+
+	return '';
+}
+
+async function syncCareerSkillFlags(actor: GenesysActor<CharacterDataModel>, excludedItemId?: string) {
+	const careerSkillNames = new Set<string>();
+
+	for (const item of actor.items) {
+		if (item.id === excludedItemId) {
+			continue;
+		}
+
+		if (item.type === 'career') {
+			const career = item as GenesysItem<CareerDataModel>;
+			for (const skillName of career.systemData.careerSkills.map(careerSkillName)) {
+				careerSkillNames.add(normalizeSkillName(skillName));
+			}
+		} else if (item.type === 'specialization') {
+			const specialization = item as GenesysItem<SpecializationDataModel>;
+			for (const skillName of specialization.systemData.careerSkills ?? []) {
+				careerSkillNames.add(normalizeSkillName(skillName));
+			}
+		}
+	}
+
+	const skills = actor.items.filter((item) => item.type === 'skill') as GenesysItem<SkillDataModel>[];
+	await Promise.all(
+		skills.map((skill) =>
+			skill.update({
+				'system.career': careerSkillNames.has(normalizeSkillName(skill.name)),
+			}),
+		),
+	);
+}
 
 export async function removeJournalEntry(actor: GenesysActor<CharacterDataModel>, index: number) {
 	if (index >= actor.systemData.experienceJournal.entries.length) {
@@ -197,6 +258,18 @@ export async function removeJournalEntry(actor: GenesysActor<CharacterDataModel>
 			await talent.update({
 				'system.rank': talent.systemData.rank - 1,
 			});
+
+			break;
+		}
+
+		case EntryType.Specialization: {
+			const data = <SpecializationEntryData>removedEntry.data;
+			const specialization = actor.items.find((i) => i.type === 'specialization' && i.id === data.id) as GenesysItem<SpecializationDataModel> | undefined;
+
+			if (specialization) {
+				await specialization.delete();
+				await syncCareerSkillFlags(actor, specialization.id);
+			}
 
 			break;
 		}

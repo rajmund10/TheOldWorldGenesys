@@ -676,6 +676,11 @@ function renderOptionRows(
 		.join('');
 }
 
+function hasRenderableOptions(options: SymbolSpendOption[], flag: SymbolSpendingFlag, selections: SymbolSpendSelection[]) {
+	const originalPool = getSpendableSymbols(flag.results);
+	return options.some((entry) => getSelectionCount(selections, entry.id) > 0 || getOptionCosts(entry).some((cost) => hasEnoughSymbolsInPool(originalPool, cost)));
+}
+
 function renderPositiveSection(
 	title: string,
 	options: SymbolSpendOption[],
@@ -713,7 +718,7 @@ function renderPositiveSection(
 			title: localize('Genesys.SymbolSpending.CostTriumph', 'Triumf'),
 			options: tableOptions.filter((entry) => getPositiveCostColumn(getPrimaryColumnCost(entry, originalPool, getSelectedOptionCost(entry, selections))) === 'triumph'),
 		},
-	].filter((column) => column.id !== 'triumph' || originalPool.triumphs > 0);
+	].filter((column) => (column.id !== 'triumph' || originalPool.triumphs > 0) && hasRenderableOptions(column.options, flag, selections));
 	const shouldShowWeaponColumn = weaponOptions.length > 0 && (originalPool.triumphs > 0 || Boolean(flag.attack?.criticalAllowed));
 	const positiveColumns = [
 		...tableColumns,
@@ -722,7 +727,11 @@ function renderPositiveSection(
 			title: localize('Genesys.SymbolSpending.WeaponColumn', 'Krytyki i cechy broni'),
 			options: weaponOptions,
 		}] : []),
-	];
+	].filter((column) => hasRenderableOptions(column.options, flag, selections));
+
+	if (!positiveColumns.length) {
+		return '';
+	}
 
 	return `
 		<section class="symbol-spending-section ${canUseSide(side, permission, flag) ? '' : 'is-locked'}">
@@ -790,7 +799,11 @@ function renderNegativeSection(
 			title: localize('Genesys.SymbolSpending.ChaosManifestations', 'Manifestacje'),
 			options: chaosOptions,
 		}] : []),
-	];
+	].filter((column) => hasRenderableOptions(column.options, flag, selections));
+
+	if (!allColumns.length) {
+		return '';
+	}
 
 	return `
 		<section class="symbol-spending-section ${canUseSide(side, permission, flag) ? '' : 'is-locked'}">
@@ -808,6 +821,17 @@ function renderNegativeSection(
 	`;
 }
 
+function getSymbolSpendingDialogWidth(flag: SymbolSpendingFlag) {
+	const pool = getSpendableSymbols(flag.results);
+	const positiveColumnCount = Math.min(pool.advantages, 3) + (pool.triumphs > 0 ? 1 : 0) + (pool.triumphs > 0 || flag.attack?.criticalAllowed ? 1 : 0);
+	const negativeColumnCount = Math.min(pool.threats, 3) + (pool.despairs > 0 ? 1 : 0);
+	const visibleSideCount = Number(positiveColumnCount > 0) + Number(negativeColumnCount > 0);
+	const totalColumnCount = positiveColumnCount + negativeColumnCount;
+
+	const sideBySideMinimum = visibleSideCount > 1 ? 1546 : 0;
+	return Math.min(1546, Math.max(560, sideBySideMinimum, 300 + totalColumnCount * 225 + Math.max(0, visibleSideCount - 1) * 40));
+}
+
 function renderDialogContent(flag: SymbolSpendingFlag, options: SymbolSpendOption[], selections: SymbolSpendSelection[], permission: ReturnType<typeof getActorPermission>) {
 	const visibleOptions = getVisibleOptions(options, selections);
 	const originalPool = getSpendableSymbols(flag.results);
@@ -816,6 +840,9 @@ function renderDialogContent(flag: SymbolSpendingFlag, options: SymbolSpendOptio
 	const negative = visibleOptions.filter((entry) => entry.side === 'negative');
 	const magic = visibleOptions.filter((entry) => entry.side === 'magic');
 	const hasChaosOption = visibleOptions.some((entry) => entry.kind === 'chaos' && getOptionCosts(entry).some((cost) => canSelectOptionCost(entry, cost, flag, selections, permission)));
+	const positiveSection = renderPositiveSection(localize('Genesys.SymbolSpending.Positive', 'Pozytywne symbole'), positive, flag, selections, permission);
+	const negativeSection = renderNegativeSection(localize('Genesys.SymbolSpending.Negative', 'Negatywne symbole'), negative, magic, flag, selections, permission);
+	const sectionCount = Number(Boolean(positiveSection)) + Number(Boolean(negativeSection));
 
 	return `
 		<div class="symbol-spending-dialog-body">
@@ -831,9 +858,9 @@ function renderDialogContent(flag: SymbolSpendingFlag, options: SymbolSpendOptio
 					</div>
 				</div>
 			</div>
-			<div class="symbol-spending-columns">
-				${renderPositiveSection(localize('Genesys.SymbolSpending.Positive', 'Pozytywne symbole'), positive, flag, selections, permission)}
-				${renderNegativeSection(localize('Genesys.SymbolSpending.Negative', 'Negatywne symbole'), negative, magic, flag, selections, permission)}
+			<div class="symbol-spending-columns ${sectionCount > 1 ? 'has-two-sections' : 'has-one-section'}">
+				${positiveSection}
+				${negativeSection}
 			</div>
 			${hasChaosOption ? `<label class="symbol-spending-story-point"><input type="checkbox" name="useStoryPoint"> ${localize('Genesys.ChaosManifestation.UseStoryPoint', 'Użyj Punktu Opowieści')}</label>` : ''}
 		</div>
@@ -941,19 +968,7 @@ async function promptForSpending(flag: SymbolSpendingFlag, actor: GenesysActor |
 			{
 				title: localize('Genesys.SymbolSpending.Title', 'Wydawanie symboli'),
 				content: renderDialogContent(flag, options, selections, permission),
-				buttons: {
-					confirm: {
-						label: localize('Genesys.SymbolSpending.Confirm', 'Zatwierdź'),
-						callback: (html) => {
-							const root = appHtml?.[0] ?? html[0];
-							resolveOnce({ selections: [...selections], useStoryPoint: getUseStoryPoint(root) });
-						},
-					},
-					cancel: {
-						label: localize('Genesys.SymbolSpending.Cancel', 'Anuluj'),
-						callback: () => resolveOnce(null),
-					},
-				},
+				buttons: {},
 				render: (html) => {
 					appHtml = html instanceof HTMLElement ? $(html) : html;
 					contentHtml = getContent(appHtml);
@@ -965,7 +980,7 @@ async function promptForSpending(flag: SymbolSpendingFlag, actor: GenesysActor |
 			{
 				classes: ['symbol-spending-dialog'],
 				resizable: true,
-				width: 1546,
+				width: getSymbolSpendingDialogWidth(flag),
 				height: 655,
 			},
 		);

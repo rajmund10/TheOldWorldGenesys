@@ -9,6 +9,7 @@ import MagicAccessoryDataModel from '@/item/data/MagicAccessoryDataModel';
 import SkillDataModel from '@/item/data/SkillDataModel';
 import SpecializationDataModel from '@/item/data/SpecializationDataModel';
 import { findMagicSpecialization, getMagicActionDefinitions, getMagicSkillNameAliases, hasMagicRank, resolveMagicProfileFromSpecialization, type MagicActionDefinition } from '@/magic/MagicProfiles';
+import { arrayFromItems } from '@/utils/collection';
 import { ActorSheetContext, RootContext } from '@/vue/SheetContext';
 
 const context = inject<ActorSheetContext<CharacterDataModel>>(RootContext)!;
@@ -27,7 +28,7 @@ function t(key: string, fallback: string, formatArgs?: Record<string, string | n
 	return fallback;
 }
 
-const specializations = computed(() => Array.from(actor.value.items).filter((item) => item.type === 'specialization') as GenesysItem<SpecializationDataModel>[]);
+const specializations = computed(() => arrayFromItems<GenesysItem<SpecializationDataModel>>(actor.value.items).filter((item) => item.type === 'specialization'));
 const magicSpecialization = computed(() => findMagicSpecialization(specializations.value));
 const profile = computed(() => resolveMagicProfileFromSpecialization(magicSpecialization.value));
 
@@ -37,7 +38,7 @@ const primarySkill = computed(() => {
 		return null;
 	}
 
-	return (Array.from(actor.value.items).find((item) => item.type === 'skill' && skillNames.includes(item.name.toLowerCase())) as GenesysItem<SkillDataModel> | undefined) ?? null;
+	return (arrayFromItems<GenesysItem<SkillDataModel>>(actor.value.items).find((item) => item.type === 'skill' && skillNames.includes(item.name.toLowerCase())) as GenesysItem<SkillDataModel> | undefined) ?? null;
 });
 
 const canCast = computed(() =>
@@ -61,7 +62,7 @@ const showRankWarning = computed(() => profile.value.enabled && !canCast.value);
 const canBuildSpellActions = computed(() => canCast.value && !!primarySkill.value);
 const equippedMagicAccessories = computed(
 	() =>
-		(Array.from(actor.value.items) as GenesysItem[])
+		(arrayFromItems<GenesysItem>(actor.value.items) as GenesysItem[])
 			.filter((item) => item.type === 'magicAccessory' && (item.systemData as MagicAccessoryDataModel).state === EquipmentState.Equipped)
 			.sort((left, right) => left.name.localeCompare(right.name)) as GenesysItem<MagicAccessoryDataModel>[],
 );
@@ -71,7 +72,7 @@ const activeMagicAccessoryId = computed(() => {
 });
 const knowledgeSkills = computed(
 	() =>
-		(Array.from(actor.value.items) as GenesysItem[])
+		(arrayFromItems<GenesysItem>(actor.value.items) as GenesysItem[])
 			.filter((item) => item.type === 'skill' && (item.systemData as SkillDataModel).category === 'knowledge')
 			.sort((left, right) => left.name.localeCompare(right.name)) as GenesysItem<SkillDataModel>[],
 );

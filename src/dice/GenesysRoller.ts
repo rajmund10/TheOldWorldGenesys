@@ -135,7 +135,7 @@ export default class GenesysRoller {
 
 		const skill = actor?.items.get(skillId) as GenesysItem | undefined;
 		const skillCategory = (skill?.systemData as { category?: string } | undefined)?.category;
-		const rollType = chaosManifestation?.enabled || skillCategory === 'magic' ? 'magic' : skillCategory === 'combat' ? 'combat' : undefined;
+		const rollType = chaosManifestation?.enabled || skillCategory === 'magic' ? 'magic' : actor ? 'combat' : undefined;
 		const chaosManifestationData = buildChaosManifestationRollData(chaosManifestation, actor, results);
 		const symbolSpending = buildSymbolSpendingFlag(actor, results, {
 			rollType,
