@@ -1,16 +1,29 @@
 <script lang="ts" setup>
 import BasicItemSheet from '@/vue/sheets/item/BasicItemSheet.vue';
 import Localized from '@/vue/components/Localized.vue';
-import { computed, inject, ref, watchEffect } from 'vue';
+import { computed, inject, onMounted, ref, watchEffect } from 'vue';
 import { ItemSheetContext, RootContext } from '@/vue/SheetContext';
 import CareerDataModel from '@/item/data/CareerDataModel';
 import Editor from '@/vue/components/Editor.vue';
+import { DEFAULT_SKILLS_COMPENDIUM } from '@/config';
 
 const context = inject<ItemSheetContext<CareerDataModel>>(RootContext)!;
 const system = computed(() => context.data.item.systemData);
 
 const source = ref('');
 const specializationKeyPlaceholder = game.i18n.localize('Genesys.Career.SpecializationKeyPlaceholder');
+const skillSearch = ref('');
+const skillSearchPlaceholder = game.i18n.localize('Genesys.Career.SkillSearchPlaceholder');
+const skillOptions = ref<SkillOption[]>([]);
+const isLoadingSkillOptions = ref(false);
+
+type SkillOption = {
+	name: string;
+	img: string;
+	category: string;
+	source: string;
+	itemData: Record<string, unknown>;
+};
 
 watchEffect(async () => {
 	source.value = await TextEditor.enrichHTML(system.value.source, { async: true });
@@ -30,6 +43,54 @@ function skillName(skill: unknown) {
 	return '';
 }
 
+function normalizeSkillName(name: string) {
+	return name.trim().toLocaleLowerCase();
+}
+
+async function loadSkillOptions() {
+	if (skillOptions.value.length || isLoadingSkillOptions.value) {
+		return;
+	}
+
+	isLoadingSkillOptions.value = true;
+
+	try {
+		const compendiumName = CONFIG.genesys.settings.skillsCompendium || DEFAULT_SKILLS_COMPENDIUM;
+		const compendium = game.packs.get(compendiumName);
+		if (!compendium) {
+			return;
+		}
+
+		const documents = await compendium.getDocuments() as any[];
+		skillOptions.value = documents
+			.filter((document) => document.type === 'skill')
+			.map((document) => {
+				const systemData = document.systemData ?? document.system ?? {};
+				return {
+					name: document.name ?? '',
+					img: document.img ?? 'icons/svg/book.svg',
+					category: systemData.category ?? '',
+					source: systemData.source ?? '',
+					itemData: document.toObject(),
+				};
+			})
+			.filter((skill) => !!skill.name)
+			.sort((left, right) => left.name.localeCompare(right.name));
+	} finally {
+		isLoadingSkillOptions.value = false;
+	}
+}
+
+const filteredSkillOptions = computed(() => {
+	const query = normalizeSkillName(skillSearch.value);
+	const selectedNames = new Set(system.value.careerSkills.map((skill) => normalizeSkillName(skillName(skill))).filter(Boolean));
+
+	return skillOptions.value
+		.filter((skill) => !selectedNames.has(normalizeSkillName(skill.name)))
+		.filter((skill) => !query || normalizeSkillName(skill.name).includes(query))
+		.slice(0, 8);
+});
+
 async function syncOwnedActorCareerSkills(skillNames: string[]) {
 	const actor = (context.data.item as any).actor;
 	if (!actor) {
@@ -38,6 +99,20 @@ async function syncOwnedActorCareerSkills(skillNames: string[]) {
 
 	await (actor.sheet as any)?.syncCareerSkillFlags?.(skillNames);
 	actor.sheet?.render(false);
+}
+
+async function addSkill(skill: SkillOption) {
+	if (system.value.careerSkills.some((careerSkill) => normalizeSkillName(skillName(careerSkill)) === normalizeSkillName(skill.name))) {
+		ui.notifications.warn(`Umiejętność "${skill.name}" jest już dodana do tej kariery.`);
+		return;
+	}
+
+	const updatedSkills = [...system.value.careerSkills, skill.itemData];
+	await context.data.item.update({
+		'system.careerSkills': updatedSkills,
+	});
+	await syncOwnedActorCareerSkills([skill.name]);
+	skillSearch.value = '';
 }
 
 async function removeSkill(index: number) {
@@ -82,6 +157,10 @@ async function removeSpecializationKey(index: number) {
 		'system.availableSpecializationKeys': updatedKeys,
 	});
 }
+
+onMounted(() => {
+	void loadSkillOptions();
+});
 </script>
 
 <template>
@@ -128,11 +207,39 @@ async function removeSpecializationKey(index: number) {
 
 				<div class="row">
 					<label><Localized label="Genesys.Career.Skills" /></label>
-					<div v-for="(skill, index) in system.careerSkills" :key="skill.name" class="career-skill">
-						<img :src="skill.img" :alt="skill.name" />
-						<span class="name">{{ skill.name }}</span>
-						<div v-if="context.data.editable">
-							<a @click="removeSkill(index)"><i class="fas fa-trash"></i></a>
+					<div class="career-skills-panel">
+						<div class="skill-picker">
+							<input
+								type="text"
+								v-model="skillSearch"
+								:placeholder="skillSearchPlaceholder"
+								@focus="loadSkillOptions"
+								autocomplete="off"
+							/>
+
+							<div v-if="skillSearch && filteredSkillOptions.length > 0" class="skill-suggestions">
+								<button v-for="option in filteredSkillOptions" :key="option.name" type="button" class="skill-suggestion" @mousedown.prevent="addSkill(option)">
+									<img :src="option.img" :alt="option.name" />
+									<span>{{ option.name }}</span>
+									<em v-if="option.category">{{ option.category }}</em>
+								</button>
+							</div>
+						</div>
+
+						<p class="field-hint"><Localized label="Genesys.Career.SkillSearchHint" /></p>
+
+						<div v-if="system.careerSkills.length" class="career-skill-list">
+							<div v-for="(skill, index) in system.careerSkills" :key="skill.name" class="career-skill">
+								<img :src="skill.img" :alt="skill.name" />
+								<span class="name">{{ skill.name }}</span>
+								<div v-if="context.data.editable">
+									<a @click="removeSkill(index)"><i class="fas fa-trash"></i></a>
+								</div>
+							</div>
+						</div>
+
+						<div v-else class="empty-specializations">
+							<Localized label="Genesys.Career.EmptySkills" />
 						</div>
 					</div>
 				</div>
@@ -291,6 +398,90 @@ section.overview {
 
 	& > div {
 		grid-column: 4 / span 1;
+	}
+}
+
+.career-skills-panel {
+	display: flex;
+	flex-direction: column;
+	gap: 0.45em;
+	width: 100%;
+	min-width: 0;
+}
+
+.career-skill-list {
+	display: flex;
+	flex-direction: column;
+	gap: 0.3em;
+}
+
+.skill-picker {
+	position: relative;
+	width: 100%;
+	min-width: 0;
+
+	input {
+		width: 100%;
+		min-width: 0;
+	}
+}
+
+.skill-suggestions {
+	position: absolute;
+	z-index: 20;
+	top: calc(100% + 0.2rem);
+	left: 0;
+	right: 0;
+	display: flex;
+	flex-direction: column;
+	max-height: 10rem;
+	overflow-y: auto;
+	border: 1px solid transparentize(colors.$blue, 0.45);
+	border-radius: 0.35em;
+	background: rgba(245, 244, 235, 0.98);
+	box-shadow: 0 0.35rem 0.8rem rgba(0, 0, 0, 0.18);
+}
+
+.skill-suggestion {
+	display: grid;
+	grid-template-columns: auto minmax(0, 1fr) max-content;
+	align-items: center;
+	gap: 0.4em;
+	width: 100% !important;
+	height: auto;
+	min-height: 0;
+	margin: 0;
+	padding: 0.35em 0.45em;
+	border: none !important;
+	border-radius: 0;
+	background: transparent !important;
+	box-shadow: none;
+	color: colors.$dark-blue;
+	text-align: left;
+	font-family: 'Roboto Slab', serif;
+	line-height: 1.15;
+
+	&:hover {
+		background: transparentize(colors.$blue, 0.86) !important;
+	}
+
+	img {
+		width: 1.4rem;
+		height: 1.4rem;
+		border: none;
+		object-fit: cover;
+	}
+
+	span {
+		min-width: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	em {
+		font-size: 0.72rem;
+		color: #5f7182;
 	}
 }
 

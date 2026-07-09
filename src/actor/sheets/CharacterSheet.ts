@@ -23,6 +23,7 @@ import { ActorSheetContext } from '@/vue/SheetContext';
 import { DragTransferData } from '@/data/DragTransferData';
 import { transferInventoryBetweenActors } from '@/operations/TransferBetweenActors';
 import { EquipmentState } from '@/item/data/EquipmentDataModel';
+import { addDefaultSkillsToActor, GENESYS_CORE_SKILL_NAMES, replaceDefaultSkillsForActor } from '@/actor/skills/DefaultSkills';
 
 function normalizeSkillName(name: string) {
 	return name.trim().toLocaleLowerCase();
@@ -68,8 +69,19 @@ export default class CharacterSheet extends VueSheet(GenesysActorSheet<Character
 		return VueCharacterSheet;
 	}
 
+	get defaultSkillNames() {
+		return GENESYS_CORE_SKILL_NAMES;
+	}
+
+	get defaultSkillProfileId() {
+		return 'genesys-core';
+	}
+
+	get currencyLabel() {
+		return CONFIG.genesys?.settings?.currencyName || 'Pieniądze';
+	}
+
 	override async getVueContext(): Promise<ActorSheetContext<CharacterDataModel>> {
-		// Ensure skills are present - if not, add them
 		await this.ensureSkills();
 		await this.syncCareerSkillFlags();
 		this.#renderKey += 1;
@@ -77,48 +89,26 @@ export default class CharacterSheet extends VueSheet(GenesysActorSheet<Character
 		return {
 			sheet: this,
 			renderKey: this.#renderKey,
+			currencyLabel: this.currencyLabel,
 			data: await this.getData(),
 		};
 	}
 	
 	/**
-	 * Ensure the character has skills from the configured compendium.
-	 * This is a fallback in case preCreate failed to add them.
+	 * Ensure the character has this sheet's default skills from the shared compendium.
 	 */
 	async ensureSkills() {
-		const skills = this.actor.items.filter((i) => i.type === 'skill');
-		
-		if (skills.length === 0) {
-			const skillsCompendiumName = CONFIG.genesys?.settings?.skillsCompendium || 'genesys.crb-skills';
-			const pack = game.packs.get(skillsCompendiumName);
-			
-			if (!pack) {
+		try {
+			const currentProfileId = this.actor.getFlag('genesys', 'skillProfileId');
+			if (currentProfileId !== this.defaultSkillProfileId) {
+				await replaceDefaultSkillsForActor(this.actor, this.defaultSkillNames);
+				await this.actor.setFlag('genesys', 'skillProfileId', this.defaultSkillProfileId);
 				return;
 			}
-			
-			try {
-				const allDocuments = await pack.getDocuments();
-				const compendiumSkills = allDocuments.filter((item) => (item as GenesysItem).type === 'skill') as GenesysItem<SkillDataModel>[];
-				
-				if (compendiumSkills.length > 0) {
-					// Clean up skill data and create embedded documents
-					const skillData = compendiumSkills.map((skill) => {
-						const data = skill.toObject();
-						delete (data as any)._id;
-						delete (data as any)._stats;
-						delete (data as any).ownership;
-						delete (data as any).flags;
-						delete (data as any).folder;
-						delete (data as any).sort;
-						return data;
-					});
-					
-					await this.actor.createEmbeddedDocuments('Item', skillData);
-					ui.notifications.info(`Added ${skillData.length} skills to ${this.actor.name}`);
-				}
-			} catch (error) {
-				// Silent fail - skills can be added manually
-			}
+
+			await addDefaultSkillsToActor(this.actor, this.defaultSkillNames, false);
+		} catch (error) {
+			// Silent fail - skills can be added manually
 		}
 	}
 

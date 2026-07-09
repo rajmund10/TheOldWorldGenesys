@@ -15,6 +15,17 @@ import SortSlot from '@/vue/components/inventory/SortSlot.vue';
 
 const context = inject<ActorSheetContext<CharacterDataModel>>(RootContext)!;
 const system = computed(() => toRaw(context.data.actor).systemData);
+const props = withDefaults(
+	defineProps<{
+		currencyMode?: 'legacy' | 'warhammer';
+		currencyLabel?: string;
+	}>(),
+	{
+		currencyMode: 'legacy',
+		currencyLabel: '',
+	},
+);
+const currencyLabel = computed(() => props.currencyLabel || context.currencyLabel || (props.currencyMode === 'warhammer' ? 'Korony' : 'Pieniądze'));
 
 const isDraggable = ref(toRaw(context.data.actor).isOwner);
 const dragCounters = ref({
@@ -234,8 +245,9 @@ function dragLeave(event: DragEvent) {
 
 		<div class="encumbrance-currency-row">
 			<div class="currency-row">
-				<label><i class="fas fa-coins"></i> Pieniądze:</label>
-				<MoneyFields name-prefix="system.currencyDetails" :value="system.currencyDetails" compact />
+				<label><i class="fas fa-coins"></i> {{ currencyLabel }}:</label>
+				<MoneyFields v-if="props.currencyMode === 'warhammer'" name-prefix="system.currencyDetails" :value="system.currencyDetails" compact />
+				<input v-else type="number" name="system.currency" :value="system.currency" min="0" step="1" />
 			</div>
 
 			<div :class="`encumbrance-row ${system.isEncumbered ? 'encumbered' : ''}`">

@@ -15,7 +15,6 @@
     skill: Skill
     talent: Talent
     specialization: Specialization
-    profession: Profession
 
     # Equipment Items
     armor: Armor
@@ -606,6 +605,9 @@ Genesys:
     AddSpecializationKey: Add Specialization Key
     EmptySpecializations: No specialization keys defined for this career yet.
     SpecializationKeyPlaceholder: specialization-key
+    SkillSearchPlaceholder: Add a skill from the compendium
+    SkillSearchHint: Start typing a skill name or drag a skill from the compendium.
+    EmptySkills: This career has no career skills yet.
 
   # Range Values
   Range:

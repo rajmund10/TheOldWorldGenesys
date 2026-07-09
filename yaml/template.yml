@@ -164,7 +164,6 @@ Item:
     - skill
     - talent
     - specialization
-    - profession
   templates:
     basic:
       # Descriptive text for the item.
@@ -329,12 +328,6 @@ Item:
       allowMiscast: false
     # Profession progression within this specialization.
     professionPath: []
-  profession:
-    templates: [basic]
-    # List of specialization item IDs allowed for this profession
-    allowedSpecializations: []
-    # Career skills provided by this profession
-    careerSkills: []
   quality:
     templates: [basic]
     # Whether the quality passively applies or must be activated by spending Advantage.

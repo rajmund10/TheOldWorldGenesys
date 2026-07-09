@@ -8,10 +8,18 @@ import { EquipmentState } from '@/item/data/EquipmentDataModel';
 import MagicAccessoryDataModel from '@/item/data/MagicAccessoryDataModel';
 import SkillDataModel from '@/item/data/SkillDataModel';
 import SpecializationDataModel from '@/item/data/SpecializationDataModel';
-import { findMagicSpecialization, getMagicActionDefinitions, getMagicSkillNameAliases, hasMagicRank, resolveMagicProfileFromSpecialization, type MagicActionDefinition } from '@/magic/MagicProfiles';
+import { findMagicSpecialization, findRankedMagicSkill, getMagicActionDefinitions, getMagicSkillNameAliases, hasMagicRank, resolveMagicProfileFromSkill, resolveMagicProfileFromSpecialization, type MagicActionDefinition } from '@/magic/MagicProfiles';
 import { arrayFromItems } from '@/utils/collection';
 import { ActorSheetContext, RootContext } from '@/vue/SheetContext';
 
+const props = withDefaults(
+	defineProps<{
+		profileSource?: 'specialization' | 'skill';
+	}>(),
+	{
+		profileSource: 'specialization',
+	},
+);
 const context = inject<ActorSheetContext<CharacterDataModel>>(RootContext)!;
 const reactiveActor = computed(() => context.data.actor);
 const actor = computed(() => toRaw(reactiveActor.value));
@@ -30,7 +38,9 @@ function t(key: string, fallback: string, formatArgs?: Record<string, string | n
 
 const specializations = computed(() => arrayFromItems<GenesysItem<SpecializationDataModel>>(actor.value.items).filter((item) => item.type === 'specialization'));
 const magicSpecialization = computed(() => findMagicSpecialization(specializations.value));
-const profile = computed(() => resolveMagicProfileFromSpecialization(magicSpecialization.value));
+const skills = computed(() => arrayFromItems<GenesysItem<SkillDataModel>>(actor.value.items).filter((item) => item.type === 'skill'));
+const rankedMagicSkill = computed(() => findRankedMagicSkill(skills.value));
+const profile = computed(() => (props.profileSource === 'skill' ? resolveMagicProfileFromSkill(rankedMagicSkill.value) : resolveMagicProfileFromSpecialization(magicSpecialization.value)));
 
 const primarySkill = computed(() => {
 	const skillNames = getMagicSkillNameAliases(profile.value.primarySkillName).map((name) => name.toLowerCase());
@@ -101,12 +111,12 @@ const primaryRollDice = computed(() => {
 		...Array.from({ length: proficiencyDice }, (_, index) => ({
 			id: `proficiency-${index}`,
 			src: 'systems/genesys/dice/yellow.png',
-			alt: t('Genesys.DiceColors.Proficiency', 'Proficiency Die'),
+			alt: t('Genesys.DiceColors.Proficiency', 'Kość biegłości'),
 		})),
 		...Array.from({ length: abilityDice }, (_, index) => ({
 			id: `ability-${index}`,
 			src: 'systems/genesys/dice/green.png',
-			alt: t('Genesys.DiceColors.Ability', 'Ability Die'),
+			alt: t('Genesys.DiceColors.Ability', 'Kość zdolności'),
 		})),
 	];
 });
@@ -149,19 +159,19 @@ async function selectMagicKnowledgeSkill(event: Event) {
 	<section class="magic-tab">
 		<div v-if="!profile.enabled" class="magic-empty-state">
 			<i class="fas fa-hat-wizard"></i>
-			<h3>{{ t('Genesys.Magic.LockedTitle', 'Magic is locked.') }}</h3>
-			<p>{{ t('Genesys.Magic.LockedHint', 'Assign or configure a magical specialization to unlock this tab.') }}</p>
+			<h3>{{ t('Genesys.Magic.LockedTitle', 'Magia jest zablokowana.') }}</h3>
+			<p>{{ t('Genesys.Magic.LockedHint', 'Przypisz specjalizację magiczną albo podnieś magiczną umiejętność do rangi 1, aby odblokować tę zakładkę.') }}</p>
 		</div>
 
 		<template v-else>
 			<div v-if="showRankWarning" class="warning-banner">
 				<div class="warning-copy">
-					<h3>{{ t('Genesys.Magic.MissingRankTitle', 'Magic unlocked, but no usable rank') }}</h3>
+					<h3>{{ t('Genesys.Magic.MissingRankTitle', 'Magia odblokowana, ale brak użytecznej rangi') }}</h3>
 					<p>
 						{{
 							t(
 								'Genesys.Magic.MissingRankHint',
-								`This tab is unlocked by ${profile.specializationName}, but the character still needs at least 1 rank in ${profile.primarySkillName}.`,
+								`Ta zakładka jest odblokowana, ale postać nadal potrzebuje co najmniej 1 rangi w ${profile.primarySkillName}.`,
 								{ specialization: profile.specializationName ?? '', skill: profile.primarySkillName ?? '' },
 							)
 						}}
@@ -171,7 +181,7 @@ async function selectMagicKnowledgeSkill(event: Event) {
 
 			<div v-if="canCast && primarySkill" class="action-row">
 				<button type="button" class="roll-primary" @click="rollPrimarySkill">
-					<span>{{ t('Genesys.Magic.RollPrimary', `Roll ${primaryRollSkillLabel}`, { skill: primaryRollSkillLabel }) }}</span>
+					<span>{{ t('Genesys.Magic.RollPrimary', `Rzuć ${primaryRollSkillLabel}`, { skill: primaryRollSkillLabel }) }}</span>
 					<span class="roll-dice" aria-hidden="true">
 						<img v-for="die in primaryRollDice" :key="die.id" :src="die.src" :alt="die.alt" class="roll-die" />
 					</span>
@@ -181,37 +191,37 @@ async function selectMagicKnowledgeSkill(event: Event) {
 			<section class="magic-panel casting-config-panel">
 				<div class="casting-config-field">
 					<header>
-						<h3>{{ t('Genesys.Magic.ActiveAccessory', 'Active Accessory') }}</h3>
-						<p>{{ t('Genesys.Magic.ActiveAccessoryHint', 'Choose which equipped magic accessory contributes its bonuses to spellcasting.') }}</p>
+						<h3>{{ t('Genesys.Magic.ActiveAccessory', 'Aktywne akcesorium') }}</h3>
+						<p>{{ t('Genesys.Magic.ActiveAccessoryHint', 'Wybierz, które założone akcesorium magiczne przekazuje swoje bonusy do czarowania.') }}</p>
 					</header>
 
 					<select class="casting-config-select" :value="activeMagicAccessoryId" @change="selectMagicAccessory">
-						<option value="">{{ t('Genesys.Magic.NoAccessory', 'No accessory') }}</option>
+						<option value="">{{ t('Genesys.Magic.NoAccessory', 'Bez akcesorium') }}</option>
 						<option v-for="accessory in equippedMagicAccessories" :key="accessory.id" :value="accessory.id">
-							{{ accessory.name }}{{ accessory.systemData.hasAttackDamageBonus ? ` (${t('Genesys.Magic.AttackBonus', `Attack +${accessory.systemData.attackDamageBonus}`, { bonus: accessory.systemData.attackDamageBonus })})` : '' }}
+							{{ accessory.name }}{{ accessory.systemData.hasAttackDamageBonus ? ` (${t('Genesys.Magic.AttackBonus', `Atak +${accessory.systemData.attackDamageBonus}`, { bonus: accessory.systemData.attackDamageBonus })})` : '' }}
 						</option>
 					</select>
 
 					<p v-if="equippedMagicAccessories.length === 0" class="casting-config-empty">
-						{{ t('Genesys.Magic.NoEquippedAccessories', 'Equip a magic accessory to make it available here.') }}
+						{{ t('Genesys.Magic.NoEquippedAccessories', 'Załóż akcesorium magiczne, aby pojawiło się na tej liście.') }}
 					</p>
 				</div>
 
 				<div class="casting-config-field">
 					<header>
-						<h3>{{ t('Genesys.Magic.ActiveKnowledge', 'Active Knowledge') }}</h3>
-						<p>{{ t('Genesys.Magic.ActiveKnowledgeHint', 'Choose which Knowledge skill magic effects use when they scale with Knowledge ranks.') }}</p>
+						<h3>{{ t('Genesys.Magic.ActiveKnowledge', 'Aktywna wiedza') }}</h3>
+						<p>{{ t('Genesys.Magic.ActiveKnowledgeHint', 'Wybierz, z której umiejętności Wiedzy korzystają efekty skalujące się z jej rangami.') }}</p>
 					</header>
 
 					<select class="casting-config-select" :value="activeMagicKnowledgeSkillId" @change="selectMagicKnowledgeSkill">
-						<option value="">{{ t('Genesys.Magic.NoKnowledge', 'No Knowledge selected') }}</option>
+						<option value="">{{ t('Genesys.Magic.NoKnowledge', 'Nie wybrano wiedzy') }}</option>
 						<option v-for="skill in knowledgeSkills" :key="skill.id" :value="skill.id">
-							{{ skill.name }} ({{ t('Genesys.Magic.KnowledgeRank', `Rank ${skill.systemData.rank}`, { rank: skill.systemData.rank }) }})
+							{{ skill.name }} ({{ t('Genesys.Magic.KnowledgeRank', `Ranga ${skill.systemData.rank}`, { rank: skill.systemData.rank }) }})
 						</option>
 					</select>
 
 					<p v-if="knowledgeSkills.length === 0" class="casting-config-empty">
-						{{ t('Genesys.Magic.NoKnowledgeSkills', 'Add a Knowledge skill to make it available here.') }}
+						{{ t('Genesys.Magic.NoKnowledgeSkills', 'Dodaj umiejętność wiedzy, aby pojawiła się na tej liście.') }}
 					</p>
 				</div>
 			</section>
@@ -219,15 +229,15 @@ async function selectMagicKnowledgeSkill(event: Event) {
 			<div class="magic-layout">
 				<section class="magic-panel">
 					<header>
-						<h3>{{ t('Genesys.Magic.Actions', 'Available Actions') }}</h3>
-						<p>{{ t('Genesys.Magic.ActionsHint', 'These are the spell action families surfaced for this specialization profile.') }}</p>
+						<h3>{{ t('Genesys.Magic.Actions', 'Dostępne akcje') }}</h3>
+						<p>{{ t('Genesys.Magic.ActionsHint', 'Rodziny akcji czarów dostępne dla tego profilu.') }}</p>
 					</header>
 
 					<div class="action-grid">
 						<button v-for="action in actionDefinitions" :key="action.id" type="button" class="action-card" :disabled="!canBuildSpellActions" @click="openActionPrompt(action)">
 							<div class="action-top">
 								<h4>{{ action.label }}</h4>
-								<span v-if="action.oldWorldOnly" class="action-tag">{{ t('Genesys.Magic.OldWorldTag', 'Old World') }}</span>
+								<span v-if="action.oldWorldOnly" class="action-tag">{{ t('Genesys.Magic.OldWorldTag', 'Stary Świat') }}</span>
 							</div>
 							<p>{{ action.summary }}</p>
 						</button>

@@ -14,7 +14,6 @@
     skill: Umiejętność
     talent: Talent
     specialization: Specjalizacja
-    profession: Profesja
     armor: Pancerz
     consumable: Materiał eksploatacyjny
     container: Pojemnik
@@ -583,6 +582,9 @@ Genesys:
     AddSpecializationKey: Dodaj klucz specjalizacji
     EmptySpecializations: Ta kariera nie ma jeszcze zdefiniowanych kluczy specjalizacji.
     SpecializationKeyPlaceholder: klucz-specjalizacji
+    SkillSearchPlaceholder: Dodaj umiejętność z kompendium
+    SkillSearchHint: Zacznij pisać nazwę umiejętności albo przeciągnij ją z kompendium.
+    EmptySkills: Ta kariera nie ma jeszcze umiejętności kariery.
 
   Range:
     Engaged: Zwarcie

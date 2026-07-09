@@ -10,6 +10,7 @@ import GenesysCombatant from '@/combat/GenesysCombatant';
 import IHasPreCreate from '@/data/IHasPreCreate';
 import IHasOnDelete from '@/data/IHasOnDelete';
 import { DataModelWithTokenAttributes, TokenAttributeDetails } from '@/token/GenesysTokenDocument';
+import { addDefaultSkillsToActor, GENESYS_CORE_SKILL_NAMES } from '@/actor/skills/DefaultSkills';
 
 export default class GenesysActor<ActorDataModel extends foundry.abstract.DataModel = foundry.abstract.DataModel> extends Actor {
 	/**
@@ -33,49 +34,15 @@ export default class GenesysActor<ActorDataModel extends foundry.abstract.DataMo
 	 * @inheritDoc
 	 */
 	protected override async _onCreate(data: this['_source'], options: DocumentModificationContext<this>, userId: string) {
-		// For character actors, ensure they have skills (fallback if preCreate didn't work)
-		if ((this as any).type === 'character') {
-			const skills = this.items.filter((i: any) => i.type === 'skill');
-			if (skills.length === 0) {
-				await this.addDefaultSkills();
-			}
-		}
 		return super._onCreate(data, options, userId);
 	}
 	
 	/**
 	 * Add default skills from the configured skills compendium.
 	 */
-	async addDefaultSkills() {
-		const skillsCompendiumName = CONFIG.genesys?.settings?.skillsCompendium || 'genesys.crb-skills';
-		const pack = game.packs.get(skillsCompendiumName);
-		
-		if (!pack) {
-			return;
-		}
-		
+	async addDefaultSkills(skillNames = GENESYS_CORE_SKILL_NAMES) {
 		try {
-			const allDocuments = await pack.getDocuments();
-			const skills = allDocuments.filter((item: any) => item.type === 'skill');
-			
-			if (skills.length === 0) {
-				return;
-			}
-			
-			// Clean up skill data
-			const skillData = skills.map((skill: any) => {
-				const data = skill.toObject();
-				delete (data as any)._id;
-				delete (data as any)._stats;
-				delete (data as any).ownership;
-				delete (data as any).flags;
-				delete (data as any).folder;
-				delete (data as any).sort;
-				return data;
-			});
-			
-			await this.createEmbeddedDocuments('Item', skillData);
-			ui.notifications.info(`Added ${skillData.length} skills to ${this.name}`);
+			await addDefaultSkillsToActor(this as any, skillNames);
 		} catch (error) {
 			// Silent fail - skills can be added manually via UI
 		}

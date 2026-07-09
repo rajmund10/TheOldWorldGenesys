@@ -20,8 +20,10 @@ import MenuItem from '@/vue/components/MenuItem.vue';
 import MasonryWall from '@yeger/vue-masonry-wall';
 import { Characteristic as CharacteristicType } from '@/data/Characteristics';
 import { CombatPool } from '@/data/Actors';
+import type CharacterSheet from '@/actor/sheets/CharacterSheet';
+import { replaceDefaultSkillsForActor } from '@/actor/skills/DefaultSkills';
 
-const context = inject<ActorSheetContext<CharacterDataModel>>(RootContext)!;
+const context = inject<ActorSheetContext<CharacterDataModel, CharacterSheet>>(RootContext)!;
 const system = computed(() => context.data.actor.systemData);
 
 const SKILL_CATEGORY_SORT_ORDER = {
@@ -47,39 +49,15 @@ const hasSkills = computed(() => skills.value.length > 0);
 
 async function addDefaultSkills() {
 	const actor = toRaw(context.data.actor);
-	const skillsCompendiumName = CONFIG.genesys?.settings?.skillsCompendium || 'genesys.crb-skills';
-	const pack = game.packs.get(skillsCompendiumName);
-	
-	if (!pack) {
-		ui.notifications.error('Skills compendium not found!');
-		return;
-	}
 	
 	try {
-		const allDocuments = await pack.getDocuments();
-		const skills = allDocuments.filter((item: any) => item.type === 'skill');
-		
-		if (skills.length === 0) {
-			ui.notifications.warn('No skills found in compendium!');
-			return;
+		const addedCount = await replaceDefaultSkillsForActor(actor, context.sheet.defaultSkillNames);
+		await actor.setFlag('genesys', 'skillProfileId', context.sheet.defaultSkillProfileId);
+		if (addedCount === 0) {
+			ui.notifications.warn('Nie znaleziono umiejętności do zaimportowania dla tej karty.');
 		}
-		
-		// Clean up skill data
-		const skillData = skills.map((skill: any) => {
-			const data = skill.toObject();
-			delete (data as any)._id;
-			delete (data as any)._stats;
-			delete (data as any).ownership;
-			delete (data as any).flags;
-			delete (data as any).folder;
-			delete (data as any).sort;
-			return data;
-		});
-		
-		await actor.createEmbeddedDocuments('Item', skillData);
-		ui.notifications.info(`Added ${skillData.length} skills to ${actor.name}`);
 	} catch (error) {
-		ui.notifications.error('Failed to add skills!');
+		ui.notifications.error('Nie udało się dodać umiejętności.');
 	}
 }
 
@@ -269,9 +247,9 @@ async function deleteSkill(skill: GenesysItem<SkillDataModel>) {
 		<!-- Warning when no skills are present -->
 		<div v-if="!hasSkills" class="no-skills-warning">
 			<i class="fas fa-exclamation-triangle"></i>
-			<span>No skills found! Click the button below to add default skills.</span>
+			<span>Nie znaleziono umiejętności. Kliknij przycisk poniżej, aby dodać domyślne umiejętności tej karty.</span>
 			<button @click="addDefaultSkills" class="add-skills-btn">
-				<i class="fas fa-plus"></i> Add Default Skills
+				<i class="fas fa-plus"></i> Dodaj domyślne umiejętności
 			</button>
 		</div>
 

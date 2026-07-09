@@ -19,7 +19,6 @@ import InjuryDataModel from '@/item/data/InjuryDataModel';
 import SkillDataModel from '@/item/data/SkillDataModel';
 import TalentDataModel from '@/item/data/TalentDataModel';
 import SpecializationDataModel from '@/item/data/SpecializationDataModel';
-import ProfessionDataModel from '@/item/data/ProfessionDataModel';
 import ItemQualityDataModel from '@/item/data/ItemQualityDataModel';
 import MagicAccessoryDataModel from '@/item/data/MagicAccessoryDataModel';
 import WeaponDataModel from '@/item/data/WeaponDataModel';
@@ -32,7 +31,7 @@ export function register() {
 	registerSheets();
 }
 
-export const CharacterCreationItemTypes = ['ability', 'archetype', 'career', 'skill', 'talent', 'specialization', 'profession'];
+export const CharacterCreationItemTypes = ['ability', 'archetype', 'career', 'skill', 'talent', 'specialization'];
 
 export const EquipmentItemTypes = ['armor', 'consumable', 'container', 'gear', 'magicAccessory', 'quality', 'weapon', 'vehicleWeapon'];
 
@@ -49,7 +48,6 @@ function registerDataModels() {
 	CONFIG.Item.dataModels.skill = SkillDataModel;
 	CONFIG.Item.dataModels.talent = TalentDataModel;
 	CONFIG.Item.dataModels.specialization = SpecializationDataModel;
-	CONFIG.Item.dataModels.profession = ProfessionDataModel;
 	CONFIG.Item.dataModels.quality = ItemQualityDataModel;
 	CONFIG.Item.dataModels.weapon = WeaponDataModel;
 	CONFIG.Item.dataModels.vehicleWeapon = VehicleWeaponDataModel;

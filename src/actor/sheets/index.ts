@@ -8,6 +8,7 @@
 
 import CharacterSheet from '@/actor/sheets/CharacterSheet';
 import WarhammerSheet from '@/actor/sheets/WarhammerSheet';
+import AuroraSheet from '@/actor/sheets/AuroraSheet';
 import MinionSheet from '@/actor/sheets/MinionSheet';
 import RivalSheet from '@/actor/sheets/RivalSheet';
 import NemesisSheet from '@/actor/sheets/NemesisSheet';
@@ -19,12 +20,19 @@ export function register() {
 	Actors.registerSheet('genesys', CharacterSheet, {
 		types: ['character'],
 		makeDefault: true,
+		label: 'Karta Genesys',
 	});
 
 	Actors.registerSheet('genesys', WarhammerSheet, {
 		types: ['character'],
 		makeDefault: false,
-		label: 'Warhammer Sheet',
+		label: 'Karta Warhammer',
+	});
+
+	Actors.registerSheet('genesys', AuroraSheet, {
+		types: ['character'],
+		makeDefault: false,
+		label: 'Aurora',
 	});
 
 	Actors.registerSheet('genesys', MinionSheet, {

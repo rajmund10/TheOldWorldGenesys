@@ -129,9 +129,9 @@ onBeforeUpdate(updateEffects);
 				<SpecializationsTab />
 			</div>
 
-			<div v-if="hasMagicAccess" class="tab" data-tab="magic"><MagicTab /></div>
+			<div v-if="hasMagicAccess" class="tab" data-tab="magic"><MagicTab profile-source="specialization" /></div>
 
-			<div class="tab" data-tab="inventory"><InventoryTab /></div>
+			<div class="tab" data-tab="inventory"><InventoryTab currency-mode="warhammer" :currency-label="context.currencyLabel" /></div>
 
 			<div class="tab" data-tab="effects">
 				<EffectsView :effects="effects" @add-effect="addEffect" />

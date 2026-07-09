@@ -8,6 +8,7 @@
 
 import VueWarhammerCharacterSheet from '@/vue/sheets/actor/WarhammerCharacterSheet.vue';
 import CharacterSheet from '@/actor/sheets/CharacterSheet';
+import { OLD_WORLD_SKILL_NAMES } from '@/actor/skills/DefaultSkills';
 
 /**
  * Actor sheet used for Player Characters in Warhammer setting (includes Corruption).
@@ -18,6 +19,18 @@ import CharacterSheet from '@/actor/sheets/CharacterSheet';
 export default class WarhammerSheet extends CharacterSheet {
 	override get vueComponent() {
 		return VueWarhammerCharacterSheet;
+	}
+
+	override get defaultSkillNames() {
+		return OLD_WORLD_SKILL_NAMES;
+	}
+
+	override get defaultSkillProfileId() {
+		return 'old-world';
+	}
+
+	override get currencyLabel() {
+		return 'Korony';
 	}
 
 	static override get defaultOptions() {

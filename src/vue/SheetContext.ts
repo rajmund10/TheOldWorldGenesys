@@ -60,6 +60,16 @@ export interface ActorSheetContext<
 	 * Rendering context data retrieved from `getData()`.
 	 */
 	data: SheetDataType;
+
+	/**
+	 * Display label for the sheet's active currency model.
+	 */
+	currencyLabel?: string;
+
+	/**
+	 * Incremented by sheets when the Vue tree should refresh computed actor data.
+	 */
+	renderKey?: number;
 }
 
 export interface GenesysItemSheetData<ItemDataModel extends BaseItemDataModel = BaseItemDataModel> extends ItemSheetData<GenesysItem<ItemDataModel>> {

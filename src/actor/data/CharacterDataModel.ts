@@ -16,9 +16,7 @@ import { CombatPool, Defense } from '@/data/Actors';
 import GenesysEffect from '@/effects/GenesysEffect';
 import TalentDataModel from '@/item/data/TalentDataModel';
 import { TokenAttributeDetails } from '@/token/GenesysTokenDocument';
-import ProfessionDataModel from '@/item/data/ProfessionDataModel';
 import IHasPreCreate from '@/data/IHasPreCreate';
-import SkillDataModel from '@/item/data/SkillDataModel';
 import { CombatEffectKeys, getEquippedQualityCombatEffectValue } from '@/combat/CombatEffects';
 
 type Motivation = {
@@ -340,42 +338,8 @@ export default abstract class CharacterDataModel extends foundry.abstract.DataMo
 	}
 
 	async preCreate(actor: GenesysActor<CharacterDataModel>, _data: PreDocumentId<any>, _options: DocumentModificationContext<GenesysActor<CharacterDataModel>>, _user: foundry.documents.BaseUser) {
-		// Add default skills from the configured skills compendium.
-		const skillsCompendiumName = CONFIG.genesys?.settings?.skillsCompendium || 'genesys.crb-skills';
-		
-		if (!skillsCompendiumName) {
-			return;
-		}
-
-		const pack = game.packs.get(skillsCompendiumName);
-		if (!pack) {
-			return;
-		}
-
-		const skills = (await pack.getDocuments()).filter((item) => (item as GenesysItem).type === 'skill') as GenesysItem<SkillDataModel>[];
-		
-		if (skills.length === 0) {
-			return;
-		}
-
-		// Clean up skill data - remove _id, _stats, ownership, flags to let Foundry generate new ones
-		const skillData = skills.map((skill) => {
-			const data = skill.toObject();
-			delete (data as any)._id;
-			delete (data as any)._stats;
-			delete (data as any).ownership;
-			delete (data as any).flags;
-			delete (data as any).folder;
-			delete (data as any).sort;
-			return data;
-		});
-		
-		// Add the skill items to the actor's embedded items data.
-		const data = _data as any;
-		if (!data.items) {
-			data.items = [];
-		}
-		data.items.push(...skillData);
+		// Skills are added by the active character sheet so each sheet can choose
+		// its own skill list from the shared compendium.
 	}
 
 	static override defineSchema() {

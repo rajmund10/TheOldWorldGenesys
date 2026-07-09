@@ -42,13 +42,13 @@ export const GENESYS_CONFIG = {
 		defaultDifficulty: DEFAULT_DIFFICULTY,
 
 		// The name of the skill to use for healing Critical Injuries.
-		skillForHealingInjury: 'Resilience',
+		skillForHealingInjury: 'Odporność',
 
 		// The name of the skill to use for repairing Critical Hits.
-		skillForRepairingHit: 'Mechanics',
+		skillForRepairingHit: 'Mechanika',
 
 		// Name of the currency used for the setting.
-		currencyName: 'Money',
+		currencyName: 'Pieniądze',
 
 		// Number of free skill ranks characters gain from careers.
 		freeCareerSkillRanks: 4,

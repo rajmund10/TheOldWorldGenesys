@@ -41,7 +41,7 @@ function getEffectTags(effectDefinition: MagicActionEffectDefinition) {
 	const tags: string[] = [];
 
 	if (effectDefinition.oldWorldOnly) {
-		tags.push(t('Genesys.Magic.OldWorldTag', 'Old World'));
+		tags.push(t('Genesys.Magic.OldWorldTag', 'Stary Świat'));
 	}
 
 	if (effectDefinition.repeatable) {
@@ -157,13 +157,13 @@ async function cancel() {
 
 		<section class="selection-summary">
 			<div class="section-header">
-				<h3>{{ t('Genesys.MagicActionPrompt.SelectedEffects', 'Selected Effects') }}</h3>
+				<h3>{{ t('Genesys.MagicActionPrompt.SelectedEffects', 'Wybrane efekty') }}</h3>
 				<span>{{ summary.selectedEffects.length }}</span>
 			</div>
 
 			<div class="selection-summary-content">
 				<p v-if="summary.selectedEffects.length === 0" class="empty-state">
-					{{ t('Genesys.MagicActionPrompt.NoSelectedEffects', 'No additional effects selected yet.') }}
+					{{ t('Genesys.MagicActionPrompt.NoSelectedEffects', 'Nie wybrano jeszcze żadnych efektów dodatkowych.') }}
 				</p>
 
 				<div v-else class="selected-effect-list">
@@ -228,7 +228,7 @@ async function cancel() {
 						</template>
 
 						<button v-else type="button" :class="['toggle-button', { 'is-selected': getEffectCount(effectDefinition) > 0 }]" :disabled="isSelectionBlocked(effectDefinition)" @click="toggleEffect(effectDefinition)">
-							{{ getEffectCount(effectDefinition) > 0 ? t('Genesys.MagicActionPrompt.RemoveEffect', 'Remove') : t('Genesys.MagicActionPrompt.AddEffect', 'Add Effect') }}
+							{{ getEffectCount(effectDefinition) > 0 ? t('Genesys.MagicActionPrompt.RemoveEffect', 'Usuń') : t('Genesys.MagicActionPrompt.AddEffect', 'Dodaj efekt') }}
 						</button>
 					</div>
 				</article>
@@ -237,7 +237,7 @@ async function cancel() {
 
 		<footer class="prompt-footer">
 			<button type="button" class="secondary-button" @click="cancel">
-				{{ t('Genesys.MagicActionPrompt.Cancel', 'Cancel') }}
+				{{ t('Genesys.MagicActionPrompt.Cancel', 'Anuluj') }}
 			</button>
 			<button type="button" class="primary-button" :disabled="summary.incompatiblePairs.length > 0 || summary.exceedsDifficultyCap" @click="confirmSelection">
 				{{ t('Genesys.MagicActionPrompt.OpenDicePrompt', 'Continue To Dice Pool') }}

@@ -15,7 +15,6 @@ import MagicAccessorySheet from '@/vue/sheets/item/MagicAccessorySheet.vue';
 import SkillSheet from '@/vue/sheets/item/SkillSheet.vue';
 import TalentSheet from '@/vue/sheets/item/TalentSheet.vue';
 import SpecializationSheet from '@/item/sheets/SpecializationSheet';
-import ProfessionSheet from '@/vue/sheets/item/ProfessionSheet.vue';
 import BaseWeaponSheet from '@/item/sheets/BaseWeaponSheet';
 import WeaponSheet from '@/vue/sheets/item/WeaponSheet.vue';
 import VehicleWeaponSheet from '@/vue/sheets/item/VehicleWeaponSheet.vue';
@@ -99,11 +98,6 @@ export function register() {
 
 	Items.registerSheet('genesys', SpecializationSheet, {
 		types: ['specialization'],
-		makeDefault: true,
-	});
-
-	Items.registerSheet('genesys', basicSheet(ProfessionSheet), {
-		types: ['profession'],
 		makeDefault: true,
 	});
 

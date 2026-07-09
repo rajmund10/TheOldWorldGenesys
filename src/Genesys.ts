@@ -14,8 +14,7 @@ import { registerLegacyDiceImageCompatibility } from '@/dice/legacyDiceImages';
 import { register as registerEnrichers } from '@/enrichers';
 import { register as registerFonts } from '@/fonts';
 import { register as registerHandlebarsHelpers } from '@/handlebars';
-import { NAMESPACE as SETTINGS_NAMESPACE, register as registerSettings } from '@/settings';
-import { KEY_MIGRATION_VERSION } from '@/settings/alpha';
+import { register as registerSettings } from '@/settings';
 import { KEY_DEFAULT_DIFFICULTY } from '@/settings/campaign';
 
 import { register as registerStoryPointTracker } from '@/app/StoryPointTracker';
@@ -28,7 +27,6 @@ import DicePrompt, { registerWorker } from '@/app/DicePrompt';
 
 import GenesysActor from '@/actor/GenesysActor';
 import GenesysCompendium from '@/sidebar/GenesysCompendium';
-import { performMigrations } from '@/migrations/MigrationHelper';
 import { registerChaosManifestations } from '@/magic/ChaosManifestations';
 import { registerAttackResolution } from '@/combat/AttackResolution';
 import { registerSymbolSpending } from '@/dice/SymbolSpending';
@@ -58,11 +56,7 @@ Hooks.once('init', async () => {
 });
 
 Hooks.once('ready', async () => {
-	const migrationVersion = game.settings.get<string>(SETTINGS_NAMESPACE, KEY_MIGRATION_VERSION) ?? '0.0.0';
-
 	readyConfigs();
-
-	await performMigrations(migrationVersion);
 
 	registerStoryPointTracker();
 	registerVehicles();

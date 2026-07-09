@@ -124,8 +124,7 @@ export default abstract class VehicleDataModel extends foundry.abstract.DataMode
 				if (!passenger.hasOwnProperty('id')) {
 					break;
 				}
-				// We removed the `id` property and added `uuid`. We transfer the data from one to the other to allow the migration
-				// script that runs after to save the proper data. (See "src\migrations\1-use-uuid-for-vehicle.ts")
+				// Preserve legacy passenger entries by moving the old id value into uuid during Foundry's data migration pass.
 				passenger.uuid = passenger.id!;
 				delete passenger.id;
 			}

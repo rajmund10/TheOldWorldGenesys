@@ -16,7 +16,8 @@ import InventoryTab from '@/vue/sheets/actor/character/InventoryTab.vue';
 import CombatTab from '@/vue/sheets/actor/character/CombatTab.vue';
 import SpecializationDataModel from '@/item/data/SpecializationDataModel';
 import GenesysItem from '@/item/GenesysItem';
-import { resolveMagicProfileFromSpecializations } from '@/magic/MagicProfiles';
+import SkillDataModel from '@/item/data/SkillDataModel';
+import { findRankedMagicSkill } from '@/magic/MagicProfiles';
 
 const context = inject<ActorSheetContext<CharacterDataModel>>(RootContext)!;
 const actor = computed(() => {
@@ -31,7 +32,11 @@ const specializations = computed(() => {
 	context.renderKey;
 	return arrayFromItems<GenesysItem<SpecializationDataModel>>(actor.value.items).filter((item) => item.type === 'specialization');
 });
-const hasMagicAccess = computed(() => resolveMagicProfileFromSpecializations(specializations.value).enabled);
+const skills = computed(() => {
+	context.renderKey;
+	return arrayFromItems<GenesysItem<SkillDataModel>>(actor.value.items).filter((item) => item.type === 'skill');
+});
+const hasMagicAccess = computed(() => !!findRankedMagicSkill(skills.value));
 
 const effects = ref<any>([]);
 const sheetBodyRef = ref<HTMLElement | null>(null);
@@ -178,9 +183,9 @@ onMounted(() => {
 
 			<div class="tab" data-tab="talents"><TalentsTab /></div>
 
-			<div v-if="hasMagicAccess" class="tab" data-tab="magic"><MagicTab /></div>
+			<div v-if="hasMagicAccess" class="tab" data-tab="magic"><MagicTab profile-source="skill" /></div>
 
-			<div class="tab" data-tab="inventory"><InventoryTab /></div>
+			<div class="tab" data-tab="inventory"><InventoryTab currency-mode="legacy" :currency-label="context.currencyLabel" /></div>
 
 			<div class="tab" data-tab="effects">
 				<EffectsView :effects="[...effects]" @add-effect="addEffect" />

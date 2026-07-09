@@ -26,7 +26,7 @@ export type MagicActionDefinition = {
 export type ResolvedMagicProfile = {
 	enabled: boolean;
 	specializationName: string | null;
-	matchedBy: 'explicit' | 'fallback' | 'custom' | 'none';
+	matchedBy: 'explicit' | 'fallback' | 'custom' | 'skill' | 'none';
 	tradition: MagicTradition | null;
 	traditionLabel: string | null;
 	pathType: MagicPathType | null;
@@ -504,6 +504,39 @@ function buildProfileFromDefinition(definition: MagicProfileDefinition, speciali
 	};
 }
 
+function resolveTraditionFromSkillName(skillName: string): MagicTradition | null {
+	const normalizedSkillName = skillName.toLowerCase();
+	for (const [tradition, aliases] of Object.entries(PRIMARY_SKILL_ALIASES) as [MagicTradition, string[]][]) {
+		if (aliases.some((alias) => alias.toLowerCase() === normalizedSkillName)) {
+			return tradition;
+		}
+	}
+
+	return null;
+}
+
+function buildSkillProfile(skill: SkillLike, tradition: MagicTradition): ResolvedMagicProfile {
+	return {
+		enabled: true,
+		specializationName: null,
+		matchedBy: 'skill',
+		tradition,
+		traditionLabel: TRADITION_LABELS[tradition],
+		pathType: DEFAULT_PATH_TYPES[tradition],
+		pathLabel: TRADITION_LABELS[tradition],
+		schoolId: null,
+		description: `Magia ${TRADITION_LABELS[tradition]} odblokowana przez umiejętność ${skill.name}.`,
+		primarySkillName: skill.name,
+		allowMiscast: false,
+		allowOvercast: false,
+		actionIds: DEFAULT_ACTIONS_BY_TRADITION[tradition],
+		signatureEffects: [],
+		rules: GENERIC_RULES_BY_TRADITION[tradition],
+		windName: null,
+		orderName: null,
+	};
+}
+
 function mergeMagicAccess(access?: Partial<MagicAccessData>): MagicAccessData {
 	return {
 		...EMPTY_MAGIC_ACCESS,
@@ -527,6 +560,35 @@ export function findMagicSpecialization<T extends SpecializationLike>(specializa
 
 export function resolveMagicProfileFromSpecializations<T extends SpecializationLike>(specializations: Iterable<T | null | undefined>): ResolvedMagicProfile {
 	return resolveMagicProfileFromSpecialization(findMagicSpecialization(specializations));
+}
+
+export function findRankedMagicSkill<T extends SkillLike>(skills: Iterable<T | null | undefined>): T | null {
+	for (const skill of skills) {
+		if (!skill) {
+			continue;
+		}
+
+		const tradition = resolveTraditionFromSkillName(skill.name);
+		const isKnownMagicSkill = !!tradition || skill.systemData?.category === 'magic';
+		if (isKnownMagicSkill && (skill.systemData?.rank ?? 0) > 0) {
+			return skill;
+		}
+	}
+
+	return null;
+}
+
+export function resolveMagicProfileFromSkill(skill?: SkillLike | null): ResolvedMagicProfile {
+	if (!skill) {
+		return resolveMagicProfileFromSpecialization(null);
+	}
+
+	const tradition = resolveTraditionFromSkillName(skill.name) ?? (skill.systemData?.category === 'magic' ? 'arcana' : null);
+	if (!tradition || (skill.systemData?.rank ?? 0) <= 0) {
+		return resolveMagicProfileFromSpecialization(null);
+	}
+
+	return buildSkillProfile(skill, tradition);
 }
 
 export function getMagicSchoolOptions(tradition?: MagicTradition | '') {
