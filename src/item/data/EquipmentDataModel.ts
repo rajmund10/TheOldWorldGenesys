@@ -22,7 +22,7 @@ export enum EquipmentDamageState {
 	Major = 'major',
 }
 
-export type PriceDetails = {
+export type WarhammerPrice = {
 	gold: number;
 	silver: number;
 	pennies: number;
@@ -53,7 +53,7 @@ export default abstract class EquipmentDataModel extends BaseItemDataModel {
 	/**
 	 * Price split into Old World denominations.
 	 */
-	abstract priceDetails: PriceDetails;
+	abstract priceWarhammer: WarhammerPrice;
 
 	/**
 	 * Damage state of the item.
@@ -75,6 +75,18 @@ export default abstract class EquipmentDataModel extends BaseItemDataModel {
 	 */
 	abstract state: EquipmentState;
 
+	static override migrateData(source: any) {
+		if (source?.priceWarhammer === undefined && source?.priceDetails !== undefined) {
+			source.priceWarhammer = source.priceDetails;
+		}
+
+		if (source && 'priceDetails' in source) {
+			delete source.priceDetails;
+		}
+
+		return super.migrateData(source);
+	}
+
 	static override defineSchema() {
 		const fields = foundry.data.fields;
 
@@ -84,7 +96,7 @@ export default abstract class EquipmentDataModel extends BaseItemDataModel {
 			encumbrance: new fields.NumberField({ integer: true, initial: 0 }),
 			encumbranceThreshold: new fields.NumberField({ integer: true, initial: 0, min: 0 }),
 			price: new fields.NumberField({ initial: 0 }),
-			priceDetails: new fields.SchemaField({
+			priceWarhammer: new fields.SchemaField({
 				gold: new fields.NumberField({ integer: true, initial: 0, min: 0 }),
 				silver: new fields.NumberField({ integer: true, initial: 0, min: 0 }),
 				pennies: new fields.NumberField({ integer: true, initial: 0, min: 0 }),

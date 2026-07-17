@@ -67,6 +67,11 @@ export interface ActorSheetContext<
 	currencyLabel?: string;
 
 	/**
+	 * Currency input model used by the sheet.
+	 */
+	currencyMode?: 'legacy' | 'warhammer';
+
+	/**
 	 * Incremented by sheets when the Vue tree should refresh computed actor data.
 	 */
 	renderKey?: number;

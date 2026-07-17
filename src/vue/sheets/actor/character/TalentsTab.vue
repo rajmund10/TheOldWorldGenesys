@@ -9,11 +9,10 @@ import SpecializationDataModel, { type SpecializationProfessionStep } from '@/it
 import GenesysItem from '@/item/GenesysItem';
 import Talent from '@/vue/components/character/Talent.vue';
 import AbilityDataModel from '@/item/data/AbilityDataModel';
-import { EntryType } from '@/actor/data/character/ExperienceJournal';
 import ArchetypeDataModel from '@/item/data/ArchetypeDataModel';
-import TalentPurchasePrompt from '@/app/TalentPurchasePrompt';
 import { getProfessionTalentOffersForStep, type ProfessionTalentOffer } from '@/specialization/ProfessionTalentOffers';
 import { arrayFromItems } from '@/utils/collection';
+import { purchaseAdvance } from '@/actor/advancement/AdvancementPurchase';
 
 const context = inject<ActorSheetContext<CharacterDataModel>>(RootContext)!;
 const props = withDefaults(defineProps<{ showProfessionTalents?: boolean }>(), {
@@ -238,15 +237,13 @@ async function purchaseProfessionTalent(offer: ReturnType<typeof buildProfession
 		return;
 	}
 
-	const confirmed = await TalentPurchasePrompt.promptForPurchase(offer.sourceTalent.name, offer.cost);
-	if (!confirmed) {
-		return;
-	}
-
-	const result = await TalentPurchasePrompt.purchaseTalent(actor.value, {
+	const result = await purchaseAdvance(actor.value, {
+		type: 'talent',
 		talentId: offer.sourceTalent.id,
 		talentName: offer.sourceTalent.name,
+		sourceTalent: toRaw(offer.sourceTalent),
 		cost: offer.cost,
+		source: getProfessionTalentSource(offer),
 	});
 
 	if (result.success) {
@@ -259,38 +256,14 @@ function canUpgradeTalent(talent: GenesysItem<TalentDataModel>) {
 }
 
 async function upgradeTalent(talent: GenesysItem<TalentDataModel>) {
-	if (isTreeManagedTalent(talent)) {
-		ui.notifications.info(game.i18n.localize('Genesys.Notifications.TalentManagedByTree'));
-		return false;
-	}
-
-	if (talent.systemData.ranked === 'no') {
-		ui.notifications.info(game.i18n.format('Genesys.Notifications.TalentNotRanked', { talentName: talent.name }));
-		return false;
-	}
-
-	const newEffectiveTier = talent.systemData.effectiveNextTier;
-	const cost = talent.systemData.advanceCost;
-
-	await toRaw(talent).update({
-		'system.rank': talent.systemData.rank + 1,
+	const result = await purchaseAdvance(actor.value, {
+		type: 'talent-rank',
+		talent: toRaw(talent),
 	});
 
-	await toRaw(context.data.actor).update({
-		'system.experienceJournal.entries': [
-			...system.value.experienceJournal.entries,
-			{
-				amount: -cost,
-				type: EntryType.TalentRank,
-				data: {
-					name: talent.name,
-					id: talent.id,
-					tier: newEffectiveTier,
-					rank: talent.systemData.rank,
-				},
-			},
-		],
-	});
+	if (result.success) {
+		await context.sheet.render(false);
+	}
 }
 
 async function openItem(item: GenesysItem) {
@@ -469,7 +442,7 @@ async function deleteTalent(talent: GenesysItem<TalentDataModel>) {
 
 						<div class="profession-talent-purchase-row">
 							<button type="button" :disabled="!canPurchaseProfessionTalent(offer)" @click.stop="purchaseProfessionTalent(offer)">
-								{{ t('Genesys.TalentPurchasePrompt.PurchaseTitle', 'Purchase') }} - {{ offer.cost }} PD
+								{{ t('Genesys.AdvancePurchasePrompt.PurchaseTitle', 'Kup') }} - {{ offer.cost }} PD
 							</button>
 							<span v-if="!canPurchaseProfessionTalent(offer)" class="profession-talent-purchase-status">{{ professionTalentOfferStatus(offer) }}</span>
 						</div>

@@ -24,6 +24,8 @@ import { DragTransferData } from '@/data/DragTransferData';
 import { transferInventoryBetweenActors } from '@/operations/TransferBetweenActors';
 import { EquipmentState } from '@/item/data/EquipmentDataModel';
 import { addDefaultSkillsToActor, GENESYS_CORE_SKILL_NAMES, replaceDefaultSkillsForActor } from '@/actor/skills/DefaultSkills';
+import { purchaseAdvance } from '@/actor/advancement/AdvancementPurchase';
+import { getCurrencyLabelForProfile, getCurrencyModeForProfile } from '@/system/GameProfile';
 
 function normalizeSkillName(name: string) {
 	return name.trim().toLocaleLowerCase();
@@ -78,7 +80,11 @@ export default class CharacterSheet extends VueSheet(GenesysActorSheet<Character
 	}
 
 	get currencyLabel() {
-		return CONFIG.genesys?.settings?.currencyName || 'Pieniądze';
+		return getCurrencyLabelForProfile();
+	}
+
+	get currencyMode() {
+		return getCurrencyModeForProfile();
 	}
 
 	override async getVueContext(): Promise<ActorSheetContext<CharacterDataModel>> {
@@ -90,6 +96,7 @@ export default class CharacterSheet extends VueSheet(GenesysActorSheet<Character
 			sheet: this,
 			renderKey: this.#renderKey,
 			currencyLabel: this.currencyLabel,
+			currencyMode: this.currencyMode,
 			data: await this.getData(),
 		};
 	}
@@ -210,6 +217,7 @@ export default class CharacterSheet extends VueSheet(GenesysActorSheet<Character
 	static override get defaultOptions() {
 		return {
 			...super.defaultOptions,
+			classes: ['genesys', 'sheet', 'actor', 'character', 'profile-genesys'],
 			tabs: [
 				{
 					navSelector: '.sheet-tabs',
@@ -306,77 +314,14 @@ export default class CharacterSheet extends VueSheet(GenesysActorSheet<Character
 				clonedDroppedItem = await super._onDropItem(event, data);
 			} else if (droppedItem.type === 'talent') {
 				const droppedTalent = droppedItem as GenesysItem<TalentDataModel>;
-				let targetTalent = this.actor.items.find((i) => i.type === 'talent' && normalizeTalentName(i.name) === normalizeTalentName(droppedTalent.name)) as GenesysItem<TalentDataModel> | undefined;
-
-				if (targetTalent) {
-					if (targetTalent.getFlag('genesys', 'treeManaged')) {
-						ui.notifications.info(game.i18n.localize('Genesys.Notifications.TalentManagedByTree'));
-						return false;
-					}
-
-					if (targetTalent.systemData.ranked === 'no') {
-						ui.notifications.info(game.i18n.format('Genesys.Notifications.TalentNotRanked', { talentName: targetTalent.name }));
-						return false;
-					}
-
-					const newRank = targetTalent.systemData.rank + 1;
-					const newEffectiveTier = targetTalent.systemData.effectiveNextTier;
-					const cost = targetTalent.systemData.advanceCost;
-
-					if (this.actor.systemData.availableXP < cost) {
-						ui.notifications.info(game.i18n.format('Genesys.Notifications.CannotAffordRankedTalent', { name: droppedTalent.name, newRank, cost }));
-						return false;
-					}
-
-					await targetTalent.update({
-						'system.rank': newRank,
-					});
-
-					await this.actor.update({
-						'system.experienceJournal.entries': [
-							...this.actor.systemData.experienceJournal.entries,
-							{
-								amount: -cost,
-								type: EntryType.TalentRank,
-								data: {
-									name: targetTalent.name,
-									id: targetTalent.id,
-									tier: newEffectiveTier,
-									rank: newRank,
-								},
-							},
-						],
-					});
-				} else {
-					// New talent
-					const newEffectiveTier = droppedTalent.systemData.tier;
-					const cost = newEffectiveTier * 5;
-
-					if (this.actor.systemData.availableXP < cost) {
-						ui.notifications.info(game.i18n.format('Genesys.Notifications.CannotAffordTalent', { name: droppedTalent.name, cost }));
-						return false;
-					}
-
-					[targetTalent] = (await this._onDropItemCreate(droppedTalent.toObject())) as GenesysItem<TalentDataModel>[];
-
-					await this.actor.update({
-						'system.experienceJournal.entries': [
-							...this.actor.systemData.experienceJournal.entries,
-							{
-								amount: -cost,
-								type: EntryType.NewTalent,
-								data: {
-									name: targetTalent.name,
-									id: targetTalent.id,
-									tier: targetTalent.systemData.tier,
-									rank: 1,
-								},
-							},
-						],
-					});
-				}
-
-				clonedDroppedItem = [targetTalent];
+				const result = await purchaseAdvance(this.actor, {
+					type: 'talent',
+					talentId: droppedTalent.id,
+					talentName: droppedTalent.name,
+					sourceTalent: droppedTalent,
+				});
+				const targetTalent = result.itemId ? this.actor.items.get(result.itemId) as GenesysItem<TalentDataModel> | undefined : undefined;
+				clonedDroppedItem = result.success && targetTalent ? [targetTalent] : false;
 			} else {
 				// Let `super` handle the drop and save a reference to it.
 				clonedDroppedItem = await super._onDropItem(event, data);
@@ -453,44 +398,22 @@ export default class CharacterSheet extends VueSheet(GenesysActorSheet<Character
 		const cost = discount && discount.cost < defaultCost ? discount.cost : defaultCost;
 		const source = discount && discount.cost < defaultCost ? discount.source : '';
 
-		if (this.actor.systemData.availableXP < cost) {
-			ui.notifications.error(game.i18n.localize('Genesys.Notifications.NotEnoughXP'));
+		const result = await purchaseAdvance(this.actor, {
+			type: 'specialization',
+			specialization: droppedSpecialization,
+			cost,
+			source,
+			execute: () => this.applySpecialization(droppedSpecialization, {
+				replaceExisting: false,
+				grantInventory: false,
+			}),
+		});
+
+		const purchasedSpecialization = result.itemId ? this.actor.items.get(result.itemId) as GenesysItem<SpecializationDataModel> | undefined : undefined;
+		if (!result.success || !purchasedSpecialization) {
 			return null;
 		}
 
-		const discountLine = source ? `<p><strong>Tańszy zakup:</strong> ${source}</p>` : '';
-		const confirmed = await Dialog.confirm({
-			title: 'Kup kolejną specjalizację',
-			content: `<p>Kupić specjalizację <strong>${droppedSpecialization.name}</strong> za <strong>${cost} XP</strong>?</p>${discountLine}`,
-			yes: () => true,
-			no: () => false,
-			defaultYes: false,
-		});
-
-		if (!confirmed) {
-			return null;
-		}
-
-		const purchasedSpecialization = await this.applySpecialization(droppedSpecialization, {
-			replaceExisting: false,
-			grantInventory: false,
-		});
-
-		await this.actor.update({
-			'system.experienceJournal.entries': [
-				...this.actor.systemData.experienceJournal.entries,
-				{
-					amount: -cost,
-					type: EntryType.Specialization,
-					data: {
-						name: purchasedSpecialization.name,
-						id: purchasedSpecialization.id,
-						cost,
-						source,
-					},
-				},
-			],
-		});
 		await this.actor.setFlag('genesys', 'activeSpecializationId', purchasedSpecialization.id);
 		await this.render();
 

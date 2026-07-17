@@ -9,6 +9,7 @@ import { NAMESPACE as SETTINGS_NAMESPACE } from '@/settings';
 import {
 	KEY_CAREER_SKILL_RANKS,
 	KEY_DEFAULT_DIFFICULTY,
+	KEY_GAME_PROFILE,
 	KEY_MONEY_NAME,
 	KEY_SHOW_DAMAGE_ON_FAILURE,
 	KEY_SKILLS_COMPENDIUM,
@@ -20,6 +21,7 @@ import {
 import { KEY_AUTO_APPLY_POOL_MODIFICATIONS, KEY_CHANCE_TO_SUCCEED_BY_PERMUTATION, KEY_CHANCE_TO_SUCCEED_BY_SIMULATION, KEY_COLLAPSE_POOL_MODIFICATIONS } from '@/settings/user';
 import SkillDataModel from '@/item/data/SkillDataModel';
 import GenesysItem from '@/item/GenesysItem';
+import { DEFAULT_GAME_PROFILE } from '@/system/GameProfile';
 
 /**
  * Default skills compendium to use if the setting is misconfigured.
@@ -37,6 +39,9 @@ export const GENESYS_CONFIG = {
 
 		// Default skills compendium to use if the setting is misconfigured.
 		skillsCompendium: DEFAULT_SKILLS_COMPENDIUM,
+
+		// Active Genesys game profile.
+		gameProfile: DEFAULT_GAME_PROFILE,
 
 		// Default dice pool modifications that should be added to the dice pool when doing a check.
 		defaultDifficulty: DEFAULT_DIFFICULTY,
@@ -99,6 +104,7 @@ export function register() {
 export function ready() {
 	/** World Settings **/
 	game.settings.settings.get<string>(`${SETTINGS_NAMESPACE}.${KEY_SKILLS_COMPENDIUM}`)?.onChange?.(game.settings.get(SETTINGS_NAMESPACE, KEY_SKILLS_COMPENDIUM));
+	game.settings.settings.get<string>(`${SETTINGS_NAMESPACE}.${KEY_GAME_PROFILE}`)?.onChange?.(game.settings.get(SETTINGS_NAMESPACE, KEY_GAME_PROFILE));
 	game.settings.settings.get<string>(`${SETTINGS_NAMESPACE}.${KEY_DEFAULT_DIFFICULTY}`)?.onChange?.(game.settings.get(SETTINGS_NAMESPACE, KEY_DEFAULT_DIFFICULTY));
 	game.settings.settings.get<string>(`${SETTINGS_NAMESPACE}.${KEY_SKILL_FOR_INJURIES}`)?.onChange?.(game.settings.get(SETTINGS_NAMESPACE, KEY_SKILL_FOR_INJURIES));
 	game.settings.settings.get<string>(`${SETTINGS_NAMESPACE}.${KEY_SKILL_FOR_REPAIRING_VEHICLE_HITS}`)?.onChange?.(game.settings.get(SETTINGS_NAMESPACE, KEY_SKILL_FOR_REPAIRING_VEHICLE_HITS));

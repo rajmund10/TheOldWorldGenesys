@@ -4,7 +4,7 @@ import { computed, inject } from 'vue';
 import { ItemSheetContext, RootContext } from '@/vue/SheetContext';
 import BasicItemSheet from '@/vue/sheets/item/BasicItemSheet.vue';
 import Localized from '@/vue/components/Localized.vue';
-import MoneyFields from '@/vue/components/MoneyFields.vue';
+import PriceFields from '@/vue/components/PriceFields.vue';
 import EquipmentDataModel from '@/item/data/EquipmentDataModel';
 
 const context = inject<ItemSheetContext<EquipmentDataModel>>(RootContext)!;
@@ -28,7 +28,7 @@ const system = computed(() => context.data.item.systemData);
 
 				<div class="row">
 					<label><Localized label="Genesys.Labels.Price" /></label>
-					<MoneyFields name-prefix="system.priceDetails" :value="system.priceDetails" include-restricted />
+					<PriceFields :price="system.price" :price-warhammer="system.priceWarhammer" />
 				</div>
 
 				<div class="row">

@@ -22,4 +22,8 @@ export default class AuroraSheet extends CharacterSheet {
 	override get currencyLabel() {
 		return 'Waluta';
 	}
+
+	override get currencyMode() {
+		return 'legacy' as const;
+	}
 }

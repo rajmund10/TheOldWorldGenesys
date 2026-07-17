@@ -180,7 +180,7 @@ Item:
       # Legacy numeric price value.
       price: 0
       # Old World price denominations.
-      priceDetails:
+      priceWarhammer:
         gold: 0
         silver: 0
         pennies: 0

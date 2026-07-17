@@ -10,11 +10,18 @@ import { DEFAULT_DIFFICULTY, DEFAULT_SKILLS_COMPENDIUM, GENESYS_CONFIG } from '@
 import { PoolModGlyphPattern } from '@/dice/types/GenesysPoolModifications';
 import SkillDataModel from '@/item/data/SkillDataModel';
 import GenesysItem from '@/item/GenesysItem';
+import { normalizeGameProfile } from '@/system/GameProfile';
 
 /**
  * The Skills Compendium to use for default skill data.
  */
 export const KEY_SKILLS_COMPENDIUM = 'skillsCompendium';
+
+/**
+ * Active Genesys game profile.
+ */
+export const KEY_GAME_PROFILE = 'gameProfile';
+export const KEY_GAME_PROFILE_CONFIGURED = 'gameProfileConfigured';
 
 /**
  * The default difficulty of a check.
@@ -94,6 +101,43 @@ export function register(namespace: string) {
 
 			CONFIG.genesys.skills = skills;
 		},
+	});
+
+	game.settings.register(namespace, KEY_GAME_PROFILE, {
+		name: game.i18n.localize('Genesys.Settings.GameProfile'),
+		hint: game.i18n.localize('Genesys.Settings.GameProfileHint'),
+		scope: 'world',
+		config: true,
+		default: GENESYS_CONFIG.settings.gameProfile,
+		type: String,
+		choices: {
+			genesys: game.i18n.localize('Genesys.Settings.GameProfileGenesys'),
+			'old-world': game.i18n.localize('Genesys.Settings.GameProfileOldWorld'),
+			aurora: game.i18n.localize('Genesys.Settings.GameProfileAurora'),
+			warcraft: game.i18n.localize('Genesys.Settings.GameProfileWarcraft'),
+		},
+		onChange: async (value) => {
+			const rawProfile = String(value ?? '');
+			const gameProfile = normalizeGameProfile(value);
+			const changed = CONFIG.genesys.settings.gameProfile !== gameProfile;
+			CONFIG.genesys.settings.gameProfile = gameProfile;
+			if (rawProfile === 'warhammer' && game.ready && game.user?.isGM) {
+				await game.settings.set(namespace, KEY_GAME_PROFILE, gameProfile);
+			}
+			if (changed && game.ready && game.user?.isGM) {
+				await game.settings.set(namespace, KEY_GAME_PROFILE_CONFIGURED, true);
+			}
+			(Hooks as any).callAll('genesysGameProfileChanged', gameProfile);
+		},
+	});
+
+	game.settings.register(namespace, KEY_GAME_PROFILE_CONFIGURED, {
+		name: game.i18n.localize('Genesys.Settings.GameProfileConfigured'),
+		hint: game.i18n.localize('Genesys.Settings.GameProfileConfiguredHint'),
+		scope: 'world',
+		config: false,
+		default: false,
+		type: Boolean,
 	});
 
 	game.settings.register(namespace, KEY_DEFAULT_DIFFICULTY, {

@@ -8,8 +8,8 @@ import GenesysItem from '@/item/GenesysItem';
 import TalentTree from '@/vue/components/character/TalentTree.vue';
 import { arrayFromItems } from '@/utils/collection';
 import type { TalentTreeData, TalentTreeNode } from '@/vue/components/character/TalentTreeTypes';
-import TalentPurchasePrompt from '@/app/TalentPurchasePrompt';
 import type CharacterSheet from '@/actor/sheets/CharacterSheet';
+import { canRefundTalentTreeNode, purchaseAdvance, refundTalentAdvance } from '@/actor/advancement/AdvancementPurchase';
 
 const context = inject<ActorSheetContext<CharacterDataModel, CharacterSheet>>(RootContext)!;
 
@@ -211,21 +211,18 @@ async function handleNodeClick(key: string, node: TalentTreeNode | null, cost: n
 	const [row, col] = key.split('-').map(Number);
 
 	if (node.purchased) {
-		const { canRefund, errorMessage } = TalentPurchasePrompt.canRefundTalent(row, col, treeData.value.connections, treeData.value.nodes);
-		const confirmed = await TalentPurchasePrompt.promptForRefund(node.name, cost, canRefund, errorMessage);
+		const { canRefund, errorMessage } = canRefundTalentTreeNode(row, col, treeData.value.connections, treeData.value.nodes);
+		const result = await refundTalentAdvance(toRaw(actor.value), {
+			talentName: node.name,
+			realItemId: node.realItemId,
+			cost,
+			canRefund,
+			errorMessage,
+		});
 
-		if (confirmed && canRefund) {
-			const result = await TalentPurchasePrompt.refundTalent(toRaw(actor.value), {
-				talentId: node.id,
-				talentName: node.name,
-				realItemId: node.realItemId,
-				cost,
-			});
-
-			if (result.success) {
-				await setNodePurchasedState(key, node, false);
-				await context.sheet.render(false);
-			}
+		if (result.success) {
+			await setNodePurchasedState(key, node, false);
+			await context.sheet.render(false);
 		}
 		return;
 	}
@@ -240,20 +237,13 @@ async function handleNodeClick(key: string, node: TalentTreeNode | null, cost: n
 		return;
 	}
 
-	const confirmed = await TalentPurchasePrompt.promptForPurchase(node.name, cost);
-	if (!confirmed) {
-		return;
-	}
-
-	const result = await TalentPurchasePrompt.purchaseTalent(
-		toRaw(actor.value),
-		{
-			talentId: node.id,
-			talentName: node.name,
-			cost,
-			treeManaged: true,
-		},
-	);
+	const result = await purchaseAdvance(toRaw(actor.value), {
+		type: 'talent',
+		talentId: node.id,
+		talentName: node.name,
+		cost,
+		treeManaged: true,
+	});
 
 	if (result.success) {
 		await setNodePurchasedState(key, node, true, result.itemId);

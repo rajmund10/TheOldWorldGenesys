@@ -30,6 +30,21 @@ Genesys:
   Settings:
     SkillsCompendium: Kompendium umiejętności
     SkillsCompendiumHint: Kompendium przedmiotów zawierające wszystkie umiejętności, które mają być dodawane nowym postaciom. Zmiana tej wartości nie wpłynie na już istniejące postaci.
+    GameProfile: Profil gry
+    GameProfileHint: Wybierz wariant Genesys używany w świecie. Profil przełącza domyślną kartę postaci oraz sposób zapisu waluty i cen.
+    GameProfileChoose: Wybierz świat gry
+    GameProfileCurrent: Aktualny wybór
+    GameProfileConfirm: Zatwierdź wybór
+    GameProfileConfigured: Profil gry został skonfigurowany
+    GameProfileConfiguredHint: Ukryta flaga pierwszej konfiguracji świata. Jeśli jest wyłączona, MG zobaczy kafelki wyboru profilu po wejściu do świata.
+    GameProfileGenesys: Genesys
+    GameProfileGenesysHint: Tam, gdzie wszystko zaczyna się od czystej kartki, a resztę dopisuje stół.
+    GameProfileOldWorld: 'The Old World: Grim and Perilous'
+    GameProfileOldWorldHint: Brudne ulice, stare katedry i wojna, która nigdy nie daje o sobie zapomnieć.
+    GameProfileAurora: Aurora
+    GameProfileAuroraHint: Chłodny blask nad własnym światem, gdzie każda mapa ma jeszcze białe plamy.
+    GameProfileWarcraft: Warcraft
+    GameProfileWarcraftHint: Wojna, magia i dawne królestwa, które nigdy nie śpią spokojnie.
     DefaultDifficulty: Domyślna trudność
     DefaultDifficultyHint: >-
       Domyślne modyfikatory puli kości, które powinny zostać dodane podczas wykonywania testu.
@@ -436,6 +451,34 @@ Genesys:
     RefundBlockedBelow: 'Nie można zwrócić tego talentu, ponieważ zależy od niego talent "{talentName}" poniżej.'
     RefundBlockedRight: 'Nie można zwrócić tego talentu, ponieważ zależy od niego talent "{talentName}" po prawej.'
     RefundBlockedLeft: 'Nie można zwrócić tego talentu, ponieważ zależy od niego talent "{talentName}" po lewej.'
+
+  AdvancePurchasePrompt:
+    PurchaseTitle: Kup awans
+    RefundTitle: Cofnij awans
+    PurchaseHeading: Kup awans
+    RefundHeading: Cofnij awans
+    PurchaseQuestion: 'Kupić {type} <strong>"{name}"</strong> za <strong>{cost} PD</strong>?'
+    RefundQuestion: 'Cofnąć {type} <strong>"{name}"</strong> i usunąć wydatek <strong>{cost} PD</strong> z dziennika?'
+    Cancel: Anuluj
+    PurchaseAction: 'Kup ({cost} PD)'
+    RefundAction: 'Cofnij ({cost} PD)'
+    AvailableXP: Dostępne PD
+    Source: Źródło
+    RefundWarning: Cofnięcie usunie wpis z dziennika PD i odwróci zakup.
+    Types:
+      Characteristic: Cecha
+      SkillRank: Umiejętność
+      Talent: Talent
+      TalentRank: Ranga talentu
+      Specialization: Specjalizacja
+    Sources:
+      CareerSkill: Umiejętność kariery
+    Errors:
+      CannotPurchaseCharacteristic: Nie można kupić tej cechy.
+      SkillMaxRank: Ta umiejętność ma już maksymalną rangę.
+      DuplicateSpecialization: 'Postać ma już specjalizację "{name}".'
+      FailedPurchase: Nie udało się kupić awansu.
+      NoMatchingJournalEntry: Nie znaleziono pasującego wpisu dziennika PD.
 
   XPJournal:
     Award: '<strong>PD przyznane przez MG</strong>: {reason}'

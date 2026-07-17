@@ -24,6 +24,7 @@ import { register as registerEffects } from '@/effects';
 import { register as registerItems, CharacterCreationItemTypes, EquipmentItemTypes } from '@/item';
 import { register as registerVehicles } from '@/actor/data/VehicleDataModel';
 import DicePrompt, { registerWorker } from '@/app/DicePrompt';
+import GameProfileSelector from '@/app/GameProfileSelector';
 
 import GenesysActor from '@/actor/GenesysActor';
 import GenesysCompendium from '@/sidebar/GenesysCompendium';
@@ -61,6 +62,7 @@ Hooks.once('ready', async () => {
 	registerStoryPointTracker();
 	registerVehicles();
 	registerWorker();
+	await GameProfileSelector.promptForInitialSetup();
 });
 
 function constructOptGroup(select: HTMLSelectElement, groupLabel: string, optValues?: string[]): HTMLOptGroupElement {

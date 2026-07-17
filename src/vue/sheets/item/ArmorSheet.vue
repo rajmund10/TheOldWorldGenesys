@@ -4,7 +4,7 @@ import { computed, inject, toRaw } from 'vue';
 import { ItemSheetContext, RootContext } from '@/vue/SheetContext';
 import BasicItemSheet from '@/vue/sheets/item/BasicItemSheet.vue';
 import Localized from '@/vue/components/Localized.vue';
-import MoneyFields from '@/vue/components/MoneyFields.vue';
+import PriceFields from '@/vue/components/PriceFields.vue';
 import ArmorDataModel from '@/item/data/ArmorDataModel';
 
 const context = inject<ItemSheetContext<ArmorDataModel>>(RootContext)!;
@@ -64,7 +64,7 @@ async function updateQualityRating(index: number, event: Event) {
 
 				<div class="row">
 					<label><Localized label="Genesys.Labels.Price" /></label>
-					<MoneyFields name-prefix="system.priceDetails" :value="system.priceDetails" include-restricted />
+					<PriceFields :price="system.price" :price-warhammer="system.priceWarhammer" />
 				</div>
 
 				<div class="row">

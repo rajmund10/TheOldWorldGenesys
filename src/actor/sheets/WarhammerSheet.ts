@@ -33,10 +33,14 @@ export default class WarhammerSheet extends CharacterSheet {
 		return 'Korony';
 	}
 
+	override get currencyMode() {
+		return 'warhammer' as const;
+	}
+
 	static override get defaultOptions() {
 		return {
 			...super.defaultOptions,
-			classes: ['genesys', 'sheet', 'actor', 'character', 'warhammer'],
+			classes: ['genesys', 'sheet', 'actor', 'character', 'warhammer', 'profile-old-world'],
 		};
 	}
 }

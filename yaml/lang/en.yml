@@ -36,6 +36,21 @@ Genesys:
   Settings:
     SkillsCompendium: Skills Compendium
     SkillsCompendiumHint: An Item compendium containing all of the skills that should be applied to new characters. Changing this value will have no impact on existing characters.
+    GameProfile: Game Profile
+    GameProfileHint: Choose which Genesys variant this world uses. The profile switches the default character sheet and the currency/price model.
+    GameProfileChoose: Choose Game World
+    GameProfileCurrent: Current selection
+    GameProfileConfirm: Confirm Selection
+    GameProfileConfigured: Game Profile Configured
+    GameProfileConfiguredHint: Hidden first-run world setup flag. If disabled, the GM sees profile tiles after entering the world.
+    GameProfileGenesys: Genesys
+    GameProfileGenesysHint: A blank stage where the table decides what kind of story it wants to tell.
+    GameProfileOldWorld: 'The Old World: Grim and Perilous'
+    GameProfileOldWorldHint: Muddy streets, old cathedrals, and a war that never quite lets go.
+    GameProfileAurora: Aurora
+    GameProfileAuroraHint: A private world under a cold sky, with room for stories still waiting to be named.
+    GameProfileWarcraft: Warcraft
+    GameProfileWarcraftHint: War, magic, and ancient kingdoms that never truly sleep.
     DefaultDifficulty: Default Difficulty
     DefaultDifficultyHint: >-
       The default dice pool modifications that should be added to the dice pool when doing a check. This default might be ignored in cases were the difficulty is known.
@@ -445,6 +460,34 @@ Genesys:
     RefundBlockedBelow: 'Cannot return this talent because "{talentName}" below depends on it.'
     RefundBlockedRight: 'Cannot return this talent because "{talentName}" to the right depends on it.'
     RefundBlockedLeft: 'Cannot return this talent because "{talentName}" to the left depends on it.'
+
+  AdvancePurchasePrompt:
+    PurchaseTitle: Purchase Advance
+    RefundTitle: Revert Advance
+    PurchaseHeading: Purchase Advance
+    RefundHeading: Revert Advance
+    PurchaseQuestion: 'Purchase {type} <strong>"{name}"</strong> for <strong>{cost} XP</strong>?'
+    RefundQuestion: 'Revert {type} <strong>"{name}"</strong> and remove the <strong>{cost} XP</strong> spend from the journal?'
+    Cancel: Cancel
+    PurchaseAction: 'Purchase ({cost} XP)'
+    RefundAction: 'Revert ({cost} XP)'
+    AvailableXP: Available XP
+    Source: Source
+    RefundWarning: Reverting removes the XP journal entry and reverses the purchase.
+    Types:
+      Characteristic: Characteristic
+      SkillRank: Skill
+      Talent: Talent
+      TalentRank: Talent Rank
+      Specialization: Specialization
+    Sources:
+      CareerSkill: Career Skill
+    Errors:
+      CannotPurchaseCharacteristic: This characteristic cannot be purchased.
+      SkillMaxRank: This skill is already at its maximum rank.
+      DuplicateSpecialization: 'The character already has specialization "{name}".'
+      FailedPurchase: Failed to purchase advance.
+      NoMatchingJournalEntry: No matching XP journal entry was found.
 
   # Experience Journal Labels
   XPJournal:

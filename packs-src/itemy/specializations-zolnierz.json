@@ -1,0 +1,2934 @@
+{
+	"pack": "itemy",
+	"documents": [
+		{
+			"_id": "YRWOPH2FLT0yXRqO",
+			"name": "Kawalerzysta",
+			"type": "specialization",
+			"img": "icons/svg/book.svg",
+			"folder": "tIDfzm5CIMHYhwjz",
+			"system": {
+				"description": "<p>Kawalerzyści są lekką jazdą, zwykle wykorzystywaną do błyskawicznych ataków i nękania wroga na krótkich dystansach. Podczas gdy szlachetni rycerze mają tendencję do patrzenia z góry na zwykłych kawalerzystów, ci sami patrzą z góry na żołnierzy piechoty, uważając się za część żołnierskiej elity.</p><p>Tworzą zamkniętą grupę i rzadko bratają się z wojskami innych formacji, przez co często są postrzegani jako aroganccy i zadufani w sobie.</p><p><strong>Początkowy sprzęt:</strong> 3k10 + 10 Srebrnych Szylingów, Koń Jeździecki, Nadziak i Łuk lub Włócznia lub Lekka Włócznia i Tarcza.</p>",
+				"source": "Stary Świat: Ponury i Niebezpieczny",
+				"key": "kawalerzysta",
+				"cost": 0,
+				"requirements": "Profesja: Żołnierz. Rasa: Cz, WE, LE.",
+				"benefits": "",
+				"socialStatus": "Klasa Średnia",
+				"careerSkills": [
+					"Broń Biała (Lekka)",
+					"Broń Dystansowa",
+					"Jeździectwo",
+					"Sztuka Przetrwania"
+				],
+				"grantedItems": [
+					{
+						"name": "Nadziak (T)",
+						"type": "weapon",
+						"system": {
+							"description": "<p>Nadziak ma wąski, twardy dziób zaprojektowany do skupiania całej siły uderzenia w jednym punkcie. Nie jest efektowny, ale znakomicie radzi sobie z kolczugą, płytami i inną solidną ochroną.</p>",
+							"source": "Stary Świat: Ponury i Niebezpieczny",
+							"rarity": 2,
+							"encumbrance": 3,
+							"encumbranceThreshold": 0,
+							"price": 160,
+							"priceWarhammer": {
+								"gold": 0,
+								"silver": 65,
+								"pennies": 0,
+								"restricted": false
+							},
+							"damage": "undamaged",
+							"container": "",
+							"quantity": 1,
+							"state": "carried",
+							"baseDamage": 1,
+							"critical": 2,
+							"range": "engaged",
+							"skills": [
+								"Broń Biała (Lekka)"
+							],
+							"qualities": [
+								{
+									"name": "Przebicie",
+									"description": "<p>Trafienia ignorują redukcję celu o wartość równą wartości Przebicia, maksymalnie do całkowitej redukcji celu.</p>",
+									"isRated": true,
+									"rating": 2
+								}
+							],
+							"damageCharacteristic": "brawn"
+						},
+						"flags": {
+							"oldWorldEquipmentImport": {
+								"sourceBook": "Stary Świat: Ponury i Niebezpieczny",
+								"category": "Bronie Białe",
+								"hardPoints": "1",
+								"priceText": "65s"
+							},
+							"genesys": {
+								"sourcePrices": {
+									"genesys": {
+										"source": "Realms of Terrinoth",
+										"price": 160
+									}
+								}
+							}
+						},
+						"img": "icons/svg/item-bag.svg"
+					},
+					{
+						"name": "Łuk (T)",
+						"type": "weapon",
+						"system": {
+							"description": "<p>Łuki są powszechne wśród myśliwych, leśników i żołnierzy. Sprawdzają się zarówno na polowaniu, jak i na wojnie, a cicha salwa strzał potrafi rozpocząć zasadzkę, zanim cel zorientuje się, skąd nadchodzi zagrożenie.</p>",
+							"source": "Stary Świat: Ponury i Niebezpieczny",
+							"rarity": 2,
+							"encumbrance": 2,
+							"encumbranceThreshold": 0,
+							"price": 275,
+							"priceWarhammer": {
+								"gold": 0,
+								"silver": 75,
+								"pennies": 0,
+								"restricted": false
+							},
+							"damage": "undamaged",
+							"container": "",
+							"quantity": 1,
+							"state": "carried",
+							"baseDamage": 7,
+							"critical": 3,
+							"range": "medium",
+							"skills": [
+								"Broń Dystansowa"
+							],
+							"qualities": [
+								{
+									"name": "Nieporęczność",
+									"description": "<p>Postać potrzebuje Zwinności co najmniej równej wartości Nieporęczności. Za każdy brakujący punkt zwiększa trudność testów wykonywanych z użyciem tej broni o 1.</p>",
+									"isRated": true,
+									"rating": 2
+								}
+							],
+							"damageCharacteristic": "-"
+						},
+						"flags": {
+							"oldWorldEquipmentImport": {
+								"sourceBook": "Stary Świat: Ponury i Niebezpieczny",
+								"category": "Bronie Dystansowe",
+								"hardPoints": "1",
+								"priceText": "75s"
+							},
+							"genesys": {
+								"sourcePrices": {
+									"genesys": {
+										"source": "Realms of Terrinoth",
+										"price": 275
+									}
+								}
+							}
+						},
+						"img": "icons/svg/item-bag.svg"
+					}
+				],
+				"magicAccess": {
+					"enabled": false,
+					"tradition": "",
+					"school": "",
+					"lore": "",
+					"deity": "",
+					"allowOvercast": false,
+					"allowMiscast": false
+				},
+				"professionPath": [
+					{
+						"id": "kawalerzysta-harcownik",
+						"name": "Harcownik",
+						"tier": 1,
+						"prerequisites": "Zaciągnij się do wojska, mając przynajmniej 1 poziom Jeździectwa.",
+						"effects": "Brak",
+						"isAlternative": false
+					},
+					{
+						"id": "kawalerzysta-kawalerzysta",
+						"name": "Kawalerzysta",
+						"tier": 2,
+						"prerequisites": "Zwiększ poziom Jeździectwa do 3. Zwiększ poziomy w Broni Białej (Lekkiej) lub Broni Dystansowej do 3.",
+						"effects": "Możesz wydać 15 PD na zakup talentu W Siodle Urodzony.",
+						"isAlternative": false
+					},
+					{
+						"id": "kawalerzysta-wachmistrz",
+						"name": "Wachmistrz",
+						"tier": 3,
+						"prerequisites": "Zwiększ poziom Jeździectwa do 4. Zwiększ poziomy w Broni Białej (Lekkiej) lub Broni Dystansowej do 4. Kup talent Kawalerzysta (Ulepszony).",
+						"effects": "Możesz wydać 10 PD na zakup specjalizacji Oficera.",
+						"isAlternative": false
+					}
+				]
+			},
+			"flags": {
+				"genesysSpecializationImport": {
+					"sourceBook": "Stary Świat: Ponury i Niebezpieczny",
+					"importedFromTemplate": true,
+					"specializationKey": "kawalerzysta"
+				},
+				"genesys": {
+					"treeData": {
+						"nodes": {
+							"0-0": {
+								"name": "Szybkie Dobycie",
+								"img": "icons/svg/upgrade.svg",
+								"id": "bzvzH6DS4Vc2gcDt",
+								"description": "<p>Raz na rundę podczas swojej tury postać może użyć tego talentu, aby w ramach okazji dobyć albo schować łatwo dostępną broń. Szybkie Dobycie zmniejsza też wartość Przygotowania broni o 1, do minimum 1.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"0-1": {
+								"name": "Finezja",
+								"img": "icons/svg/upgrade.svg",
+								"id": "69TOhY0FVrE7MPlB",
+								"description": "<p>Kiedy postać wykonuje test Bijatyki albo Broni Białej (Lekkiej), może oprzeć go na Zręczności zamiast na Krzepie.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"0-2": {
+								"name": "Zacięcie",
+								"img": "icons/svg/upgrade.svg",
+								"id": "fffyL6ey08hbaQ4s",
+								"description": "<p>Każdy poziom Zacięcia zwiększa o 1 próg zmęczenia postaci.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"0-3": {
+								"name": "No To Jazda",
+								"img": "icons/svg/upgrade.svg",
+								"id": "JYVBhoq7iWV7bQqH",
+								"description": "<p>Raz na rundę podczas swojej tury postać może użyć tego talentu, aby w ramach okazji dosiąść lub zsiąść z wierzchowca, wsiąść do pojazdu, wysiąść z niego albo zmienić w nim miejsce (na przykład przejść z kokpitu do wieżyczki strzeleckiej). Ponadto, jeśli postać spada z małej wysokości (zob. str. 112) z pojazdu albo zwierzęcia, nie otrzymuje obrażeń i ląduje na nogach.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"1-0": {
+								"name": "Szkolenie Strzeleckie",
+								"img": "icons/svg/upgrade.svg",
+								"id": "hyPoeu4bVinJjfMd",
+								"description": "<p>Dyscyplina i Broń Palna są teraz umiejętnościami związanymi z profesją postaci.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"1-1": {
+								"name": "Parada",
+								"img": "icons/svg/upgrade.svg",
+								"id": "ZrE0y5Imdoa9nLq4",
+								"description": "<p>Kiedy postać otrzymuje trafienie w wyniku testu walki wręcz, po naliczeniu obrażeń, ale przed zastosowaniem redukcji (czyli natychmiast po Kroku 3 wykonywania testu walki, zob. str. 102) może przyjąć 3 punkty zmęczenia, aby użyć tego talentu i zmniejszyć te obrażenia o 2 plus liczba poziomów Parady. Tego talentu można użyć tylko raz na trafienie, a postać musi trzymać broń białą.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "okazja, poza turą"
+								},
+								"purchased": false
+							},
+							"1-2": {
+								"name": "Przygwożdżenie",
+								"img": "icons/svg/upgrade.svg",
+								"id": "imP8RZ3IyiSuRh48",
+								"description": "<p>Kiedy postać zadaje Uraz Krytyczny bronią białą, może użyć tego talentu, aby unieruchomić cel do końca jego następnej tury, oprócz pozostałych efektów Urazu Krytycznego.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"1-3": {
+								"name": "Błyskawiczna Poprawa",
+								"img": "icons/svg/upgrade.svg",
+								"id": "oWPVRWpmz7scrqEL",
+								"description": "<p>Na koniec spotkania postać usuwa 2 dodatkowe punkty zmęczenia, jeśli przed wyleczeniem przekracza ono połowę progu.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"2-0": {
+								"name": "Pewna Ręka",
+								"img": "icons/svg/upgrade.svg",
+								"id": "hOnu3pMpQufmy5j7",
+								"description": "<p>Postać może wydać Punkt Opowieści przed wykonaniem testu walki dystansowej, aby użyć tego talentu i dodać do wyniku testu liczbę a równą poziomowi postaci w Dyscyplinie.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"2-1": {
+								"name": "Uskok",
+								"img": "icons/svg/upgrade.svg",
+								"id": "duWNdjBTT2MSzYRo",
+								"description": "<p>Raz na rundę postać może przyjąć wybraną liczbę punktów zmęczenia nie większą od posiadanych poziomów Uskoku, aby użyć tego talentu. Do końca jej następnej tury wzmocnij trudność wszystkich testów walki dystansowej, których celem jest ta postać, tyle razy, ile punktów zmęczenia przyjęła.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "manewr"
+								},
+								"purchased": false
+							},
+							"2-2": {
+								"name": "Straż Przednia",
+								"img": "icons/svg/upgrade.svg",
+								"id": "ZSaeLdS562ytI9es",
+								"description": "<p>Jeśli na początku spotkania bojowego postać jest konno lub na pojeździe, dodaje @sym[s] @sym[s] do wyników testu określającego kolejność Inicjatywy.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"2-3": {
+								"name": "Kawalerzysta",
+								"img": "icons/svg/upgrade.svg",
+								"id": "wqtRjDj1b3m375bJ",
+								"description": "<p>Gdy postać dosiada wierzchowca wyszkolonego do walki (zazwyczaj wierzchowca bojowego, zob. strona 105, albo latającego wierzchowca, zob. strona 104), raz na rundę może użyć tego talentu, aby nakazać wierzchowcowi wykonanie akcji.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "manewr"
+								},
+								"purchased": false
+							},
+							"3-0": {
+								"name": "Nie Do Zdarcia",
+								"img": "icons/svg/upgrade.svg",
+								"id": "yRx3JCJQ2tw8HVSw",
+								"description": "<p>Każdy poziom talentu Nie do Zdarcia zwiększa o 1 redukcję postaci.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"3-1": {
+								"name": "Zahartowany",
+								"img": "icons/svg/upgrade.svg",
+								"id": "I6F3HkR7aWI2I06b",
+								"description": "<p>Każdy posiadany poziom Zahartowanego zwiększa próg ran postaci o 2.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"3-2": {
+								"name": "Kawalerzysta [Ul.]",
+								"img": "icons/svg/upgrade.svg",
+								"id": "1Vren9eyT715oMHW",
+								"description": "<p>Aby korzystać z tego talentu, postać musi mieć talent Kawalerzysta. Gdy postać jedzie wierzchem, zarówno postać jak i wierzchowiec zwiększają swoją obronę o 1. Ponadto postać nie musi wykonywać testów Jeździectwa, by zapanować nad nieprzeszkolonym wierzchowcem w walce lub innej stresującej sytuacji.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"3-3": {
+								"name": "Zacięcie",
+								"img": "icons/svg/upgrade.svg",
+								"id": "fffyL6ey08hbaQ4s",
+								"description": "<p>Każdy poziom Zacięcia zwiększa o 1 próg zmęczenia postaci.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"4-0": {
+								"name": "Kawalerzysta [Dos.]",
+								"img": "icons/svg/upgrade.svg",
+								"id": "zCWfzujN6k5PaNVY",
+								"description": "<p>Aby korzystać z tego talentu, postać musi mieć talent Kawalerzysta (Ulepszony). Postać może przyjąć 1 punkt zmęczenia, aby użyć talentu Kawalerzysta w ramach Okazji, zamiast Manewru.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja, poza turą"
+								},
+								"purchased": false
+							},
+							"4-1": {
+								"name": "Zahartowany",
+								"img": "icons/svg/upgrade.svg",
+								"id": "I6F3HkR7aWI2I06b",
+								"description": "<p>Każdy posiadany poziom Zahartowanego zwiększa próg ran postaci o 2.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"4-2": {
+								"name": "Uskok",
+								"img": "icons/svg/upgrade.svg",
+								"id": "duWNdjBTT2MSzYRo",
+								"description": "<p>Raz na rundę postać może przyjąć wybraną liczbę punktów zmęczenia nie większą od posiadanych poziomów Uskoku, aby użyć tego talentu. Do końca jej następnej tury wzmocnij trudność wszystkich testów walki dystansowej, których celem jest ta postać, tyle razy, ile punktów zmęczenia przyjęła.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "manewr"
+								},
+								"purchased": false
+							},
+							"4-3": {
+								"name": "Oddanie Sprawie",
+								"img": "icons/svg/upgrade.svg",
+								"id": "AcAFptAFkerdx2AB",
+								"description": "<p>Każdy poziom Oddania Sprawie zwiększa jedną z cech postaci o 1. Ten talent nie może zwiększyć wartości cechy ponad 5 ani zwiększyć dwa razy tej samej cechy.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							}
+						},
+						"connections": {
+							"h-1-1": true,
+							"h-2-0": true,
+							"h-2-2": true,
+							"h-3-0": true,
+							"h-3-1": true,
+							"h-3-2": true,
+							"h-4-0": true,
+							"h-4-1": true,
+							"h-4-2": true,
+							"v-0-0": true,
+							"v-0-1": true,
+							"v-0-2": true,
+							"v-0-3": true,
+							"v-1-0": true,
+							"v-1-1": true,
+							"v-1-3": true,
+							"v-2-1": true,
+							"v-2-3": true,
+							"v-3-0": true,
+							"v-3-2": true
+						},
+						"backgroundImage": "",
+						"bgPosX": "0px",
+						"bgPosY": "0px"
+					}
+				}
+			},
+			"effects": [],
+			"ownership": {
+				"default": 0
+			},
+			"sort": 10
+		},
+		{
+			"_id": "3VAmJP1LfkJn2N8S",
+			"name": "Najemnik",
+			"type": "specialization",
+			"img": "icons/svg/book.svg",
+			"folder": "tIDfzm5CIMHYhwjz",
+			"system": {
+				"description": "<p>Wojny nieustannie przetaczają się przez Stary Świat, co oznacza, że zawsze istnieje zapotrzebowanie na wojowników. Chociaż Imperium utrzymuje stałą armię, jej siła jest wzmocniona najemnymi żołnierzami.</p><p>Przekrój najemnej braci sięga od rozwydrzonej młodzieży, chcącej zaznać smaku przygody, po krzepkich i zgryźliwych weteranów, którzy widzieli co najmniej tuzin bitew. Choć tak różni, wszyscy mają jedną wspólną cechę: wielkie marzenia o chwale i nieopisanych bogactwach.</p><p><strong>Początkowy sprzęt:</strong> 1k10 Srebrnych Szylingów, Kusza (Niska Jakość) i Buzdygan lub Pika i Miecz lub Halabarda, Przeszywanica.</p>",
+				"source": "Stary Świat: Ponury i Niebezpieczny",
+				"key": "najemnik",
+				"cost": 0,
+				"requirements": "Profesja: Żołnierz. Rasa: Cz, Ni, Kr, WE, LE, Og, Gn.",
+				"benefits": "",
+				"socialStatus": "Biedota",
+				"careerSkills": [
+					"Broń Biała (Ciężka)",
+					"Broń Dystansowa",
+					"Negocjacje",
+					"Odporność"
+				],
+				"grantedItems": [
+					{
+						"name": "Kusza (T)",
+						"type": "weapon",
+						"system": {
+							"description": "<p>Kusza ładuje się wolniej niż łuk, ale jej bełty uderzają mocniej i wymagają mniej treningu od strzelca. Wystarczy wycelować oraz nacisnąć spust, dlatego chętnie korzystają z niej strażnicy, najemnicy i łowcy potworów.</p>",
+							"source": "Stary Świat: Ponury i Niebezpieczny",
+							"rarity": 3,
+							"encumbrance": 3,
+							"encumbranceThreshold": 0,
+							"price": 600,
+							"priceWarhammer": {
+								"gold": 0,
+								"silver": 125,
+								"pennies": 0,
+								"restricted": false
+							},
+							"damage": "undamaged",
+							"container": "",
+							"quantity": 1,
+							"state": "carried",
+							"baseDamage": 7,
+							"critical": 2,
+							"range": "medium",
+							"skills": [
+								"Broń Dystansowa"
+							],
+							"qualities": [
+								{
+									"name": "Przebicie",
+									"description": "<p>Trafienia ignorują redukcję celu o wartość równą wartości Przebicia, maksymalnie do całkowitej redukcji celu.</p>",
+									"isRated": true,
+									"rating": 2
+								},
+								{
+									"name": "Przygotowanie",
+									"description": "<p>Przed użyciem przedmiotu użytkownik musi wykonać liczbę manewrów przygotowawczych równą wartości Przygotowania.</p>",
+									"isRated": true,
+									"rating": 1
+								}
+							],
+							"damageCharacteristic": "-"
+						},
+						"flags": {
+							"oldWorldEquipmentImport": {
+								"sourceBook": "Stary Świat: Ponury i Niebezpieczny",
+								"category": "Bronie Dystansowe",
+								"hardPoints": "1",
+								"priceText": "125s"
+							},
+							"genesys": {
+								"sourcePrices": {
+									"genesys": {
+										"source": "Realms of Terrinoth",
+										"price": 600
+									}
+								}
+							}
+						},
+						"img": "icons/svg/item-bag.svg"
+					},
+					{
+						"name": "Buzdygan",
+						"type": "weapon",
+						"system": {
+							"description": "<p>Buzdygan rozwija prostą ideę pałki: ciężka głowica na końcu trzonka pozwala zadawać potężne ciosy. Jest też znacznie trwalszy niż zwykła pałka.</p>",
+							"source": "Stary Świat: Ponury i Niebezpieczny",
+							"rarity": 1,
+							"encumbrance": 2,
+							"encumbranceThreshold": 0,
+							"price": 75,
+							"priceWarhammer": {
+								"gold": 0,
+								"silver": 160,
+								"pennies": 0,
+								"restricted": false
+							},
+							"damage": "undamaged",
+							"container": "",
+							"quantity": 1,
+							"state": "carried",
+							"baseDamage": 3,
+							"critical": 3,
+							"range": "engaged",
+							"skills": [
+								"Broń Biała (Lekka)"
+							],
+							"qualities": [
+								{
+									"name": "Dezorientacja",
+									"description": "<p>Po wywołaniu jeden trafiony cel zostaje zdezorientowany na liczbę rund równą wartości Dezorientacji.</p>",
+									"isRated": true,
+									"rating": 2
+								}
+							],
+							"damageCharacteristic": "brawn"
+						},
+						"flags": {
+							"oldWorldEquipmentImport": {
+								"sourceBook": "Stary Świat: Ponury i Niebezpieczny",
+								"category": "Bronie Białe",
+								"hardPoints": "1",
+								"priceText": "160s"
+							},
+							"genesys": {
+								"sourcePrices": {
+									"genesys": {
+										"source": "Realms of Terrinoth",
+										"price": 75
+									}
+								}
+							}
+						},
+						"img": "icons/svg/item-bag.svg"
+					},
+					{
+						"name": "Przeszywanica (T)",
+						"type": "armor",
+						"system": {
+							"description": "<p>Przeszywanica to grube, pikowane warstwy materiału przypominające ciężki zimowy kaftan. Nie wygląda imponująco, ale dobrze tłumi uderzenia i bywa jedyną ochroną, na jaką mogą pozwolić sobie ubożsi żołnierze.</p>",
+							"source": "Stary Świat: Ponury i Niebezpieczny",
+							"rarity": 2,
+							"encumbrance": 2,
+							"encumbranceThreshold": 0,
+							"price": 35,
+							"priceWarhammer": {
+								"gold": 0,
+								"silver": 35,
+								"pennies": 0,
+								"restricted": false
+							},
+							"damage": "undamaged",
+							"container": "",
+							"quantity": 1,
+							"state": "carried",
+							"defense": 0,
+							"soak": 1,
+							"qualities": []
+						},
+						"flags": {
+							"oldWorldEquipmentImport": {
+								"sourceBook": "Stary Świat: Ponury i Niebezpieczny",
+								"category": "Pancerze",
+								"hardPoints": "0",
+								"priceText": "35s"
+							},
+							"genesys": {
+								"sourcePrices": {
+									"genesys": {
+										"source": "Realms of Terrinoth",
+										"price": 35
+									}
+								}
+							}
+						},
+						"img": "icons/svg/item-bag.svg"
+					}
+				],
+				"magicAccess": {
+					"enabled": false,
+					"tradition": "",
+					"school": "",
+					"lore": "",
+					"deity": "",
+					"allowOvercast": false,
+					"allowMiscast": false
+				},
+				"professionPath": [
+					{
+						"id": "najemnik-najemnik",
+						"name": "Najemnik",
+						"tier": 1,
+						"prerequisites": "Zaciągnij się do kompanii najemnej.",
+						"effects": "Brak",
+						"isAlternative": false
+					},
+					{
+						"id": "najemnik-najemny-weteran",
+						"name": "Najemny Weteran*",
+						"tier": 2,
+						"prerequisites": "Kup jeden poziom talentu Onieśmielający. Zwiększ poziom Broni Białej (Ciężkiej) do 3. Weź udział w ekspedycji wojskowej lub kampanii.",
+						"effects": "Gdy postać walczy ciężką bronią do walki wręcz, dodaje kość wsparcia do testów ataku przeciwko konnym przeciwnikom.",
+						"isAlternative": true
+					},
+					{
+						"id": "najemnik-kondotier",
+						"name": "Kondotier*",
+						"tier": 2,
+						"prerequisites": "Zwiększ poziom Negocjacji do 4.",
+						"effects": "Postać może zmienić swoją klasę społeczną na Klasę Średnią. Gdy postać testuje Negocjacje w celu uzgodnienia kontraktu, zwiększa ofertę podstawową o 20% za każdy sukces poza pierwszym.",
+						"isAlternative": true
+					}
+				]
+			},
+			"flags": {
+				"genesysSpecializationImport": {
+					"sourceBook": "Stary Świat: Ponury i Niebezpieczny",
+					"importedFromTemplate": true,
+					"specializationKey": "najemnik"
+				},
+				"genesys": {
+					"treeData": {
+						"nodes": {
+							"0-0": {
+								"name": "Brawurowa Szarża",
+								"img": "icons/svg/upgrade.svg",
+								"id": "b9P6SHJnloOr28Ed",
+								"description": "<p>Po wykonaniu manewru, aby wejść w zwarcie z przeciwnikiem, postać może przyjąć 2 punkty zmęczenia, aby użyć tego talentu. Dodaje wtedy @sym[s] @sym[s] @sym[h] @sym[h] do wyników następnego testu walki Bijatyką, Bronią Białą (Lekką) albo Bronią Białą (Ciężką), który wykona w tej turze.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"0-1": {
+								"name": "Przełamanie",
+								"img": "icons/svg/upgrade.svg",
+								"id": "KDMgfv0HOrLzVKHt",
+								"description": "<p>Raz na rundę, gdy postać dzierży broń używaną z umiejętnością Broń Biała (Ciężka), może przyjąć punkty zmęczenia w liczbie nieprzekraczającej jej poziomu Przełamania, by użyć tego talentu. Wybierz jednego wroga będącego w zwarciu z postacią. Do końca następnej tury postaci zmniejsz obronę celu tyle razy, ile zmęczenia przyjęła postać.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "manewr"
+								},
+								"purchased": false
+							},
+							"0-2": {
+								"name": "Drugi Oddech",
+								"img": "icons/svg/upgrade.svg",
+								"id": "KobRcZkKKBTXUEDH",
+								"description": "<p>Raz na spotkanie postać może użyć tego talentu, aby usunąć liczbę punktów zmęczenia równą liczbie posiadanych poziomów Drugiego Oddechu.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"0-3": {
+								"name": "Zahartowany",
+								"img": "icons/svg/upgrade.svg",
+								"id": "I6F3HkR7aWI2I06b",
+								"description": "<p>Każdy posiadany poziom Zahartowanego zwiększa próg ran postaci o 2.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"1-0": {
+								"name": "Onieśmielający",
+								"img": "icons/svg/upgrade.svg",
+								"id": "MGniJsatmtAtm6vA",
+								"description": "<p>Podczas pierwszej rundy spotkania bojowego postać zwiększa swoją obronę w zwarciu o jeden za każdy poziom talentu Onieśmielający.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"1-1": {
+								"name": "Przygwożdżenie",
+								"img": "icons/svg/upgrade.svg",
+								"id": "imP8RZ3IyiSuRh48",
+								"description": "<p>Kiedy postać zadaje Uraz Krytyczny bronią białą, może użyć tego talentu, aby unieruchomić cel do końca jego następnej tury, oprócz pozostałych efektów Urazu Krytycznego.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"1-2": {
+								"name": "Parada",
+								"img": "icons/svg/upgrade.svg",
+								"id": "ZrE0y5Imdoa9nLq4",
+								"description": "<p>Kiedy postać otrzymuje trafienie w wyniku testu walki wręcz, po naliczeniu obrażeń, ale przed zastosowaniem redukcji (czyli natychmiast po Kroku 3 wykonywania testu walki, zob. str. 102) może przyjąć 3 punkty zmęczenia, aby użyć tego talentu i zmniejszyć te obrażenia o 2 plus liczba poziomów Parady. Tego talentu można użyć tylko raz na trafienie, a postać musi trzymać broń białą.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "okazja, poza turą"
+								},
+								"purchased": false
+							},
+							"1-3": {
+								"name": "Niezłomny",
+								"img": "icons/svg/upgrade.svg",
+								"id": "gg97WvkpdefVZq91",
+								"description": "<p>Gdy postać znajduje się w niebezpiecznych okolicznościach lub groźnym środowisku oraz otrzymała co najmniej 1 ranę w ostatnim spotkaniu, może wykonać Prosty (-) test Odporności zamiast Dyscypliny albo Opanowania, aby zmniejszyć zmęczenie pod koniec spotkania (zob. str. 117 Podręcznika Podstawowego).</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"2-0": {
+								"name": "Drugi Oddech",
+								"img": "icons/svg/upgrade.svg",
+								"id": "KobRcZkKKBTXUEDH",
+								"description": "<p>Raz na spotkanie postać może użyć tego talentu, aby usunąć liczbę punktów zmęczenia równą liczbie posiadanych poziomów Drugiego Oddechu.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"2-1": {
+								"name": "Zahartowany",
+								"img": "icons/svg/upgrade.svg",
+								"id": "I6F3HkR7aWI2I06b",
+								"description": "<p>Każdy posiadany poziom Zahartowanego zwiększa próg ran postaci o 2.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"2-2": {
+								"name": "Fala Uderzeniowa",
+								"img": "icons/svg/upgrade.svg",
+								"id": "0QpRYfn4UBo8NhIr",
+								"description": "<p>Broń używana przez postać z umiejętnością Broń Biała (Ciężka) jest traktowana tak, jakby miała właściwość Wybuch o wartości równej poziomom postaci w Broni Białej (Ciężkiej). Postać nie otrzymuje obrażeń od właściwości Wybuch swojej broni, ale jej sojusznicy już tak!</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"2-3": {
+								"name": "Szybkie Zdrowienie",
+								"img": "icons/svg/upgrade.svg",
+								"id": "Vj6FZ5zCp2bsKNbd",
+								"description": "<p>Kiedy postać leczy rany poprzez naturalne zdrowienie, leczy dwie dodatkowe rany.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"3-0": {
+								"name": "Przełamanie",
+								"img": "icons/svg/upgrade.svg",
+								"id": "KDMgfv0HOrLzVKHt",
+								"description": "<p>Raz na rundę, gdy postać dzierży broń używaną z umiejętnością Broń Biała (Ciężka), może przyjąć punkty zmęczenia w liczbie nieprzekraczającej jej poziomu Przełamania, by użyć tego talentu. Wybierz jednego wroga będącego w zwarciu z postacią. Do końca następnej tury postaci zmniejsz obronę celu tyle razy, ile zmęczenia przyjęła postać.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "manewr"
+								},
+								"purchased": false
+							},
+							"3-1": {
+								"name": "Onieśmielający",
+								"img": "icons/svg/upgrade.svg",
+								"id": "MGniJsatmtAtm6vA",
+								"description": "<p>Podczas pierwszej rundy spotkania bojowego postać zwiększa swoją obronę w zwarciu o jeden za każdy poziom talentu Onieśmielający.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"3-2": {
+								"name": "Ramię w Ramię",
+								"img": "icons/svg/upgrade.svg",
+								"id": "Nx31VqFMrjwvvsVK",
+								"description": "<p>Gdy postać znajduje się w dystansie bezpośrednim od co najmniej jednego sojusznika, ona oraz sojusznicy w jej dystansie bezpośrednim dodają @die[B] do testów walki. Jeśli co najmniej jeden sojusznik w dystansie bezpośrednim od postaci również ma talent Ramię w Ramię, efekty kumulują się do maksymalnie @die[B] @die[B].</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"3-3": {
+								"name": "Postawa Defensywna",
+								"img": "icons/svg/upgrade.svg",
+								"id": "0J2FSGij7oHxl9Tv",
+								"description": "<p>Raz na rundę postać może użyć tego talentu, aby przyjąć wybraną liczbę punktów zmęczenia, która nie może być większa od posiadanych poziomów Postawy Defensywnej. Wówczas aż do końca następnej tury postaci trudność testów walki wręcz, których celem jest ta postać, zwiększa się o wybraną liczbę.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "manewr"
+								},
+								"purchased": false
+							},
+							"4-0": {
+								"name": "Nie Do Zdarcia",
+								"img": "icons/svg/upgrade.svg",
+								"id": "yRx3JCJQ2tw8HVSw",
+								"description": "<p>Każdy poziom talentu Nie do Zdarcia zwiększa o 1 redukcję postaci.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"4-1": {
+								"name": "Druzgocący Cios",
+								"img": "icons/svg/upgrade.svg",
+								"id": "dBYEWdP2ltVbQVEs",
+								"description": "<p>Raz na sesję, po wykonaniu rzutu ataku wręcz, ale przed rozpatrzeniem testu, postać może przyjąć 4 punkty zmęczenia, aby użyć tego talentu. Na czas rozpatrywania testu broń zyskuje właściwości Penetracja 1 i Powalenie oraz niszczy jeden przedmiot dzierżony przez cel, jeśli ten przedmiot nie ma właściwości Wzmocnione.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"4-2": {
+								"name": "Zahartowany",
+								"img": "icons/svg/upgrade.svg",
+								"id": "I6F3HkR7aWI2I06b",
+								"description": "<p>Każdy posiadany poziom Zahartowanego zwiększa próg ran postaci o 2.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"4-3": {
+								"name": "Oddanie Sprawie",
+								"img": "icons/svg/upgrade.svg",
+								"id": "AcAFptAFkerdx2AB",
+								"description": "<p>Każdy poziom Oddania Sprawie zwiększa jedną z cech postaci o 1. Ten talent nie może zwiększyć wartości cechy ponad 5 ani zwiększyć dwa razy tej samej cechy.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							}
+						},
+						"connections": {
+							"h-1-0": true,
+							"h-1-2": true,
+							"h-2-0": true,
+							"h-2-1": true,
+							"h-3-2": true,
+							"h-4-0": true,
+							"h-4-2": true,
+							"v-0-1": true,
+							"v-0-2": true,
+							"v-1-0": true,
+							"v-1-2": true,
+							"v-1-3": true,
+							"v-2-0": true,
+							"v-2-1": true,
+							"v-2-2": true,
+							"v-2-3": true,
+							"v-3-0": true,
+							"v-3-2": true
+						},
+						"backgroundImage": "",
+						"bgPosX": "0px",
+						"bgPosY": "0px"
+					}
+				}
+			},
+			"effects": [],
+			"ownership": {
+				"default": 0
+			},
+			"sort": 20
+		},
+		{
+			"_id": "jxYQsd0a33fod5wk",
+			"name": "Oficer",
+			"type": "specialization",
+			"img": "icons/svg/book.svg",
+			"folder": "tIDfzm5CIMHYhwjz",
+			"system": {
+				"description": "<p>W całym Starym Świecie to na barkach oficerów spoczywa dowodzenie wojskiem. Jest to wielka odpowiedzialność, bo choć wiele zależy od wyszkolenia i morale żołnierzy, jeden genialny lub fatalny rozkaz może zaważyć o sukcesie bitwy, a czasem nawet całej kampanii.</p><p>Oficerowie rzadko rekrutują się spośród szeregowych żołnierzy. Chociaż zdarza się, że zasłużony weteran otrzymuje zaszczyt dowodzenia własnym oddziałem, oficerowie zwykle pochodzą spośród drobnej szlachty lub bogatszego mieszczaństwa.</p><p><strong>Początkowy sprzęt:</strong> 3k10 + 30 Srebrnych Szylingów, Wyśmienity płaszcz, Miecz.</p>",
+				"source": "Stary Świat: Ponury i Niebezpieczny",
+				"key": "oficer",
+				"cost": 0,
+				"requirements": "Profesja: Żołnierz. Rasa: Cz, Ni, Kr, WE, LE, Og, Gn.",
+				"benefits": "",
+				"socialStatus": "Klasa Średnia",
+				"careerSkills": [
+					"Dyscyplina",
+					"Opanowanie",
+					"Przywództwo",
+					"Wiedza (Akademicka)"
+				],
+				"grantedItems": [
+					{
+						"name": "Wyśmienity płaszcz (T)",
+						"type": "gear",
+						"system": {
+							"description": "<p>Uszyty z barwnego jedwabiu albo bogatego, podszytego futrem aksamitu, wyśmienity płaszcz natychmiast sugeruje bogactwo, władzę albo przynajmniej aspiracje do jednego i drugiego. Gdy postać nosi wyśmienity płaszcz, usuwa @die[S] z testów Uroku Osobistego, Oszustwa i Przywództwa. Podczas noszenia obciążenie płaszcza wynosi 0.</p>",
+							"source": "Stary Świat: Ponury i Niebezpieczny",
+							"rarity": 4,
+							"encumbrance": 1,
+							"encumbranceThreshold": 0,
+							"price": 0,
+							"priceWarhammer": {
+								"gold": 0,
+								"silver": 150,
+								"pennies": 0,
+								"restricted": false
+							},
+							"damage": "undamaged",
+							"container": "",
+							"quantity": 1,
+							"state": "carried"
+						},
+						"flags": {
+							"oldWorldEquipmentImport": {
+								"sourceBook": "Stary Świat: Ponury i Niebezpieczny",
+								"category": "Sprzęt",
+								"priceText": "150s"
+							}
+						},
+						"img": "icons/svg/item-bag.svg"
+					},
+					{
+						"name": "Miecz (T)",
+						"type": "weapon",
+						"system": {
+							"description": "<p>Miecz jest symbolem wojownika: nie służy do rąbania drewna ani do polowania, tylko do walki. Dobrze wyważona klinga pozwala zarówno ciąć, jak i parować, dlatego w wielu kulturach pozostaje oznaką statusu i wyszkolenia.</p>",
+							"source": "Stary Świat: Ponury i Niebezpieczny",
+							"rarity": 2,
+							"encumbrance": 1,
+							"encumbranceThreshold": 0,
+							"price": 200,
+							"priceWarhammer": {
+								"gold": 10,
+								"silver": 0,
+								"pennies": 0,
+								"restricted": false
+							},
+							"damage": "undamaged",
+							"container": "",
+							"quantity": 1,
+							"state": "carried",
+							"baseDamage": 3,
+							"critical": 2,
+							"range": "engaged",
+							"skills": [
+								"Broń Biała (Lekka)"
+							],
+							"qualities": [
+								{
+									"name": "Obrona",
+									"description": "<p>Zwiększa obronę w zwarciu użytkownika o wartość tej właściwości.</p>",
+									"isRated": true,
+									"rating": 1
+								}
+							],
+							"damageCharacteristic": "brawn"
+						},
+						"flags": {
+							"oldWorldEquipmentImport": {
+								"sourceBook": "Stary Świat: Ponury i Niebezpieczny",
+								"category": "Bronie Białe",
+								"hardPoints": "1",
+								"priceText": "10ZK"
+							},
+							"genesys": {
+								"sourcePrices": {
+									"genesys": {
+										"source": "Realms of Terrinoth",
+										"price": 200
+									}
+								}
+							}
+						},
+						"img": "icons/svg/item-bag.svg"
+					}
+				],
+				"magicAccess": {
+					"enabled": false,
+					"tradition": "",
+					"school": "",
+					"lore": "",
+					"deity": "",
+					"allowOvercast": false,
+					"allowMiscast": false
+				},
+				"professionPath": [
+					{
+						"id": "oficer-kadet",
+						"name": "Kadet",
+						"tier": 1,
+						"prerequisites": "Rozpocznij szkolenie oficerskie.",
+						"effects": "Możesz wydać 5 PD na zakup talentu Wiedza Ekspercka (Historia).",
+						"isAlternative": false
+					},
+					{
+						"id": "oficer-chorazy",
+						"name": "Chorąży",
+						"tier": 2,
+						"prerequisites": "Zwiększ poziom Opanowania do 3. Zwiększ poziom Przywództwa do 3. Kup jeden poziom talentu Skoordynowany Atak.",
+						"effects": "Możesz wydać 10 PD na zakup talentu Wzór Odwagi.",
+						"isAlternative": false
+					},
+					{
+						"id": "oficer-oficer",
+						"name": "Oficer",
+						"tier": 3,
+						"prerequisites": "Zwiększ poziom Opanowania do 3. Zwiększ poziomy Dyscypliny i Przywództwa do 4. Kup dwa poziomy talentu Nienaganne Maniery.",
+						"effects": "Możesz zmienić swój status społeczny na Elitę. Możesz wydać 20 PD na zakup talentu Władczy Ton.",
+						"isAlternative": false
+					}
+				]
+			},
+			"flags": {
+				"genesysSpecializationImport": {
+					"sourceBook": "Stary Świat: Ponury i Niebezpieczny",
+					"importedFromTemplate": true,
+					"specializationKey": "oficer"
+				},
+				"genesys": {
+					"treeData": {
+						"nodes": {
+							"0-0": {
+								"name": "Szkolenie Bojowe",
+								"img": "icons/svg/upgrade.svg",
+								"id": "U4PoXGuclDI2oiua",
+								"description": "<p>Atletyka lub Odporność oraz Broń Biała (Lekka) lub Broń Biała (Ciężka) są teraz umiejętnościami związanymi z profesją postaci.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"0-1": {
+								"name": "Wiedza Ekspercka",
+								"img": "icons/svg/upgrade.svg",
+								"id": "4CwaDejyIkaUefjx",
+								"description": "<p>Za każdy poziom tego talentu wybierz konkretny obszar wiedzy. Gdy postać wykona test Wiedzy (Akademickiej) lub Wiedzy (Chaos), który odnosi się do jednego z wybranych obszarów wiedzy, zmniejsz trudność testu o 1.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"0-2": {
+								"name": "Nienaganne Maniery",
+								"img": "icons/svg/upgrade.svg",
+								"id": "17jgdfv8ETwlsKXa",
+								"description": "<p>Kiedy postać wykonuje test umiejętności społecznej w kulturalnym towarzystwie (zgodnie z ustaleniem MG), może przyjąć wybraną liczbę punktów zmęczenia, aby użyć tego talentu i dodać do testu tyle samo @sym[a]. Liczba ta nie może przekroczyć posiadanych poziomów Nienagannych Manier.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"0-3": {
+								"name": "Oblicze Męstwa",
+								"img": "icons/svg/upgrade.svg",
+								"id": "Lsh7UNJcoYN8A9fy",
+								"description": "<p>Sojusznicze postacie w średnim dystansie dodają @die[B] do testów wykonywanych, aby zmniejszyć zmęczenie pod koniec spotkania (zob. strona 117 Podręcznika Podstawowego).</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"1-0": {
+								"name": "Zacięcie",
+								"img": "icons/svg/upgrade.svg",
+								"id": "fffyL6ey08hbaQ4s",
+								"description": "<p>Każdy poziom Zacięcia zwiększa o 1 próg zmęczenia postaci.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"1-1": {
+								"name": "Dowódca Polowy",
+								"img": "icons/svg/upgrade.svg",
+								"id": "y6KaAXTdcRpk4vgB",
+								"description": "<p>Postać może użyć tego talentu, aby wykonać Przeciętny (@die[D] @die[D]) test Przywództwa. Jeśli test się powiedzie, sojusznicy w liczbie równej Prezencji twojej postaci mogą natychmiast przyjąć 1 punkt zmęczenia, aby wykonać po jednym manewrze (poza turą). Jeśli pojawią się wątpliwości co do kolejności wykonywania tych manewrów, rozstrzyga je twoja postać.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "akcja"
+								},
+								"purchased": false
+							},
+							"1-2": {
+								"name": "Inspirująca Przemowa",
+								"img": "icons/svg/upgrade.svg",
+								"id": "ErtOg3AbbA6HhoUR",
+								"description": "<p>Postać może użyć tego talentu, aby wykonać Przeciętny (@die[D] @die[D]) test Przywództwa. Za każdy uzyskany @sym[s] jeden sojusznik maksymalnie w bliskim dystansie usuwa 1 punkt zmęczenia. Za każdą @sym[a] jeden sojusznik korzystający z Inspirującej Przemowy usuwa 1 dodatkowy punkt zmęczenia.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "akcja"
+								},
+								"purchased": false
+							},
+							"1-3": {
+								"name": "Skoordynowany Atak",
+								"img": "icons/svg/upgrade.svg",
+								"id": "khctDT1gXBmetnpD",
+								"description": "<p>Raz na turę twoja postać może użyć tego talentu, aby sprawić, że sojusznicy w jej zasięgu bezpośrednim w liczbie równej twoim poziomom Przywództwa dodają @sym[a] do swoich testów walki do końca twojej następnej tury. Zasięg tego talentu zwiększa się o jeden przedział za każdy z poziomów Skoordynowanego Ataku poza pierwszym.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "manewr"
+								},
+								"purchased": false
+							},
+							"2-0": {
+								"name": "Inspirujący Zew",
+								"img": "icons/svg/upgrade.svg",
+								"id": "NUpdgBPh2HAWXRIx",
+								"description": "<p>Raz na spotkanie postać może użyć tego talentu, aby do końca rundy umożliwić sojusznikom w średnim dystansie przerzucenie dowolnej liczby @die[B], gdy wykonują test. Liczba sojuszników, których obejmuje ten efekt, nie może przekroczyć poziomów postaci w Przywództwie.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"2-1": {
+								"name": "Artylerzysta",
+								"img": "icons/svg/upgrade.svg",
+								"id": "i1x6EGV0fwxeG78y",
+								"description": "<p>Artyleria jest teraz umiejętnością związaną z profesją postaci. Gdy sojusznicy w średnim dystansie wykonują test Artylerii, mogą używać poziomów Artylerii twojej postaci zamiast swoich. Liczba sojuszników nie może jednak przekroczyć wartości Prezencji postaci.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"2-2": {
+								"name": "Skoordynowany Atak",
+								"img": "icons/svg/upgrade.svg",
+								"id": "khctDT1gXBmetnpD",
+								"description": "<p>Raz na turę twoja postać może użyć tego talentu, aby sprawić, że sojusznicy w jej zasięgu bezpośrednim w liczbie równej twoim poziomom Przywództwa dodają @sym[a] do swoich testów walki do końca twojej następnej tury. Zasięg tego talentu zwiększa się o jeden przedział za każdy z poziomów Skoordynowanego Ataku poza pierwszym.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "manewr"
+								},
+								"purchased": false
+							},
+							"2-3": {
+								"name": "Inspirująca Przemowa (Ulepszona)",
+								"img": "icons/svg/upgrade.svg",
+								"id": "ch5XJljPZh2CQyXu",
+								"description": "<p>Aby korzystać z tego talentu, postać musi mieć talent Inspirująca Przemowa. Sojusznicy korzystający z Inspirującej Przemowy twojej postaci dodają @die[B] do wszystkich wykonywanych testów umiejętności przez liczbę rund równą poziomom Przywództwa twojej postaci.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"3-0": {
+								"name": "Dogodne Pozycje",
+								"img": "icons/svg/upgrade.svg",
+								"id": "7Qib2L1PL9ExlIAA",
+								"description": "<p>Kiedy postać lub sojusznicy w bliskim dystansie korzystają z osłony, dodaj liczbę @die[B] równą obronie zapewnianej przez osłonę do testów walki dystansowej.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"3-1": {
+								"name": "Skoordynowany Atak",
+								"img": "icons/svg/upgrade.svg",
+								"id": "khctDT1gXBmetnpD",
+								"description": "<p>Raz na turę twoja postać może użyć tego talentu, aby sprawić, że sojusznicy w jej zasięgu bezpośrednim w liczbie równej twoim poziomom Przywództwa dodają @sym[a] do swoich testów walki do końca twojej następnej tury. Zasięg tego talentu zwiększa się o jeden przedział za każdy z poziomów Skoordynowanego Ataku poza pierwszym.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "manewr"
+								},
+								"purchased": false
+							},
+							"3-2": {
+								"name": "Zacięcie",
+								"img": "icons/svg/upgrade.svg",
+								"id": "fffyL6ey08hbaQ4s",
+								"description": "<p>Każdy poziom Zacięcia zwiększa o 1 próg zmęczenia postaci.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"3-3": {
+								"name": "Inspirująca Przemowa (Doskonała)",
+								"img": "icons/svg/upgrade.svg",
+								"id": "h9IFTsMW8OeyuQLB",
+								"description": "<p>Aby korzystać z tego talentu, postać musi mieć talent Inspirująca Przemowa. Postać może przyjąć 1 punkt zmęczenia, aby użyć talentu Inspirująca Przemowa w ramach manewru zamiast akcji.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"4-0": {
+								"name": "Dowódca Polowy (Ulepszony)",
+								"img": "icons/svg/upgrade.svg",
+								"id": "ztXiczaGkRPu24ps",
+								"description": "<p>Aby korzystać z tego talentu, postać musi mieć talent Dowódca Polowy. Kiedy postać używa talentu Dowódca Polowy, obejmuje jego efektem sojuszników w liczbie równej dwukrotnej wartości swojej Prezencji. Ponadto możesz wydać @sym[t], aby umożliwić jednemu sojusznikowi przyjęcie 1 punktu zmęczenia i wykonanie akcji zamiast manewru.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"4-1": {
+								"name": "Skoordynowane Natarcie",
+								"img": "icons/svg/upgrade.svg",
+								"id": "7mbFo6GCFEpauglz",
+								"description": "<p>Aby korzystać z tego talentu, postać musi mieć talent Skoordynowany Atak. Kiedy postać używa talentu Skoordynowany Atak, dodatkowo do standardowego efektu talentu, może przyjąć 4 punkty zmęczenia by użyć tego talentu. Sojusznicze postacie objęte działaniem Skoordynowanego Ataku dodają obrażenia równe liczbie poziomów twojej postaci w Skoordynowanym Ataku do wszystkich testów bojowych jakie wykonają do końca kolejnej tury twojej postaci.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"4-2": {
+								"name": "Nienaganne Maniery",
+								"img": "icons/svg/upgrade.svg",
+								"id": "17jgdfv8ETwlsKXa",
+								"description": "<p>Kiedy postać wykonuje test umiejętności społecznej w kulturalnym towarzystwie (zgodnie z ustaleniem MG), może przyjąć wybraną liczbę punktów zmęczenia, aby użyć tego talentu i dodać do testu tyle samo @sym[a]. Liczba ta nie może przekroczyć posiadanych poziomów Nienagannych Manier.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"4-3": {
+								"name": "Oddanie Sprawie",
+								"img": "icons/svg/upgrade.svg",
+								"id": "AcAFptAFkerdx2AB",
+								"description": "<p>Każdy poziom Oddania Sprawie zwiększa jedną z cech postaci o 1. Ten talent nie może zwiększyć wartości cechy ponad 5 ani zwiększyć dwa razy tej samej cechy.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							}
+						},
+						"connections": {
+							"h-1-0": true,
+							"h-2-1": true,
+							"h-2-2": true,
+							"h-3-1": true,
+							"h-4-0": true,
+							"h-4-1": true,
+							"h-4-2": true,
+							"v-0-1": true,
+							"v-0-2": true,
+							"v-0-3": true,
+							"v-1-0": true,
+							"v-1-1": true,
+							"v-1-2": true,
+							"v-1-3": true,
+							"v-2-0": true,
+							"v-2-2": true,
+							"v-2-3": true,
+							"v-3-0": true,
+							"v-3-1": true,
+							"v-3-3": true
+						},
+						"backgroundImage": "",
+						"bgPosX": "0px",
+						"bgPosY": "0px"
+					}
+				}
+			},
+			"effects": [],
+			"ownership": {
+				"default": 0
+			},
+			"sort": 30
+		},
+		{
+			"_id": "tBMF5jWNm0mEGA60",
+			"name": "Piechur",
+			"type": "specialization",
+			"img": "icons/svg/book.svg",
+			"folder": "tIDfzm5CIMHYhwjz",
+			"system": {
+				"description": "<p>Piechurzy są zawodowymi żołnierzami, którzy są szkoleni do walki w dużych grupach. Wraz ze strzelcami są podstawą prawie każdej armii w Starym Świecie. To oni obsadzają imperialne fortece, patrolują granice i odpychają ataki najeźdźców.</p><p>Chociaż ich prawdziwa siła na polu bitwy leży w liczebności, wielu z nich posiada pewne indywidualne umiejętności, które mogą być nieocenione podczas życia poszukiwacza przygód.</p><p><strong>Początkowy sprzęt:</strong> 1k10 Srebrnych Szylingów, Lekka Włócznia i Tarcza lub Włócznia i Maczuga, Przeszywanica.</p>",
+				"source": "Stary Świat: Ponury i Niebezpieczny",
+				"key": "piechur",
+				"cost": 0,
+				"requirements": "Profesja: Żołnierz. Rasa: Cz, Ni, Kr, WE, LE, Og, Gn.",
+				"benefits": "",
+				"socialStatus": "Biedota",
+				"careerSkills": [
+					"Broń Biała (Ciężka)",
+					"Broń Biała (Lekka)",
+					"Odporność",
+					"Opanowanie"
+				],
+				"grantedItems": [
+					{
+						"name": "Włócznia, lekka (T)",
+						"type": "weapon",
+						"system": {
+							"description": "<p>Lekka włócznia, zwana też oszczepem, jest krótsza i poręczniejsza od standardowej. Można nią walczyć jedną ręką, a w razie potrzeby cisnąć nią na krótki dystans.</p>",
+							"source": "Stary Świat: Ponury i Niebezpieczny",
+							"rarity": 2,
+							"encumbrance": 2,
+							"encumbranceThreshold": 0,
+							"price": 90,
+							"priceWarhammer": {
+								"gold": 0,
+								"silver": 25,
+								"pennies": 0,
+								"restricted": false
+							},
+							"damage": "undamaged",
+							"container": "",
+							"quantity": 1,
+							"state": "carried",
+							"baseDamage": 2,
+							"critical": 4,
+							"range": "engaged",
+							"skills": [
+								"Broń Biała (Lekka)"
+							],
+							"qualities": [
+								{
+									"name": "Celność",
+									"description": "<p>Za każdy punkt tej właściwości atakujący dodaje @die[B] do testów walki wykonywanych z użyciem tej broni.</p>",
+									"isRated": true,
+									"rating": 1
+								},
+								{
+									"name": "Obrona",
+									"description": "<p>Zwiększa obronę w zwarciu użytkownika o wartość tej właściwości.</p>",
+									"isRated": true,
+									"rating": 1
+								}
+							],
+							"damageCharacteristic": "brawn"
+						},
+						"flags": {
+							"oldWorldEquipmentImport": {
+								"sourceBook": "Stary Świat: Ponury i Niebezpieczny",
+								"category": "Bronie Białe",
+								"hardPoints": "1",
+								"priceText": "25s"
+							},
+							"genesys": {
+								"sourcePrices": {
+									"genesys": {
+										"source": "Realms of Terrinoth",
+										"price": 90
+									}
+								}
+							}
+						},
+						"img": "icons/svg/item-bag.svg"
+					},
+					{
+						"name": "Tarcza (T)",
+						"type": "weapon",
+						"system": {
+							"description": "<p>Tarcza służy przede wszystkim do zasłaniania się przed ostrzami i pociskami, ale w zwarciu może stać się równie groźna jak broń. Solidne uderzenie rantem albo środkiem tarczy potrafi wytrącić przeciwnika z równowagi.</p>",
+							"source": "Stary Świat: Ponury i Niebezpieczny",
+							"rarity": 1,
+							"encumbrance": 1,
+							"encumbranceThreshold": 0,
+							"price": 80,
+							"priceWarhammer": {
+								"gold": 0,
+								"silver": 45,
+								"pennies": 0,
+								"restricted": false
+							},
+							"damage": "undamaged",
+							"container": "",
+							"quantity": 1,
+							"state": "carried",
+							"baseDamage": 0,
+							"critical": 6,
+							"range": "engaged",
+							"skills": [
+								"Broń Biała (Lekka)"
+							],
+							"qualities": [
+								{
+									"name": "Obrona",
+									"description": "<p>Zwiększa obronę w zwarciu użytkownika o wartość tej właściwości.</p>",
+									"isRated": true,
+									"rating": 1
+								},
+								{
+									"name": "Odbicie",
+									"description": "<p>Zwiększa obronę na dystans użytkownika o wartość tej właściwości.</p>",
+									"isRated": true,
+									"rating": 1
+								},
+								{
+									"name": "Niecelność",
+									"description": "<p>Dodaj @die[S] do testów ataku tą bronią w liczbie równej wartości Niecelności.</p>",
+									"isRated": true,
+									"rating": 1
+								},
+								{
+									"name": "Powalenie",
+									"description": "<p>Po wywołaniu jeden trafiony cel zostaje przewrócony. O ile opis nie stanowi inaczej, aktywacja wymaga @sym[a] @sym[a] oraz dodatkowej @sym[a] za każdy punkt sylwetki celu powyżej 1.</p>",
+									"isRated": false,
+									"rating": 0
+								}
+							],
+							"damageCharacteristic": "brawn"
+						},
+						"flags": {
+							"oldWorldEquipmentImport": {
+								"sourceBook": "Stary Świat: Ponury i Niebezpieczny",
+								"category": "Bronie Białe",
+								"hardPoints": "1",
+								"priceText": "45s"
+							},
+							"genesys": {
+								"sourcePrices": {
+									"genesys": {
+										"source": "Realms of Terrinoth",
+										"price": 80
+									}
+								}
+							}
+						},
+						"img": "icons/svg/item-bag.svg"
+					},
+					{
+						"name": "Przeszywanica (T)",
+						"type": "armor",
+						"system": {
+							"description": "<p>Przeszywanica to grube, pikowane warstwy materiału przypominające ciężki zimowy kaftan. Nie wygląda imponująco, ale dobrze tłumi uderzenia i bywa jedyną ochroną, na jaką mogą pozwolić sobie ubożsi żołnierze.</p>",
+							"source": "Stary Świat: Ponury i Niebezpieczny",
+							"rarity": 2,
+							"encumbrance": 2,
+							"encumbranceThreshold": 0,
+							"price": 35,
+							"priceWarhammer": {
+								"gold": 0,
+								"silver": 35,
+								"pennies": 0,
+								"restricted": false
+							},
+							"damage": "undamaged",
+							"container": "",
+							"quantity": 1,
+							"state": "carried",
+							"defense": 0,
+							"soak": 1,
+							"qualities": []
+						},
+						"flags": {
+							"oldWorldEquipmentImport": {
+								"sourceBook": "Stary Świat: Ponury i Niebezpieczny",
+								"category": "Pancerze",
+								"hardPoints": "0",
+								"priceText": "35s"
+							},
+							"genesys": {
+								"sourcePrices": {
+									"genesys": {
+										"source": "Realms of Terrinoth",
+										"price": 35
+									}
+								}
+							}
+						},
+						"img": "icons/svg/item-bag.svg"
+					}
+				],
+				"magicAccess": {
+					"enabled": false,
+					"tradition": "",
+					"school": "",
+					"lore": "",
+					"deity": "",
+					"allowOvercast": false,
+					"allowMiscast": false
+				},
+				"professionPath": [
+					{
+						"id": "piechur-zolnierz",
+						"name": "Żołnierz",
+						"tier": 1,
+						"prerequisites": "Zaciągnij się do wojska.",
+						"effects": "Brak",
+						"isAlternative": false
+					},
+					{
+						"id": "piechur-weteran",
+						"name": "Weteran",
+						"tier": 2,
+						"prerequisites": "Kup talent Niezłomny. Zwiększ poziom Odporności do 2. Weź udział w ekspedycji wojskowej lub kampanii.",
+						"effects": "Postać dodaje kość utrudnienia do wszystkich testów Przymuszania, których jest celem.",
+						"isAlternative": false
+					},
+					{
+						"id": "piechur-gwardzista",
+						"name": "Gwardzista",
+						"tier": 3,
+						"prerequisites": "Zwiększ poziom Odporności do 4. Zwiększ poziom Opanowania do 2. Kup talent Ramię w Ramię.",
+						"effects": "Postać może zmienić klasę społeczną na Klasę Średnią. Raz na spotkanie możesz wydać Punkt Opowieści, by do końca spotkania postać zignorowała skutki jednego Urazu Krytycznego.",
+						"isAlternative": false
+					}
+				]
+			},
+			"flags": {
+				"genesysSpecializationImport": {
+					"sourceBook": "Stary Świat: Ponury i Niebezpieczny",
+					"importedFromTemplate": true,
+					"specializationKey": "piechur"
+				},
+				"genesys": {
+					"treeData": {
+						"nodes": {
+							"0-0": {
+								"name": "Uderzenie Tarczą",
+								"img": "icons/svg/upgrade.svg",
+								"id": "tjHcxgzf0NHqx9d5",
+								"description": "<p>Kiedy postać używa tarczy, aby zaatakować pachołka albo rywala, możesz wydać @sym[a] @sym[a] @sym[a] @sym[a] albo @sym[t], aby zamroczyć cel do końca jego następnej tury.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"0-1": {
+								"name": "Parada",
+								"img": "icons/svg/upgrade.svg",
+								"id": "ZrE0y5Imdoa9nLq4",
+								"description": "<p>Kiedy postać otrzymuje trafienie w wyniku testu walki wręcz, po naliczeniu obrażeń, ale przed zastosowaniem redukcji (czyli natychmiast po Kroku 3 wykonywania testu walki, zob. str. 102) może przyjąć 3 punkty zmęczenia, aby użyć tego talentu i zmniejszyć te obrażenia o 2 plus liczba poziomów Parady. Tego talentu można użyć tylko raz na trafienie, a postać musi trzymać broń białą.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "okazja, poza turą"
+								},
+								"purchased": false
+							},
+							"0-2": {
+								"name": "Zahartowany",
+								"img": "icons/svg/upgrade.svg",
+								"id": "I6F3HkR7aWI2I06b",
+								"description": "<p>Każdy posiadany poziom Zahartowanego zwiększa próg ran postaci o 2.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"0-3": {
+								"name": "Drugi Oddech",
+								"img": "icons/svg/upgrade.svg",
+								"id": "KobRcZkKKBTXUEDH",
+								"description": "<p>Raz na spotkanie postać może użyć tego talentu, aby usunąć liczbę punktów zmęczenia równą liczbie posiadanych poziomów Drugiego Oddechu.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"1-0": {
+								"name": "Blok",
+								"img": "icons/svg/upgrade.svg",
+								"id": "h7QuaUzyAROOYzcX",
+								"description": "<p>Aby korzystać z tego talentu, postać musi mieć talent Parada. Gdy postać dzierży tarczę, może użyć Parady, aby zmniejszyć obrażenia zarówno z ataków dystansowych, jak i ataków wręcz, których jest celem.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja, poza turą"
+								},
+								"purchased": false
+							},
+							"1-1": {
+								"name": "Bastion",
+								"img": "icons/svg/upgrade.svg",
+								"id": "MCoir7qy2iXRj5Aa",
+								"description": "<p>Aby korzystać z tego talentu, postać musi mieć talent Parada. Gdy postać dzierży broń z właściwością Defensywne, może użyć Parady, aby zmniejszyć obrażenia z ataku wymierzonego w sojusznika znajdującego się w jej dystansie bezpośrednim.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja, poza turą"
+								},
+								"purchased": false
+							},
+							"1-2": {
+								"name": "Postawa Defensywna",
+								"img": "icons/svg/upgrade.svg",
+								"id": "0J2FSGij7oHxl9Tv",
+								"description": "<p>Raz na rundę postać może użyć tego talentu, aby przyjąć wybraną liczbę punktów zmęczenia, która nie może być większa od posiadanych poziomów Postawy Defensywnej. Wówczas aż do końca następnej tury postaci trudność testów walki wręcz, których celem jest ta postać, zwiększa się o wybraną liczbę.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "manewr"
+								},
+								"purchased": false
+							},
+							"1-3": {
+								"name": "Niezłomny",
+								"img": "icons/svg/upgrade.svg",
+								"id": "gg97WvkpdefVZq91",
+								"description": "<p>Gdy postać znajduje się w niebezpiecznych okolicznościach lub groźnym środowisku oraz otrzymała co najmniej 1 ranę w ostatnim spotkaniu, może wykonać Prosty (-) test Odporności zamiast Dyscypliny albo Opanowania, aby zmniejszyć zmęczenie pod koniec spotkania (zob. str. 117 Podręcznika Podstawowego).</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"2-0": {
+								"name": "Powalenie Tarczą",
+								"img": "icons/svg/upgrade.svg",
+								"id": "hxbxOXA2hAEBGn2b",
+								"description": "<p>Postać może użyć tego talentu, aby wydać @sym[t] z testu wykonanego w celu określenia kolejności Inicjatywy, aby wykonać test Broni Białej (Lekkiej) i zaatakować tarczą wybrany, możliwy do zaatakowania cel przed rozpoczęciem pierwszej rundy walki. Jeśli test walki się powiedzie, postać może aktywować właściwość Powalenie bez wydawania a.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja, poza turą"
+								},
+								"purchased": false
+							},
+							"2-1": {
+								"name": "Parada",
+								"img": "icons/svg/upgrade.svg",
+								"id": "ZrE0y5Imdoa9nLq4",
+								"description": "<p>Kiedy postać otrzymuje trafienie w wyniku testu walki wręcz, po naliczeniu obrażeń, ale przed zastosowaniem redukcji (czyli natychmiast po Kroku 3 wykonywania testu walki, zob. str. 102) może przyjąć 3 punkty zmęczenia, aby użyć tego talentu i zmniejszyć te obrażenia o 2 plus liczba poziomów Parady. Tego talentu można użyć tylko raz na trafienie, a postać musi trzymać broń białą.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "okazja, poza turą"
+								},
+								"purchased": false
+							},
+							"2-2": {
+								"name": "Zahartowany",
+								"img": "icons/svg/upgrade.svg",
+								"id": "I6F3HkR7aWI2I06b",
+								"description": "<p>Każdy posiadany poziom Zahartowanego zwiększa próg ran postaci o 2.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"2-3": {
+								"name": "Szybkie Zdrowienie",
+								"img": "icons/svg/upgrade.svg",
+								"id": "Vj6FZ5zCp2bsKNbd",
+								"description": "<p>Kiedy postać leczy rany poprzez naturalne zdrowienie, leczy dwie dodatkowe rany.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"3-0": {
+								"name": "Heroiczna Odporność",
+								"img": "icons/svg/upgrade.svg",
+								"id": "mw7YclvhR6aLQnSr",
+								"description": "<p>Raz na spotkanie, gdy postać otrzymuje obrażenia może wydać Punkt Opowieści, aby zmniejszyć odniesione rany o liczbę równą poziomom Odporności.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja, poza turą"
+								},
+								"purchased": false
+							},
+							"3-1": {
+								"name": "Drugi Oddech",
+								"img": "icons/svg/upgrade.svg",
+								"id": "KobRcZkKKBTXUEDH",
+								"description": "<p>Raz na spotkanie postać może użyć tego talentu, aby usunąć liczbę punktów zmęczenia równą liczbie posiadanych poziomów Drugiego Oddechu.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"3-2": {
+								"name": "Ramię w Ramię",
+								"img": "icons/svg/upgrade.svg",
+								"id": "Nx31VqFMrjwvvsVK",
+								"description": "<p>Gdy postać znajduje się w dystansie bezpośrednim od co najmniej jednego sojusznika, ona oraz sojusznicy w jej dystansie bezpośrednim dodają @die[B] do testów walki. Jeśli co najmniej jeden sojusznik w dystansie bezpośrednim od postaci również ma talent Ramię w Ramię, efekty kumulują się do maksymalnie @die[B] @die[B].</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"3-3": {
+								"name": "Postawa Defensywna",
+								"img": "icons/svg/upgrade.svg",
+								"id": "0J2FSGij7oHxl9Tv",
+								"description": "<p>Raz na rundę postać może użyć tego talentu, aby przyjąć wybraną liczbę punktów zmęczenia, która nie może być większa od posiadanych poziomów Postawy Defensywnej. Wówczas aż do końca następnej tury postaci trudność testów walki wręcz, których celem jest ta postać, zwiększa się o wybraną liczbę.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "manewr"
+								},
+								"purchased": false
+							},
+							"4-0": {
+								"name": "Oszołomienie",
+								"img": "icons/svg/upgrade.svg",
+								"id": "nWlQlQF09sQdIKPT",
+								"description": "<p>Raz na rundę, przed wykonaniem testu Broni Białej (Lekkiej) lub Broni Białej (Ciężkiej), postać może przyjąć 2 punkty zmęczenia by użyć tego talentu. Zwiększ trudność testu o 1; podczas rozpatrywania testu broń postaci zyskuje właściwość Wstrząs 1.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"4-1": {
+								"name": "Obrona",
+								"img": "icons/svg/upgrade.svg",
+								"id": "3JMckpvyAObSNhqU",
+								"description": "<p>Każdy poziom Obrony zwiększa o 1 obronę postaci w zwarciu i na dystans.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"4-2": {
+								"name": "Zahartowany",
+								"img": "icons/svg/upgrade.svg",
+								"id": "I6F3HkR7aWI2I06b",
+								"description": "<p>Każdy posiadany poziom Zahartowanego zwiększa próg ran postaci o 2.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"4-3": {
+								"name": "Oddanie Sprawie",
+								"img": "icons/svg/upgrade.svg",
+								"id": "AcAFptAFkerdx2AB",
+								"description": "<p>Każdy poziom Oddania Sprawie zwiększa jedną z cech postaci o 1. Ten talent nie może zwiększyć wartości cechy ponad 5 ani zwiększyć dwa razy tej samej cechy.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							}
+						},
+						"connections": {
+							"h-1-0": true,
+							"h-1-1": true,
+							"h-1-2": true,
+							"h-2-0": true,
+							"h-2-2": true,
+							"h-3-0": true,
+							"h-3-2": true,
+							"h-4-0": true,
+							"h-4-2": true,
+							"v-0-1": true,
+							"v-0-2": true,
+							"v-0-3": true,
+							"v-1-1": true,
+							"v-1-2": true,
+							"v-1-3": true,
+							"v-2-1": true,
+							"v-2-2": true,
+							"v-2-3": true,
+							"v-3-1": true,
+							"v-3-2": true
+						},
+						"backgroundImage": "",
+						"bgPosX": "0px",
+						"bgPosY": "0px"
+					}
+				}
+			},
+			"effects": [],
+			"ownership": {
+				"default": 0
+			},
+			"sort": 40
+		},
+		{
+			"_id": "YPBcDexHjOk9waBl",
+			"name": "Strzelec",
+			"type": "specialization",
+			"img": "icons/svg/book.svg",
+			"folder": "tIDfzm5CIMHYhwjz",
+			"system": {
+				"description": "<p>Strzelcy to wyspecjalizowani w walce na dystans żołnierze, którzy w zależności od konkretnej formacji mogą być uzbrojeni w łuki, kusze lub stosunkowo tanią, masowo produkowaną broń palną. Ich głównym celem jest zalewanie wrogów pociskami, by ograniczyć manewrowość przeciwnika lub zmiękczyć go przed atakiem piechoty.</p><p>Niektórzy utalentowani strzelcy zostają strzelcami wyborowymi, a ich zadaniem jest eliminacja wrogich oficerów. Inni po zakończeniu służby biorą udział w turniejach strzeleckich.</p><p><strong>Początkowy sprzęt:</strong> 1k10 Srebrnych Szylingów, Nadziak, Puklerz, Przeszywanica, Łuk lub Kusza lub Arkebuz (Niska Jakość).</p>",
+				"source": "Stary Świat: Ponury i Niebezpieczny",
+				"key": "strzelec",
+				"cost": 0,
+				"requirements": "Profesja: Żołnierz. Rasa: Cz, Ni, Kr, WE, LE, Gn.",
+				"benefits": "",
+				"socialStatus": "Biedota",
+				"careerSkills": [
+					"Broń Biała (Lekka)",
+					"Broń Dystansowa",
+					"Broń Palna",
+					"Dyscyplina"
+				],
+				"grantedItems": [
+					{
+						"name": "Nadziak (T)",
+						"type": "weapon",
+						"system": {
+							"description": "<p>Nadziak ma wąski, twardy dziób zaprojektowany do skupiania całej siły uderzenia w jednym punkcie. Nie jest efektowny, ale znakomicie radzi sobie z kolczugą, płytami i inną solidną ochroną.</p>",
+							"source": "Stary Świat: Ponury i Niebezpieczny",
+							"rarity": 2,
+							"encumbrance": 3,
+							"encumbranceThreshold": 0,
+							"price": 160,
+							"priceWarhammer": {
+								"gold": 0,
+								"silver": 65,
+								"pennies": 0,
+								"restricted": false
+							},
+							"damage": "undamaged",
+							"container": "",
+							"quantity": 1,
+							"state": "carried",
+							"baseDamage": 1,
+							"critical": 2,
+							"range": "engaged",
+							"skills": [
+								"Broń Biała (Lekka)"
+							],
+							"qualities": [
+								{
+									"name": "Przebicie",
+									"description": "<p>Trafienia ignorują redukcję celu o wartość równą wartości Przebicia, maksymalnie do całkowitej redukcji celu.</p>",
+									"isRated": true,
+									"rating": 2
+								}
+							],
+							"damageCharacteristic": "brawn"
+						},
+						"flags": {
+							"oldWorldEquipmentImport": {
+								"sourceBook": "Stary Świat: Ponury i Niebezpieczny",
+								"category": "Bronie Białe",
+								"hardPoints": "1",
+								"priceText": "65s"
+							},
+							"genesys": {
+								"sourcePrices": {
+									"genesys": {
+										"source": "Realms of Terrinoth",
+										"price": 160
+									}
+								}
+							}
+						},
+						"img": "icons/svg/item-bag.svg"
+					},
+					{
+						"name": "Puklerz",
+						"type": "weapon",
+						"system": {
+							"description": "<p>Puklerz to mała, okrągła tarczka używana głównie do zbijania ciosów przeciwnika. Gdy postać używa puklerza, jego obciążenie wynosi 0.</p>",
+							"source": "Stary Świat: Ponury i Niebezpieczny",
+							"rarity": 3,
+							"encumbrance": 1,
+							"encumbranceThreshold": 0,
+							"price": 0,
+							"priceWarhammer": {
+								"gold": 0,
+								"silver": 40,
+								"pennies": 0,
+								"restricted": false
+							},
+							"damage": "undamaged",
+							"container": "",
+							"quantity": 1,
+							"state": "carried",
+							"baseDamage": 0,
+							"critical": 6,
+							"range": "engaged",
+							"skills": [
+								"Broń Biała (Lekka)"
+							],
+							"qualities": [
+								{
+									"name": "Dezorientacja",
+									"description": "<p>Po wywołaniu jeden trafiony cel zostaje zdezorientowany na liczbę rund równą wartości Dezorientacji.</p>",
+									"isRated": true,
+									"rating": 2
+								},
+								{
+									"name": "Parowanie",
+									"description": "<p>Broń parująca służy do aktywnego odbijania ciosów. Gdy postać władająca bronią z właściwością Parowanie używa talentu Parada, może dodatkowo zmniejszyć obrażenia odniesione w wyniku trafienia o wartość właściwości Parowanie.</p>",
+									"isRated": true,
+									"rating": 2
+								}
+							],
+							"damageCharacteristic": "brawn"
+						},
+						"flags": {
+							"oldWorldEquipmentImport": {
+								"sourceBook": "Stary Świat: Ponury i Niebezpieczny",
+								"category": "Bronie Białe",
+								"hardPoints": "1",
+								"priceText": "40s"
+							}
+						},
+						"img": "icons/svg/item-bag.svg"
+					},
+					{
+						"name": "Przeszywanica (T)",
+						"type": "armor",
+						"system": {
+							"description": "<p>Przeszywanica to grube, pikowane warstwy materiału przypominające ciężki zimowy kaftan. Nie wygląda imponująco, ale dobrze tłumi uderzenia i bywa jedyną ochroną, na jaką mogą pozwolić sobie ubożsi żołnierze.</p>",
+							"source": "Stary Świat: Ponury i Niebezpieczny",
+							"rarity": 2,
+							"encumbrance": 2,
+							"encumbranceThreshold": 0,
+							"price": 35,
+							"priceWarhammer": {
+								"gold": 0,
+								"silver": 35,
+								"pennies": 0,
+								"restricted": false
+							},
+							"damage": "undamaged",
+							"container": "",
+							"quantity": 1,
+							"state": "carried",
+							"defense": 0,
+							"soak": 1,
+							"qualities": []
+						},
+						"flags": {
+							"oldWorldEquipmentImport": {
+								"sourceBook": "Stary Świat: Ponury i Niebezpieczny",
+								"category": "Pancerze",
+								"hardPoints": "0",
+								"priceText": "35s"
+							},
+							"genesys": {
+								"sourcePrices": {
+									"genesys": {
+										"source": "Realms of Terrinoth",
+										"price": 35
+									}
+								}
+							}
+						},
+						"img": "icons/svg/item-bag.svg"
+					},
+					{
+						"name": "Łuk (T)",
+						"type": "weapon",
+						"system": {
+							"description": "<p>Łuki są powszechne wśród myśliwych, leśników i żołnierzy. Sprawdzają się zarówno na polowaniu, jak i na wojnie, a cicha salwa strzał potrafi rozpocząć zasadzkę, zanim cel zorientuje się, skąd nadchodzi zagrożenie.</p>",
+							"source": "Stary Świat: Ponury i Niebezpieczny",
+							"rarity": 2,
+							"encumbrance": 2,
+							"encumbranceThreshold": 0,
+							"price": 275,
+							"priceWarhammer": {
+								"gold": 0,
+								"silver": 75,
+								"pennies": 0,
+								"restricted": false
+							},
+							"damage": "undamaged",
+							"container": "",
+							"quantity": 1,
+							"state": "carried",
+							"baseDamage": 7,
+							"critical": 3,
+							"range": "medium",
+							"skills": [
+								"Broń Dystansowa"
+							],
+							"qualities": [
+								{
+									"name": "Nieporęczność",
+									"description": "<p>Postać potrzebuje Zwinności co najmniej równej wartości Nieporęczności. Za każdy brakujący punkt zwiększa trudność testów wykonywanych z użyciem tej broni o 1.</p>",
+									"isRated": true,
+									"rating": 2
+								}
+							],
+							"damageCharacteristic": "-"
+						},
+						"flags": {
+							"oldWorldEquipmentImport": {
+								"sourceBook": "Stary Świat: Ponury i Niebezpieczny",
+								"category": "Bronie Dystansowe",
+								"hardPoints": "1",
+								"priceText": "75s"
+							},
+							"genesys": {
+								"sourcePrices": {
+									"genesys": {
+										"source": "Realms of Terrinoth",
+										"price": 275
+									}
+								}
+							}
+						},
+						"img": "icons/svg/item-bag.svg"
+					}
+				],
+				"magicAccess": {
+					"enabled": false,
+					"tradition": "",
+					"school": "",
+					"lore": "",
+					"deity": "",
+					"allowOvercast": false,
+					"allowMiscast": false
+				},
+				"professionPath": [
+					{
+						"id": "strzelec-strzelec",
+						"name": "Strzelec",
+						"tier": 1,
+						"prerequisites": "Zaciągnij się do wojska.",
+						"effects": "Brak",
+						"isAlternative": false
+					},
+					{
+						"id": "strzelec-lucznik-turniejowy",
+						"name": "Łucznik Turniejowy*",
+						"tier": 2,
+						"prerequisites": "Zwiększ poziom Dyscypliny do 3 i Broni Dystansowej do 5. Kup talent Strzelanie Precyzyjne. Wygraj turniej łuczniczy.",
+						"effects": "Możesz wydać 15 PD na zakup talentu Szybkie Szycie oraz 25 PD na talent Mistrz.",
+						"isAlternative": true
+					},
+					{
+						"id": "strzelec-strzelec-wyborowy",
+						"name": "Strzelec Wyborowy*",
+						"tier": 2,
+						"prerequisites": "Zwiększ poziom Dyscypliny do 3 i Broni Palnej do 5. Kup talent Sokole Oko. Obezwładnij przeciwnika, który nie był wcześniej ranny, pojedynczym atakiem dystansowym.",
+						"effects": "Postać może użyć talentu Sokole Oko dwa razy podczas spotkania, a nie raz. Możesz wydać 25 PD na zakup talentu W Czuły Punkt.",
+						"isAlternative": true
+					}
+				]
+			},
+			"flags": {
+				"genesysSpecializationImport": {
+					"sourceBook": "Stary Świat: Ponury i Niebezpieczny",
+					"importedFromTemplate": true,
+					"specializationKey": "strzelec"
+				},
+				"genesys": {
+					"treeData": {
+						"nodes": {
+							"0-0": {
+								"name": "Strzał Przyszpilający",
+								"img": "icons/svg/upgrade.svg",
+								"id": "eYB4uIDn6MAqFQiq",
+								"description": "<p>Raz na spotkanie postać może użyć tego talentu, aby wykonać test walki dystansowej przeciw celowi niebędącemu pojazdem i znajdującemu się w zasięgu użytej broni. Jeżeli test się powiedzie, zmniejsz o połowę obrażenia zadane tym atakiem (przed uwzględnieniem redukcji celu). Cel jest unieruchomiony do końca swojej następnej tury.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "akcja"
+								},
+								"purchased": false
+							},
+							"0-1": {
+								"name": "Szybkie Dobycie",
+								"img": "icons/svg/upgrade.svg",
+								"id": "bzvzH6DS4Vc2gcDt",
+								"description": "<p>Raz na rundę podczas swojej tury postać może użyć tego talentu, aby w ramach okazji dobyć albo schować łatwo dostępną broń. Szybkie Dobycie zmniejsza też wartość Przygotowania broni o 1, do minimum 1.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"0-2": {
+								"name": "Zorganizowany",
+								"img": "icons/svg/upgrade.svg",
+								"id": "nciVhy1SGYHzh8ad",
+								"description": "<p>Każdy poziom Zorganizowanego zwiększa o 2 próg obciążenia postaci.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"0-3": {
+								"name": "Chyży",
+								"img": "icons/svg/upgrade.svg",
+								"id": "CJSySyGUvYPqJtMV",
+								"description": "<p>Postać nie ponosi kar za poruszanie się po trudnym terenie. (Porusza się po nim ze zwykłą szybkością bez zużywania dodatkowych manewrów).</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"1-0": {
+								"name": "Uskok",
+								"img": "icons/svg/upgrade.svg",
+								"id": "duWNdjBTT2MSzYRo",
+								"description": "<p>Raz na rundę postać może przyjąć wybraną liczbę punktów zmęczenia nie większą od posiadanych poziomów Uskoku, aby użyć tego talentu. Do końca jej następnej tury wzmocnij trudność wszystkich testów walki dystansowej, których celem jest ta postać, tyle razy, ile punktów zmęczenia przyjęła.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "manewr"
+								},
+								"purchased": false
+							},
+							"1-1": {
+								"name": "Zacięcie",
+								"img": "icons/svg/upgrade.svg",
+								"id": "fffyL6ey08hbaQ4s",
+								"description": "<p>Każdy poziom Zacięcia zwiększa o 1 próg zmęczenia postaci.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"1-2": {
+								"name": "Pewna Ręka",
+								"img": "icons/svg/upgrade.svg",
+								"id": "hOnu3pMpQufmy5j7",
+								"description": "<p>Postać może wydać Punkt Opowieści przed wykonaniem testu walki dystansowej, aby użyć tego talentu i dodać do wyniku testu liczbę a równą poziomowi postaci w Dyscyplinie.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"1-3": {
+								"name": "Krzepki",
+								"img": "icons/svg/upgrade.svg",
+								"id": "KJCLJmrRf4vX1Dfl",
+								"description": "<p>Postać obniża wartość właściwości Ciężar broni, którą dzierży, o 1.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"2-0": {
+								"name": "W Głowę",
+								"img": "icons/svg/upgrade.svg",
+								"id": "38tlsIv43JRXrTPL",
+								"description": "<p>Postać zadaje dodatkowe obrażenia równe 1 plus 2 za każdy poziom talentu W Głowę, gdy rozpatruje test walki wycelowany w głowę przeciwnika.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"2-1": {
+								"name": "Strzelanie Precyzyjne",
+								"img": "icons/svg/upgrade.svg",
+								"id": "yqJgre5UPnKSJg6Y",
+								"description": "<p>Kiedy postać wykonuje test walki Bronią Dystansową przeciwko celowi znajdującemu się w dystansie bezpośrednim od jednego z jej sojuszników, osłab raz trudność testu, negując w ten sposób karę za strzelanie do celów będących w dystansie bezpośrednim od sojuszników.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"2-2": {
+								"name": "Sokole Oko",
+								"img": "icons/svg/upgrade.svg",
+								"id": "pQPtuT5jdtE9CQR5",
+								"description": "<p>Raz na spotkanie przed wykonaniem testu walki dystansowej możesz użyć tego talentu, aby zwiększyć zasięg swojej broni o jeden przedział (maksymalnie do ekstremalnego). Zasięg pozostaje zwiększony na czas tego testu walki.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"2-3": {
+								"name": "Zahartowany",
+								"img": "icons/svg/upgrade.svg",
+								"id": "I6F3HkR7aWI2I06b",
+								"description": "<p>Każdy posiadany poziom Zahartowanego zwiększa próg ran postaci o 2.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"3-0": {
+								"name": "Zahartowany",
+								"img": "icons/svg/upgrade.svg",
+								"id": "I6F3HkR7aWI2I06b",
+								"description": "<p>Każdy posiadany poziom Zahartowanego zwiększa próg ran postaci o 2.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"3-1": {
+								"name": "Zacięcie",
+								"img": "icons/svg/upgrade.svg",
+								"id": "fffyL6ey08hbaQ4s",
+								"description": "<p>Każdy poziom Zacięcia zwiększa o 1 próg zmęczenia postaci.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"3-2": {
+								"name": "Precyzyjne Celowanie",
+								"img": "icons/svg/upgrade.svg",
+								"id": "gXRnUvgrHsdztpAr",
+								"description": "<p>Kiedy postać wykonuje manewr celowania, może przyjąć 2 punkty zmęczenia, aby wykorzystać ten talent. Na czas swojego następnego testu walki postać zmniejsza obronę celu o liczbę równą poziomom Precyzyjnego Celowania.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"3-3": {
+								"name": "Nie Do Zdarcia",
+								"img": "icons/svg/upgrade.svg",
+								"id": "yRx3JCJQ2tw8HVSw",
+								"description": "<p>Każdy poziom talentu Nie do Zdarcia zwiększa o 1 redukcję postaci.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"4-0": {
+								"name": "W Głowę",
+								"img": "icons/svg/upgrade.svg",
+								"id": "38tlsIv43JRXrTPL",
+								"description": "<p>Postać zadaje dodatkowe obrażenia równe 1 plus 2 za każdy poziom talentu W Głowę, gdy rozpatruje test walki wycelowany w głowę przeciwnika.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"4-1": {
+								"name": "Precyzyjne Celowanie",
+								"img": "icons/svg/upgrade.svg",
+								"id": "gXRnUvgrHsdztpAr",
+								"description": "<p>Kiedy postać wykonuje manewr celowania, może przyjąć 2 punkty zmęczenia, aby wykorzystać ten talent. Na czas swojego następnego testu walki postać zmniejsza obronę celu o liczbę równą poziomom Precyzyjnego Celowania.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"4-2": {
+								"name": "Strzelec Wyborowy",
+								"img": "icons/svg/upgrade.svg",
+								"id": "fzWwQYKBYZaRWP3m",
+								"description": "<p>Gdy postać spowoduje Uraz Krytyczny bronią dystansową i wylosuje jego efekt, może przyjąć 2 punkty zmęczenia, aby użyć tego talentu. Wówczas możesz zastąpić wylosowany efekt innym wybranym efektem o tej samej dotkliwości.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"4-3": {
+								"name": "Oddanie Sprawie",
+								"img": "icons/svg/upgrade.svg",
+								"id": "AcAFptAFkerdx2AB",
+								"description": "<p>Każdy poziom Oddania Sprawie zwiększa jedną z cech postaci o 1. Ten talent nie może zwiększyć wartości cechy ponad 5 ani zwiększyć dwa razy tej samej cechy.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							}
+						},
+						"connections": {
+							"h-1-0": true,
+							"h-2-0": true,
+							"h-2-1": true,
+							"h-2-2": true,
+							"h-3-0": true,
+							"h-3-1": true,
+							"h-3-2": true,
+							"h-4-0": true,
+							"h-4-1": true,
+							"h-4-2": true,
+							"v-0-1": true,
+							"v-0-2": true,
+							"v-0-3": true,
+							"v-1-0": true,
+							"v-1-1": true,
+							"v-1-2": true,
+							"v-1-3": true,
+							"v-2-2": true,
+							"v-3-0": true
+						},
+						"backgroundImage": "",
+						"bgPosX": "0px",
+						"bgPosY": "0px"
+					}
+				}
+			},
+			"effects": [],
+			"ownership": {
+				"default": 0
+			},
+			"sort": 50
+		},
+		{
+			"_id": "1hHDzND2Tzrz7Et5",
+			"name": "Żeglarz",
+			"type": "specialization",
+			"img": "icons/svg/book.svg",
+			"folder": "tIDfzm5CIMHYhwjz",
+			"system": {
+				"description": "<p>Biedota często żyje marzeniami o bogactwach, przygodzie i niezwykłych podróżach. Niektórzy postanawiają spełnić te marzenia i zaciągają się do marynarki. Życie marynarza szybko okazuje się być żmudne, monotonne, a czasem niebezpieczne.</p><p>Żeglarze to twardzi ludzie, nawykli do trudów życia na morzu, a do tego bardzo przesądni. Ci, którzy mają wystarczająco dużo szczęścia, by przetrwać liczne niebezpieczeństwa, chętnie dzielą się barwnymi historiami.</p><p><strong>Początkowy sprzęt:</strong> 1k10 Srebrnych Szylingów, Tasak i Tarcza lub Pałka i Arkebuz (Niskiej Jakości), Manierka.</p>",
+				"source": "Stary Świat: Ponury i Niebezpieczny",
+				"key": "zeglarz",
+				"cost": 0,
+				"requirements": "Profesja: Żołnierz. Rasa: Cz, Ni, WE.",
+				"benefits": "",
+				"socialStatus": "Biedota",
+				"careerSkills": [
+					"Atletyka",
+					"Broń Biała (Lekka)",
+					"Broń Palna",
+					"Żeglarstwo"
+				],
+				"grantedItems": [
+					{
+						"name": "Tasak",
+						"type": "weapon",
+						"system": {
+							"description": "<p>Tasak to ciężki, jednoręczny, jednosieczny miecz przypominający maczetę lub duży nóż do mięsa. Nie jest subtelny, ale potrafi zadawać głębokie rany.</p>",
+							"source": "Stary Świat: Ponury i Niebezpieczny",
+							"rarity": 3,
+							"encumbrance": 2,
+							"encumbranceThreshold": 0,
+							"price": 0,
+							"priceWarhammer": {
+								"gold": 0,
+								"silver": 100,
+								"pennies": 0,
+								"restricted": false
+							},
+							"damage": "undamaged",
+							"container": "",
+							"quantity": 1,
+							"state": "carried",
+							"baseDamage": 3,
+							"critical": 3,
+							"range": "engaged",
+							"skills": [
+								"Broń Biała (Lekka)"
+							],
+							"qualities": [
+								{
+									"name": "Morderczość",
+									"description": "<p>Kiedy atak powoduje Uraz Krytyczny albo Trafienie Krytyczne, dodaj +10 do rzutu krytycznego za każdy punkt Morderczości.</p>",
+									"isRated": true,
+									"rating": 2
+								},
+								{
+									"name": "Niecelność",
+									"description": "<p>Dodaj @die[S] do testów ataku tą bronią w liczbie równej wartości Niecelności.</p>",
+									"isRated": true,
+									"rating": 1
+								}
+							],
+							"damageCharacteristic": "brawn"
+						},
+						"flags": {
+							"oldWorldEquipmentImport": {
+								"sourceBook": "Stary Świat: Ponury i Niebezpieczny",
+								"category": "Bronie Białe",
+								"hardPoints": "1",
+								"priceText": "100s"
+							}
+						},
+						"img": "icons/svg/item-bag.svg"
+					},
+					{
+						"name": "Tarcza (T)",
+						"type": "weapon",
+						"system": {
+							"description": "<p>Tarcza służy przede wszystkim do zasłaniania się przed ostrzami i pociskami, ale w zwarciu może stać się równie groźna jak broń. Solidne uderzenie rantem albo środkiem tarczy potrafi wytrącić przeciwnika z równowagi.</p>",
+							"source": "Stary Świat: Ponury i Niebezpieczny",
+							"rarity": 1,
+							"encumbrance": 1,
+							"encumbranceThreshold": 0,
+							"price": 80,
+							"priceWarhammer": {
+								"gold": 0,
+								"silver": 45,
+								"pennies": 0,
+								"restricted": false
+							},
+							"damage": "undamaged",
+							"container": "",
+							"quantity": 1,
+							"state": "carried",
+							"baseDamage": 0,
+							"critical": 6,
+							"range": "engaged",
+							"skills": [
+								"Broń Biała (Lekka)"
+							],
+							"qualities": [
+								{
+									"name": "Obrona",
+									"description": "<p>Zwiększa obronę w zwarciu użytkownika o wartość tej właściwości.</p>",
+									"isRated": true,
+									"rating": 1
+								},
+								{
+									"name": "Odbicie",
+									"description": "<p>Zwiększa obronę na dystans użytkownika o wartość tej właściwości.</p>",
+									"isRated": true,
+									"rating": 1
+								},
+								{
+									"name": "Niecelność",
+									"description": "<p>Dodaj @die[S] do testów ataku tą bronią w liczbie równej wartości Niecelności.</p>",
+									"isRated": true,
+									"rating": 1
+								},
+								{
+									"name": "Powalenie",
+									"description": "<p>Po wywołaniu jeden trafiony cel zostaje przewrócony. O ile opis nie stanowi inaczej, aktywacja wymaga @sym[a] @sym[a] oraz dodatkowej @sym[a] za każdy punkt sylwetki celu powyżej 1.</p>",
+									"isRated": false,
+									"rating": 0
+								}
+							],
+							"damageCharacteristic": "brawn"
+						},
+						"flags": {
+							"oldWorldEquipmentImport": {
+								"sourceBook": "Stary Świat: Ponury i Niebezpieczny",
+								"category": "Bronie Białe",
+								"hardPoints": "1",
+								"priceText": "45s"
+							},
+							"genesys": {
+								"sourcePrices": {
+									"genesys": {
+										"source": "Realms of Terrinoth",
+										"price": 80
+									}
+								}
+							}
+						},
+						"img": "icons/svg/item-bag.svg"
+					},
+					{
+						"name": "Manierka (pusta) (T)",
+						"type": "container",
+						"system": {
+							"description": "<p>Gliniana, cynowa lub skórzana manierka pozwala wygodnie przenosić wodę albo inny napój w podróży. Większość manierek ma korek lub zatrzask, który chroni zawartość przed rozlaniem.</p>",
+							"source": "Stary Świat: Ponury i Niebezpieczny",
+							"rarity": 1,
+							"encumbrance": 0,
+							"encumbranceThreshold": 0,
+							"price": 0,
+							"priceWarhammer": {
+								"gold": 0,
+								"silver": 0,
+								"pennies": 5,
+								"restricted": false
+							},
+							"damage": "undamaged",
+							"container": "",
+							"quantity": 1,
+							"state": "carried",
+							"open": true
+						},
+						"flags": {
+							"oldWorldEquipmentImport": {
+								"sourceBook": "Stary Świat: Ponury i Niebezpieczny",
+								"category": "Sprzęt",
+								"priceText": "5d"
+							}
+						},
+						"img": "icons/svg/item-bag.svg"
+					}
+				],
+				"magicAccess": {
+					"enabled": false,
+					"tradition": "",
+					"school": "",
+					"lore": "",
+					"deity": "",
+					"allowOvercast": false,
+					"allowMiscast": false
+				},
+				"professionPath": [
+					{
+						"id": "zeglarz-zeglarz",
+						"name": "Żeglarz",
+						"tier": 1,
+						"prerequisites": "Wstąp do marynarki.",
+						"effects": "Możesz wydać 5 PD na zakup talentu Wiedza Ekspercka (Morza i Żegluga).",
+						"isAlternative": false
+					},
+					{
+						"id": "zeglarz-zolnierz-okretowy",
+						"name": "Żołnierz Okrętowy*",
+						"tier": 2,
+						"prerequisites": "Kup dwa poziomy talentu Żeglarski Krok. Zwiększ poziomy Atletyki i Broni Białej (Lekkiej) do 3.",
+						"effects": "Możesz wydać 15 PD na zakup talentu Gniew Stromfelsa.",
+						"isAlternative": true
+					},
+					{
+						"id": "zeglarz-bosman",
+						"name": "Bosman*",
+						"tier": 2,
+						"prerequisites": "Zwiększ poziomy Atletyki i Żeglarstwa do 3. Kup talent Stary Marszpikiel.",
+						"effects": "Rzemiosło jest teraz umiejętnością związaną z profesją postaci. Możesz wydać 15 PD na zakup talentu Regularne Naprawy.",
+						"isAlternative": true
+					}
+				]
+			},
+			"flags": {
+				"genesysSpecializationImport": {
+					"sourceBook": "Stary Świat: Ponury i Niebezpieczny",
+					"importedFromTemplate": true,
+					"specializationKey": "zeglarz"
+				},
+				"genesys": {
+					"treeData": {
+						"nodes": {
+							"0-0": {
+								"name": "Żeglarski Żargon",
+								"img": "icons/svg/upgrade.svg",
+								"id": "CvygR0rl8MWwwPKp",
+								"description": "<p>Kiedy postać wykonuje test umiejętności społecznej w towarzystwie żeglarzy, wodniaków lub podobnych postaci (zgodnie z ustaleniem MG), może przyjąć wybraną liczbę punktów zmęczenia, aby użyć tego talentu i dodać do testu tyle samo @sym[a]. Liczba ta nie może przekroczyć posiadanych poziomów Żeglarskiego Żargonu.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"0-1": {
+								"name": "Chyży",
+								"img": "icons/svg/upgrade.svg",
+								"id": "CJSySyGUvYPqJtMV",
+								"description": "<p>Postać nie ponosi kar za poruszanie się po trudnym terenie. (Porusza się po nim ze zwykłą szybkością bez zużywania dodatkowych manewrów).</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"0-2": {
+								"name": "Drugi Oddech",
+								"img": "icons/svg/upgrade.svg",
+								"id": "KobRcZkKKBTXUEDH",
+								"description": "<p>Raz na spotkanie postać może użyć tego talentu, aby usunąć liczbę punktów zmęczenia równą liczbie posiadanych poziomów Drugiego Oddechu.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"0-3": {
+								"name": "Żeglarski Krok",
+								"img": "icons/svg/upgrade.svg",
+								"id": "2wn5t0nEdj5MzQ29",
+								"description": "<p>Raz na sesję, gdy sojusznik w bliskim dystansie nie zda testu Negocjacji, postać może ponowić</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja, poza turą"
+								},
+								"purchased": false
+							},
+							"1-0": {
+								"name": "Wąska Specjalizacja",
+								"img": "icons/svg/upgrade.svg",
+								"id": "4wR47of5PTFVHkI9",
+								"description": "<p>Za każdy poziom tego talentu wybierz konkretny rodzaj rzemiosła. Kiedy postać wykonuje test Rzemiosła, który odnosi się do jednego z wybranych rodzajów rzemiosła, zmniejsz o 1 trudność testu. Jeśli test ma na celu wytworzenie przedmiotu (zob. Krainy Terrinoth, strona 112), zajmuje to postaci połowę normalnie potrzebnego czasu. Kiedy postać wykonuje test Rzemiosła, który NIE odnosi się do żadnego z wybranych rodzajów rzemiosła, dodaj @die[B] @die[B] do testu.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"1-1": {
+								"name": "Parada",
+								"img": "icons/svg/upgrade.svg",
+								"id": "ZrE0y5Imdoa9nLq4",
+								"description": "<p>Kiedy postać otrzymuje trafienie w wyniku testu walki wręcz, po naliczeniu obrażeń, ale przed zastosowaniem redukcji (czyli natychmiast po Kroku 3 wykonywania testu walki, zob. str. 102) może przyjąć 3 punkty zmęczenia, aby użyć tego talentu i zmniejszyć te obrażenia o 2 plus liczba poziomów Parady. Tego talentu można użyć tylko raz na trafienie, a postać musi trzymać broń białą.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "okazja, poza turą"
+								},
+								"purchased": false
+							},
+							"1-2": {
+								"name": "Zahartowany",
+								"img": "icons/svg/upgrade.svg",
+								"id": "I6F3HkR7aWI2I06b",
+								"description": "<p>Każdy posiadany poziom Zahartowanego zwiększa próg ran postaci o 2.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"1-3": {
+								"name": "Błogosławieństwo Mananna",
+								"img": "icons/svg/upgrade.svg",
+								"id": "q2lgxXAdaNxndTTJ",
+								"description": "<p>Gdy postać przebywa na wodzie, może wykonać Prosty (–) test Sztuki Przetrwania zamiast Dyscypliny albo Opanowania, aby zmniejszyć zmęczenie pod koniec spotkania (zob. str. 117 Podręcznika Podstawowego).</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"2-0": {
+								"name": "Stary Marszpikiel",
+								"img": "icons/svg/upgrade.svg",
+								"id": "OxwtwrzyiUq662hi",
+								"description": "<p>Raz na spotkanie, przed testem jednego z sojuszników postaci, możesz wydać jeden Punkt Opowieści, aby wykorzystać ten talent. Postać dodaje liczbę @sym[s] równą poziomom Żeglarstwa do wyniku testu. Kiedy postać korzysta z tego talentu powinieneś wyjaśnić w jaki sposób jej żeglarskie doświadczenie pomogło drugiej postaci wykonać swoje zadanie.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja, poza turą"
+								},
+								"purchased": false
+							},
+							"2-1": {
+								"name": "Brawurowy Żeglarz",
+								"img": "icons/svg/upgrade.svg",
+								"id": "DTXLcwDos1gmGsBA",
+								"description": "<p>Przed wykonaniem testu Żeglarstwa postać może dodać do wyniku wybraną liczbę @sym[h], aby użyć tego talentu i dodać tyle samos. Liczba ta nie może przekroczyć posiadanych poziomów Żeglarstwa. Felczer</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"2-2": {
+								"name": "Uskok",
+								"img": "icons/svg/upgrade.svg",
+								"id": "duWNdjBTT2MSzYRo",
+								"description": "<p>Raz na rundę postać może przyjąć wybraną liczbę punktów zmęczenia nie większą od posiadanych poziomów Uskoku, aby użyć tego talentu. Do końca jej następnej tury wzmocnij trudność wszystkich testów walki dystansowej, których celem jest ta postać, tyle razy, ile punktów zmęczenia przyjęła.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "manewr"
+								},
+								"purchased": false
+							},
+							"2-3": {
+								"name": "Żeglarski Krok",
+								"img": "icons/svg/upgrade.svg",
+								"id": "2wn5t0nEdj5MzQ29",
+								"description": "<p>Raz na sesję, gdy sojusznik w bliskim dystansie nie zda testu Negocjacji, postać może ponowić</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja, poza turą"
+								},
+								"purchased": false
+							},
+							"3-0": {
+								"name": "Złotousty",
+								"img": "icons/svg/upgrade.svg",
+								"id": "An0e1zV0jfhqu1Lv",
+								"description": "<p>Podczas rozpatrywania testu umiejętności społecznych, możesz wydać Punkt Opowieści, aby wymienić nieanulowane @sym[a] @sym[a] na @sym[s].</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"3-1": {
+								"name": "Żeglarski Żargon",
+								"img": "icons/svg/upgrade.svg",
+								"id": "CvygR0rl8MWwwPKp",
+								"description": "<p>Kiedy postać wykonuje test umiejętności społecznej w towarzystwie żeglarzy, wodniaków lub podobnych postaci (zgodnie z ustaleniem MG), może przyjąć wybraną liczbę punktów zmęczenia, aby użyć tego talentu i dodać do testu tyle samo @sym[a]. Liczba ta nie może przekroczyć posiadanych poziomów Żeglarskiego Żargonu.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"3-2": {
+								"name": "Drugi Oddech",
+								"img": "icons/svg/upgrade.svg",
+								"id": "KobRcZkKKBTXUEDH",
+								"description": "<p>Raz na spotkanie postać może użyć tego talentu, aby usunąć liczbę punktów zmęczenia równą liczbie posiadanych poziomów Drugiego Oddechu.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "active",
+									"detail": "okazja"
+								},
+								"purchased": false
+							},
+							"3-3": {
+								"name": "Artylerzysta",
+								"img": "icons/svg/upgrade.svg",
+								"id": "i1x6EGV0fwxeG78y",
+								"description": "<p>Artyleria jest teraz umiejętnością związaną z profesją postaci. Gdy sojusznicy w średnim dystansie wykonują test Artylerii, mogą używać poziomów Artylerii twojej postaci zamiast swoich. Liczba sojuszników nie może jednak przekroczyć wartości Prezencji postaci.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"4-0": {
+								"name": "Fart Żeglarza",
+								"img": "icons/svg/upgrade.svg",
+								"id": "LQpD9ebRsBKAsI5H",
+								"description": "<p>Raz na sesję, po tym jak postać lub jeden z jej sojuszników wygeneruje w teście @sym[d], możesz użyć tego talentu, aby anulować @sym[d] i zamiast tego dodać @sym[t] do wyniku.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"4-1": {
+								"name": "Taranowanie",
+								"img": "icons/svg/upgrade.svg",
+								"id": "j1uyw2TUafBuAjSH",
+								"description": "<p>Podczas prowadzenia pojazdu lub żeglowania postać może użyć tego talentu, aby wybrać jeden inny pojazd w średnim dystansie i wykonać przeciwstawny test Jeździectwa przeciw Jeździectwu lub Żeglarstwa przeciw Żeglarstwu (w zależności od tego jakimi pojazdami poruszają się twoja postać i jej przeciwnik), którego celem jest woźnica lub sternik tego pojazdu. Jeśli test się powiedzie, rzuć dwukrotnie na Tabelę III.2-19: Efekt Trafienia Krytycznego, na stronie 236 Podręcznika Podstawowego. Wybierz jeden z wyników Trafienia Krytycznego i zastosuj go do pojazdu swojej postaci, a drugi zastosuj do drugiego pojazdu. Możesz wydać @sym[t], aby dodać +20 do jednego z wyników Trafienia Krytycznego. MG może wydać @sym[d], aby dodać +20 do obu wyników Trafienia Krytycznego.</p>",
+								"ranked": "no",
+								"activation": {
+									"type": "active",
+									"detail": "akcja"
+								},
+								"purchased": false
+							},
+							"4-2": {
+								"name": "Obrona",
+								"img": "icons/svg/upgrade.svg",
+								"id": "3JMckpvyAObSNhqU",
+								"description": "<p>Każdy poziom Obrony zwiększa o 1 obronę postaci w zwarciu i na dystans.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							},
+							"4-3": {
+								"name": "Oddanie Sprawie",
+								"img": "icons/svg/upgrade.svg",
+								"id": "AcAFptAFkerdx2AB",
+								"description": "<p>Każdy poziom Oddania Sprawie zwiększa jedną z cech postaci o 1. Ten talent nie może zwiększyć wartości cechy ponad 5 ani zwiększyć dwa razy tej samej cechy.</p>",
+								"ranked": "yes",
+								"activation": {
+									"type": "passive",
+									"detail": ""
+								},
+								"purchased": false
+							}
+						},
+						"connections": {
+							"h-1-0": true,
+							"h-1-2": true,
+							"h-2-1": true,
+							"h-2-2": true,
+							"h-3-0": true,
+							"h-3-2": true,
+							"h-4-1": true,
+							"h-4-2": true,
+							"v-0-0": true,
+							"v-0-1": true,
+							"v-0-2": true,
+							"v-0-3": true,
+							"v-1-0": true,
+							"v-1-1": true,
+							"v-1-2": true,
+							"v-2-1": true,
+							"v-2-2": true,
+							"v-2-3": true,
+							"v-3-0": true,
+							"v-3-1": true,
+							"v-3-2": true
+						},
+						"backgroundImage": "",
+						"bgPosX": "0px",
+						"bgPosY": "0px"
+					}
+				}
+			},
+			"effects": [],
+			"ownership": {
+				"default": 0
+			},
+			"sort": 60
+		}
+	]
+}

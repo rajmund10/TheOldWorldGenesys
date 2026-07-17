@@ -185,7 +185,7 @@ onMounted(() => {
 
 			<div v-if="hasMagicAccess" class="tab" data-tab="magic"><MagicTab profile-source="skill" /></div>
 
-			<div class="tab" data-tab="inventory"><InventoryTab currency-mode="legacy" :currency-label="context.currencyLabel" /></div>
+			<div class="tab" data-tab="inventory"><InventoryTab :currency-mode="context.currencyMode ?? 'legacy'" :currency-label="context.currencyLabel" /></div>
 
 			<div class="tab" data-tab="effects">
 				<EffectsView :effects="[...effects]" @add-effect="addEffect" />

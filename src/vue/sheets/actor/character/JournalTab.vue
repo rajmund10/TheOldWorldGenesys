@@ -2,12 +2,13 @@
 import { computed, inject, toRaw } from 'vue';
 
 import CharacterDataModel from '@/actor/data/CharacterDataModel';
-import { EntryType as JournalEntryType, removeJournalEntry } from '@/actor/data/character/ExperienceJournal';
+import { EntryType as JournalEntryType } from '@/actor/data/character/ExperienceJournal';
 import { ActorSheetContext, RootContext } from '@/vue/SheetContext';
 import Localized from '@/vue/components/Localized.vue';
 import Editor from '@/vue/components/Editor.vue';
 import AwardXPPrompt from '@/app/AwardXPPrompt';
 import XPContainer from '@/vue/components/character/XPContainer.vue';
+import { refundAdvanceFromJournal } from '@/actor/advancement/AdvancementPurchase';
 
 const context = inject<ActorSheetContext<CharacterDataModel>>(RootContext)!;
 
@@ -168,7 +169,7 @@ async function addXPJournalEntry() {
 					</div>
 					<div v-else><Localized :label="`Genesys.XPJournal.${entry.type}`" :format-args="entry.data" enriched /></div>
 					<div class="value">{{ entry.amount }}</div>
-					<a v-if="entry.type !== JournalEntryType.Starting" @click="removeJournalEntry(toRaw(context.data.actor), index)"><i class="fas fa-trash"></i></a>
+					<a v-if="entry.type !== JournalEntryType.Starting" @click="refundAdvanceFromJournal(toRaw(context.data.actor), index)"><i class="fas fa-trash"></i></a>
 				</div>
 			</div>
 		</section>

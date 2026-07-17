@@ -6,7 +6,7 @@ import gulpYaml from 'gulp-yaml';
 import gulpZip from 'gulp-zip';
 
 export function zip() {
-	return src('dist/**/*')
+	return src(['dist/**/*', '!dist/**/LOCK'])
 		.pipe(gulpZip('genesys.zip'))
 		.pipe(dest('.'));
 }

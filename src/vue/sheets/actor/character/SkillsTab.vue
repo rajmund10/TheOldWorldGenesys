@@ -6,7 +6,6 @@
 import { computed, inject, toRaw } from 'vue';
 
 import CharacterDataModel from '@/actor/data/CharacterDataModel';
-import { EntryType as JournalEntryType } from '@/actor/data/character/ExperienceJournal';
 import { ActorSheetContext, RootContext } from '@/vue/SheetContext';
 import Characteristic from '@/vue/components/character/Characteristic.vue';
 import SkillDataModel from '@/item/data/SkillDataModel';
@@ -19,9 +18,9 @@ import ContextMenu from '@/vue/components/ContextMenu.vue';
 import MenuItem from '@/vue/components/MenuItem.vue';
 import MasonryWall from '@yeger/vue-masonry-wall';
 import { Characteristic as CharacteristicType } from '@/data/Characteristics';
-import { CombatPool } from '@/data/Actors';
 import type CharacterSheet from '@/actor/sheets/CharacterSheet';
 import { replaceDefaultSkillsForActor } from '@/actor/skills/DefaultSkills';
+import { purchaseAdvance } from '@/actor/advancement/AdvancementPurchase';
 
 const context = inject<ActorSheetContext<CharacterDataModel, CharacterSheet>>(RootContext)!;
 const system = computed(() => context.data.actor.systemData);
@@ -79,59 +78,16 @@ async function rollUnskilled(characteristic: CharacteristicType) {
 }
 
 async function purchaseCharacteristic(characteristic: keyof typeof system.value.characteristics) {
-	if (!system.value.canPurchaseCharacteristicAdvance[characteristic]) {
-		return;
-	}
-
-	const currentValue = system.value.characteristics[characteristic];
-
-	// This is only available during character creation XP spends, so we want to increase WT & ST.
-	const woundThreshold = (system.value._source.wounds as CombatPool).max + (characteristic === 'brawn' ? 1 : 0);
-	const strainThreshold = (system.value._source.strain as CombatPool).max + (characteristic === 'willpower' ? 1 : 0);
-
-	await toRaw(context.data.actor).update({
-		// Increase Characteristic, WT, and ST
-		[`system.characteristics.${characteristic}`]: currentValue + 1,
-		'system.wounds.max': woundThreshold,
-		'system.strain.max': strainThreshold,
-		// XP Journal Entry
-		'system.experienceJournal.entries': [
-			...system.value.experienceJournal.entries,
-			{
-				amount: -((currentValue + 1) * 10),
-				type: JournalEntryType.Characteristic,
-				data: {
-					characteristic,
-					rank: currentValue + 1,
-				},
-			},
-		],
+	await purchaseAdvance(toRaw(context.data.actor), {
+		type: 'characteristic',
+		characteristic: characteristic as CharacteristicType,
 	});
 }
 
 async function purchaseSkillRank(skill: GenesysItem<SkillDataModel>) {
-	const cost = 5 * (skill.systemData.rank + 1) + (skill.systemData.career ? 0 : 5);
-	if (skill.systemData.rank >= 5 || system.value.availableXP < cost) {
-		return;
-	}
-
-	await toRaw(skill).update({
-		'system.rank': skill.systemData.rank + 1,
-	});
-
-	await toRaw(context.data.actor).update({
-		'system.experienceJournal.entries': [
-			...system.value.experienceJournal.entries,
-			{
-				amount: -cost,
-				type: JournalEntryType.Skill,
-				data: {
-					name: skill.name,
-					id: skill.id,
-					rank: skill.systemData.rank,
-				},
-			},
-		],
+	await purchaseAdvance(toRaw(context.data.actor), {
+		type: 'skill-rank',
+		skill: toRaw(skill),
 	});
 }
 
