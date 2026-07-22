@@ -1,3 +1,21 @@
+## Wersja 1.1.3
+### Najważniejsze zmiany
+- Dodano profile gry Genesys, The Old World: Grim and Perilous oraz Warcraft, które wybierają odpowiednią kartę postaci, walutę, ceny i listę umiejętności.
+- Dodano kreator postaci oparty na zawartości kompendium: archetypach, karierach i specjalizacjach, wraz z ograniczeniami rasowymi i wyborem darmowych rang umiejętności.
+- Rozbudowano kartę The Old World o ścieżki profesji, drzewka talentów, zakup kolejnych specjalizacji i dostęp do magii zależny od specjalizacji lub talentów.
+- Dodano wspólny system zakupów za PD dla cech, umiejętności, talentów i specjalizacji oraz mechaniczne cofanie zakupów z dziennika doświadczenia.
+- Dodano wydawanie Przewag, Triumfów, Zagrożeń i Katastrof po testach wykonywanych w walce.
+- Dodano polskie umiejętności i ich objaśnienia oraz profile umiejętności dla Genesys, The Old World i Warcraft.
+- Przeniesiono źródła kompendiów do edytowalnych plików JSON w `packs-src`; build generuje z nich paczki Foundry.
+- Dodano oddzielne ceny wyposażenia dla Genesys i The Old World oraz poprawiono obsługę przedmiotów w pojemnikach.
+- Dodano kompatybilność z Foundry VTT 14 oraz poprawki interfejsu kart, selektora profilu i okna wydawania symboli.
+
+### Poprawki
+- Umiejętności z kariery i specjalizacji są scalane, usuwane są duplikaty, a lista kreatora jest sortowana alfabetycznie.
+- Pierwszy poziom ścieżki profesji zostaje zaznaczony po utworzeniu postaci w kreatorze.
+- Poprawiono przełączanie specjalizacji i ich drzewek talentów.
+- Poprawiono połączenia drzewek specjalizacji The Old World oraz obsługę dostępu do magii i kapłaństwa.
+
 ## Alpha 0.2.18
 ### Changes
 - [FEATURE](https://github.com/Mezryss/FVTT-Genesys/pull/231): Allow dice pools modifications to scale with talent rank (thanks @KitCat420)

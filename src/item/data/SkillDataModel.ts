@@ -25,6 +25,16 @@ export default abstract class SkillDataModel extends BaseItemDataModel {
 	abstract initiative: boolean;
 
 	/**
+	 * Typical situations in which this skill should be tested.
+	 */
+	abstract useWhen: string;
+
+	/**
+	 * Situations which should be resolved with a different skill.
+	 */
+	abstract doNotUseWhen: string;
+
+	/**
 	 * (Owned Only) Whether the skill is a career skill for the character.
 	 */
 	abstract career: boolean;
@@ -48,6 +58,8 @@ export default abstract class SkillDataModel extends BaseItemDataModel {
 				choices: ['general', 'magic', 'combat', 'social', 'knowledge'],
 			}),
 			initiative: new fields.BooleanField({ initial: false }),
+			useWhen: new fields.StringField({ initial: '' }),
+			doNotUseWhen: new fields.StringField({ initial: '' }),
 			career: new fields.BooleanField({ initial: false }),
 			rank: new fields.NumberField({ integer: true, initial: 0 }),
 		};

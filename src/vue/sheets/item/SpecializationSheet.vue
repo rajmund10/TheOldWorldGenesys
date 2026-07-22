@@ -3,6 +3,7 @@ import { computed, inject, ref } from 'vue';
 import { ItemSheetContext, RootContext } from '@/vue/SheetContext';
 import BasicItemSheet from '@/vue/sheets/item/BasicItemSheet.vue';
 import SpecializationDataModel, { type SpecializationProfessionStep } from '@/item/data/SpecializationDataModel';
+import GameProfileFields from '@/vue/components/item/GameProfileFields.vue';
 import Editor from '@/vue/components/Editor.vue';
 import TalentTree from '@/vue/components/character/TalentTree.vue';
 import type { TalentTreeData } from '@/vue/components/character/TalentTreeTypes';
@@ -100,6 +101,12 @@ async function updateCareerSkills(careerSkills: string[]) {
 	});
 
 	await syncOwnedActorCareerSkills(previousSkills, uniqueSkillNames(updatedSkills));
+}
+
+async function updateAllowedArchetypeKeys(value: string) {
+	await context.data.item.update({
+		'system.allowedArchetypeKeys': value.split(',').map((key) => key.trim()).filter(Boolean),
+	});
 }
 
 function handleTreeDataUpdate(newData: TalentTreeData) {
@@ -334,6 +341,8 @@ void loadTreeData();
 			<section class="data-grid specialization-data">
 				<div class="section-heading">{{ t('Genesys.SpecializationSheet.SpecializationData', 'Specialization Data') }}</div>
 
+				<GameProfileFields :item="context.data.item" :model-value="system.gameProfiles" :editable="context.data.editable" />
+
 				<div class="row">
 					<label>{{ t('Genesys.SpecializationSheet.Key', 'Technical Key') }}</label>
 					<input type="text" name="system.key" :value="system.key" />
@@ -347,6 +356,18 @@ void loadTreeData();
 				<div class="row">
 					<label>{{ t('Genesys.SpecializationSheet.Requirements', 'Requirements') }}</label>
 					<input type="text" name="system.requirements" :value="system.requirements" />
+				</div>
+
+				<div class="row">
+					<label>{{ t('Genesys.SpecializationSheet.AllowedArchetypes', 'Allowed archetype keys') }}</label>
+					<div class="stacked-field">
+						<input
+							type="text"
+							:value="system.allowedArchetypeKeys.join(', ')"
+							@change="updateAllowedArchetypeKeys(($event.target as HTMLInputElement).value)"
+						/>
+						<p class="field-hint">{{ t('Genesys.SpecializationSheet.AllowedArchetypesHint', 'Comma-separated stable archetype keys. Empty means unrestricted.') }}</p>
+					</div>
 				</div>
 
 				<div class="row">

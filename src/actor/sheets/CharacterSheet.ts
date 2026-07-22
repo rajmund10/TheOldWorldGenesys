@@ -23,9 +23,10 @@ import { ActorSheetContext } from '@/vue/SheetContext';
 import { DragTransferData } from '@/data/DragTransferData';
 import { transferInventoryBetweenActors } from '@/operations/TransferBetweenActors';
 import { EquipmentState } from '@/item/data/EquipmentDataModel';
-import { addDefaultSkillsToActor, GENESYS_CORE_SKILL_NAMES, replaceDefaultSkillsForActor } from '@/actor/skills/DefaultSkills';
+import { addDefaultSkillsToActor, backfillSkillGuidanceForActor, deduplicateActorSkills, GENESYS_CORE_SKILL_NAMES, replaceDefaultSkillsForActor } from '@/actor/skills/DefaultSkills';
 import { purchaseAdvance } from '@/actor/advancement/AdvancementPurchase';
-import { getCurrencyLabelForProfile, getCurrencyModeForProfile } from '@/system/GameProfile';
+import { getCurrencyLabelForProfile, getCurrencyModeForProfile, getGameProfile } from '@/system/GameProfile';
+import { loadCharacterCreationCatalog, CHARACTER_CREATION_COMPENDIUM, specializationMatchesArchetype, specializationMatchesCareer } from '@/actor/creation/CharacterCreationCatalog';
 
 function normalizeSkillName(name: string) {
 	return name.trim().toLocaleLowerCase();
@@ -60,12 +61,15 @@ function careerSkillName(skill: unknown): string {
 }
 
 const GRANTED_INVENTORY_TYPES = ['weapon', 'armor', 'gear', 'consumable', 'container', 'magicAccessory'];
+const TALENT_GRANTED_CAREER_SKILLS = new Map<string, string[]>([[normalizeTalentName('Świątynnik'), ['Moc Boska']]]);
+const TALENT_GRANTED_CAREER_SKILL_NAMES = [...TALENT_GRANTED_CAREER_SKILLS.values()].flat();
 
 /**
  * Actor sheet used for Player Characters
  */
 export default class CharacterSheet extends VueSheet(GenesysActorSheet<CharacterDataModel>) {
 	#renderKey = 0;
+	#skillInitialization?: Promise<void>;
 
 	override get vueComponent() {
 		return VueCharacterSheet;
@@ -88,15 +92,33 @@ export default class CharacterSheet extends VueSheet(GenesysActorSheet<Character
 	}
 
 	override async getVueContext(): Promise<ActorSheetContext<CharacterDataModel>> {
-		await this.ensureSkills();
+		const setupMode = this.actor.getFlag('genesys', 'characterSetupMode');
+		const needsCharacterSetup = !setupMode && this.actor.items.size === 0 && this.actor.systemData.experienceJournal.entries.length === 0;
+
+		if (!needsCharacterSetup && setupMode !== 'blank') {
+			await this.ensureSkills();
+		}
 		await this.syncCareerSkillFlags();
 		this.#renderKey += 1;
+
+		let characterCreationCatalog = null;
+		if (needsCharacterSetup) {
+			try {
+				characterCreationCatalog = await loadCharacterCreationCatalog(getGameProfile());
+			} catch (error) {
+				console.error('[Genesys] Failed to load character creation catalog.', error);
+			}
+		}
 		
 		return {
 			sheet: this,
 			renderKey: this.#renderKey,
 			currencyLabel: this.currencyLabel,
 			currencyMode: this.currencyMode,
+			needsCharacterSetup,
+			characterCreationCatalog,
+			useBlankCharacterSheet: () => this.useBlankCharacterSheet(),
+			completeCharacterCreation: (selection) => this.completeCharacterCreation(selection),
 			data: await this.getData(),
 		};
 	}
@@ -104,18 +126,119 @@ export default class CharacterSheet extends VueSheet(GenesysActorSheet<Character
 	/**
 	 * Ensure the character has this sheet's default skills from the shared compendium.
 	 */
-	async ensureSkills() {
+	async ensureSkills(force = false) {
+		if (!force && this.actor.getFlag('genesys', 'characterSetupMode') === 'blank') return;
+		if (this.#skillInitialization) return this.#skillInitialization;
+
+		this.#skillInitialization = this.#initializeSkills().finally(() => {
+			this.#skillInitialization = undefined;
+		});
+		return this.#skillInitialization;
+	}
+
+	async #initializeSkills() {
 		try {
+			await deduplicateActorSkills(this.actor);
 			const currentProfileId = this.actor.getFlag('genesys', 'skillProfileId');
 			if (currentProfileId !== this.defaultSkillProfileId) {
 				await replaceDefaultSkillsForActor(this.actor, this.defaultSkillNames);
 				await this.actor.setFlag('genesys', 'skillProfileId', this.defaultSkillProfileId);
+				await backfillSkillGuidanceForActor(this.actor);
 				return;
 			}
 
 			await addDefaultSkillsToActor(this.actor, this.defaultSkillNames, false);
+			await backfillSkillGuidanceForActor(this.actor);
 		} catch (error) {
-			// Silent fail - skills can be added manually
+			console.error('[Genesys] Failed to initialize character skills.', error);
+		}
+	}
+
+	async useBlankCharacterSheet() {
+		await this.actor.setFlag('genesys', 'characterSetupMode', 'blank');
+		await this.render(false);
+	}
+
+	async completeCharacterCreation(selection: { archetypeId: string; careerId: string; specializationId: string; careerSkillNames: string[] }) {
+		const pack = game.packs.get(CHARACTER_CREATION_COMPENDIUM);
+		if (!pack) {
+			ui.notifications.error(game.i18n.localize('Genesys.CharacterCreation.LoadError'));
+			return false;
+		}
+
+		const [archetype, career, specialization] = await Promise.all([
+			pack.getDocument(selection.archetypeId),
+			pack.getDocument(selection.careerId),
+			pack.getDocument(selection.specializationId),
+		]) as GenesysItem<BaseItemDataModel>[];
+
+		if (archetype?.type !== 'archetype' || career?.type !== 'career' || specialization?.type !== 'specialization') {
+			ui.notifications.error(game.i18n.localize('Genesys.CharacterCreation.ValidationError'));
+			return false;
+		}
+
+		const careerData = (career as GenesysItem<CareerDataModel>).systemData;
+		const specializationData = (specialization as GenesysItem<SpecializationDataModel>).systemData;
+		const specializationKey = specializationData.key;
+		if (careerData.availableSpecializationKeys.length && !specializationMatchesCareer(specializationKey, careerData.availableSpecializationKeys)) {
+			ui.notifications.error(game.i18n.localize('Genesys.CharacterCreation.ValidationError'));
+			return false;
+		}
+		const archetypeOption = {
+			id: archetype.id,
+			name: archetype.name,
+			img: archetype.img,
+			description: archetype.systemData.description,
+			key: (archetype as GenesysItem<ArchetypeDataModel>).systemData.key,
+			careerSkills: [],
+			availableSpecializationKeys: [],
+			allowedArchetypeKeys: [],
+		};
+		const specializationOption = {
+			id: specialization.id,
+			name: specialization.name,
+			img: specialization.img,
+			description: specializationData.description,
+			key: specializationData.key,
+			careerSkills: specializationData.careerSkills,
+			availableSpecializationKeys: [],
+			allowedArchetypeKeys: specializationData.allowedArchetypeKeys,
+		};
+		if (!specializationMatchesArchetype(specializationOption, archetypeOption)) {
+			ui.notifications.error(game.i18n.localize('Genesys.CharacterCreation.ValidationError'));
+			return false;
+		}
+
+		const eligibleSkillNames = uniqueNames([
+			...careerData.careerSkills.map(careerSkillName),
+			...(specializationData.careerSkills ?? []),
+		]);
+		const eligibleSkillNameSet = new Set(eligibleSkillNames.map(normalizeSkillName));
+		const selectedSkillNameSet = new Set(selection.careerSkillNames.map(normalizeSkillName));
+		const requiredSkillRanks = Math.min(CONFIG.genesys.settings.freeCareerSkillRanks, eligibleSkillNames.length);
+		if (selectedSkillNameSet.size !== requiredSkillRanks || [...selectedSkillNameSet].some((name) => !eligibleSkillNameSet.has(name))) {
+			ui.notifications.error(game.i18n.localize('Genesys.CharacterCreation.ValidationError'));
+			return false;
+		}
+
+		try {
+			await this.actor.setFlag('genesys', 'characterSetupMode', 'wizard');
+			await this.ensureSkills(true);
+			await this.applyArchetype(archetype as GenesysItem<ArchetypeDataModel>);
+			await this._onDropItemCreate(archetype.toObject());
+			await this.applyCareer(career as GenesysItem<CareerDataModel>, selection.careerSkillNames, specializationData.careerSkills);
+			const createdSpecialization = await this.applySpecialization(specialization as GenesysItem<SpecializationDataModel>, {
+				replaceExisting: false,
+				grantInventory: true,
+			});
+			await this.actor.setFlag('genesys', 'activeSpecializationId', createdSpecialization.id);
+			await this.#selectFirstProfessionStep(createdSpecialization);
+			await this.render(false);
+			return true;
+		} catch (error) {
+			console.error('[Genesys] Character creation failed.', error);
+			ui.notifications.error(game.i18n.localize('Genesys.CharacterCreation.LoadError'));
+			return false;
 		}
 	}
 
@@ -129,6 +252,8 @@ export default class CharacterSheet extends VueSheet(GenesysActorSheet<Character
 			} else if (item.type === 'specialization') {
 				const specialization = item as GenesysItem<SpecializationDataModel>;
 				names.push(...(specialization.systemData.careerSkills ?? []));
+			} else if (item.type === 'talent') {
+				names.push(...(TALENT_GRANTED_CAREER_SKILLS.get(normalizeTalentName(item.name)) ?? []));
 			}
 		}
 
@@ -137,7 +262,7 @@ export default class CharacterSheet extends VueSheet(GenesysActorSheet<Character
 
 	async syncCareerSkillFlags(affectedSkillNames: string[] = []) {
 		const careerSkillNames = this.#getCareerSkillSourceNames();
-		const affectedNames = new Set(affectedSkillNames.map(normalizeSkillName));
+		const affectedNames = new Set([...affectedSkillNames, ...TALENT_GRANTED_CAREER_SKILL_NAMES].map(normalizeSkillName));
 		const skills = this.actor.items.filter((i) => i.type === 'skill') as GenesysItem<SkillDataModel>[];
 
 		await Promise.all(
@@ -159,14 +284,23 @@ export default class CharacterSheet extends VueSheet(GenesysActorSheet<Character
 		);
 	}
 
-	#missingSpecializationCareerSkills(specialization: GenesysItem<SpecializationDataModel>) {
-		const actorSkillNames = new Set(
-			this.actor.items
-				.filter((i) => i.type === 'skill')
-				.map((skill) => normalizeSkillName(skill.name)),
+	async #ensureCareerSkillsAvailableAndMarked(skillNames: string[]) {
+		const names = uniqueNames(skillNames);
+		await addDefaultSkillsToActor(this.actor, names, false);
+
+		const normalizedNames = new Set(names.map(normalizeSkillName));
+		const matchingSkills = this.actor.items.filter(
+			(item) => item.type === 'skill' && normalizedNames.has(normalizeSkillName(item.name)),
+		) as GenesysItem<SkillDataModel>[];
+
+		await Promise.all(
+			matchingSkills
+				.filter((skill) => !skill.systemData.career)
+				.map((skill) => skill.update({ 'system.career': true })),
 		);
 
-		return uniqueNames(specialization.systemData.careerSkills ?? []).filter((skillName) => !actorSkillNames.has(normalizeSkillName(skillName)));
+		const foundNames = new Set(matchingSkills.map((skill) => normalizeSkillName(skill.name)));
+		return names.filter((name) => !foundNames.has(normalizeSkillName(name)));
 	}
 
 	#prepareGrantedInventoryItem(item: GenesysItem<BaseItemDataModel>, source: GenesysItem<BaseItemDataModel>) {
@@ -352,6 +486,20 @@ export default class CharacterSheet extends VueSheet(GenesysActorSheet<Character
 		return rawMap && typeof rawMap === 'object' ? (rawMap as Record<string, string>) : {};
 	}
 
+	async #selectFirstProfessionStep(specialization: GenesysItem<SpecializationDataModel>) {
+		const firstStep = specialization.systemData.professionPath?.[0];
+		if (!firstStep) return;
+
+		const professionId = firstStep.id || firstStep.name || 'profession-0';
+		await this.actor.setFlag('genesys', 'professionStepBySpecialization', {
+			...this.#getProfessionStepMap(),
+			[specialization.id]: professionId,
+		});
+		await this.actor.update({
+			'system.mainProfessionId': professionId,
+		});
+	}
+
 	#getUnlockedProfessionSteps(specialization: GenesysItem<SpecializationDataModel>) {
 		const path = specialization.systemData.professionPath ?? [];
 		const selectedProfessionId = this.#getProfessionStepMap()[specialization.id] || this.actor.systemData.mainProfessionId;
@@ -444,7 +592,8 @@ export default class CharacterSheet extends VueSheet(GenesysActorSheet<Character
 		}
 
 		const [newSpecialization] = (await this._onDropItemCreate(droppedSpecialization.toObject())) as GenesysItem<SpecializationDataModel>[];
-		const newCareerSkills = uniqueNames(newSpecialization.systemData.careerSkills ?? []);
+		const newCareerSkills = uniqueNames(newSpecialization.systemData.careerSkills ?? droppedSpecialization.systemData.careerSkills ?? []);
+		const missingSkills = await this.#ensureCareerSkillsAvailableAndMarked(newCareerSkills);
 
 		if (grantInventory) {
 			await this.#createGrantedInventoryItems(newSpecialization);
@@ -452,9 +601,8 @@ export default class CharacterSheet extends VueSheet(GenesysActorSheet<Character
 
 		await this.syncCareerSkillFlags([...oldCareerSkills, ...newCareerSkills]);
 
-		const missingSkills = this.#missingSpecializationCareerSkills(newSpecialization);
 		if (missingSkills.length) {
-			ui.notifications.warn(`Specialization career skills not found on actor: ${missingSkills.join(', ')}.`);
+			ui.notifications.warn(`Nie znaleziono umiejętności specjalizacji w kompendium: ${missingSkills.join(', ')}.`);
 		}
 
 		await this.render();
@@ -572,12 +720,21 @@ export default class CharacterSheet extends VueSheet(GenesysActorSheet<Character
 	 *
 	 * @param droppedCareer
 	 */
-	async applyCareer(droppedCareer: GenesysItem<CareerDataModel>) {
+	async applyCareer(droppedCareer: GenesysItem<CareerDataModel>, selectedSkillNames?: string[], additionalSkillNames: string[] = []) {
 		const [career] = await this._onDropItemCreate(droppedCareer.toObject());
 		const careerSkillNames = uniqueNames(droppedCareer.systemData.careerSkills.map(careerSkillName));
+		const eligibleSkillNames = uniqueNames([...careerSkillNames, ...additionalSkillNames]);
+		const missingCareerSkills = await this.#ensureCareerSkillsAvailableAndMarked(eligibleSkillNames);
+		if (missingCareerSkills.length) {
+			ui.notifications.warn(`Nie znaleziono umiejętności kariery w kompendium: ${missingCareerSkills.join(', ')}.`);
+		}
 
-		const commonSkills = <GenesysItem<SkillDataModel>[]>this.actor.items.filter((i) => i.type === 'skill' && careerSkillNames.map(normalizeSkillName).includes(normalizeSkillName(i.name)));
-		const selectedSkills = commonSkills.length ? await CareerSkillPrompt.promptForSkills(commonSkills) : [];
+		const eligibleSkillNameSet = new Set(eligibleSkillNames.map(normalizeSkillName));
+		const commonSkills = <GenesysItem<SkillDataModel>[]>this.actor.items.filter((i) => i.type === 'skill' && eligibleSkillNameSet.has(normalizeSkillName(i.name)));
+		const selectedSkillNameSet = selectedSkillNames ? new Set(selectedSkillNames.map(normalizeSkillName)) : null;
+		const selectedSkills = selectedSkillNameSet
+			? commonSkills.filter((skill) => selectedSkillNameSet.has(normalizeSkillName(skill.name))).map((skill) => skill.id)
+			: commonSkills.length ? await CareerSkillPrompt.promptForSkills(commonSkills) : [];
 
 		await career.update({
 			'system.selectedSkillIDs': selectedSkills,

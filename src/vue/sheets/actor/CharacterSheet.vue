@@ -18,6 +18,7 @@ import SpecializationDataModel from '@/item/data/SpecializationDataModel';
 import GenesysItem from '@/item/GenesysItem';
 import SkillDataModel from '@/item/data/SkillDataModel';
 import { findRankedMagicSkill } from '@/magic/MagicProfiles';
+import CharacterCreation from '@/vue/components/character/CharacterCreation.vue';
 
 const context = inject<ActorSheetContext<CharacterDataModel>>(RootContext)!;
 const actor = computed(() => {
@@ -125,7 +126,8 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="character-sheet">
+	<CharacterCreation v-if="context.needsCharacterSetup" />
+	<div v-else class="character-sheet">
 		<CharacterMeta :show-specialization-fields="false" />
 
 		<section class="combat-stat-row">

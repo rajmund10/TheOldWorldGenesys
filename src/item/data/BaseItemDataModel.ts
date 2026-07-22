@@ -17,6 +17,7 @@
 export default abstract class BaseItemDataModel extends foundry.abstract.DataModel {
 	abstract description: string;
 	abstract source: string;
+	abstract gameProfiles: string[];
 
 	static override defineSchema() {
 		const fields = foundry.data.fields;
@@ -24,6 +25,9 @@ export default abstract class BaseItemDataModel extends foundry.abstract.DataMod
 		return {
 			description: new fields.HTMLField(),
 			source: new fields.HTMLField(),
+			gameProfiles: new fields.ArrayField(
+				new fields.StringField({ choices: ['genesys', 'old-world', 'aurora', 'warcraft'], blank: false }),
+			),
 		};
 	}
 }

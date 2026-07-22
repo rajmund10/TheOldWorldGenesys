@@ -10,6 +10,7 @@ import AbilityDataModel from '@/item/data/AbilityDataModel';
 import Editor from '@/vue/components/Editor.vue';
 import Enriched from '@/vue/components/Enriched.vue';
 import Characteristic from '@/vue/components/character/Characteristic.vue';
+import GameProfileFields from '@/vue/components/item/GameProfileFields.vue';
 
 const context = inject<ItemSheetContext<ArchetypeDataModel>>(RootContext)!;
 const system = computed(() => context.data.item.systemData);
@@ -86,6 +87,13 @@ async function deleteGrantedItem(index: number) {
 
 		<template v-slot:data>
 			<section class="data-grid">
+				<GameProfileFields :item="context.data.item" :model-value="system.gameProfiles" :editable="context.data.editable" />
+
+				<div class="row">
+					<label><Localized label="Genesys.Archetype.Key" /></label>
+					<input type="text" name="system.key" :value="system.key" />
+				</div>
+
 				<div class="row">
 					<label><Localized label="Genesys.Characteristics.Brawn" /></label>
 					<input type="number" name="system.characteristics.brawn" :value="system.characteristics.brawn" />

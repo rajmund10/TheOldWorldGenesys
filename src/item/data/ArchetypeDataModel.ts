@@ -18,6 +18,8 @@ type CharacteristicsContainer = {
 };
 
 export default abstract class ArchetypeDataModel extends BaseItemDataModel {
+	abstract key: string;
+
 	/**
 	 * Characteristics values granted by the Archetype.
 	 */
@@ -53,6 +55,7 @@ export default abstract class ArchetypeDataModel extends BaseItemDataModel {
 
 		return {
 			...super.defineSchema(),
+			key: new fields.StringField({ initial: '', blank: true }),
 			characteristics: new fields.SchemaField({
 				brawn: new fields.NumberField({ initial: 2, integer: true }),
 				agility: new fields.NumberField({ initial: 2, integer: true }),

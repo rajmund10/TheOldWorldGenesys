@@ -191,6 +191,20 @@ async function setItemState(state: EquipmentState) {
 	});
 }
 
+async function removeFromContainer() {
+	if (!props.item.systemData.container) {
+		return;
+	}
+
+	await toRaw(props.item).update({
+		'system.container': '',
+	});
+}
+
+function forwardEquipmentStateChange(items: GenesysItem[], desiredState: EquipmentState) {
+	emit('equipmentStateChange', items, desiredState);
+}
+
 function skillForWeapon(): [name: string, id: string] {
 	const validSkillNames = weaponData.value.baseWeapon.skills.map((s) => s.toLowerCase());
 
@@ -531,8 +545,15 @@ async function dropInventoryIntoContainer(event: DragEvent) {
 			<i class="fas fa-box"></i>
 		</button>
 
-		<ContextMenu class="actions" orientation="left" use-primary-click :disable-menu="!context.data.editable || mini">
+		<ContextMenu class="actions" orientation="left" use-primary-click :disable-menu="!context.data.editable">
 			<template v-slot:menu-items>
+				<MenuItem v-if="item.systemData.container" @click="removeFromContainer">
+					<template v-slot:icon><i class="fas fa-arrow-up-from-bracket"></i></template>
+					<Localized label="Genesys.Equipment.Dropdown.RemoveFromContainer" />
+				</MenuItem>
+
+				<hr v-if="item.systemData.container" />
+
 				<MenuItem v-if="allowEquippedState && ['weapon', 'vehicleWeapon'].includes(item.type) && canEquipItem(item)" @click="setItemState(EquipmentState.Equipped)">
 					<template v-slot:icon><i class="fas fa-hand-fist"></i></template>
 					<Localized label="Genesys.Equipment.Dropdown.Equip" />
@@ -596,6 +617,10 @@ async function dropInventoryIntoContainer(event: DragEvent) {
 					draggable="true"
 					:allow-equipped-state="allowEquippedState"
 					:allow-dropped-state="allowDroppedState"
+					:can-type-be-dropped="canTypeBeDropped"
+					:can-type-be-inside-container="canTypeBeInsideContainer"
+					:can-type-be-transfered="canTypeBeTransfered"
+					@equipment-state-change="forwardEquipmentStateChange"
 					@dragstart="
 						$event.stopPropagation();
 						emit('dragstart', $event);

@@ -18,10 +18,6 @@ const profileImages: Partial<Record<GenesysGameProfile, string>> = {
 	warcraft: warcraftImage,
 };
 
-function isActive(profileId: string) {
-	return context.activeProfile === profileId;
-}
-
 function isSelected(profileId: string) {
 	return selectedProfile.value === profileId;
 }
@@ -57,7 +53,7 @@ async function confirmSelection() {
 				:key="profile.id"
 				type="button"
 				class="profile-card"
-				:class="[profile.cssClass, { active: isActive(profile.id), selected: isSelected(profile.id), illustrated: !!profileImage(profile.id) }]"
+				:class="[profile.cssClass, { selected: isSelected(profile.id), illustrated: !!profileImage(profile.id) }]"
 				:style="profileImage(profile.id) ? { '--profile-image': `url(${profileImage(profile.id)})` } : undefined"
 				@click="selectProfile(profile.id)"
 			>
@@ -65,7 +61,6 @@ async function confirmSelection() {
 					<span class="profile-icon"><i :class="profile.icon"></i></span>
 					<span class="profile-title"><Localized :label="profile.labelKey" /></span>
 					<span class="profile-description"><Localized :label="profile.descriptionKey" /></span>
-					<span v-if="isActive(profile.id)" class="profile-status"><Localized label="Genesys.Settings.GameProfileCurrent" /></span>
 				</span>
 				<span v-if="isSelected(profile.id)" class="selection-check"><i class="fas fa-check"></i></span>
 			</button>
@@ -89,14 +84,17 @@ async function confirmSelection() {
 
 	.window-content {
 		@include backgrounds.crossboxes();
+		overflow: hidden;
 		padding: 12px;
 	}
 }
 
 .game-profile-selector {
-	display: flex;
-	flex-direction: column;
-	gap: 14px;
+	display: grid;
+	height: 100%;
+	min-height: 0;
+	grid-template-rows: auto minmax(0, 1fr) auto;
+	gap: 12px;
 	font-family: 'Roboto Serif', serif;
 
 	header {
@@ -116,6 +114,7 @@ async function confirmSelection() {
 
 	.profile-grid {
 		display: grid;
+		min-height: 0;
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 		gap: 10px;
 	}
@@ -124,7 +123,8 @@ async function confirmSelection() {
 		position: relative;
 		overflow: hidden;
 		display: flex;
-		min-height: 170px;
+		height: 100%;
+		min-height: 0;
 		flex-direction: column;
 		align-items: flex-start;
 		gap: 8px;
@@ -164,19 +164,13 @@ async function confirmSelection() {
 			transform: translateY(-1px);
 		}
 
-		&.active {
-			border-color: colors.$gold;
-			box-shadow: inset 0 0 0 2px rgba(186, 135, 40, 0.45);
-		}
-
 		&.selected {
-			border-color: colors.$gold;
-			box-shadow: 0 2px 12px rgba(123, 91, 28, 0.28), inset 0 0 0 2px rgba(186, 135, 40, 0.62);
+			border-color: rgba(36, 72, 104, 0.35);
+			box-shadow: none;
 		}
 
 		&.illustrated {
-			.profile-content,
-			.selection-check {
+			.profile-content {
 				position: relative;
 				z-index: 1;
 			}
@@ -199,9 +193,6 @@ async function confirmSelection() {
 				text-shadow: 0 1px 4px rgba(0, 0, 0, 0.65);
 			}
 
-			.profile-status {
-				color: #ffd782;
-			}
 		}
 
 		&.profile-old-world {
@@ -245,17 +236,11 @@ async function confirmSelection() {
 		line-height: 1.35;
 	}
 
-	.profile-status {
-		margin-top: auto;
-		color: colors.$gold;
-		font-family: 'Bebas Neue', sans-serif;
-		font-size: 1.05em;
-	}
-
 	.selection-check {
 		position: absolute;
 		top: 10px;
 		right: 10px;
+		z-index: 3;
 		display: grid;
 		width: 28px;
 		height: 28px;
@@ -268,6 +253,8 @@ async function confirmSelection() {
 
 	footer {
 		display: flex;
+		min-height: 44px;
+		align-items: flex-end;
 		justify-content: flex-end;
 		padding-top: 8px;
 		border-top: 1px solid rgba(36, 72, 104, 0.2);
@@ -299,10 +286,21 @@ async function confirmSelection() {
 @media (max-width: 620px) {
 	.app-game-profile-selector {
 		min-width: 320px;
+
+		.window-content {
+			overflow: hidden;
+		}
 	}
 
 	.game-profile-selector .profile-grid {
 		grid-template-columns: 1fr;
+		overflow-y: auto;
+		padding-right: 4px;
+
+		.profile-card {
+			height: auto;
+			min-height: 170px;
+		}
 	}
 }
 </style>

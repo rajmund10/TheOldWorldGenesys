@@ -27,24 +27,56 @@ Genesys:
   System:
     Name: Genesys
 
+  Item:
+    GameProfiles: Dostępność w światach
+    GameProfilesHint: Element pojawi się w narzędziach, takich jak kreator postaci, tylko dla zaznaczonych światów.
+
+  CharacterCreation:
+    WelcomeTitle: Rozpocznij tworzenie postaci
+    WelcomeHint: Skorzystaj z kreatora prowadzącego przez dostępne dane albo otwórz całkowicie pustą kartę.
+    UseCreator: Utwórz postać z kreatorem
+    UseBlankSheet: Otwórz pustą kartę
+    CreatorTitle: Kreator postaci
+    Archetype: Archetyp lub rasa
+    Career: Kariera
+    Specialization: Specjalizacja
+    CareerSkills: Darmowe rangi umiejętności kariery
+    CareerSkillsHint: Wybierz dokładnie {count} umiejętności.
+    NoOptions: Brak pasujących elementów w kompendium dla tego świata.
+    Back: Wróć
+    Create: Utwórz postać
+    Creating: Tworzenie postaci...
+    LoadError: Nie udało się odczytać danych kreatora z kompendium.
+    ValidationError: Uzupełnij wymagane wybory przed utworzeniem postaci.
+
+  SkillGuidance:
+    MenuLabel: Zastosowanie
+    Title: Zastosowanie umiejętności
+    Characteristic: Cecha
+    UseWhen: Używaj, gdy
+    DoNotUseWhen: Nie używaj, gdy
+    Missing: Brak opisu zastosowania tej umiejętności.
+    MissingSection: Brak dodatkowych wskazówek.
+    Close: Zamknij
+
   Settings:
     SkillsCompendium: Kompendium umiejętności
     SkillsCompendiumHint: Kompendium przedmiotów zawierające wszystkie umiejętności, które mają być dodawane nowym postaciom. Zmiana tej wartości nie wpłynie na już istniejące postaci.
     GameProfile: Profil gry
-    GameProfileHint: Wybierz wariant Genesys używany w świecie. Profil przełącza domyślną kartę postaci oraz sposób zapisu waluty i cen.
+    GameProfileHint: Wybierz świat gry. Profil określa domyślną kartę postaci i zasady właściwe dla danego świata.
     GameProfileChoose: Wybierz świat gry
     GameProfileCurrent: Aktualny wybór
     GameProfileConfirm: Zatwierdź wybór
     GameProfileConfigured: Profil gry został skonfigurowany
     GameProfileConfiguredHint: Ukryta flaga pierwszej konfiguracji świata. Jeśli jest wyłączona, MG zobaczy kafelki wyboru profilu po wejściu do świata.
     GameProfileGenesys: Genesys
-    GameProfileGenesysHint: Tam, gdzie wszystko zaczyna się od czystej kartki, a resztę dopisuje stół.
+    GameProfileGenesysHint: Bazowa wersja systemu Genesys, gotowa na dowolny świat i opowieść.
     GameProfileOldWorld: 'The Old World: Grim and Perilous'
-    GameProfileOldWorldHint: Brudne ulice, stare katedry i wojna, która nigdy nie daje o sobie zapomnieć.
+    GameProfileOldWorldHint: W Starym Świecie Warhammera za każdym rogiem czekają spaczenie, zdrada i ponura chwała.
     GameProfileAurora: Aurora
     GameProfileAuroraHint: Chłodny blask nad własnym światem, gdzie każda mapa ma jeszcze białe plamy.
     GameProfileWarcraft: Warcraft
-    GameProfileWarcraftHint: Wojna, magia i dawne królestwa, które nigdy nie śpią spokojnie.
+    GameProfileWarcraftHint: W Azeroth bohaterowie stają między potęgą magii, odwieczną wojną i losem całego świata.
     DefaultDifficulty: Domyślna trudność
     DefaultDifficultyHint: >-
       Domyślne modyfikatory puli kości, które powinny zostać dodane podczas wykonywania testu.
@@ -383,6 +415,8 @@ Genesys:
     Key: Klucz techniczny
     Cost: Koszt PD
     Requirements: Wymagania
+    AllowedArchetypes: Dozwolone archetypy
+    AllowedArchetypesHint: Klucze archetypów oddzielone przecinkami. Pusta lista oznacza brak ograniczeń.
     Benefits: Korzyści
     SocialStatus: Status społeczny
     SocialStatusPlaceholder: 'Przykład: Srebrny 2'
@@ -599,6 +633,7 @@ Genesys:
     Knowledge: Wiedza
 
   Archetype:
+    Key: Klucz archetypu
     Abilities: Zdolności archetypu
     StartingWounds: Początkowy próg ran
     StartingStrain: Początkowy próg zmęczenia
@@ -661,6 +696,7 @@ Genesys:
       Moderate: Umiarkowane uszkodzenia
       Major: Ciężkie uszkodzenia
     Dropdown:
+      RemoveFromContainer: Wyjmij z pojemnika
       Equip: Wyposaż
       Unequip: Zdejmij
       Drop: Upuść

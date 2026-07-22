@@ -1,0 +1,886 @@
+{
+  "pack": "core-skills-polish",
+  "type": "Item",
+  "documents": [
+    {
+      "name": "Alchemia",
+      "type": "skill",
+      "img": "icons/consumables/potions/bottle-round-corked-blue.webp",
+      "system": {
+        "description": "<p>Alchemia obejmuje wiedzę o miksturach i eliksirach, a także znajomość sposobów ich warzenia. Chociaż nie jest uważana za umiejętność magiczną, efekty mikstur mogą przypominać magię albo nawet naprawdę być magiczne, w zależności od waszego uniwersum. MG określa granice możliwości alchemicznych produktów, a także ustala trudność testów Alchemii w zależności od mocy sporządzanej mikstury.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "intellect",
+        "category": "general",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Próbuje rozpoznać miksturę po jej smaku.\n• Chce określić składniki potrzebne do uwarzenia konkretnego eliksiru.\n• Próbuje sporządzić miksturę, eliksir, kompres, tonik albo podobny środek o cudownym bądź magicznym działaniu.\n• Próbuje sporządzić lek na chorobę lub dolegliwość.",
+        "doNotUseWhen": "• Próbuje zaczarować zwyczajny płyn.\n• Pragnie uleczyć kogoś bezpośrednio dzięki pomocy medycznej albo nakładaniu rąk.\n• Stara się przemienić ołów w złoto. To już byłaby czysta magia!"
+      }
+    },
+    {
+      "name": "Moc Tajemna",
+      "type": "skill",
+      "img": "icons/magic/symbols/runes-star-pentagon-orange-purple.webp",
+      "system": {
+        "description": "<p>Umiejętność Moc Tajemna reprezentuje zdolność do manipulacji magicznymi energiami niezależnie od tego, czy są one podstawowymi siłami przyrody, czy mocą czerpaną z nienaturalnego źródła. Magii używa się do rzucania zaklęć i identyfikowania źródeł magii na świecie. Obejmuje to również ogólną wiedzę o magii i jej działaniu. Mocy Tajemnej nie używa się jednak do magii pochodzącej od bogów albo z innych boskich źródeł – za to odpowiada Moc Boska.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "intellect",
+        "category": "magic",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Chce rzucić kulą ognia w grupę wrogów.\n• Próbuje z daleka obserwować kogoś przez kryształową kulę.\n• Próbuje wznieść magiczną barierę, aby zablokować przejście.\n• Chce przekląć wroga i sprowadzić nieszczęście na jego działania.",
+        "doNotUseWhen": "• Próbuje wezwać moc bóstwa, aby zmieść swoich przeciwników z powierzchni ziemi.\n• Stara się wejść w kontakt z duchami umarłych, aby poradzić się ich w jakiejś sprawie.\n• Próbuje uleczyć sojusznika."
+      }
+    },
+    {
+      "name": "Astrokartografia",
+      "type": "skill",
+      "img": "icons/commodities/tech/dial-meter-gauge-blue.webp",
+      "system": {
+        "description": "<p>Galaktyka to duże miejsce, zaś bohaterowie space opery latają po niej (lub po nich) dość często. Umiejętność Astrokartografii obejmuje rozumienie, używanie i opracowywanie map gwiezdnych, w tym nowo odkrytych układów. Obejmuje też wyznaczanie kursu podczas podróży międzygwiezdnych.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "intellect",
+        "category": "general",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Musi wyznaczyć kurs na układ planetarny, który jest trudno dostępny albo nie jest powszechnie znany.\n• Próbuje rozszyfrować starożytną lub uszkodzoną mapę kosmiczną (czy to fizyczną, czy elektroniczną).\n• Wyznacza kurs w stresujących warunkach, takich jak próba ucieczki przed wrogimi statkami.",
+        "doNotUseWhen": "• Pilotuje statek – wówczas używa umiejętności Pojazdy Załogowe.\n• Nawiguje na powierzchni planety, co wymaga raczej Pilotażu albo ewentualnie Prowadzenia Pojazdów.\n• Podróżuje dobrze znaną trasą w normalnych warunkach, co w ogóle nie powinno wymagać testu."
+      }
+    },
+    {
+      "name": "Atletyka",
+      "type": "skill",
+      "img": "icons/skills/movement/figure-running-gray.webp",
+      "system": {
+        "description": "<p>Postacie z twojej drużyny wiodą burzliwe życie pełne wymagającej aktywności fizycznej. Czasami walczą z przeciwnikiem uzbrojone w pistolety, ale równie często wspinają się po górach, przepływają rwące rzeki i przeskakują nad przepaściami. Atletyka to umiejętność odpowiadająca za to, jak dobrze radzą sobie w takich sytuacjach. Stanowi ona miarę ogólnej sprawności fizycznej i kondycji postaci. Te, które aktywnie uprawiają rygorystyczny trening fizyczny, takie jak żołnierze piechoty albo zwiadowcy, najczęściej mają wysoki poziom Atletyki.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "brawn",
+        "category": "general",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Próbuje się po czymś wspinać w górę lub w dół, zwłaszcza gdyby mogło to być trudne albo upadek miałby istotne skutki.\n• Próbuje pływać w trudnych warunkach. Silny wiatr, fale, pływy i prądy mogą na tyle utrudnić pływanie, że będzie ono wymagało testu Atletyki.\n• Próbuje skoczyć daleko lub wysoko. Przeskakiwanie głębokiej przepaści i próba podskoczenia do schodów pożarowych, by uciec wściekłemu psu, to dwie sytuacje, w których postać musi wykonać test Atletyki.\n• Próbuje biec przez długi czas.",
+        "doNotUseWhen": "• Podejmuje działanie bez ryzyka porażki. Jeżeli postać pływa w spokojny dzień w płytkim stawie, wychodzi rano pobiegać albo przeskakuje przez niewielką kłodę, to nie musi wykonywać testu.\n• Próbuje działania, które opiera się bardziej na koordynacji oko-ręka i na ogólnej zwinności niż bezpośrednio na sile. Uprawianie parkouru i jego odmian, huśtanie się na linie lub zjeżdżanie po niej, a także większość gimnastyki to działania odzwierciedlane lepiej przez umiejętność Koordynacja."
+      }
+    },
+    {
+      "name": "Bijatyka",
+      "type": "skill",
+      "img": "icons/skills/melee/unarmed-punch-fist.webp",
+      "system": {
+        "description": "<p>Bijatyka to umiejętność, której postać używa, aby walczyć bez korzystania broni z przeciwnikiem znajdującym się w zasięgu rąk. Obejmuje ona sztuki walki, zapasy i inne odmiany walki bez broni.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "brawn",
+        "category": "combat",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Walczy gołymi rękoma albo bronią zaprojektowaną specjalnie do wzmocnienia takiego ataku, na przykład cestusem albo kastetem (a nawet zaciśniętym w pięści rulonem monet).\n• Próbuje kogoś przygwoździć, pochwycić albo przytrzymać.\n• Posługuje się jakimś rodzajem sztuki walki bez broni.",
+        "doNotUseWhen": "• Walczy bronią rzucaną lub strzelającą pociskami. Jeżeli postać obierze za cel kogoś, kto nie jest w zasięgu jej rąk, powinna użyć Broni Dystansowej.\n• Próbuje naprawić albo zmodyfikować broń białą. Za naprawianie bądź tworzenie broni zwykle odpowiada Mechanika."
+      }
+    },
+    {
+      "name": "Urok Osobisty",
+      "type": "skill",
+      "img": "icons/magic/life/heart-red-blue.webp",
+      "system": {
+        "description": "<p>Umiejętność komplementowania, schlebiania, uwodzenia i zjednywania sobie ludzi jest ważna dla wielu postaci graczy. Na Uroku Osobistym polegają te postacie, które chcą być lubiane, popularne i dobre w przekonywaniu innych, aby spełniali ich życzenia. Postać mająca wiele poziomów Uroku Osobistego może być obłudna i fałszywie pochlebcza, ale może też być naprawdę miłą osobą.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "presence",
+        "category": "social",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Próbuje przekonać kogoś do wyświadczenia jej przysługi, zwłaszcza jeśli może to być dla niego niewygodne, kosztowne albo nawet niebezpieczne.\n• Próbuje przemówić do dobrej strony rozmówcy (nawet jeśli on takiej nie ma!), aby skłonić go do zrobienia czegoś wbrew sobie.\n• Próbuje flirtować, uwodzić albo robić inne miłosne podchody.\n• Próbuje wyglądać lepiej w oczach wszystkich dookoła. Wielu polityków i osób publicznych ma dużo poziomów Uroku Osobistego.\n• Występuje przed publicznością, grając rolę aktorską, wykonując muzykę, opowiadając dowcipy albo wygłaszając przemówienie.",
+        "doNotUseWhen": "• W ogóle nie jest szczera w tym, co mówi bądź robi. Jeśli w grę wchodzi dwulicowość albo kłamstwo, powinna użyć umiejętności Oszustwo.\n• Jest uprzejma, ale subtelnie sugeruje użycie przemocy albo grozi czymś innym. W takich przypadkach powinna użyć umiejętności Przymuszanie.\n• Używa swojego autorytetu (pochodzącego z rangi, pozycji społecznej lub naturalnej siły osobowości), aby wydawać rozkazy. Są to sytuacje, w których używa się umiejętności Przywództwo.\n• Wchodzi w interakcję z kimś, kto jest już do niej przyjaźnie nastawiony, albo prosi kogoś o działanie, które nie jest dla niego w ogóle kłopotliwe (z reguły nie musisz używać Uroku Osobistego, prosząc męża lub żonę, by kupili coś potrzebnego w drodze z pracy)."
+      }
+    },
+    {
+      "name": "Przymuszanie",
+      "type": "skill",
+      "img": "icons/skills/social/intimidation-impressing.webp",
+      "system": {
+        "description": "<p>Niektórzy sądzą, że jedyną drogą do zdobycia szacunku jest sianie strachu. Inni nauczyli się, że najlepszy sposób na dopięcie swego to krzyk i groźba przemocy. Kiedy twoja postać próbuje wymóc na kimś posłuszeństwo za pomocą groźby albo fizycznego zastraszenia, korzysta z umiejętności Przymuszanie. Postacie posiadające wiele poziomów Przymuszania często są groźnymi, strasznymi albo wręcz złymi osobami. Jednak nawet dobre osoby mogą posłużyć się tą umiejętnością, aby zastraszyć przeciwników i wygrać starcie bez rozlewu krwi.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "willpower",
+        "category": "social",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Grozi komuś, niezależnie od tego, czy towarzyszą temu wrogie działania, czy nie. Nawet groźba nie wprost, taka jak gest w kierunku broni, podlega umiejętności Przymuszanie.\n• Przepytuje albo przesłuchuje więźnia.\n• Stosuje tortury fizyczne albo psychiczne.",
+        "doNotUseWhen": "• Wydaje rozkazy poparte groźbą z pozycji swojego autorytetu (na przykład grozi żołnierzom sądem wojennym, jeśli nie ruszą do walki). W takich przypadkach lepszą umiejętnością byłoby Przywództwo.\n• Ostro się z kimś targuje. Dopóki obie strony mają jakąś korzyść z umowy, lepiej skorzystać z umiejętności Negocjacje.\n• Wchodzi w interakcję z kimś, kto już jest przez nią zastraszony albo kompletnie przerażony. W takich przypadkach dalsze groźby są zbędne."
+      }
+    },
+    {
+      "name": "Komputery",
+      "type": "skill",
+      "img": "icons/commodities/tech/console-steel.webp",
+      "system": {
+        "description": "<p>Umiejętność Komputery zapewnia postaci biegłość w obsłudze komputerów i systemów elektronicznych. Twoja postać z wysokim poziomem Komputerów może budować systemy komputerowe, pisać złożone oprogramowanie, projektować systemy bezpieczeństwa, a nawet (w zależności od tego, jak zaawansowane jest wasze uniwersum) tworzyć proste sztuczne inteligencje. Ponadto ta umiejętność pozwala postaci manipulować skomputeryzowanymi systemami w sposób, który można uznać za wykraczający poza specyfikację producenta. Innymi słowy, pozwala postaci robić ryzykowne, prawdopodobnie nielegalne rzeczy, takie jak hakowanie, szyfrowanie, deszyfracja i omijanie systemów bezpieczeństwa.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "intellect",
+        "category": "general",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Próbuje otworzyć zamek elektroniczny, uzyskać dostęp do systemów komputerowych budynku albo rozbroić zaawansowany system zabezpieczeń.\n• Chce złamać zabezpieczenia zaszyfrowanych plików albo wiadomości.\n• Włamuje się do bazy danych albo systemu komputerowego albo broni się przed próbą włamania.\n• Zdalnie pilotuje niewielkiego drona, aby zrobić nim coś więcej, niż tylko latać po parku. Jeśli dron jest wystarczająco duży, jak Global Hawk albo inny pełnowymiarowy, bezzałogowy statek powietrzny, więcej sensu może mieć umiejętność Pilotaż.",
+        "doNotUseWhen": "• Nie ma ryzyka porażki. Proste, codzienne zadania, takie jak sprawdzenie poczty, przeglądanie mediów społecznościowych na smartfonie czy oglądanie filmu na tablecie, nie wymagają testu Komputerów."
+      }
+    },
+    {
+      "name": "Opanowanie",
+      "type": "skill",
+      "img": "icons/magic/light/explosion-star-blue.webp",
+      "system": {
+        "description": "<p>Zachowanie spokoju i zimnej krwi, przeczekanie przeciwnika i ogólne panowanie nad sobą – oto przykłady tego, co potrafi postać dzięki umiejętności Opanowanie. Jest ona czymś w rodzaju umiejętności obronnej, ponieważ postać najczęściej używa jej, aby oprzeć się próbom wywierania na nią wpływu. Opanowanie odzwierciedla też, jak postać wygląda w oczach innych osób. Jeżeli nie chce pokazać, że coś na nią wpłynęło, używa Opanowania, aby nie ujawniać swoich emocji. Choć Opanowanie nie jest umiejętnością społeczną, często używa się go w spotkaniach społecznych. Jeśli chcesz stworzyć postać, która jest szczególnie skuteczna w takich spotkaniach, rozważ inwestycję w Opanowanie.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "presence",
+        "category": "general",
+        "initiative": true,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Rozpoczyna zastawianie pułapki, urządzanie zasadzki albo w inny sposób przygotowuje się do spotkania bojowego, w którym rozpoczyna walkę i musi określić odpowiedni do tego moment.\n• Chce pozostać spokojna i niewzruszona, kiedy jest komplementowana albo ktoś próbuje ją oczarować.\n• Chce powstrzymać się od powiedzenia albo zrobienia czegoś głupiego w napiętej sytuacji.\n• Musi utrzymać nerwy na wodzy w stresującej sytuacji, na przykład podczas prowadzenia jednego z dwóch pojazdów pędzących wprost na siebie.\n• Gra w karty albo inną grę losową, z którą wiąże się blefowanie, szczęście i hazard.",
+        "doNotUseWhen": "• Próbuje zapobiec byciu zaskoczoną. W tej sytuacji lepiej sprawdziłaby się Czujność.\n• Próbuje utrzymać wewnętrzną samokontrolę, na przykład podczas medytacji albo opierania się efektom strachu. Gdy sytuacja dotyczy spokoju wewnętrznego, postać powinna skorzystać z umiejętności Dyscyplina."
+      }
+    },
+    {
+      "name": "Koordynacja",
+      "type": "skill",
+      "img": "icons/skills/targeting/target-glowing-yellow.webp",
+      "system": {
+        "description": "<p>W trakcie swoich przygód postacie czasem muszą zachowywać równowagę na ruchomym podłożu, przeciskać się przez ciasne szczeliny, a nawet lądować bezpiecznie po upadku. Pokonanie tego typu wyzwań wymaga zmysłu równowagi i nie byle jakiego wygimnastykowania. Oba te przymioty obejmuje umiejętność Koordynacja. Stanowi ona miarę gibkości postaci, stabilności jej postawy i ruchów, a także koordynacji wzrokowo-ruchowej.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "agility",
+        "category": "general",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Próbuje huśtać się na linie bądź opuszczać się po niej w dół budynku lub innego obiektu.\n• Kroczy po wąskiej powierzchni, próbując zachować równowagę.\n• Próbuje przecisnąć się przez mały otwór albo ciasną przestrzeń, na przykład przez korytarz serwisowy, rurę kanalizacyjną, kanał wentylacyjny albo wąską szczelinę.\n• Spada i próbuje spowolnić upadek albo bezpiecznie wylądować.\n• Chce wydostać się z fizycznych więzów (takich jak kajdanki albo sznury) i próbuje wykręcać kończyny lub dłonie, by się wyślizgnąć.",
+        "doNotUseWhen": "• Próbuje poruszać się w górę lub w dół po linie albo wspinać się na coś. To zadanie opiera się bardziej na sile niż na zwinności i wymaga testu Atletyki.\n• Spada z niewielkiej wysokości albo na coś miękkiego, przez co nie doznaje obrażeń od upadku, bądź też jest w podobnej sytuacji, z którą nie wiążą się skutki porażki (na przykład postać jest opuszczana w dół budynku w dobrze zapiętej uprzęży)."
+      }
+    },
+    {
+      "name": "Oszustwo",
+      "type": "skill",
+      "img": "icons/magic/light/orb-hands-humanoid-yellow.webp",
+      "system": {
+        "description": "<p>Gdy postać musi kogoś okłamać, używa Oszustwa. Tak naprawdę Oszustwo obejmuje większość sposobów oszukania albo zmylenia kogoś, przez co jest jedną z umiejętności najprostszych w zastosowaniu. Należy jednak pamiętać, że choć jedną z najczęstszych metod oszukania kogoś jest kłamstwo, to są też inne sposoby. Postać może próbować zwieść kogoś, przedstawiając tylko niektóre fakty, a inne pomijając. Może też używać mylących sformułowań. Jednak w takich przypadkach, nawet jeśli twierdzisz, że twoja postać teoretycznie powiedziała prawdę, jej działania należą do kategorii Oszustwa.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "cunning",
+        "category": "social",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Kłamie.\n• Próbuje wprowadzić kogoś w błąd dzięki sprytnemu doborowi słów albo pomijaniu niektórych faktów.\n• Nosi przebranie i udaje kogoś innego.",
+        "doNotUseWhen": "• Naprawdę wierzy w to, co mówi (nawet jeśli jest to niezgodne z faktami).\n• Dopuszcza się niewinnego kłamstewka – powiedzenia drobnej nieprawdy, aby ktoś poczuł się lepiej."
+      }
+    },
+    {
+      "name": "Dyscyplina",
+      "type": "skill",
+      "img": "icons/environment/people/infantry-army.webp",
+      "system": {
+        "description": "<p>Dyscyplina to zdolność postaci do skupienia umysłu i wyciszenia myśli. Odzwierciedla szczególnie zachowanie kontroli nad sobą i umiejętność skupienia się. Postać używa także Dyscypliny, aby przezwyciężyć strach albo przerażenie i zachować spokój w obliczu okropieństw. Ponadto Dyscyplina reprezentuje hart ducha postaci pozwalający jej opierać się groźbom lub przymusowi i łamać rozkazy. W światach dopuszczających moce psychiczne postacie mogą panować nad nimi dzięki Dyscyplinie.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "willpower",
+        "category": "general",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Stawia czoła czemuś przerażającemu i chce uniknąć ucieczki w panice (albo odeprzeć inne osłabiające efekty strachu).\n• Próbuje zachować zdrowie psychiczne w obliczu czegoś, co przeczy rzeczywistości i racjonalnemu myśleniu.\n• Chce pod koniec spotkania otrząsnąć się z otrzymanego zmęczenia.\n• Chce medytować, uspokoić umysł i osiągnąć równowagę psychiczną.",
+        "doNotUseWhen": "• Próbuje zachować spokój podczas interakcji społecznej i uniknąć okazywania emocji. Powinna wówczas wykonać test Opanowania.\n• Chce wyłapać, czy ktoś nie kłamie. Wykrywanie kłamstw zależy od umiejętności Czujność."
+      }
+    },
+    {
+      "name": "Moc Boska",
+      "type": "skill",
+      "img": "icons/magic/holy/prayer-hands-glowing-yellow.webp",
+      "system": {
+        "description": "<p>Tak zwana „boska magia” to zdolność kapłanów, świętych wojowników i im podobnych do wywoływania cudownych efektów dzięki wzywaniu mocy swojego bóstwa albo wykorzystywania potęgi wiary. Dla wielu praktykujących jest to zdecydowanie różne od magii, ale inni często nie dostrzegają zbytniej różnicy między domniemanymi źródłami cudownych efektów wywoływanych przez magów i kapłanów.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "willpower",
+        "category": "magic",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Nakłada ręce na kogoś, aby uleczyć go z ran bądź choroby.\n• Odwołuje się do siły swojej wiary, w celu wzmocnienia sojusznika.\n• Modli się do swojego bóstwa, aby dało jej znak.\n• Okazuje swój święty symbol, chcąc odpędzić nieumarłych.",
+        "doNotUseWhen": "• Chce cisnąć mocą tajemną w żywego wroga.\n• Recytuje święty tekst, próbując wpłynąć na tłum. W tym przypadku należałoby użyć Uroku Osobistego albo Przywództwa.\n• Próbuje przeciwdziałać zaklęciu rzuconemu przez wroga."
+      }
+    },
+    {
+      "name": "Prowadzenie",
+      "type": "skill",
+      "img": "icons/skills/movement/arrow-upward-blue.webp",
+      "system": {
+        "description": "<p>Ta umiejętność obejmuje obsługę wszystkich pojazdów naziemnych, od prostych samochodów przez pociągi po futurystyczne ścigacze. Oczywiście rodzaje pojazdów w dużej mierze zależą od realiów świata gry. Tak czy inaczej, jeśli coś używa silnika i służy do przemieszczania się po lądzie, będziesz to prowadzić dzięki tej umiejętności.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "agility",
+        "category": "general",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Chce bezpiecznie zatrzymać pojazd po uszkodzeniu jednej z opon.\n• Prowadzi pojazd i stara się utrzymać prędkość, biorąc ostre zakręty.\n• Próbuje dogonić pojazdem kogoś innego (jeśli ścigany ucieka pieszo, test jest wymagany tylko wtedy, kiedy próbuje on uciec w tłum albo przez wąską przestrzeń).\n• Wykonuje gwałtowny unik pojazdem, aby nie wpaść na zwierzę wyskakujące przed maskę albo uniknąć spadającej skały na górskiej drodze.",
+        "doNotUseWhen": "• Prowadzi statek powietrzny dowolnego rodzaju – do tego służy umiejętność Pilotaż.\n• Prowadzi pojazd w normalnych warunkach (i z bezpieczną prędkością) bez bezpośredniego zagrożenia, co w ogóle nie powinno wymagać testu. C\n• Próbuje zmodyfikować pojazd, aby zwiększyć jego szybkość; do tego bardziej nadaje się umiejętność Mechanika."
+      }
+    },
+    {
+      "name": "Artyleria",
+      "type": "skill",
+      "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
+      "system": {
+        "description": "<p>Postać używa Artylerii, trzeciego wariantu Broni Dystansowej, aby strzelać z karabinów maszynowych, dział plazmowych lub elektromagnetycznych, wyrzutni rakiet, granatników i prawie każdej innej broni na tyle dużej, że jej obsługa wymaga statywu albo zespołu osób. Używa jej także do strzelania z broni zamontowanych na pojazdach.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "intellect",
+        "category": "combat",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Strzela z karabinu maszynowego, armaty, wyrzutni rakiet albo innej broni zespołowej.\n• Znajduje się w pojeździe lub statku kosmicznym i chce strzelić, używając jego systemów uzbrojenia.",
+        "doNotUseWhen": "• Strzela z pistoletu, pistoletu maszynowego, strzałkowego, laserowego albo z podobnej broni.\n• Strzela ze strzelby, miotacza ognia, karabinu szturmowego, strzałkowego, snajperskiego albo z podobnej broni."
+      }
+    },
+    {
+      "name": "Wiedza",
+      "type": "skill",
+      "img": "icons/sundries/documents/document-sealed-white-red.webp",
+      "system": {
+        "description": "<p>W podstawowych zasadach Genesys mamy tylko jedną umiejętność akademicką. Co dość oczywiste, nazywamy ją Wiedzą. Jest to bardzo szeroka umiejętność odzwierciedlająca to, jakie postać ma pojęcie na temat wszystkiego, co można wiedzieć – od fizyki i biologii przez mechanikę kwantową, aż po historię sztuki i filozofię. Nie każdy może być jednocześnie geniuszem matematycznym, filozofem i historykiem, więc to ty decydujesz, jakiego rodzaju wiedza jest specjalnością twojej postaci. Musisz przy tym zdawać sobie sprawę, że brak poziomów umiejętności Wiedza nie czyni z postaci całkowitego ignoranta. Zakładamy, że każdy ma jakąś podstawową wiedzę o działaniu świata i – zależnie od uniwersum – prawdopodobnie odebrał wykształcenie na poziomie szkoły podstawowej. Pierwsze poziomy Wiedzy mogą być odpowiednikiem edukacji w szkole średniej albo praktyki zawodowej, a kolejne mogą odpowiadać wyższemu wykształceniu. Pięć poziomów umiejętności może odpowiadać geniuszowi w danej dziedzinie.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "intellect",
+        "category": "knowledge",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Próbuje określić, czy wie jakąś ważną rzecz o swoim świecie.\n• Podejmuje działanie akademickie, na przykład wyprowadza twierdzenie matematyczne, przeprowadza eksperyment albo pisze rozprawę historyczną.\n• Próbuje prowadzić badania nad konkretnym zagadnieniem.\n• Podejmuje się krytycznego myślenia albo rozwiązywania zagadki logicznej.",
+        "doNotUseWhen": "• Potrzebna jej wiedza jest dosyć oczywista albo błaha. Przykładowo, odpowiedzenie, ile jest dwa razy dwa, nie powinno wymagać testu.\n• Poszukiwaną informację można łatwo odnaleźć w ogólnodostępnej i łatwej w obsłudze bazie danych, na przykład elektronicznej i dostępnej za pośrednictwem światowej sieci komunikacyjnej. To, czy postać zdoła zastosować do czegoś tę informację, może jednak wymagać testu Wiedzy."
+      }
+    },
+    {
+      "name": "Przywództwo",
+      "type": "skill",
+      "img": "icons/environment/people/cavalry-heavy.webp",
+      "system": {
+        "description": "<p>Niektórzy podążają za kimś z poczucia obowiązku albo ze strachu. Jednak dobrzy przywódcy inspirują swoich podwładnych dzięki połączeniu charyzmy, odwagi i silnej osobowości. Te przymioty odzwierciedla u nas umiejętność Przywództwo. Przywództwo to połączenie zdolności do podejmowania mądrych decyzji w sposób stanowczy i zdecydowany ze wzbudzaniem poczucia lojalności i szacunku w podwładnych. Przywództwo obejmuje też wiedzę postaci o tym, jakie decyzje są słuszne. Oczywiście na Przywództwie polegają dowódcy wojskowi, podobnie jak politycy, właściciele firm i szefowie organizacji przestępczych.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "presence",
+        "category": "social",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Próbuje zmobilizować do działania swoich sojuszników znajdujących się pod wpływem strachu (zob. str. 250).\n• Stara się przekonać tłum obywateli do jakiejś aktywności politycznej.\n• Prowadzi oddziały do walki i chce mieć pewność, że będą wykonywać jej rozkazy.\n• Próbuje przekonać uczestników zamieszek do rozejścia się i powrotu do domów.",
+        "doNotUseWhen": "• Grozi komuś, że go skrzywdzi albo zabije, jeśli nie będzie jej posłuszny. Byłoby to dobre zastosowanie Przymuszania.\n• Próbuje przekonać kogoś do zrobienia czegoś, będąc po prostu przyjazną i czarującą. W takiej sytuacji powinna skorzystać z umiejętności Urok Osobisty.\n• Formalnie ma władzę i wydaje rutynowe rozkazy, zwłaszcza poza walką i innymi stresującymi sytuacjami. Jeśli nie ma dobrego powodu do nieposłuszeństwa wobec postaci (a ma ona rangę bądź stanowisko pozwalające wydawać rozkazy), to inni są automatycznie posłuszni większości jej zwykłych poleceń."
+      }
+    },
+    {
+      "name": "Mechanika",
+      "type": "skill",
+      "img": "icons/tools/hand/screwdriver-flat-steel-black.webp",
+      "system": {
+        "description": "<p>Umiejętność Mechanika pozwala postaci budować, rozmontowywać, naprawiać bądź modyfikować w zasadzie dowolny mechanizm – od zepsutego radia po zniszczony żyrokopter. Ponadto Mechaniki używa się podczas odzyskiwania technologii, budowania fortyfikacji i rozwiązywania problemów ze źle działającą pompą wodną – w zasadzie zawsze, kiedy postać musi stukać młotkiem lub kręcić kluczem. W zależności od uniwersum ta umiejętność może skupiać się na różnych obszarach. W świecie fantasy albo innym o niskim poziomie technologicznym może obejmować kowalstwo i rzemiosło (i mieć odpowiedniejszą do tego nazwę).</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "intellect",
+        "category": "general",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Chce naprawić broń, pojazd albo inny element wyposażenia.\n• Chce zidentyfikować części i narzędzia, które będą potrzebne do wykonania pracy. Może dzięki temu zaoszczędzić czas i pieniądze.\n• Chce wynaleźć całkowicie nowe urządzenie, mając dostęp do zapasu komponentów i narzędzi.\n• Chce sabotować pojazd przeciwnika albo znaleźć słaby punkt w jego obronie.\n• Chce zbudować przedmiot lub go zmodyfikować.\n• Próbuje zainstalować i zmodyfikować wszczepy cybernetyczne (choć, jeśli wolisz, praca z implantami może wymagać testu Medycyny i Mechaniki, aby w pełni oddać połączenie żywego organizmu z maszyną).",
+        "doNotUseWhen": "• Ma do wykonania proste zadanie, takie jak zatankowanie pojazdu, wstawienie drzwi albo wymiana baterii w latarce.\n• Chce zaprogramować aplikację na urządzenie. To wymagałoby testu Komputerów."
+      }
+    },
+    {
+      "name": "Medycyna",
+      "type": "skill",
+      "img": "icons/skills/wounds/anatomy-organ-heart-pink.webp",
+      "system": {
+        "description": "<p>Spodziewamy się, że twoja postać w trakcie swoich przygód będzie doznawać różnorodnych urazów – od skaleczeń i siniaków po złamania kości i rany postrzałowe. Medycyna stawia twoją postać i jej przyjaciół z powrotem na nogi. Medycyny wymaga każda próba leczenia istoty organicznej, podobnie jak inne procedury medyczne, na przykład operacje chirurgiczne, zakładanie cybernetyki i radzenie sobie z truciznami, chorobami, pasożytami i narkotykami.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "intellect",
+        "category": "general",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Chce wyleczyć rany odniesione przez nią samą lub inną postać.\n• Próbuje przeciwdziałać truciźnie albo ją zaaplikować.\n• Chce wyleczyć chorobę.\n• Opracowuje nowy lek (albo narkotyk).\n• Chce wyleczyć Uraz Krytyczny otrzymany przez nią samą lub inną postać.\n• Przeprowadza złożoną procedurę medyczną, taką jak operacja chirurgiczna bądź ulepszenie cybernetyczne, albo prowadzi psychoterapię.",
+        "doNotUseWhen": "• Prowadzi badania nad chorobą albo trucizną. Choć bezpośrednie studiowanie choroby czy trucizny związane jest z Medycyną, to prowadzenie badań naukowych wymaga testu Wiedzy.\n• Próbuje usunąć własne zmęczenie pod koniec spotkania. Pokonanie zmęczenia po spotkaniu wymaga użycia Dyscypliny albo Opanowania.\n• Próbuje podać truciznę zręcznym manewrem, na przykład dodać ją do napoju albo ukradkowo wstrzyknąć ją niczego niespodziewającej się ofierze. Element podstępu zawarty w tym działaniu sprawia, że zależy ono od testu Machlojek."
+      }
+    },
+    {
+      "name": "Broń Biała",
+      "type": "skill",
+      "img": "icons/skills/melee/hand-grip-sword-red.webp",
+      "system": {
+        "description": "<p>Broń Biała to umiejętność, której postać używa do walki bronią z przeciwnikiem znajdującym się w zasięgu rąk. W swojej najszerszej interpretacji obejmuje każdy rodzaj broni białej albo do walki wręcz.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "brawn",
+        "category": "combat",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Walczy mieczem, rapierem, sztyletem, maczugą, toporem, włócznią, halabardą, nożem... itp.\n• Walczy w pojedynku.",
+        "doNotUseWhen": "• Walczy bronią rzucaną lub strzelającą pociskami. Jeżeli postać obierze za cel kogoś, kogo nie ma w zasięgu rąk, powinna użyć umiejętności Broń Dystansowa.\n• Próbuje naprawić albo zmodyfikować broń białą. Za naprawianie bądź tworzenie broni zwykle odpowiada Mechanika."
+      }
+    },
+    {
+      "name": "Broń Biała (Ciężka)",
+      "type": "skill",
+      "img": "icons/skills/melee/maneuver-greatsword-yellow.webp",
+      "system": {
+        "description": "<p>W uniwersach, które skupiają się na walce wręcz, Broń Biała (Ciężka) to umiejętność odpowiadająca za walkę w zwarciu dużą, ciężką bronią, którą włada się przy użyciu obu rąk. Obejmuje wielkie młoty, miecze dwuręczne, cepy bojowe, halabardy i inne podobne rodzaje broni.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "brawn",
+        "category": "combat",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Walczy halabardą, mieczem dwuręcznym, cepem bojowym, wielkim młotem albo inną dużą bronią, którą trzeba trzymać oburącz.\n• Podnosi ciężki konar i próbuje nim zmiażdżyć komuś czaszkę.",
+        "doNotUseWhen": "• Walczy rapierem, sztyletem, buzdyganem, toporem jednoręcznym, lekką włócznią, mieczem, kataną, nożem albo inną bronią, którą można swobodnie władać jedną ręką."
+      }
+    },
+    {
+      "name": "Broń Biała (Lekka)",
+      "type": "skill",
+      "img": "icons/skills/melee/maneuver-sword-katana-yellow.webp",
+      "system": {
+        "description": "<p>W uniwersach, które skupiają się na walce wręcz, Broń Biała (Lekka) to umiejętność odpowiadająca za walkę w zwarciu praktycznie każdą bronią, którą da się trzymać jedną ręką. Obejmuje miecze, noże, maczugi, pałki i niezliczone podobne rodzaje uzbrojenia.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "brawn",
+        "category": "combat",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Walczy rapierem, sztyletem, buzdyganem, toporem jednoręcznym, lekką włócznią, mieczem, kataną, nożem albo inną bronią, którą można swobodnie władać jedną ręką.\n• Chce uderzyć kogoś tarczą.",
+        "doNotUseWhen": "• Walczy halabardą, mieczem dwuręcznym, cepem bojowym, wielkim młotem albo inną dużą bronią, którą trzeba trzymać oburącz."
+      }
+    },
+    {
+      "name": "Negocjacje",
+      "type": "skill",
+      "img": "icons/skills/social/diplomacy-handshake-yellow.webp",
+      "system": {
+        "description": "<p>Kiedy postać chce zawrzeć jakąś umowę, używa umiejętności Negocjacje. Przymuszanie to grożenie komuś, Oszustwo to kłamanie, Urok Osobisty to namawianie, a Przywództwo to rozkazywanie – Negocjacje zaś to przekonywanie kogoś, by zrobił to, czego chcesz, w zamian za coś, na czym mu zależy. Ta umiejętność polega na wyciągnięciu z umowy jak najwięcej przy jednoczesnym zaoferowaniu jak najmniej osobie, z którą pertraktujesz.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "presence",
+        "category": "social",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Próbuje kupić towary bądź usługi i chce targować się o cenę.\n• Próbuje sprzedać z zyskiem towary bądź usługi. W takiej sytuacji powinna użyć Negocjacji, aby podnieść cenę.\n• Próbuje uzgodnić warunki porozumienia politycznego lub traktatu między dwiema stronami.",
+        "doNotUseWhen": "• Nie oferuje niczego w zamian za to, czego chce. Postać może próbować uzyskać coś za nic, korzystając z innych umiejętności społecznych, ale Negocjacje opierają się na wymianie.\n• Mówi komuś, co ma robić. Negocjacje muszą być transakcją – na końcu interakcji druga strona zgadza się coś zrobić, a nie przyjmuje polecenie.\n• Chce kupić coś za wcześniej ustaloną cenę."
+      }
+    },
+    {
+      "name": "Obsługa sprzętu",
+      "type": "skill",
+      "img": "icons/environment/settlement/wagon-black.webp",
+      "system": {
+        "description": "<p>Czasami pojazd jest na tyle duży, że do prowadzenia go nie wystarczą dobry refleks i pewna ręka. W przypadku pojazdów, które wymagają szkolenia, bystrego umysłu i zdolności śledzenia wielu informacji naraz, wykorzystuje się umiejętność Pojazdy Załogowe. Odzwierciedla ona zdolność postaci do jeżdżenia, latania bądź żeglowania dowolną dużą jednostką, na przykład statkiem morskim, sterowcem czy statkiem kosmicznym (i w zasadzie wszystkim, co potrzebuje załogi). W uniwersach o niskim poziomie technologicznym postacie mogą dzięki niej sterować i pływać żaglowcem. W steampunku może pozwalać na pilotowanie wojennego zeppelina. We współczesności albo w realiach dziwnej wojny postać potrzebuje tej umiejętności do prowadzenia handlowego parowca albo okrętu podwodnego. W science fiction i space operze używa się Pojazdów Załogowych do pilotowania dużych statków kosmicznych.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "intellect",
+        "category": "general",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Jej kliper musi bezpiecznie wydostać się ze sztormu bez utraty prędkości (albo masztu).\n• Pilotuje sterowiec i ma się przemknąć za rufą latającej fortecy przeciwnika.\n• Oblicza manewr z asystą grawitacyjną dla swojego statku kosmicznego.\n• Dokuje statkiem na stacji kosmicznej.",
+        "doNotUseWhen": "• Wykonuje rutynowe manewry statkiem w otwartej przestrzeni.\n• Chce ulepszyć silniki statku. Takie zadanie wymaga testu Mechaniki.\n• Dowodzi statkiem i wydaje rozkazy. Do tego potrzebne jest Przywództwo."
+      }
+    },
+    {
+      "name": "Percepcja",
+      "type": "skill",
+      "img": "icons/magic/perception/eye-ringed-green.webp",
+      "system": {
+        "description": "<p>Kiedy postać chce aktywnie zbadać swoje otoczenie, wychwycić poszlaki na miejscu zbrodni albo dostrzec ukrytych wrogów, korzysta w tym celu z umiejętności Percepcja. Odpowiada ona za świadome używanie wszystkich pięciu zmysłów do obserwacji otoczenia. (Albo innej ich liczby, jeśli grasz jakimś obcym gatunkiem). Najważniejszą kwestią jest to, że Percepcja odzwierciedla aktywne wykorzystanie zmysłów przez postać.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "cunning",
+        "category": "general",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Szuka śladów na miejscu zbrodni.\n• Chce zbadać otoczenie pod kątem możliwych zagrożeń.\n• Obserwuje z daleka nieświadomą tego osobę.\n• Bada starożytny artefakt, starając się dostrzec najdrobniejsze szczegóły mogące ujawnić jego przeznaczenie albo budowę.",
+        "doNotUseWhen": "• Próbuje uniknąć zaskoczenia podczas zasadzki. Stałe, podświadome baczenie postaci na to, co dzieje się dookoła niej, należy do umiejętności Czujność.\n• Jest właśnie okłamywana, a ty próbujesz określić, czy to zauważa. W tym przypadku odpowiednią umiejętnością jest również Czujność.\n• Stara się iść po czyichś śladach albo wytropić wroga w dziczy. Te działania obejmuje umiejętność Sztuka Przetrwania."
+      }
+    },
+    {
+      "name": "Pilotowanie",
+      "type": "skill",
+      "img": "icons/skills/movement/arrow-upward-yellow.webp",
+      "system": {
+        "description": "<p>Ta umiejętność obejmuje obsługę dowolnego statku powietrznego, którego prowadzenie wymaga szybkich reakcji i koordynacji oko-ręka, od żyrokopterów i helikopterów przez myśliwce i szybowce aż po gwiezdne myśliwce i lądowniki kosmiczne. Podobnie jak w przypadku umiejętności Prowadzenie Pojazdów rodzaj pojazdów zależy od uniwersum. Jednak niezależnie od niego, jeśli coś lata w atmosferze bądź w przestrzeni kosmicznej i wymaga za sterami (lub ich odpowiednikiem) pilota z dobrym refleksem i pewną ręką, to potrzebujesz umiejętności Pilotaż.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "agility",
+        "category": "general",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Musi wylądować samolotem z nieczynnym silnikiem.\n• Próbuje wymanewrować przeciwników w walce powietrznej.\n• Leci statkiem do strefy lądowania przez labirynt ostrych jak brzytwy skał.\n• Próbuje wylądować małym sterowcem pod ostrzałem z wrogiego statku powietrznego.",
+        "doNotUseWhen": "• Próbuje naprawić uszkodzone śmigło lub silnik pojazdu powietrznego – jest to zadanie wymagające umiejętności Mechanika.\n• Spada samochodem z urwiska i chce wylądować tak, by zminimalizować skutki wypadku – to nadal będzie Prowadzenie Pojazdów (i to z dużą trudnością).\n• Strzela z broni zamontowanej na pojeździe, co wymaga testu Broni Dystansowej albo Artylerii.\n• Nie ma ryzyka katastrofalnej porażki. Proste zadania, takie jak latanie po otwartym niebie przy lekkim wietrze, nie wymagają testów."
+      }
+    },
+    {
+      "name": "Moc Pierwotna",
+      "type": "skill",
+      "img": "icons/magic/nature/elemental-plant-humanoid.webp",
+      "system": {
+        "description": "<p>Moc Pierwotna odzwierciedla zdolność czerpania z naturalnych energii, które przenikają większość światów. Choć często bywa postrzegana jako prymitywna i dzika, może być niewiarygodnie potężna, gdyż czerpie z siły życiowej każdej żywej istoty wokół ciebie.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "cunning",
+        "category": "magic",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Chce uleczyć przyjaciela.\n• Próbuje porozumieć się z roślinami lub zwierzętami bądź nawiązać współpracę z siłami przyrody.\n• Chce manipulować pogodą albo ją kontrolować, w tym przywoływać burze, aby ciskać piorunami we wrogów.",
+        "doNotUseWhen": "• Próbuje strzelić magicznym pociskiem we wroga albo grupę przeciwników.\n• Próbuje wskrzesić albo ożywić zmarłego."
+      }
+    },
+    {
+      "name": "Broń Dystansowa",
+      "type": "skill",
+      "img": "icons/skills/ranged/arrows-flying-salvo-blue-light.webp",
+      "system": {
+        "description": "<p>Umiejętność Broń Biała służy postaci do walki z każdym, kto stoi tuż przy niej, zaś umiejętność Broń Dystansowa – do walki ze wszystkimi innymi przeciwnikami. Postać używa jej do obsługi wszelkiego rodzaju broni rażącej wroga na odległość, od łuków i strzał po działa strzelające wiązką cząstek. Korzysta z niej również wtedy, kiedy chce rzucić w kogoś jakimś przedmiotem. Ta umiejętność (zamiast jednego z jej wariantów) powinna być używana w uniwersum fantasy (albo innym, w których większość walk toczy się na dystans).</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "agility",
+        "category": "combat",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Walczy kuszą, łukiem, dmuchawką, pistoletem, karabinem, pistoletem maszynowym, laserowym, wyrzutnią rakiet... itp.\n• Używa broni pojazdu, takiej jak armata czołgu, działka myśliwca albo karabiny Gaussa w myśliwcu kosmicznym.",
+        "doNotUseWhen": "• Używa dowolnej broni do walki wręcz. Do tego służy umiejętność Broń Biała.\n• Przy pomocy broni dystansowej próbuje uderzyć kogoś w zasięgu ręki, na przykład używając kolby karabinu jako pałki. Choć walczy wtedy bronią strzelecką, używa jej jako broni do walki wręcz, więc powinna wykonać test umiejętności Broń Biała.\n• Próbuje naprawić albo zmodyfikować broń dystansową. Za naprawianie albo tworzenie broni zwykle odpowiada Mechanika bądź Wiedza."
+      }
+    },
+    {
+      "name": "Broń Dystansowa (Ciężka)",
+      "type": "skill",
+      "img": "icons/skills/ranged/cannon-barrel-firing-yellow.webp",
+      "system": {
+        "description": "<p>W tych samych realiach skupiających się na walce na broń strzelecką umiejętność Broń Dystansowa (Ciężka) odpowiada za strzelanie z karabinów, strzelb, karabinów szturmowych, laserowych i podobnych rodzajów broni. Obejmuje ona prawie każdy rodzaj ciężkiej broni zaprojektowanej do strzelania przy użyciu obu rąk, ale nie na tyle dużej, by jej obsługa wymagała kilku osób albo statywu.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "agility",
+        "category": "combat",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Strzela ze strzelby, karabinu szturmowego, miotacza ognia, karabinu strzałkowego, snajperskiego albo z podobnej broni.",
+        "doNotUseWhen": "• Strzela z pistoletu, pistoletu maszynowego, strzałkowego, laserowego albo z podobnej broni.\n• Strzela z uzbrojenia zamontowanego na statku kosmicznym albo pojeździe."
+      }
+    },
+    {
+      "name": "Broń Dystansowa (Lekka)",
+      "type": "skill",
+      "img": "icons/skills/ranged/archery-bow-attack-yellow.webp",
+      "system": {
+        "description": "<p>W uniwersach, gdzie większość walki opiera się na broni strzeleckiej, Broń Dystansowa (Lekka) to umiejętność odpowiadająca za strzelanie z pistoletów i rzucanie w przeciwników nożami i granatami. Obejmuje ona prawie każdy rodzaj lekkiej broni dystansowej zaprojektowanej do strzelania (albo rzucania) jedną ręką.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "agility",
+        "category": "combat",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Strzela z pistoletu, pistoletu maszynowego, strzałkowego bądź laserowego albo z podobnej broni.\n• Chce cisnąć nożem do rzucania.\n• Chce rzucić granatem.",
+        "doNotUseWhen": "• Strzela ze strzelby, karabinu, działka laserowego, karabinu maszynowego albo innej dużej i ciężkiej broni.\n• Strzela z uzbrojenia zamontowanego na statku kosmicznym albo pojeździe."
+      }
+    },
+    {
+      "name": "Odporność",
+      "type": "skill",
+      "img": "icons/magic/life/crosses-trio-red.webp",
+      "system": {
+        "description": "<p>Kiedy robi się ciężko, twardziele brną naprzód dzięki swojej Odporności. Ta umiejętność reprezentuje zdolność postaci do przezwyciężenia bólu i wyczerpania. Postacie z jej wysokim poziomem lepiej opierają się także truciznom i chorobom, łatwiej znoszą też niekorzystne warunki środowiska. Kiedy twoja postać trafia wreszcie do miasteczka na Alasce po spędzeniu dwóch tygodni w mroźnej tundrze, zawdzięcza to swojej Odporności.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "brawn",
+        "category": "general",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Próbuje nie spać przez kilka dni, a ty musisz sprawdzić, czy jej się to udaje.\n• Połyka toksynę i musisz określić, jak złe są tego skutki.\n• Jest od kilku dni wystawiona na działanie szkodliwego środowiska (za gorącego, za zimnego lub zbyt zanieczyszczonego).\n• Nie mając pomocy medycznej, próbuje samodzielnie odzyskać siły po Urazie Krytycznym.",
+        "doNotUseWhen": "• Próbuje zrobić coś, co nie wymaga wykraczania poza granice jej typowej wytrzymałości. Całodzienna wędrówka nie wymaga testu Odporności, chyba że odbywa się w wysokich górach podczas burzy śnieżnej.\n• Natychmiast zatrzymuje się i odpoczywa, aby w pełni odzyskać siły po zakończeniu jakiejś czynności. Jeżeli nie ma potrzeby śledzenia trwałych konsekwencji, nie trzeba wykonywać testu."
+      }
+    },
+    {
+      "name": "Jeździectwo",
+      "type": "skill",
+      "img": "icons/creatures/mammals/deer-antlers-glowing-blue.webp",
+      "system": {
+        "description": "<p>Prędzej czy później bohaterowie kampanii fantasy zechcą używać wierzchowców. Będą to najprawdopodobniej konie, ale ta sama umiejętność służy do jazdy na czymkolwiek, od osłów po gigantyczne owady. W większości uniwersów można założyć, że każdy zna podstawy jazdy w siodle, a test umiejętności jest wymagany tylko podczas pościgów, wyścigów albo w niebezpiecznych warunkach.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "agility",
+        "category": "general",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Ucieka prześladowcom, którzy również jadą na wierzchowcach albo są wystarczająco szybcy, aby móc ją dogonić.\n• Walczy w turnieju rycerskim na kopie.\n• Rywalizuje w wyścigu (niekoniecznie przyjacielskim).\n• Próbuje dogonić przeciwników mających na starcie znaczą przewagę.\n• Usiłuje okiełznać wierzchowca, który spłoszył się podczas burzy.",
+        "doNotUseWhen": "• Podróżuje bez bezpośredniego zagrożenia.\n• Wykonuje atak z wierzchowca. Dodatkowa trudność spowodowana atakiem z konia powinna być uwzględniona w trudności testu walki, zazwyczaj w postaci jednej albo więcej kości komplikacji.\n• Próbuje oswoić dzikie zwierzę. W takiej sytuacji powinna użyć umiejętności Sztuka Przetrwania."
+      }
+    },
+    {
+      "name": "Machlojki",
+      "type": "skill",
+      "img": "icons/skills/trades/security-lock-pick.webp",
+      "system": {
+        "description": "<p>Większość gier fabularnych ma długą i bogatą tradycję rozbrajania pułapek, otwierania zamków i wydostawania się z więzienia (jeśli wcześniejsze zadania się nie powiodły). W naszej grze postacie mogą dokonywać tych rzeczy dzięki umiejętności Machlojki. Obejmuje ona połączenie umiejętności, których postać może użyć do prowadzenia tajnej albo przestępczej działalności. Jeśli tworzysz postać, którą uważasz za „złodzieja” albo „łotra”, to w tę umiejętność na pewno zechcesz zainwestować.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "cunning",
+        "category": "general",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Próbuje ukraść coś z czyjejś kieszeni albo zwinąć komuś portfel.\n• Próbuje otworzyć zamek wytrychami bądź rozbroić pułapkę. Twoja postać używa także Machlojek, aby zastawić pułapkę.\n• Próbuje zbadać system zabezpieczeń.\n• Próbuje ukradkiem dodać trucizny do czyjegoś jedzenia albo napoju. C\n• Próbuje rozproszyć uwagę przeciwnika za pomocą oszustwa albo zmyłki, na przykład rzucając mu piaskiem w oczy w trakcie walki.",
+        "doNotUseWhen": "• Próbuje wemknąć się gdzieś niezauważona. Wówczas musi wykonać test Ukrywania się.\n• Próbuje zabrać coś z kieszeni osoby, która jest bezradna albo obezwładniona. Nie wymaga to żadnego testu.\n• Próbuje wytworzyć truciznę. Postać potrzebuje Medycyny, aby wytwarzać trucizny bądź toksyny, ale używa ich dzięki Machlojkom."
+      }
+    },
+    {
+      "name": "Ukrywanie się",
+      "type": "skill",
+      "img": "icons/magic/perception/silhouette-stealth-shadow.webp",
+      "system": {
+        "description": "<p>Kiedy postać chce działać niedostrzeżona przez nikogo, korzysta z umiejętności Ukrywanie się. Pod wieloma względami umiejętność ta jest jedną z prostszych i obejmuje konkretne działania. Zdolność cichego poruszania się i pozostawania niezauważonym jest elementem pojawiającym się w wielu grach fabularnych, więc często warto w nią zainwestować.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "agility",
+        "category": "general",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Próbuje się przed kimś ukryć.\n• Próbuje śledzić kogoś w tłumie i pozostać przy tym niezauważoną.\n• Próbuje zinfiltrować budynek rządowy, unikając wykrycia przez zabezpieczenia elektroniczne i strażników.\n• Próbuje cicho poruszać się po domu.",
+        "doNotUseWhen": "• Próbuje ukraść coś komuś z kieszeni. Do tego potrzebuje umiejętności Machlojki.\n• Stara się pozostać w ukryciu, kiedy przeciwnik nie ma szans na jej dostrzeżenie, na przykład próbuje uniknąć wykrycia przez helikopter w śnieżycy o północy.\n• Nie ma realnych szans na ukrycie się przed przeciwnikiem, na przykład próbuje schować się przed stojącą niedaleko osobą pośrodku solnej równiny w samo południe."
+      }
+    },
+    {
+      "name": "Znajomość Półświatka",
+      "type": "skill",
+      "img": "icons/environment/settlement/gazebo.webp",
+      "system": {
+        "description": "<p>Niektórzy nazywają tę umiejętność „twardą szkołą życia”, inni „ulicznym sprytem” albo „wrodzoną intuicją”, ale niezależnie od nazwy Znajomość Półświatka jest zdolnością przetrwania i pomyślnego funkcjonowania w trudnych i niebezpiecznych obszarach miejskich. Jeśli postać ma kilka poziomów Znajomości Półświatka, to instynktownie wie, jak działają przestępcy, których miejsc unikać po zmroku, gdzie kupić narkotyki i nielegalne usługi, a także jak przetrwać w podejrzanych dzielnicach dużego miasta. Pod wieloma względami Znajomość Półświatka można uznać za miejski odpowiednik Sztuki Przetrwania. Obie umiejętności reprezentują wiele podobnych działań, ale Znajomość Półświatka odnosi się do obszarów zurbanizowanych, a Sztuka Przetrwania – do dziczy.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "cunning",
+        "category": "general",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Szuka handlarza sprzedającego czarnorynkowe towary lub nielegalne usługi.\n• W rozmowie próbuje zrozumieć szczególne nawiązania albo slang.\n• Próbuje podejść do przestępców i rozpocząć rozmowę tak, aby nie wydać się zagrożeniem albo kimś z zewnątrz.\n• Próbuje znaleźć drogę w obcym mieście.\n• Próbuje wytropić kogoś na terenie miasta.",
+        "doNotUseWhen": "• Próbuje znaleźć drogę w środowisku wiejskim albo w dziczy. W takiej sytuacji powinna używać Sztuki Przetrwania.\n• Wchodzi w interakcję z osobami z wyższych warstw społecznych. Tutaj bardziej przyda się jej Urok Osobisty, ewentualnie Oszustwo bądź Przymuszanie.\n• Dorobiła się już swojego miejsca i pozycji w świecie przestępczym i stale współpracuje z innymi przestępcami. Znajomość Półświatka pozwala postaci się dopasować, znać odpowiednie zachowania i tematy rozmów. Nie powinna jednak zastępować umiejętności społecznych."
+      }
+    },
+    {
+      "name": "Sztuka Przetrwania",
+      "type": "skill",
+      "img": "icons/skills/trades/hunting-bow-arrows-green.webp",
+      "system": {
+        "description": "<p>Istnieje tysiąc sztuczek, które postać musi opanować, aby przetrwać w dziczy, a im więcej ma poziomów Sztuki Przetrwania, tym bardziej prawdopodobne, że je zna. Umiejętność ta obejmuje zdolność znajdowania pożywienia i wody, radzenia sobie w niebezpiecznych warunkach, polowania na zwierzęta i ich oprawiania – w sumie przetrwania w każdym miejscu poza cywilizacją. Pod wieloma względami można uważać Sztukę Przetrwania za odpowiednik Znajomości Półświatka. Obie umiejętności obejmują wiele podobnych działań, ale Sztuka Przetrwania odnosi się do terenów wiejskich i dzikich, natomiast Znajomość Półświatka – do dużego miasta.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "cunning",
+        "category": "general",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Utknęła w dziczy i musi znaleźć pożywienie i wodę pitną.\n• Chce zauważyć oznaki zbliżającego się załamania pogody i wiedzieć, jak się na nie przygotować.\n• Próbuje podążać za wskazaniami prymitywnej mapy po obszarze wiejskim, aby znaleźć konkretne miejsce.\n• Próbuje oswoić albo uspokoić dzikie zwierzę bądź poradzić sobie z udomowionym.\n• Poluje na coś (albo na kogoś!) w dziczy.",
+        "doNotUseWhen": "• Kieruje się bardzo dokładną i szczegółową mapą, aby odnaleźć jakieś miejsce.\n• Próbuje odnaleźć drogę przez obszar zurbanizowany. W takiej sytuacji powinna używać Znajomości Półświatka.\n• Ma do czynienia ze zwierzęciem, które ją lubi lub szanuje, albo prosi zwierzę, by zrobiło coś zgodnego ze swoją naturą (na przykład nie musi wykonywać testu Sztuki Przetrwania, by skłonić psa do aportowania)."
+      }
+    },
+    {
+      "name": "Czujność",
+      "type": "skill",
+      "img": "icons/magic/perception/eye-tendrils-web-purple.webp",
+      "system": {
+        "description": "<p>Czujność odzwierciedla zdolność postaci do ciągłego zwracania uwagi na otoczenie, często bezwiednie. Postacie z wysoką Czujnością łatwiej dostrzegają zagrożenia wokół siebie, zauważają ważne szczegóły kątem oka i wychwytują kłamstwa w rozmowie. Jak można zauważyć w opisie Czujności, jest ona – w przeciwieństwie do większości pozostałych umiejętności – raczej pasywna. Właściwie powinno się jej używać wtedy, gdy postać nie spodziewa się zagrożenia, nie szuka wskazówek albo jest nieświadoma czegoś ważnego. Dlatego używamy tej umiejętności do określania Inicjatywy w walce, gdy postać jest zaskoczona, aby ustalić, w jakim stopniu zwracała uwagę na otoczenie. Oznacza to także, że gdy MG prosi cię o test Czujności, możesz podejrzewać, że coś się dzieje. Jednak twoja postać nie powinna zachowywać się podejrzliwie (chyba że test będzie udany). Czujności używasz też przeciw niektórym umiejętnościom w testach społecznych (głównie przeciw Oszustwu), kiedy jesteś ich celem.</p>",
+        "source": "Genesys: Podręcznik podstawowy",
+        "characteristic": "willpower",
+        "category": "general",
+        "initiative": true,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Wpadła w zasadzkę, a ty rzucasz kostkami, by określić kolejność Inicjatywy. Wysoka Czujność oznacza, że postać ma większą szansę na szybką reakcję na zagrożenie.\n• Jest właśnie okłamywana; przeciwnik wykonuje test przeciwstawny Oszustwa przeciw Czujności twojej postaci.\n• Ma szansę zauważyć ważne szczegóły w swoim otoczeniu, nie szukając ich bezpośrednio.",
+        "doNotUseWhen": "• Określasz kolejność Inicjatywy, kiedy twoja postać nie jest zaskoczona (na przykład kiedy zastawiła zasadzkę, a nie w nią wpadła). W takim przypadku używa Opanowania.\n• Aktywnie czegoś szuka. To działanie wymaga testu Percepcji."
+      }
+    },
+    {
+      "name": "Broń Palna",
+      "type": "skill",
+      "img": "icons/weapons/guns/gun-blunderbuss-flintlock-brown.webp",
+      "system": {
+        "description": "<p>Broń prochowa to coraz częstszy widok na polach bitew Starego Świata. Chociaż jest głośna, nieporęczna i zawodna, potrafi zapewnić znaczną przewagę dzięki dużej sile ognia. Umiejętność Broń Palna obejmuje codzienne użytkowanie i konserwację broni prochowej.</p>",
+        "source": "Stary Świat: Ponury i Niebezpieczny",
+        "characteristic": "agility",
+        "category": "combat",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Próbuje zaatakować kogoś przy pomocy pistoletu, arkebuza, garłacza czy innej osobistej broni prochowej.\n• Próbuje usunąć niewypał lub naprawić lekkie uszkodzenia swojej broni prochowej.",
+        "doNotUseWhen": "• Próbuje strzelać z kuszy, łuku lub rzucać czymś. W takim przypadku lepiej użyć umiejętności Broń Dystansowa.\n• Próbuje naprawić średnie lub poważne uszkodzenia swojej broni prochowej. Wymaga to testu Rzemiosła lub Inżynierii, zależnie od złożoności broni.\n• Prowadzi ostrzał z armaty lub broni oblężniczej."
+      }
+    },
+    {
+      "name": "Inżynieria",
+      "type": "skill",
+      "img": "icons/commodities/tech/gear-metal.webp",
+      "system": {
+        "description": "<p>Podczas gdy rzemieślnicy wykonują i naprawiają większość przedmiotów codziennego użytku, inżynierowie zajmują się znacznie bardziej skomplikowanymi urządzeniami. Inżynieria obejmuje umiejętność projektowania i konstruowania złożonych mechanizmów, a także budowania (i niszczenia) fortyfikacji i maszyn oblężniczych.</p>",
+        "source": "Stary Świat: Ponury i Niebezpieczny",
+        "characteristic": "intellect",
+        "category": "general",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Próbuje zaprojektować zupełnie nowe urządzenie.\n• Chce naprawić starożytną maszynerię.\n• Próbuje podłożyć ładunki wybuchowe.\n• Konstruuje trebusz lub przygotowuje pozycje obrony.",
+        "doNotUseWhen": "• Tworzy coś prostego, jak siekiera lub plecak. W tym przypadku bardziej odpowiednia jest umiejętność Rzemiosło.\n• Próbuje stworzyć proch strzelniczy. To wymagałoby testu Alchemii."
+      }
+    },
+    {
+      "name": "Rzemiosło",
+      "type": "skill",
+      "img": "icons/tools/smithing/anvil.webp",
+      "system": {
+        "description": "<p>Rzemiosło reprezentuje wszelkie rodzaje powszechnych umiejętności rzemieślniczych używanych do tworzenia lub naprawy codziennych przedmiotów. Ciesielka, kowalstwo, produkcja obuwia, budowa łodzi czy krawiectwo – wszystkie one należą do tej kategorii. Doświadczeni rzemieślnicy pomagają utrzymać sprzęt drużyny w dobrym stanie, są więc niezastąpieni w grupach poszukiwaczy przygód.</p>",
+        "source": "Stary Świat: Ponury i Niebezpieczny",
+        "characteristic": "intellect",
+        "category": "general",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Próbuje wykuć miecz lub stworzyć zwykłą broń palną, zbudować dom czy łódź.\n• Próbuje naprawić uszkodzoną broń lub prosty sprzęt.\n• Stara się określić, jakich materiałów lub narzędzi potrzebuje do ukończenia pracy.",
+        "doNotUseWhen": "• Próbuje zaprojektować zupełnie nowe urządzenie. To wymagałoby testu Inżynierii.\n• Bada teorię stojącą za jej rzemiosłem, na przykład metalurgię. To wymaga użycia Wiedzy (Akademickiej)."
+      }
+    },
+    {
+      "name": "Wiedza (Akademicka)",
+      "type": "skill",
+      "img": "icons/sundries/books/book-open-brown.webp",
+      "system": {
+        "description": "<p>Wiedza (Akademicka) reprezentuje szeroki zbiór specjalistycznej, naukowej wiedzy dostępnej głównie dla osób z jakimś formalnym wykształceniem. Obejmuje biologię, astrologię, historię, prawo, teologię i inne dziedziny nauki, które prostym ludziom mogą wydawać się niezwykle tajemnicze lub całkowicie bezużyteczne. Postać posiadająca poziomy Wiedzy (Akademickiej) może znać istotne wydarzenia historyczne, rozpoznać szlachecki herb, oznaczyć gatunki trujących roślin czy uniknąć przypadkowego złamania prawa.</p>",
+        "source": "Stary Świat: Ponury i Niebezpieczny",
+        "characteristic": "intellect",
+        "category": "knowledge",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Próbuje znaleźć istotne informacje w bibliotece.\n• Próbuje odczytać mapę.\n• Próbuje oszacować, kiedy wystąpi zjawisko astronomiczne.",
+        "doNotUseWhen": "• Chce dowiedzieć się czegoś trywialnego lub czegoś, co należy do powszechnej wiedzy, jak daty popularnych uroczystości religijnych.\n• Próbuje przypomnieć sobie coś związanego z Chaosem lub magią. Ten obszar wiedzy obejmuje umiejętność Wiedza (Chaos)."
+      }
+    },
+    {
+      "name": "Wiedza (Chaos)",
+      "type": "skill",
+      "img": "icons/magic/death/skull-horned-wreathed-fire-blue.webp",
+      "system": {
+        "description": "<p>Chaos to moc, która przenika i zmienia rzeczywistość. Jest źródłem magii, demonów, mutantów i innych nienaturalnych, dziwnych zjawisk. Każdy skrawek wiedzy o tych rzeczach jest zakazany i pilnie strzeżony przez czarodziejów i łowców czarownic. Umiejętność ta reprezentuje wiedzę o przerażającej prawdzie o świecie.</p>",
+        "source": "Stary Świat: Ponury i Niebezpieczny",
+        "characteristic": "intellect",
+        "category": "knowledge",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Próbuje przywołać wiedzę na temat Niszczycielskich Potęg, spaczenia, mutantów, magii lub podobnych rzeczy związanych z Chaosem.\n• Próbuje rozpoznać istotę Chaosu i dowiedzieć się, jak z nią walczyć.\n• Bada bluźnierczy grymuar, aby posiąść jego moc.\n• Próbuje zdemaskować wiedźmę.\n• Próbuje zidentyfikować potężny artefakt.",
+        "doNotUseWhen": "• Próbuje przeczytać księgę napisaną w obcym języku. To wymaga testu Wiedzy (Akademickiej).\n• Próbuje rzucić zaklęcie. Rzucanie zaklęć to domena umiejętności magicznych."
+      }
+    },
+    {
+      "name": "Żeglarstwo",
+      "type": "skill",
+      "img": "icons/environment/settlement/ship-small.webp",
+      "system": {
+        "description": "<p>Drogi Starego Świata pełne są bandytów, mutantów i innych niebezpieczeństw. Nie dziwi więc, że duża część jego mieszkańców żyje z transportu rzecznego i morskiego. Żeglarstwo obejmuje większość działań związanych z obsługą łodzi i statków, nawigację i prawo wodne, a także podstawową wiedzę na temat rzek i mórz. Pod wieloma względami Żeglarstwo można uznać za wodny odpowiednik Sztuki Przetrwania.</p>",
+        "source": "Stary Świat: Ponury i Niebezpieczny",
+        "characteristic": "intellect",
+        "category": "general",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Próbuje poruszać się po nieznanych wodach.\n• Steruje barką na dzikiej i nieprzewidywalnej rzece.\n• Musi zauważyć oznaki zbliżającego się sztormu i wiedzieć, jak się do niego przygotować.",
+        "doNotUseWhen": "• Wykonuje rutynowe czynności podczas wychodzenia z portu.\n• Próbuje naprawić uszkodzony statek. To wymagałoby testu Rzemiosła.\n• Próbuje przypomnieć sobie jakieś informacje o lądach, do których płynie. Wiedzę geograficzną obejmuje umiejętność Wiedza (Akademicka)."
+      }
+    },
+    {
+      "name": "Wiedza (Przygody)",
+      "type": "skill",
+      "img": "icons/sundries/documents/document-sealed-brown-red.webp",
+      "system": {
+        "description": "<p>Życie poszukiwacza przygód niesie wyjątkowe zagrożenia i wyzwania. Poszukiwacze przygód zwykle biegną ku niebezpieczeństwom, przed którymi uciekają zwykli ludzie. Doświadczeni wędrowcy widzą stronę świata niedostępną większości i wiele uczą się podczas wypraw oraz zadań. Wiedza (Przygody) reprezentuje takie praktyczne doświadczenie, a także rozmowy prowadzone w karczmach z innymi poszukiwaczami przygód o potworach, ruinach, innych zagrożeniach i najlepszych sposobach ich pokonania. Dla wielu jest rodzajem wyuczonego instynktu: nie potrafią dokładnie wyjaśnić, dlaczego dotknięcie starożytnego posągu jest złym pomysłem, ale po prostu to wiedzą.</p>",
+        "source": "Realms of Terrinoth",
+        "characteristic": "intellect",
+        "category": "knowledge",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Próbuje rozpoznać dziwną, oślizgłą masę zwisającą ze sklepienia lochu.\n• Próbuje wyznaczyć najbezpieczniejszą drogę przez zdradliwie niestabilne ruiny.\n• Próbuje rozwiązać skomplikowaną zagadkę z ruchomymi posągami i dźwigniami w głębi starożytnego grobowca.",
+        "doNotUseWhen": "• Chce ustalić pochodzenie dziwnego amuletu znalezionego w ruinach. Do tego służy Wiedza (Legendy).\n• Próbuje dzięki refleksowi i zręczności uniknąć wpadnięcia do pułapki. Właściwa będzie Koordynacja, choć Czujność może pomóc wcześniej zauważyć zagrożenie.\n• Polega na swojej spostrzegawczości, aby uniknąć podziemnych zagrożeń. Do tego służy Czujność."
+      }
+    },
+    {
+      "name": "Wiedza (Zakazana)",
+      "type": "skill",
+      "img": "icons/sundries/books/book-symbol-skull-grey.webp",
+      "system": {
+        "description": "<p>Wiedza (Zakazana) obejmuje zagadnienia magii krwi, nekromancji, Ynfernaelu i innych zakazanych praktyk. Poza tematami natury tajemnej dotyczy wszelkiej wiedzy zabronionej przez władców i autorytety duchowe, w tym określonych wydarzeń historycznych, wymazanych rodów i niewyobrażalnych potworów. Postać może specjalizować się w jednej dziedzinie albo poznawać po trochu wszystkie, musi jednak uważać, komu ujawnia swoją wiedzę.</p>",
+        "source": "Realms of Terrinoth",
+        "characteristic": "intellect",
+        "category": "knowledge",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Próbuje odczytać tajemne glify zdobiące starożytne ostrze ożywieńca.\n• Próbuje odkryć rytuał pozwalający skontaktować się z mieszkańcem Ynfernaelu.\n• Chce rozpoznać magię używaną przez elfa Daewyl.",
+        "doNotUseWhen": "• Próbuje rzucić zaklęcie energią zaczerpniętą z Ynfernaelu. Do tego służy Moc Boska.\n• Bada magię praktykowaną przez czarodziejów Uniwersytetu w Greyhaven. Taką magię obejmuje Wiedza (Legendy).\n• Próbuje rozpoznać magiczny amulet z czasów królów Penacor. Do tego służy Wiedza (Legendy)."
+      }
+    },
+    {
+      "name": "Wiedza (Geografia)",
+      "type": "skill",
+      "img": "icons/tools/navigation/map-chart-tan.webp",
+      "system": {
+        "description": "<p>Geografia odzwierciedla znajomość ukształtowania terenu i różnych kultur, włącznie z ich zwyczajami oraz prawami. Obejmuje rozumienie map i kartografii, regionalnych różnic w etykiecie oraz zagadnień nawigacji. Postać posiadająca poziomy Wiedzy (Geografia) potrafi wyznaczyć drogę lądem lub morzem, z pamięci opisać położenie ważnych miast i punktów orientacyjnych, uniknąć nieświadomego złamania miejscowego prawa oraz ostrzec sojuszników przed tematami, których lepiej nie poruszać w danej miejscowości.</p>",
+        "source": "Realms of Terrinoth",
+        "characteristic": "intellect",
+        "category": "knowledge",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Chce wyznaczyć drogę przez niebezpieczne pustkowie do pobliskiej wioski.\n• Chce z pamięci wskazać przybliżone położenie punktu orientacyjnego lub osady.\n• Musi dobrać odpowiedni strój, aby nie wyróżniać się wśród miejscowych.",
+        "doNotUseWhen": "• Chce przypomnieć sobie informacje o Mrocznych Krainach. To wymaga Wiedzy (Zakazanej).\n• Musi rozbić obóz albo zająć się innymi praktycznymi aspektami podróży przez dzicz. Do tego służy Sztuka Przetrwania.\n• Próbuje przypomnieć sobie historię ruin. Do tego służy Wiedza (Legendy)."
+      }
+    },
+    {
+      "name": "Wiedza (Legendy)",
+      "type": "skill",
+      "img": "icons/sundries/books/book-open-purple.webp",
+      "system": {
+        "description": "<p>Wiedza (Legendy) reprezentuje znajomość magii, legend, religii i podobnych zagadnień. Obejmuje zarówno podania ludowe i najnowszą historię, jak i sprawy tajemne oraz niejasne, znane jedynie mędrcom. Zawiera specjalistyczną, naukową i ezoteryczną wiedzę, którą większość zwykłych ludzi uznałaby za niepraktyczną. Postać posiadająca poziomy tej umiejętności potrafi przypomnieć sobie istotne szczegóły dawnych legend, rozpoznać rzadkie symbole religijne, a nawet określić, czy dane zdarzenie miało przyczynę magiczną czy przyziemną.</p>",
+        "source": "Realms of Terrinoth",
+        "characteristic": "intellect",
+        "category": "knowledge",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Próbuje rozpoznać pochodzenie starożytnego miecza wydobytego z ruin.\n• Po zobaczeniu działania magii czarodzieja chce ustalić jej źródło.\n• Próbuje przypomnieć sobie przerażającą legendę o Pierwszej Ciemności.",
+        "doNotUseWhen": "• Próbuje rzucić zaklęcie. To wymaga użycia umiejętności magicznej.\n• Próbuje odczytać mapę. Do tego służy Wiedza (Geografia).\n• Chce wyznaczyć bezpieczną drogę przez starożytne ruiny. Do tego służy Wiedza (Przygody)."
+      }
+    },
+    {
+      "name": "Runy",
+      "type": "skill",
+      "img": "icons/magic/symbols/runes-star-pentagon-orange-purple.webp",
+      "system": {
+        "description": "<p>Runy reprezentują zrozumienie odłamków związanych z runami oraz zdolność czerpania z magii tych kamieni i kontrolowania jej. Każdy może aktywować odłamek, aby uwolnić konkretny magiczny efekt zapisanej na nim runy, ale postać posiadająca tę umiejętność potrafi wydobyć i kształtować jego moc, osiągając potężniejsze oraz bardziej wszechstronne rezultaty. Choć tylko nieliczni są w stanie kontrolować surową magię, większość osób może dzięki długiej nauce i praktyce opanować korzystanie z odłamków związanych z runami.</p>",
+        "source": "Realms of Terrinoth",
+        "characteristic": "intellect",
+        "category": "magic",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Chce użyć runy spopielenia, aby wywołać wielki słup ognia albo po prostu rozpalić ognisko.\n• Chce stworzyć ochronną barierę lodu przy użyciu runy burzy lodowej.\n• Chce rozpoznać znaczenie i przeznaczenie runy wyrytej na odłamku związanym z runami.",
+        "doNotUseWhen": "• Chce rzucić zaklęcie bez pomocy odłamka związanego z runami. Wymaga to innej umiejętności magicznej, zależnej od zaklęcia.\n• Próbuje przetłumaczyć glify w starożytnych krasnoludzkich ruinach. Do tego służy Wiedza (Legendy).\n• Chce użyć efektu aktywacyjnego odłamka związanego z runami, ponieważ nie wymaga to testu umiejętności magicznej."
+      }
+    },
+    {
+      "name": "Pieśń",
+      "type": "skill",
+      "img": "icons/tools/instruments/lute-gold-brown.webp",
+      "system": {
+        "description": "<p>Pieśń reprezentuje zdolność wywoływania magicznych efektów za pomocą poezji, śpiewu lub występu. Większość użytkowników tej umiejętności uczy się repertuaru oraz technik na pamięć, a improwizuje instynktownie. W przeciwieństwie do innych umiejętności magicznych Pieśń definiują charakterystyczne metody i praktyki. Zależnie od tradycji opowiadania oraz występów może nawet czerpać z tych samych źródeł mocy co Moc Tajemna, Moc Boska lub Moc Pierwotna. Postać posiadająca poziomy Pieśni potrafi osiągać nadnaturalne efekty poprzez pozornie zwyczajne śpiewanie, granie muzyki albo inne rodzaje występów.</p>",
+        "source": "Realms of Terrinoth",
+        "characteristic": "presence",
+        "category": "magic",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Chce wzmocnić sojuszników w walce inspirującą pieśnią.\n• Chce zdemoralizować przeciwnika zjadliwym limerykiem do tego stopnia, że fizycznie ograniczy jego możliwości.\n• Chce przeciwstawić się zgubnym zaklęciom nekromanty porywającą przemową.",
+        "doNotUseWhen": "• Chce zaśpiewać zwyczajną piosenkę. Do tego służy Urok Osobisty.\n• Chce rzucić kulą ognia lub w inny sposób fizycznie zranić przeciwnika. To wymaga innej umiejętności magicznej, na przykład Mocy Tajemnej."
+      }
+    },
+    {
+      "name": "Magia Tajemna",
+      "type": "skill",
+      "img": "icons/magic/symbols/runes-star-pentagon-orange-purple.webp",
+      "system": {
+        "description": "<p>Magia tajemna jest podstawowym elementem wszechświata, energią porządku i równowagi. Magowie, czarodzieje i magistrzy z całego Azeroth sięgają po tajemne energie wszechświata, próbując odkryć zagadki świata i tego, co znajduje się poza nim. Umiejętność Magia Tajemna reprezentuje zdolność postaci do kontrolowania i kanalizowania tych potężnych sił, a także specjalistyczną wiedzę o działaniu magii tajemnej.</p>",
+        "source": "Warcraft Genesys",
+        "characteristic": "intellect",
+        "category": "magic",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Kontroluje albo kanalizuje energię porządku, aby rzucić zaklęcie maga.\n• Próbuje rozpoznać działanie magii tajemnej lub przypomnieć sobie specjalistyczną wiedzę o jej zasadach.\n• Wykonuje akcję magiczną dostępną dla Magii Tajemnej, na przykład Atak, Barierę, Przywołanie albo Rozproszenie.",
+        "doNotUseWhen": "• Przyzywa moc żywiołów, natury, spaczenia albo Światłości. Każde z tych źródeł ma własną umiejętność.\n• Próbuje przypomnieć sobie historię, legendę albo ogólną teorię magii bez rzucania zaklęcia. Do tego służy odpowiednia umiejętność Wiedzy.\n• Wykonuje zwykłą czynność, która nie wymaga kanalizowania energii magicznej."
+      }
+    },
+    {
+      "name": "Magia Żywiołów",
+      "type": "skill",
+      "img": "icons/magic/nature/elemental-plant-humanoid.webp",
+      "system": {
+        "description": "<p>Magia żywiołów pochodzi od licznych duchów żywiołów zamieszkujących świat natury. Szamani mogą wzywać duchy ognia, wody, ziemi i powietrza zarówno po to, by leczyć, jak i zadawać krzywdę. Większość szamanów stara się utrzymywać równowagę między żywiołami, lecz mroczni szamani próbują je sobie podporządkować. Umiejętność Magia Żywiołów reprezentuje zdolność postaci do porozumiewania się z duchami żywiołów i przywoływania ich mocy, a także specjalistyczną wiedzę o tych duchach oraz ich domenach.</p>",
+        "source": "Warcraft Genesys",
+        "characteristic": "cunning",
+        "category": "magic",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Porozumiewa się z duchami ognia, wody, ziemi lub powietrza.\n• Przywołuje moc żywiołów, aby leczyć, ranić, chronić albo wpływać na otoczenie.\n• Próbuje rozpoznać ducha żywiołu, jego domenę, zamiary albo sposób przywrócenia zachwianej równowagi.",
+        "doNotUseWhen": "• Korzysta z energii natury i Szmaragdowego Snu zamiast z pomocy duchów żywiołów. Do tego służy Magia Natury.\n• Próbuje narzucić żywiołom spaczoną energię Otchłani. Do tego może być wymagana Magia Spaczenia.\n• Bada zwyczajne zjawisko pogodowe lub geologiczne bez kontaktowania się z duchami."
+      }
+    },
+    {
+      "name": "Magia Spaczenia",
+      "type": "skill",
+      "img": "icons/magic/death/skull-horned-wreathed-fire-blue.webp",
+      "system": {
+        "description": "<p>Magia spaczenia jest energią chaosu i zniszczenia, zielonym ogniem pochłaniającym wszelkie życie. Ta plugawa moc napędza demoniczne hordy Płonącego Legionu, ale śmiertelni czarnoksiężnicy również mogą po nią sięgać, służąc Legionowi albo realizując własne samolubne cele. Umiejętność Magia Spaczenia reprezentuje zdolność postaci do kontrolowania dzikich energii Wirującej Otchłani oraz demonów, które przywołuje, a także specjalistyczną wiedzę o demonach i samej Otchłani. Magia Spaczenia jest powiązana z umiejętnością Wiedza (Zakazana), a nie z umiejętnością Wiedza (Legendy).</p>",
+        "source": "Warcraft Genesys",
+        "characteristic": "willpower",
+        "category": "magic",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Kontroluje chaotyczną energię Wirującej Otchłani, aby atakować, przeklinać, wzmacniać albo przywoływać.\n• Przywołuje demona, wiąże go lub wydaje mu rozkazy.\n• Próbuje rozpoznać demona, energię spaczenia albo właściwości Wirującej Otchłani.",
+        "doNotUseWhen": "• Korzysta z magii porządku, żywiołów, natury albo Światłości.\n• Jedynie przypomina sobie zakazaną wiedzę o demonach lub spaczeniu bez kanalizowania ich mocy. Do tego służy Wiedza (Zakazana).\n• Próbuje użyć spaczenia bez zaakceptowania wynikających z niego zagrożeń i konsekwencji fabularnych."
+      }
+    },
+    {
+      "name": "Magia Natury",
+      "type": "skill",
+      "img": "icons/magic/life/heart-red-blue.webp",
+      "system": {
+        "description": "<p>Magia natury jest energią, która tchnie życie we wszystkie żywe istoty i przenika zarówno świat natury, jak i mistyczny Szmaragdowy Sen. Druidzi potrafią słuchać samej ziemi i przywoływać jej moc, aby kontrolować rośliny, przybierać postacie zwierząt, a nawet panować nad pogodą. Używają tej siły do ochrony świata natury i Szmaragdowego Snu przed tymi, którzy chcieliby je skazić. Umiejętność Magia Natury reprezentuje zdolność postaci do porozumiewania się ze światem natury oraz Szmaragdowym Snem i korzystania z ich mocy, a także specjalistyczną wiedzę o Śnie i duchach natury.</p>",
+        "source": "Warcraft Genesys",
+        "characteristic": "cunning",
+        "category": "magic",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Porozumiewa się ze światem natury, duchami przyrody albo Szmaragdowym Snem.\n• Kontroluje rośliny, przybiera postać zwierzęcia, leczy lub wpływa na pogodę dzięki energii życia.\n• Chroni świat natury albo Szmaragdowy Sen przed spaczeniem.",
+        "doNotUseWhen": "• Wzywa konkretne duchy ognia, wody, ziemi lub powietrza. Do tego służy Magia Żywiołów.\n• Korzysta z tajemnej energii porządku, spaczenia albo Światłości.\n• Wykonuje zwyczajne czynności związane z przetrwaniem, leczeniem lub opieką nad zwierzętami bez użycia magii."
+      }
+    },
+    {
+      "name": "Światłość",
+      "type": "skill",
+      "img": "icons/magic/holy/prayer-hands-glowing-yellow.webp",
+      "system": {
+        "description": "<p>Światłość jest podstawową siłą życia i stworzenia we wszechświecie. Jej dotyk przynosi spokój i radość, podnosząc wszystkich na duchu. Śmiertelnicy sięgają po moc Światłości dzięki swojej wierze, a kapłani i paladyni wykorzystują ją do leczenia rannych oraz sprowadzania świętego ognia na nikczemników. Umiejętność Światłość reprezentuje wiarę postaci i jej zdolność kanalizowania mocy Światłości, a także specjalistyczną wiedzę o jej działaniu.</p>",
+        "source": "Warcraft Genesys",
+        "characteristic": "willpower",
+        "category": "magic",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Dzięki wierze kanalizuje Światłość, aby leczyć rannych, chronić sojuszników albo wzmacniać ich ducha.\n• Sprowadza święty ogień na nikczemnego lub spaczonego przeciwnika.\n• Próbuje rozpoznać przejaw Światłości albo zrozumieć jej działanie.",
+        "doNotUseWhen": "• Korzysta z energii tajemnej, żywiołów, natury albo spaczenia.\n• Odwołuje się wyłącznie do wiedzy religijnej, historii kultu lub dogmatów bez kanalizowania mocy. Do tego służy odpowiednia umiejętność Wiedzy.\n• Wykonuje zwykłą modlitwę lub ceremonię, która nie ma wywołać nadnaturalnego efektu."
+      }
+    },
+    {
+      "name": "Nawigacja",
+      "type": "skill",
+      "img": "icons/tools/navigation/compass-brass-blue-red.webp",
+      "system": {
+        "description": "<p>Nawigacja reprezentuje praktyczną zdolność wyznaczania drogi, orientowania się w terenie i bezpiecznego prowadzenia grupy do celu. Obejmuje korzystanie z map, kompasów, gwiazd i charakterystycznych punktów terenu, a także ocenianie odległości, kierunku oraz czasu podróży.</p>",
+        "source": "Warcraft Genesys",
+        "characteristic": "intellect",
+        "category": "general",
+        "initiative": false,
+        "career": false,
+        "rank": 0,
+        "useWhen": "• Wyznacza trasę przez nieznany teren albo próbuje ustalić swoje położenie.\n• Korzysta z mapy, kompasu, gwiazd lub punktów orientacyjnych, aby dotrzeć do celu.\n• Ocenia czas podróży, odległość albo najbezpieczniejszy kierunek marszu.",
+        "doNotUseWhen": "• Próbuje przypomnieć sobie położenie krainy, miasta albo informacje o miejscowej kulturze. Do tego służy Wiedza (Geografia).\n• Rozbija obóz, zdobywa pożywienie albo radzi sobie z innymi praktycznymi zagrożeniami dziczy. Do tego służy Sztuka Przetrwania.\n• Steruje pojazdem lub obsługuje jego systemy w wymagającej sytuacji. Do tego służy odpowiednia umiejętność prowadzenia lub Obsługa sprzętu."
+      }
+    }
+  ]
+}

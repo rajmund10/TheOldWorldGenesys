@@ -165,6 +165,14 @@
 						"effects": "Możesz wydać 10 PD na zakup specjalizacji Oficera.",
 						"isAlternative": false
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek",
+					"elf-wysokiego-rodu",
+					"lesny-elf"
 				]
 			},
 			"flags": {
@@ -663,6 +671,18 @@
 						"effects": "Postać może zmienić swoją klasę społeczną na Klasę Średnią. Gdy postać testuje Negocjacje w celu uzgodnienia kontraktu, zwiększa ofertę podstawową o 20% za każdy sukces poza pierwszym.",
 						"isAlternative": true
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek",
+					"niziolek",
+					"krasnolud",
+					"elf-wysokiego-rodu",
+					"lesny-elf",
+					"imperialny-ogr",
+					"gnom"
 				]
 			},
 			"flags": {
@@ -1087,6 +1107,18 @@
 						"effects": "Możesz zmienić swój status społeczny na Elitę. Możesz wydać 20 PD na zakup talentu Władczy Ton.",
 						"isAlternative": false
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek",
+					"niziolek",
+					"krasnolud",
+					"elf-wysokiego-rodu",
+					"lesny-elf",
+					"imperialny-ogr",
+					"gnom"
 				]
 			},
 			"flags": {
@@ -1603,6 +1635,18 @@
 						"effects": "Postać może zmienić klasę społeczną na Klasę Średnią. Raz na spotkanie możesz wydać Punkt Opowieści, by do końca spotkania postać zignorowała skutki jednego Urazu Krytycznego.",
 						"isAlternative": false
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek",
+					"niziolek",
+					"krasnolud",
+					"elf-wysokiego-rodu",
+					"lesny-elf",
+					"imperialny-ogr",
+					"gnom"
 				]
 			},
 			"flags": {
@@ -2147,6 +2191,17 @@
 						"effects": "Postać może użyć talentu Sokole Oko dwa razy podczas spotkania, a nie raz. Możesz wydać 25 PD na zakup talentu W Czuły Punkt.",
 						"isAlternative": true
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek",
+					"niziolek",
+					"krasnolud",
+					"elf-wysokiego-rodu",
+					"lesny-elf",
+					"gnom"
 				]
 			},
 			"flags": {
@@ -2643,6 +2698,14 @@
 						"effects": "Rzemiosło jest teraz umiejętnością związaną z profesją postaci. Możesz wydać 15 PD na zakup talentu Regularne Naprawy.",
 						"isAlternative": true
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek",
+					"niziolek",
+					"elf-wysokiego-rodu"
 				]
 			},
 			"flags": {

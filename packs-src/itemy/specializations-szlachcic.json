@@ -56,6 +56,17 @@
 						"effects": "Możesz wydać 15 PD na zakup talentu Druzgocąca Riposta.",
 						"isAlternative": false
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek",
+					"niziolek",
+					"krasnolud",
+					"elf-wysokiego-rodu",
+					"lesny-elf",
+					"gnom"
 				]
 			},
 			"flags": {
@@ -449,6 +460,15 @@
 						"effects": "Możesz wydać 25 PD na zakup talentu Druzgocąca Riposta.",
 						"isAlternative": true
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek",
+					"niziolek",
+					"elf-wysokiego-rodu",
+					"lesny-elf"
 				]
 			},
 			"flags": {
@@ -961,6 +981,14 @@
 						"effects": "Możesz użyć talentu Inspirujący Zew dwa razy na spotkanie zamiast raz. Możesz wydać 10 PD na zakup specjalizacji Oficera.",
 						"isAlternative": false
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek",
+					"elf-wysokiego-rodu",
+					"lesny-elf"
 				]
 			},
 			"flags": {
@@ -1405,6 +1433,15 @@
 						"effects": "Możesz wydać 20 PD na zakup talentu Śmiertelny Szał.",
 						"isAlternative": true
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek",
+					"krasnolud",
+					"elf-wysokiego-rodu",
+					"gnom"
 				]
 			},
 			"flags": {

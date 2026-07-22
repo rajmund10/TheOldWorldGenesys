@@ -25,7 +25,7 @@ export default class GameProfileSelector extends VueSheet(Application) {
 			...super.defaultOptions,
 			classes: ['app-game-profile-selector'],
 			width: 680,
-			height: 'auto',
+			height: 420,
 			title: game.i18n.localize('Genesys.Settings.GameProfile'),
 		};
 	}

@@ -22,6 +22,7 @@ export default abstract class SpecializationDataModel extends BaseItemDataModel 
 	abstract key: string;
 	abstract cost: number;
 	abstract requirements: string;
+	abstract allowedArchetypeKeys: string[];
 	abstract benefits: string;
 	abstract socialStatus: string;
 	abstract careerSkills: string[];
@@ -37,6 +38,7 @@ export default abstract class SpecializationDataModel extends BaseItemDataModel 
 			key: new fields.StringField({ initial: '', blank: true }),
 			cost: new fields.NumberField({ integer: true, initial: 0, min: 0 }),
 			requirements: new fields.HTMLField(),
+			allowedArchetypeKeys: new fields.ArrayField(new fields.StringField({ initial: '', blank: false })),
 			benefits: new fields.HTMLField(),
 			socialStatus: new fields.StringField({ initial: '', blank: true }),
 			careerSkills: new fields.ArrayField(new fields.StringField({ initial: '', blank: true })),

@@ -5580,7 +5580,11 @@
 								}
 							}
 						}
-					]
+					],
+					"gameProfiles": [
+						"old-world"
+					],
+					"key": "czlowiek"
 				},
 				"flags": {
 					"oldWorldArchetypeImport": {
@@ -6615,7 +6619,11 @@
 								}
 							}
 						}
-					]
+					],
+					"gameProfiles": [
+						"old-world"
+					],
+					"key": "elf-wysokiego-rodu"
 				},
 				"flags": {
 					"oldWorldArchetypeImport": {
@@ -7451,7 +7459,11 @@
 								}
 							}
 						}
-					]
+					],
+					"gameProfiles": [
+						"old-world"
+					],
+					"key": "gnom"
 				},
 				"flags": {
 					"oldWorldArchetypeImport": {
@@ -8030,7 +8042,11 @@
 								}
 							}
 						}
-					]
+					],
+					"gameProfiles": [
+						"old-world"
+					],
+					"key": "imperialny-ogr"
 				},
 				"flags": {
 					"oldWorldArchetypeImport": {
@@ -9209,7 +9225,10 @@
 							"img": "icons/svg/item-bag.svg"
 						}
 					],
-					"selectedSkillIDs": []
+					"selectedSkillIDs": [],
+					"gameProfiles": [
+						"old-world"
+					]
 				},
 				"flags": {
 					"oldWorldCareerImport": {
@@ -9962,7 +9981,11 @@
 								}
 							}
 						}
-					]
+					],
+					"gameProfiles": [
+						"old-world"
+					],
+					"key": "krasnolud"
 				},
 				"flags": {
 					"oldWorldArchetypeImport": {
@@ -10800,7 +10823,11 @@
 								}
 							}
 						}
-					]
+					],
+					"gameProfiles": [
+						"old-world"
+					],
+					"key": "lesny-elf"
 				},
 				"flags": {
 					"oldWorldArchetypeImport": {
@@ -11268,7 +11295,10 @@
 							"img": "icons/svg/item-bag.svg"
 						}
 					],
-					"selectedSkillIDs": []
+					"selectedSkillIDs": [],
+					"gameProfiles": [
+						"old-world"
+					]
 				},
 				"flags": {
 					"oldWorldCareerImport": {
@@ -14555,7 +14585,11 @@
 								}
 							}
 						}
-					]
+					],
+					"gameProfiles": [
+						"old-world"
+					],
+					"key": "niziolek"
 				},
 				"flags": {
 					"oldWorldArchetypeImport": {
@@ -22657,7 +22691,10 @@
 							"img": "icons/svg/item-bag.svg"
 						}
 					],
-					"selectedSkillIDs": []
+					"selectedSkillIDs": [],
+					"gameProfiles": [
+						"old-world"
+					]
 				},
 				"flags": {
 					"oldWorldCareerImport": {
@@ -24539,7 +24576,10 @@
 							"img": "icons/svg/item-bag.svg"
 						}
 					],
-					"selectedSkillIDs": []
+					"selectedSkillIDs": [],
+					"gameProfiles": [
+						"old-world"
+					]
 				},
 				"flags": {
 					"oldWorldCareerImport": {
@@ -25725,7 +25765,10 @@
 							"img": "icons/svg/item-bag.svg"
 						}
 					],
-					"selectedSkillIDs": []
+					"selectedSkillIDs": [],
+					"gameProfiles": [
+						"old-world"
+					]
 				},
 				"flags": {
 					"oldWorldCareerImport": {
@@ -26387,7 +26430,10 @@
 							"img": "icons/svg/item-bag.svg"
 						}
 					],
-					"selectedSkillIDs": []
+					"selectedSkillIDs": [],
+					"gameProfiles": [
+						"old-world"
+					]
 				},
 				"flags": {
 					"oldWorldCareerImport": {
@@ -29734,7 +29780,10 @@
 							"img": "icons/svg/item-bag.svg"
 						}
 					],
-					"selectedSkillIDs": []
+					"selectedSkillIDs": [],
+					"gameProfiles": [
+						"old-world"
+					]
 				},
 				"flags": {
 					"oldWorldCareerImport": {

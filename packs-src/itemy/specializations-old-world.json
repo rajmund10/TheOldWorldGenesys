@@ -87,6 +87,17 @@
 						"effects": "Przywództwo jest teraz umiejętnością związaną z profesją twojej postaci. Możesz wydać 10 PD na zakup talentu Szef.",
 						"isAlternative": true
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek",
+					"niziolek",
+					"krasnolud",
+					"lesny-elf",
+					"imperialny-ogr",
+					"gnom"
 				]
 			},
 			"flags": {
@@ -523,6 +534,18 @@
 						"effects": "Przywództwo jest teraz umiejętnością związaną z profesją postaci. Możesz wydać 10 PD na zakup talentu Szef.",
 						"isAlternative": true
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek",
+					"niziolek",
+					"krasnolud",
+					"elf-wysokiego-rodu",
+					"lesny-elf",
+					"imperialny-ogr",
+					"gnom"
 				]
 			},
 			"flags": {
@@ -979,6 +1002,17 @@
 						"effects": "Alchemia jest teraz umiejętnością związaną z profesją twojej postaci. Możesz wydać 25 PD na zakup talentu Zatrute Ostrze (Krainy Terrinoth).",
 						"isAlternative": true
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek",
+					"niziolek",
+					"krasnolud",
+					"elf-wysokiego-rodu",
+					"lesny-elf",
+					"gnom"
 				]
 			},
 			"flags": {
@@ -1349,6 +1383,17 @@
 						"effects": "Możesz wydać 25 PD na zakup talentu Mistrz.",
 						"isAlternative": false
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek",
+					"niziolek",
+					"krasnolud",
+					"elf-wysokiego-rodu",
+					"lesny-elf",
+					"gnom"
 				]
 			},
 			"flags": {
@@ -1776,6 +1821,17 @@
 						"effects": "Możesz wydać 25 PD, aby zwiększyć Spryt, Wolę lub Prezencję o jeden. Nie może to podnieść wybranej cechy powyżej 5.",
 						"isAlternative": false
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek",
+					"niziolek",
+					"krasnolud",
+					"elf-wysokiego-rodu",
+					"lesny-elf",
+					"gnom"
 				]
 			},
 			"flags": {
@@ -2177,6 +2233,17 @@
 						"effects": "Możesz wydać 15 PD na zakup talentu Zwiad. Triumfy wygenerowane przez postać w testach Machlojek mogą zostać wydane, aby sprawić, że wszystko, co postać zrobiła lub próbowała zrobić, zostało odkryte dopiero po dniach, a nawet miesiącach.",
 						"isAlternative": true
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek",
+					"niziolek",
+					"krasnolud",
+					"lesny-elf",
+					"imperialny-ogr",
+					"gnom"
 				]
 			},
 			"flags": {
@@ -2603,6 +2670,15 @@
 						"effects": "Raz na sesję twoja postać może poprosić członków swojej gildii o jedną Dużą Przysługę.",
 						"isAlternative": false
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek",
+					"niziolek",
+					"krasnolud",
+					"gnom"
 				]
 			},
 			"flags": {
@@ -2942,6 +3018,14 @@
 						"effects": "Możesz wydać 25 PD na zakup talentu Mistrz.",
 						"isAlternative": true
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek",
+					"krasnolud",
+					"imperialny-ogr"
 				]
 			},
 			"flags": {
@@ -3370,6 +3454,18 @@
 						"effects": "Możesz zmienić swój status społeczny na Elitę. Możesz użyć talentu Koneksje na Postaciach Niezależnych o statusie społecznym Elita.",
 						"isAlternative": false
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek",
+					"niziolek",
+					"krasnolud",
+					"elf-wysokiego-rodu",
+					"lesny-elf",
+					"imperialny-ogr",
+					"gnom"
 				]
 			},
 			"flags": {
@@ -3808,6 +3904,18 @@
 						"effects": "Przywództwo jest teraz umiejętnością związaną z profesją twojej postaci. Twoja postać ma teraz status społeczny Elita. Możesz wydać 10 PD na zakup talentu Szef.",
 						"isAlternative": false
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek",
+					"niziolek",
+					"krasnolud",
+					"elf-wysokiego-rodu",
+					"lesny-elf",
+					"imperialny-ogr",
+					"gnom"
 				]
 			},
 			"flags": {
@@ -4147,6 +4255,17 @@
 						"effects": "Możesz wydać 10 PD na zakup talentu Orator. Możesz wydać 25 PD na zakup talentu Druzgocąca Riposta.",
 						"isAlternative": true
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek",
+					"niziolek",
+					"krasnolud",
+					"elf-wysokiego-rodu",
+					"lesny-elf",
+					"gnom"
 				]
 			},
 			"flags": {
@@ -4518,6 +4637,17 @@
 						"effects": "Możesz wydać 25 PD, aby zwiększyć jedną z następujących cech o jeden: Intelekt, Spryt, Wola. Nie może to podnieść wybranej cechy powyżej 5.",
 						"isAlternative": false
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek",
+					"niziolek",
+					"krasnolud",
+					"elf-wysokiego-rodu",
+					"lesny-elf",
+					"gnom"
 				]
 			},
 			"flags": {
@@ -4896,6 +5026,12 @@
 						"effects": "Postać wzmacnia zdolność w testach społecznych, których celem są inni czarodzieje dwa razy zamiast raz.",
 						"isAlternative": false
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek"
 				]
 			},
 			"flags": {
@@ -5290,6 +5426,12 @@
 						"effects": "Postać wzmacnia zdolność w testach społecznych, których celem są inni czarodzieje dwa razy zamiast raz.",
 						"isAlternative": false
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek"
 				]
 			},
 			"flags": {
@@ -5692,6 +5834,12 @@
 						"effects": "Postać wzmacnia zdolność w testach społecznych, których celem są inni czarodzieje dwa razy zamiast raz.",
 						"isAlternative": false
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek"
 				]
 			},
 			"flags": {
@@ -6032,6 +6180,12 @@
 						"effects": "Postać wzmacnia zdolność w testach społecznych, których celem są inni czarodzieje dwa razy zamiast raz.",
 						"isAlternative": false
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek"
 				]
 			},
 			"flags": {
@@ -6427,6 +6581,12 @@
 						"effects": "Postać wzmacnia zdolność w testach społecznych, których celem są inni czarodzieje dwa razy zamiast raz.",
 						"isAlternative": false
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek"
 				]
 			},
 			"flags": {
@@ -6822,6 +6982,12 @@
 						"effects": "Postać wzmacnia zdolność w testach społecznych, których celem są inni czarodzieje dwa razy zamiast raz.",
 						"isAlternative": false
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek"
 				]
 			},
 			"flags": {
@@ -7216,6 +7382,12 @@
 						"effects": "Postać wzmacnia zdolność w testach społecznych, których celem są inni czarodzieje dwa razy zamiast raz.",
 						"isAlternative": false
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek"
 				]
 			},
 			"flags": {
@@ -7610,6 +7782,12 @@
 						"effects": "Postać wzmacnia zdolność w testach społecznych, których celem są inni czarodzieje dwa razy zamiast raz.",
 						"isAlternative": false
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek"
 				]
 			},
 			"flags": {
@@ -7981,6 +8159,12 @@
 						"effects": "Postać może dodać do cudów Uzdrowienia dodatkowy efekt - Ocucenie Obezwładnionego. Możesz wydać 10 PD na zakup talentu Porozmawiajmy.",
 						"isAlternative": false
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek"
 				]
 			},
 			"flags": {
@@ -8453,6 +8637,12 @@
 						"effects": "Kiedy postać rzuca cud Ataku z efektem Walka w zwarciu podczas posługiwania się młotem lub młotem bojowym, zwiększa podstawowe obrażenia zaklęcia o obrażenia od broni i dodaje efekt Zabójczość za darmo. Nie można łączyć tego efektu z magicznymi akcesoriami.",
 						"isAlternative": true
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek"
 				]
 			},
 			"flags": {
@@ -8828,6 +9018,17 @@
 						"effects": "Możesz wydać 15 PD na zakup talentu Chirurgia Polowa.",
 						"isAlternative": true
 					}
+				],
+				"gameProfiles": [
+					"old-world"
+				],
+				"allowedArchetypeKeys": [
+					"czlowiek",
+					"niziolek",
+					"krasnolud",
+					"elf-wysokiego-rodu",
+					"lesny-elf",
+					"gnom"
 				]
 			},
 			"flags": {

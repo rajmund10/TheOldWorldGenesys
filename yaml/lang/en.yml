@@ -32,25 +32,57 @@ Genesys:
   System:
     Name: Genesys
 
+  Item:
+    GameProfiles: Game world availability
+    GameProfilesHint: The item appears in tools such as the character creator only for the selected worlds.
+
+  CharacterCreation:
+    WelcomeTitle: Start Creating a Character
+    WelcomeHint: Use the guided creator with compendium data or open a completely blank character sheet.
+    UseCreator: Create with the Wizard
+    UseBlankSheet: Open a Blank Sheet
+    CreatorTitle: Character Creator
+    Archetype: Archetype or Species
+    Career: Career
+    Specialization: Specialization
+    CareerSkills: Free Career Skill Ranks
+    CareerSkillsHint: Select exactly {count} skills.
+    NoOptions: No matching compendium entries are available for this game world.
+    Back: Back
+    Create: Create Character
+    Creating: Creating character...
+    LoadError: Character creator data could not be loaded from the compendium.
+    ValidationError: Complete the required choices before creating the character.
+
+  SkillGuidance:
+    MenuLabel: Usage
+    Title: Skill usage
+    Characteristic: Characteristic
+    UseWhen: Use when
+    DoNotUseWhen: Do not use when
+    Missing: No usage description is available for this skill.
+    MissingSection: No additional guidance is available.
+    Close: Close
+
   # System Settings
   Settings:
     SkillsCompendium: Skills Compendium
     SkillsCompendiumHint: An Item compendium containing all of the skills that should be applied to new characters. Changing this value will have no impact on existing characters.
     GameProfile: Game Profile
-    GameProfileHint: Choose which Genesys variant this world uses. The profile switches the default character sheet and the currency/price model.
+    GameProfileHint: Choose a game world. The profile determines its default character sheet and rules.
     GameProfileChoose: Choose Game World
     GameProfileCurrent: Current selection
     GameProfileConfirm: Confirm Selection
     GameProfileConfigured: Game Profile Configured
     GameProfileConfiguredHint: Hidden first-run world setup flag. If disabled, the GM sees profile tiles after entering the world.
     GameProfileGenesys: Genesys
-    GameProfileGenesysHint: A blank stage where the table decides what kind of story it wants to tell.
+    GameProfileGenesysHint: The core Genesys experience, ready for any world and any story.
     GameProfileOldWorld: 'The Old World: Grim and Perilous'
-    GameProfileOldWorldHint: Muddy streets, old cathedrals, and a war that never quite lets go.
+    GameProfileOldWorldHint: In Warhammer's Old World, corruption, betrayal, and grim glory wait around every corner.
     GameProfileAurora: Aurora
     GameProfileAuroraHint: A private world under a cold sky, with room for stories still waiting to be named.
     GameProfileWarcraft: Warcraft
-    GameProfileWarcraftHint: War, magic, and ancient kingdoms that never truly sleep.
+    GameProfileWarcraftHint: In Azeroth, heroes stand between mighty magic, eternal war, and the fate of the entire world.
     DefaultDifficulty: Default Difficulty
     DefaultDifficultyHint: >-
       The default dice pool modifications that should be added to the dice pool when doing a check. This default might be ignored in cases were the difficulty is known.
@@ -394,6 +426,8 @@ Genesys:
     SpecializationData: Specialization Data
     Cost: XP Cost
     Requirements: Requirements
+    AllowedArchetypes: Allowed Archetypes
+    AllowedArchetypesHint: Comma-separated archetype keys. An empty list means unrestricted.
     Benefits: Benefits
     SocialStatus: Social Status
     CareerSkills: Specialization Career Skills
@@ -620,6 +654,7 @@ Genesys:
 
   # Archetype Data
   Archetype:
+    Key: Archetype Key
     Abilities: Archetype Abilities
     StartingWounds: Starting Wound Threshold
     StartingStrain: Starting Strain Threshold
@@ -688,6 +723,7 @@ Genesys:
       Moderate: Moderate Damage
       Major: Major Damage
     Dropdown:
+      RemoveFromContainer: Take out of container
       Equip: Equip
       Unequip: Unequip
       Drop: Drop

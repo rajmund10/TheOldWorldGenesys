@@ -6,6 +6,7 @@ import { ItemSheetContext, RootContext } from '@/vue/SheetContext';
 import CareerDataModel from '@/item/data/CareerDataModel';
 import Editor from '@/vue/components/Editor.vue';
 import { DEFAULT_SKILLS_COMPENDIUM } from '@/config';
+import GameProfileFields from '@/vue/components/item/GameProfileFields.vue';
 
 const context = inject<ItemSheetContext<CareerDataModel>>(RootContext)!;
 const system = computed(() => context.data.item.systemData);
@@ -192,6 +193,8 @@ onMounted(() => {
 
 		<template v-slot:data>
 			<section class="data-grid">
+				<GameProfileFields :item="context.data.item" :model-value="system.gameProfiles" :editable="context.data.editable" />
+
 				<div class="row">
 					<label><Localized label="Genesys.Labels.Source" /></label>
 					<input type="text" name="system.source" :value="system.source" />

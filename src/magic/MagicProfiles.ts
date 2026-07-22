@@ -26,7 +26,7 @@ export type MagicActionDefinition = {
 export type ResolvedMagicProfile = {
 	enabled: boolean;
 	specializationName: string | null;
-	matchedBy: 'explicit' | 'fallback' | 'custom' | 'skill' | 'none';
+	matchedBy: 'explicit' | 'fallback' | 'custom' | 'skill' | 'talent' | 'none';
 	tradition: MagicTradition | null;
 	traditionLabel: string | null;
 	pathType: MagicPathType | null;
@@ -59,6 +59,10 @@ type SkillLike = {
 		rank?: number;
 		characteristic?: string;
 	};
+};
+
+type TalentLike = {
+	name: string;
 };
 
 export type MagicSkillSummary = {
@@ -560,6 +564,28 @@ export function findMagicSpecialization<T extends SpecializationLike>(specializa
 
 export function resolveMagicProfileFromSpecializations<T extends SpecializationLike>(specializations: Iterable<T | null | undefined>): ResolvedMagicProfile {
 	return resolveMagicProfileFromSpecialization(findMagicSpecialization(specializations));
+}
+
+/**
+ * Resolve Old World magic that depends on both a specialization and a purchased talent.
+ */
+export function resolveWarhammerMagicProfile<T extends SpecializationLike, U extends TalentLike>(
+	specializations: Iterable<T | null | undefined>,
+	talents: Iterable<U | null | undefined>,
+): ResolvedMagicProfile {
+	const specializationList = Array.from(specializations).filter((item): item is T => !!item);
+	const specializationProfile = resolveMagicProfileFromSpecializations(specializationList);
+	if (specializationProfile.enabled) {
+		return specializationProfile;
+	}
+
+	const specializationNames = new Set(specializationList.map((item) => normalizeName(item.name)));
+	const talentNames = new Set(Array.from(talents).filter((item): item is U => !!item).map((item) => normalizeName(item.name)));
+	if (specializationNames.has(normalizeName('Łowca Czarownic')) && talentNames.has(normalizeName('Świątynnik'))) {
+		return buildProfileFromDefinition(PROFILE_DEFINITIONS.sigmar, 'Łowca Czarownic', 'talent');
+	}
+
+	return resolveMagicProfileFromSpecialization(null);
 }
 
 export function findRankedMagicSkill<T extends SkillLike>(skills: Iterable<T | null | undefined>): T | null {

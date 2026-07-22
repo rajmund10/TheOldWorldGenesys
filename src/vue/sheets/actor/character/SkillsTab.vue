@@ -21,6 +21,7 @@ import { Characteristic as CharacteristicType } from '@/data/Characteristics';
 import type CharacterSheet from '@/actor/sheets/CharacterSheet';
 import { replaceDefaultSkillsForActor } from '@/actor/skills/DefaultSkills';
 import { purchaseAdvance } from '@/actor/advancement/AdvancementPurchase';
+import { showSkillDescription } from '@/app/SkillDescriptionPrompt';
 
 const context = inject<ActorSheetContext<CharacterDataModel, CharacterSheet>>(RootContext)!;
 const system = computed(() => context.data.actor.systemData);
@@ -68,6 +69,7 @@ const freeRankUpLabel = game.i18n.localize('Genesys.Labels.FreeRankUp');
 const freeRankDownLabel = game.i18n.localize('Genesys.Labels.FreeRankDown');
 const editLabel = game.i18n.localize('Genesys.Labels.Edit');
 const deleteLabel = game.i18n.localize('Genesys.Labels.Delete');
+const usageLabel = game.i18n.localize('Genesys.SkillGuidance.MenuLabel');
 
 async function rollSkill(skill: GenesysItem<SkillDataModel>) {
 	await DicePrompt.promptForRoll(toRaw(context.data.actor), skill.name);
@@ -119,6 +121,11 @@ async function toggleSuper(characteristic: CharacteristicType) {
 async function editSkill(skill: GenesysItem<SkillDataModel>) {
 	await toRaw(skill).sheet?.render(true);
 }
+
+async function showSkillUsage(skill: GenesysItem<SkillDataModel>) {
+	await showSkillDescription(toRaw(skill));
+}
+
 async function deleteSkill(skill: GenesysItem<SkillDataModel>) {
 	await toRaw(skill).delete();
 }
@@ -228,6 +235,11 @@ async function deleteSkill(skill: GenesysItem<SkillDataModel>) {
 								class="skill row"
 							>
 								<template v-slot:menu-items>
+									<MenuItem @click="showSkillUsage(skill)">
+										<template v-slot:icon><i class="fas fa-book-open"></i></template>
+										{{ usageLabel }}
+									</MenuItem>
+
 									<MenuItem @click="toggleCareerSkill(skill)" v-if="context.data.editable">
 										<template v-slot:icon><i :class="`${skill.systemData.career ? 'fas' : 'far'} fa-star`"></i></template>
 										{{ skill.systemData.career ? unmarkCareerLabel : markCareerLabel }}

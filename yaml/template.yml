@@ -170,6 +170,8 @@ Item:
       description: ''
       # Source (book & page reference).
       source: ''
+      # Game profiles in which this item is available to data-driven tools such as the character creator.
+      gameProfiles: []
     equipment:
       # Rarity Rating (0-10)
       rarity: 0
@@ -212,6 +214,8 @@ Item:
       detail: ''
   archetype:
     templates: [basic]
+    # Stable key used by character creation requirements.
+    key: ''
     # Characteristics values granted by the archetype.
     characteristics:
       brawn: 2
@@ -283,6 +287,10 @@ Item:
     category: 'general'
     # Whether the skill can be used for Initiative rolls.
     initiative: false
+    # Typical situations in which this skill should be tested.
+    useWhen: ''
+    # Situations which should be resolved with a different skill.
+    doNotUseWhen: ''
     # (Owned) Whether this skill is a career skill for the character.
     career: false
     # (Owned) Ranks the player has in the skill.
@@ -309,6 +317,8 @@ Item:
     cost: 0
     # Requirements to take this specialization
     requirements: ''
+    # Archetype keys allowed to select this specialization. Empty means unrestricted.
+    allowedArchetypeKeys: []
     # Benefits granted by the specialization
     benefits: ''
     # Social status shown on the character header when this specialization is active.

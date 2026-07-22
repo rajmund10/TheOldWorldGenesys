@@ -11,6 +11,7 @@ import GenesysItem from '@/item/GenesysItem';
 import BaseItemDataModel from '@/item/data/BaseItemDataModel';
 import GenesysItemSheet from '@/item/GenesysItemSheet';
 import GenesysActorSheet from '@/actor/GenesysActorSheet';
+import type { CharacterCreationCatalog } from '@/actor/creation/CharacterCreationCatalog';
 
 export type ContextBase = { [key: string]: any };
 
@@ -75,6 +76,11 @@ export interface ActorSheetContext<
 	 * Incremented by sheets when the Vue tree should refresh computed actor data.
 	 */
 	renderKey?: number;
+
+	needsCharacterSetup?: boolean;
+	characterCreationCatalog?: CharacterCreationCatalog | null;
+	useBlankCharacterSheet?: () => Promise<void>;
+	completeCharacterCreation?: (selection: { archetypeId: string; careerId: string; specializationId: string; careerSkillNames: string[] }) => Promise<boolean>;
 }
 
 export interface GenesysItemSheetData<ItemDataModel extends BaseItemDataModel = BaseItemDataModel> extends ItemSheetData<GenesysItem<ItemDataModel>> {

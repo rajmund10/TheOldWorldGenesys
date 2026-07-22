@@ -78,6 +78,45 @@ export const OLD_WORLD_SKILL_NAMES = [
 	'Żeglarstwo',
 ];
 
+export const WARCRAFT_SKILL_NAMES = [
+	'Alchemia',
+	'Atletyka',
+	'Opanowanie',
+	'Koordynacja',
+	'Dyscyplina',
+	'Mechanika',
+	'Medycyna',
+	'Nawigacja',
+	'Obsługa sprzętu',
+	'Percepcja',
+	'Odporność',
+	'Jeździectwo',
+	'Machlojki',
+	'Ukrywanie się',
+	'Znajomość Półświatka',
+	'Sztuka Przetrwania',
+	'Czujność',
+	'Bijatyka',
+	'Artyleria',
+	'Broń Biała (Ciężka)',
+	'Broń Biała (Lekka)',
+	'Broń Dystansowa',
+	'Urok Osobisty',
+	'Przymuszanie',
+	'Oszustwo',
+	'Przywództwo',
+	'Negocjacje',
+	'Wiedza (Przygody)',
+	'Wiedza (Zakazana)',
+	'Wiedza (Geografia)',
+	'Wiedza (Legendy)',
+	'Magia Tajemna',
+	'Magia Żywiołów',
+	'Magia Spaczenia',
+	'Magia Natury',
+	'Światłość',
+];
+
 const BUILT_IN_SKILL_PACKS = ['genesys.core-skills-polish'];
 
 function normalizeSkillName(name: string) {
@@ -92,6 +131,7 @@ function cleanSkillData(skill: GenesysItem<SkillDataModel>) {
 	delete (data as any).flags;
 	delete (data as any).folder;
 	delete (data as any).sort;
+
 	return data;
 }
 
@@ -147,6 +187,64 @@ export async function addDefaultSkillsToActor(actor: GenesysActor<CharacterDataM
 	}
 
 	return skillData.length;
+}
+
+export async function deduplicateActorSkills(actor: GenesysActor<CharacterDataModel>) {
+	const groups = new Map<string, GenesysItem<SkillDataModel>[]>();
+	for (const skill of actor.items.filter((item) => item.type === 'skill') as GenesysItem<SkillDataModel>[]) {
+		const key = normalizeSkillName(skill.name);
+		groups.set(key, [...(groups.get(key) ?? []), skill]);
+	}
+
+	const duplicateIds: string[] = [];
+	for (const skills of groups.values()) {
+		if (skills.length < 2) continue;
+		const [keeper, ...duplicates] = skills;
+		const highestRank = Math.max(...skills.map((skill) => skill.systemData.rank));
+		const isCareer = skills.some((skill) => skill.systemData.career);
+		if (keeper.systemData.rank !== highestRank || keeper.systemData.career !== isCareer) {
+			await keeper.update({
+				'system.rank': highestRank,
+				'system.career': isCareer,
+			});
+		}
+		duplicateIds.push(...duplicates.map((skill) => skill.id));
+	}
+
+	if (duplicateIds.length) {
+		await actor.deleteEmbeddedDocuments('Item', duplicateIds);
+	}
+	return duplicateIds.length;
+}
+
+export async function backfillSkillGuidanceForActor(actor: GenesysActor<CharacterDataModel>) {
+	const skills = actor.items.filter((item) => item.type === 'skill') as GenesysItem<SkillDataModel>[];
+	const sourceSkills = await getSkillDocuments(skills.map((skill) => skill.name));
+	const sourceByName = new Map(sourceSkills.map((skill) => [normalizeSkillName(skill.name), skill]));
+
+	await Promise.all(
+		skills.map(async (skill) => {
+			const sourceSkill = sourceByName.get(normalizeSkillName(skill.name));
+			if (!sourceSkill) {
+				return;
+			}
+
+			const update: Record<string, string> = {};
+			if (sourceSkill.systemData.description?.trim() && skill.systemData.description !== sourceSkill.systemData.description) {
+				update['system.description'] = sourceSkill.systemData.description;
+			}
+			if (sourceSkill.systemData.useWhen?.trim() && skill.systemData.useWhen !== sourceSkill.systemData.useWhen) {
+				update['system.useWhen'] = sourceSkill.systemData.useWhen;
+			}
+			if (sourceSkill.systemData.doNotUseWhen?.trim() && skill.systemData.doNotUseWhen !== sourceSkill.systemData.doNotUseWhen) {
+				update['system.doNotUseWhen'] = sourceSkill.systemData.doNotUseWhen;
+			}
+
+			if (Object.keys(update).length) {
+				await skill.update(update);
+			}
+		}),
+	);
 }
 
 export async function replaceDefaultSkillsForActor(actor: GenesysActor<CharacterDataModel>, skillNames: string[], notify = true) {

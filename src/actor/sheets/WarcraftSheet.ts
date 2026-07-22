@@ -6,14 +6,21 @@
  */
 
 import CharacterSheet from '@/actor/sheets/CharacterSheet';
+import { WARCRAFT_SKILL_NAMES } from '@/actor/skills/DefaultSkills';
+import VueWarcraftCharacterSheet from '@/vue/sheets/actor/WarcraftCharacterSheet.vue';
 
 /**
- * Placeholder Warcraft character sheet.
- *
- * It currently mirrors the base Genesys sheet, but keeps its own registration
- * and profile id so Warcraft-specific skills and rules can be wired in later.
+ * Warcraft character sheet using the setting's own skill and currency profile.
  */
 export default class WarcraftSheet extends CharacterSheet {
+	override get vueComponent() {
+		return VueWarcraftCharacterSheet;
+	}
+
+	override get defaultSkillNames() {
+		return WARCRAFT_SKILL_NAMES;
+	}
+
 	override get defaultSkillProfileId() {
 		return 'warcraft';
 	}

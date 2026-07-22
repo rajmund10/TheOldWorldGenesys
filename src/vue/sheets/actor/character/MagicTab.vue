@@ -8,7 +8,8 @@ import { EquipmentState } from '@/item/data/EquipmentDataModel';
 import MagicAccessoryDataModel from '@/item/data/MagicAccessoryDataModel';
 import SkillDataModel from '@/item/data/SkillDataModel';
 import SpecializationDataModel from '@/item/data/SpecializationDataModel';
-import { findMagicSpecialization, findRankedMagicSkill, getMagicActionDefinitions, getMagicSkillNameAliases, hasMagicRank, resolveMagicProfileFromSkill, resolveMagicProfileFromSpecialization, type MagicActionDefinition } from '@/magic/MagicProfiles';
+import TalentDataModel from '@/item/data/TalentDataModel';
+import { findRankedMagicSkill, getMagicActionDefinitions, getMagicSkillNameAliases, hasMagicRank, resolveMagicProfileFromSkill, resolveWarhammerMagicProfile, type MagicActionDefinition } from '@/magic/MagicProfiles';
 import { arrayFromItems } from '@/utils/collection';
 import { ActorSheetContext, RootContext } from '@/vue/SheetContext';
 
@@ -36,11 +37,20 @@ function t(key: string, fallback: string, formatArgs?: Record<string, string | n
 	return fallback;
 }
 
-const specializations = computed(() => arrayFromItems<GenesysItem<SpecializationDataModel>>(actor.value.items).filter((item) => item.type === 'specialization'));
-const magicSpecialization = computed(() => findMagicSpecialization(specializations.value));
-const skills = computed(() => arrayFromItems<GenesysItem<SkillDataModel>>(actor.value.items).filter((item) => item.type === 'skill'));
+const specializations = computed(() => {
+	context.renderKey;
+	return arrayFromItems<GenesysItem<SpecializationDataModel>>(actor.value.items).filter((item) => item.type === 'specialization');
+});
+const talents = computed(() => {
+	context.renderKey;
+	return arrayFromItems<GenesysItem<TalentDataModel>>(actor.value.items).filter((item) => item.type === 'talent');
+});
+const skills = computed(() => {
+	context.renderKey;
+	return arrayFromItems<GenesysItem<SkillDataModel>>(actor.value.items).filter((item) => item.type === 'skill');
+});
 const rankedMagicSkill = computed(() => findRankedMagicSkill(skills.value));
-const profile = computed(() => (props.profileSource === 'skill' ? resolveMagicProfileFromSkill(rankedMagicSkill.value) : resolveMagicProfileFromSpecialization(magicSpecialization.value)));
+const profile = computed(() => (props.profileSource === 'skill' ? resolveMagicProfileFromSkill(rankedMagicSkill.value) : resolveWarhammerMagicProfile(specializations.value, talents.value)));
 
 const primarySkill = computed(() => {
 	const skillNames = getMagicSkillNameAliases(profile.value.primarySkillName).map((name) => name.toLowerCase());

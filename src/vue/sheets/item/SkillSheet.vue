@@ -16,6 +16,16 @@ const system = computed(() => context.data.item.systemData);
 	<BasicItemSheet show-effects-tab>
 		<template v-slot:data>
 			<section class="data-grid">
+				<div class="row skill-guidance-field">
+					<label><Localized label="Genesys.SkillGuidance.UseWhen" /></label>
+					<textarea name="system.useWhen" :value="system.useWhen" rows="4"></textarea>
+				</div>
+
+				<div class="row skill-guidance-field">
+					<label><Localized label="Genesys.SkillGuidance.DoNotUseWhen" /></label>
+					<textarea name="system.doNotUseWhen" :value="system.doNotUseWhen" rows="4"></textarea>
+				</div>
+
 				<div class="row">
 					<label><Localized label="Genesys.Labels.Characteristic" /></label>
 					<select name="system.characteristic" :value="system.characteristic">
@@ -54,3 +64,15 @@ const system = computed(() => context.data.item.systemData);
 		</template>
 	</BasicItemSheet>
 </template>
+
+<style lang="scss" scoped>
+.skill-guidance-field {
+	align-items: start !important;
+
+	textarea {
+		width: 100%;
+		min-height: 5rem;
+		resize: vertical;
+	}
+}
+</style>

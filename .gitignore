@@ -27,4 +27,6 @@ yarn-*.log
 /macros/
 /talenty/
 /screenshots/
+/docs/PRZEWODNIK-PL.md
+/docs/TWORZENIE-ZAWARTOSCI-PL.md
 debug_*.js

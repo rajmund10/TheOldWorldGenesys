@@ -16,8 +16,10 @@ import MagicTab from '@/vue/sheets/actor/character/MagicTab.vue';
 import InventoryTab from '@/vue/sheets/actor/character/InventoryTab.vue';
 import CombatTab from '@/vue/sheets/actor/character/CombatTab.vue';
 import SpecializationDataModel from '@/item/data/SpecializationDataModel';
+import TalentDataModel from '@/item/data/TalentDataModel';
 import GenesysItem from '@/item/GenesysItem';
-import { resolveMagicProfileFromSpecializations } from '@/magic/MagicProfiles';
+import { resolveWarhammerMagicProfile } from '@/magic/MagicProfiles';
+import CharacterCreation from '@/vue/components/character/CharacterCreation.vue';
 
 const context = inject<ActorSheetContext<CharacterDataModel>>(RootContext)!;
 const actor = computed(() => {
@@ -32,7 +34,11 @@ const specializations = computed(() => {
 	context.renderKey;
 	return arrayFromItems<GenesysItem<SpecializationDataModel>>(actor.value.items).filter((item) => item.type === 'specialization');
 });
-const hasMagicAccess = computed(() => resolveMagicProfileFromSpecializations(specializations.value).enabled);
+const talents = computed(() => {
+	context.renderKey;
+	return arrayFromItems<GenesysItem<TalentDataModel>>(actor.value.items).filter((item) => item.type === 'talent');
+});
+const hasMagicAccess = computed(() => resolveWarhammerMagicProfile(specializations.value, talents.value).enabled);
 
 const effects = ref<any>([]);
 
@@ -56,7 +62,8 @@ onBeforeUpdate(updateEffects);
 </script>
 
 <template>
-	<div class="character-sheet warhammer-sheet">
+	<CharacterCreation v-if="context.needsCharacterSetup" />
+	<div v-else class="character-sheet warhammer-sheet">
 		<CharacterMeta />
 
 		<section class="combat-stat-row">
