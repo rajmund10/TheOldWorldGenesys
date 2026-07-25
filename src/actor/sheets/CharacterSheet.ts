@@ -25,6 +25,7 @@ import { transferInventoryBetweenActors } from '@/operations/TransferBetweenActo
 import { EquipmentState } from '@/item/data/EquipmentDataModel';
 import { addDefaultSkillsToActor, backfillSkillGuidanceForActor, deduplicateActorSkills, GENESYS_CORE_SKILL_NAMES, replaceDefaultSkillsForActor } from '@/actor/skills/DefaultSkills';
 import { purchaseAdvance } from '@/actor/advancement/AdvancementPurchase';
+import { isCareerAllowedForArchetype } from '@/actor/abilities/RacialAbilities';
 import { getCurrencyLabelForProfile, getCurrencyModeForProfile, getGameProfile } from '@/system/GameProfile';
 import { loadCharacterCreationCatalog, CHARACTER_CREATION_COMPENDIUM, specializationMatchesArchetype, specializationMatchesCareer } from '@/actor/creation/CharacterCreationCatalog';
 
@@ -403,6 +404,14 @@ export default class CharacterSheet extends VueSheet(GenesysActorSheet<Character
 				clonedDroppedItem = await super._onDropItem(event, data);
 			} else if (droppedItem.type === 'career') {
 				// If it's a career, delete the old one and apply the new one.
+				const archetype = this.actor.items.find((item) => item.type === 'archetype') as GenesysItem<ArchetypeDataModel> | undefined;
+				if (archetype && !isCareerAllowedForArchetype(archetype.systemData.key, (droppedItem as GenesysItem<CareerDataModel>).systemData.key)) {
+					ui.notifications.warn(game.i18n.format('Genesys.RacialAbilities.CareerRestriction', {
+						archetype: archetype.name,
+						career: droppedItem.name,
+					}));
+					return false;
+				}
 
 				if (this.actor.systemData.experienceJournal.entries.some((entry) => entry.type === EntryType.Skill)) {
 					return false;

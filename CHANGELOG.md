@@ -1,3 +1,12 @@
+## Wersja 1.1.4
+### Walka i efekty
+- Rozbudowano mechaniczne działanie Parady, cech broni i rozstrzygania obrażeń.
+- Dodano uwzględnianie różnicy sylwetek atakującego i celu podczas budowania trudności testu.
+- Dodano statusy bojowe zintegrowane z Active Effects i statusami powiązanych tokenów.
+- Na karcie walki dodano checkboxy Zdezorientowania, Unieruchomienia i Zamroczenia wraz z opisami.
+- Zachowano Powalenie i Płonięcie jako statusy dostępne z poziomu tokena.
+- Poprawiono zgodność obsługi statusów z Foundry VTT 13 i 14.
+
 ## Wersja 1.1.3
 ### Najważniejsze zmiany
 - Dodano profile gry Genesys, The Old World: Grim and Perilous oraz Warcraft, które wybierają odpowiednią kartę postaci, walutę, ceny i listę umiejętności.

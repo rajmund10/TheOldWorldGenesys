@@ -15,6 +15,7 @@ import VehicleWeaponDataModel from '@/item/data/VehicleWeaponDataModel';
 import { buildChaosManifestationRollData, type ChaosManifestationRollMetadata } from '@/magic/ChaosManifestations';
 import { buildAttackResolutionFlag, maybeCreateAttackDefensePrompt } from '@/combat/AttackResolution';
 import { buildSymbolSpendingFlag } from '@/dice/SymbolSpending';
+import { CombatEffectKeys, getActorCombatEffectValue } from '@/combat/CombatEffects';
 
 export type AttackRollWeapon = {
 	name: string;
@@ -210,6 +211,14 @@ export default class GenesysRoller {
 		if (actor && withDamageCharacteristic && withDamageCharacteristic !== '-') {
 			totalDamage += (actor.system as any).characteristics[withDamageCharacteristic] as number;
 			damageFormula = game.i18n.localize(`Genesys.CharacteristicAbbr.${withDamageCharacteristic.capitalize()}`) + ` + ${damageFormula}`;
+		}
+
+		if (actor && weapon.systemData.range === 'engaged') {
+			const meleeDamageBonus = getActorCombatEffectValue(actor, CombatEffectKeys.AttackMeleeDamage);
+			totalDamage += meleeDamageBonus;
+			if (meleeDamageBonus) {
+				damageFormula += ` + ${meleeDamageBonus}`;
+			}
 		}
 
 		if (results.netSuccess > 0) {

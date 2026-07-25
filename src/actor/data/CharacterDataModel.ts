@@ -76,6 +76,7 @@ export default abstract class CharacterDataModel extends foundry.abstract.DataMo
 	abstract wounds: CombatPool;
 	abstract strain: CombatPool;
 	abstract corruption: CombatPool;
+	abstract silhouette: number;
 	abstract illustration: string;
 	abstract motivations: Motivations;
 	abstract details: Details;
@@ -372,6 +373,7 @@ export default abstract class CharacterDataModel extends foundry.abstract.DataMo
 				value: new fields.NumberField({ integer: true, initial: 0 }),
 				max: new fields.NumberField({ integer: true, initial: 0 }),
 			}),
+			silhouette: new fields.NumberField({ integer: true, initial: 1, min: 0 }),
 			illustration: new fields.StringField(),
 			motivations: new fields.SchemaField({
 				strength: new fields.SchemaField({

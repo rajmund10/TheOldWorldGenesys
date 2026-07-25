@@ -13,6 +13,7 @@ import GenesysItem from '@/item/GenesysItem';
 import SkillDataModel from '@/item/data/SkillDataModel';
 import TalentDataModel from '@/item/data/TalentDataModel';
 import SpecializationDataModel from '@/item/data/SpecializationDataModel';
+import { isSkillAllowedForArchetype } from '@/actor/abilities/RacialAbilities';
 
 export type AdvancementRequest =
 	| {
@@ -216,9 +217,18 @@ export async function previewAdvance(actor: GenesysActor<CharacterDataModel>, re
 		case 'skill-rank': {
 			const newRank = request.skill.systemData.rank + 1;
 			const cost = 5 * newRank + (request.skill.systemData.career ? 0 : 5);
-			const errorMessage = request.skill.systemData.rank >= 5
+			const archetype = actor.items.find((item) => item.type === 'archetype');
+			const archetypeKey = String((archetype?.system as { key?: string } | undefined)?.key ?? '');
+			const racialRestriction = !isSkillAllowedForArchetype(archetypeKey, request.skill.name)
+				? format(
+						'Genesys.AdvancePurchasePrompt.Errors.RacialSkillRestriction',
+						{ skill: request.skill.name, archetype: archetype?.name ?? '' },
+						'Rasa postaci nie może rozwijać tej umiejętności.',
+					)
+				: '';
+			const errorMessage = racialRestriction || (request.skill.systemData.rank >= 5
 				? localize('Genesys.AdvancePurchasePrompt.Errors.SkillMaxRank', 'Ta umiejętność ma już maksymalną rangę.')
-				: previewCostError(actor, cost);
+				: previewCostError(actor, cost));
 
 			return {
 				valid: !errorMessage,

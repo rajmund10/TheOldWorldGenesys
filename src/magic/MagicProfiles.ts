@@ -572,10 +572,15 @@ export function resolveMagicProfileFromSpecializations<T extends SpecializationL
 export function resolveWarhammerMagicProfile<T extends SpecializationLike, U extends TalentLike>(
 	specializations: Iterable<T | null | undefined>,
 	talents: Iterable<U | null | undefined>,
+	abilities: Iterable<TalentLike | null | undefined> = [],
 ): ResolvedMagicProfile {
 	const specializationList = Array.from(specializations).filter((item): item is T => !!item);
 	const specializationProfile = resolveMagicProfileFromSpecializations(specializationList);
 	if (specializationProfile.enabled) {
+		const abilityNames = new Set(Array.from(abilities).filter((item): item is TalentLike => !!item).map((item) => normalizeName(item.name)));
+		if (abilityNames.has(normalizeName('Dostrojony do Ulgu'))) {
+			return buildProfileFromDefinition(PROFILE_DEFINITIONS.shadow, specializationProfile.specializationName ?? 'Dostrojony do Ulgu', 'talent');
+		}
 		return specializationProfile;
 	}
 

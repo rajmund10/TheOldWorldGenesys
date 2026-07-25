@@ -8,9 +8,15 @@
 		<span>{{baseSoak}}</span>
 		<span>{{localize 'Genesys.AttackResolution.Pierce'}}</span>
 		<span>{{pierce}}</span>
+		{{#if penetration}}
+			<span>{{localize 'Genesys.AttackResolution.Penetration'}}</span>
+			<span>{{penetration}}</span>
+		{{/if}}
 		{{#if usedParry}}
 			<span>{{localize 'Genesys.AttackResolution.Parry'}}</span>
 			<span>-{{parryReduction}}</span>
+			<span>{{localize 'Genesys.AttackResolution.ParryCost'}}</span>
+			<span>+{{parryCost}} {{parryCostResource}}</span>
 		{{/if}}
 		<span>
 			{{#if stunDamage}}

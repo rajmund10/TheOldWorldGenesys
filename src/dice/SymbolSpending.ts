@@ -1,5 +1,7 @@
 import GenesysActor from '@/actor/GenesysActor';
 import { resolveCritical } from '@/combat/AttackResolution';
+import { findQualityItem } from '@/combat/CombatEffects';
+import { applyQualityCombatEffects } from '@/combat/CombatStatuses';
 import type { GenesysRollResults } from '@/dice/GenesysRoller';
 import type { ContainedItemQuality } from '@/item/data/BaseWeaponDataModel';
 import ItemQualityDataModel from '@/item/data/ItemQualityDataModel';
@@ -36,6 +38,7 @@ type SymbolSpendOption = {
 	repeatable?: boolean;
 	maxUses?: number;
 	chaosChoice?: ChaosManifestationChoice;
+	quality?: ContainedItemQuality;
 };
 
 type SymbolSpendSelection = {
@@ -158,10 +161,6 @@ function getActorPermission(actor: GenesysActor | null) {
 	};
 }
 
-function findQualityItem(name: string) {
-	return game.items.find((item) => item.type === 'quality' && normalizeName(item.name) === normalizeName(name));
-}
-
 function getQualitySpendOptions(flag: SymbolSpendingFlag) {
 	if (!flag.attack?.criticalAllowed) {
 		return [];
@@ -190,6 +189,7 @@ function getQualitySpendOptions(flag: SymbolSpendingFlag) {
 				kind: 'quality' as const,
 				repeatable: qualityData.activationLimit !== 'once',
 				maxUses: qualityData.activationLimit === 'rating' ? quality.rating : undefined,
+				quality,
 			},
 		];
 	});
@@ -1097,6 +1097,16 @@ async function applyAutomatedSpends(message: ChatMessage, actor: GenesysActor | 
 	if (chaos && actor) {
 		await resolveManifestation(actor, message, chaos, useStoryPoint);
 	}
+
+	await applyQualityCombatEffects(
+		message,
+		selections
+			.filter((selection) => selection.option.kind === 'quality' && selection.option.quality)
+			.map((selection) => ({
+				quality: selection.option.quality!,
+				uses: selection.uses,
+			})),
+	);
 }
 
 async function spendSymbols(message: ChatMessage) {

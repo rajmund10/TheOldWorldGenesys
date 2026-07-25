@@ -156,11 +156,18 @@ Genesys:
     RawDamage: Damage before soak
     Soak: Soak
     Pierce: Pierce
+    Penetration: Breach
     WoundsWithoutParry: Wounds without Parry
     StrainWithoutParry: Strain without Parry
+    WoundsWithParry: Wounds with Parry
+    StrainWithParry: Strain with Parry
     UseParry: Use Parry
     SkipParry: Do not use Parry
     Parry: Parry
+    ParryCost: Parry cost
+    ParryRequirementsMissing: Parry requires an equipped melee weapon.
+    Strain: strain
+    Wounds: wounds
     AppliedWounds: Applied wounds
     AppliedStrain: Applied strain
     CauseCritical: Cause Critical Injury
@@ -192,6 +199,40 @@ Genesys:
     MissingData: Attack data could not be found.
     MissingTarget: Attack target could not be found.
     MissingCriticalTable: Critical Injury table was not found.
+
+  RacialAbilities:
+    Use: Use ability
+    Used: Used
+    ResetUse: Reset use
+    AlreadyUsed: This ability has already been used.
+    AlreadyPrepared: This ability is already waiting for a qualifying check.
+    AttunedPending: It will be consumed by the next Deception or Stealth check.
+    ChaosMarkTitle: Mark of Chaos
+    SelectDie: Choose a die to reroll
+    Reroll: Reroll
+    BlankFace: blank face
+    NoEligibleRoll: No roll with an eligible die was found.
+    ReplaceResult: 'Replace the selected die result:'
+    CareerRestriction: '{archetype} cannot select the {career} career.'
+  CombatStatuses:
+    Title: Combat Statuses
+    Add: Add status
+    Empty: No active combat statuses or effects.
+    Toggle: Enable or disable effect
+    Edit: Edit effect
+    Remove: Remove effect
+    ManualSource: Added manually
+    Disoriented: Disoriented
+    DisorientedDescription: The character adds one Setback die to all checks they make.
+    Immobilized: Immobilized
+    ImmobilizedDescription: The character cannot perform maneuvers.
+    Staggered: Staggered
+    StaggeredDescription: The character cannot perform actions.
+    Prone: Prone
+    ProneDescription: The character is lying on the ground.
+    Burning: Burning
+    BurningDescription: The character suffers damage from fire.
+    BurningDamage: '{damage} damage at the start of the turn'
 
   SymbolSpending:
     Open: Spend Symbols
@@ -305,6 +346,8 @@ Genesys:
       ManualChanges: Manual Changes
       SelfEffects: 'From Self: '
       TargetEffects: 'From Target: '
+      SilhouetteLargerTarget: 'Silhouette {attacker} → {target}: larger target, difficulty -1'
+      SilhouetteSmallerTarget: 'Silhouette {attacker} → {target}: smaller target, difficulty +1'
     ChanceToSucceed: 'Chance to Succeed:'
     ChanceToSucceedByPermutationDisclaimer: The displayed probability is exact unless the dice pool includes a super-characteristic.
     ChanceToSucceedBySimulationDisclaimer: The displayed probability is an approximation that uses the Monte Carlo method.
@@ -519,6 +562,7 @@ Genesys:
     Errors:
       CannotPurchaseCharacteristic: This characteristic cannot be purchased.
       SkillMaxRank: This skill is already at its maximum rank.
+      RacialSkillRestriction: '{archetype} cannot advance the {skill} skill.'
       DuplicateSpecialization: 'The character already has specialization "{name}".'
       FailedPurchase: Failed to purchase advance.
       NoMatchingJournalEntry: No matching XP journal entry was found.

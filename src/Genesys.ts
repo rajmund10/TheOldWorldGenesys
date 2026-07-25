@@ -30,7 +30,10 @@ import GenesysActor from '@/actor/GenesysActor';
 import GenesysCompendium from '@/sidebar/GenesysCompendium';
 import { registerChaosManifestations } from '@/magic/ChaosManifestations';
 import { registerAttackResolution } from '@/combat/AttackResolution';
+import { prepareQualityDefinitions } from '@/combat/CombatEffects';
+import { registerCombatStatuses } from '@/combat/CombatStatuses';
 import { registerSymbolSpending } from '@/dice/SymbolSpending';
+import { registerRacialAbilities } from '@/actor/abilities/RacialAbilities';
 
 import './scss/index.scss';
 
@@ -53,11 +56,14 @@ Hooks.once('init', async () => {
 	registerConfig();
 	registerChaosManifestations();
 	registerAttackResolution();
+	registerCombatStatuses();
 	registerSymbolSpending();
+	registerRacialAbilities();
 });
 
 Hooks.once('ready', async () => {
 	readyConfigs();
+	await prepareQualityDefinitions();
 
 	registerStoryPointTracker();
 	registerVehicles();

@@ -9,6 +9,7 @@ import MagicAccessoryDataModel from '@/item/data/MagicAccessoryDataModel';
 import SkillDataModel from '@/item/data/SkillDataModel';
 import SpecializationDataModel from '@/item/data/SpecializationDataModel';
 import TalentDataModel from '@/item/data/TalentDataModel';
+import AbilityDataModel from '@/item/data/AbilityDataModel';
 import { findRankedMagicSkill, getMagicActionDefinitions, getMagicSkillNameAliases, hasMagicRank, resolveMagicProfileFromSkill, resolveWarhammerMagicProfile, type MagicActionDefinition } from '@/magic/MagicProfiles';
 import { arrayFromItems } from '@/utils/collection';
 import { ActorSheetContext, RootContext } from '@/vue/SheetContext';
@@ -45,12 +46,16 @@ const talents = computed(() => {
 	context.renderKey;
 	return arrayFromItems<GenesysItem<TalentDataModel>>(actor.value.items).filter((item) => item.type === 'talent');
 });
+const abilities = computed(() => {
+	context.renderKey;
+	return arrayFromItems<GenesysItem<AbilityDataModel>>(actor.value.items).filter((item) => item.type === 'ability');
+});
 const skills = computed(() => {
 	context.renderKey;
 	return arrayFromItems<GenesysItem<SkillDataModel>>(actor.value.items).filter((item) => item.type === 'skill');
 });
 const rankedMagicSkill = computed(() => findRankedMagicSkill(skills.value));
-const profile = computed(() => (props.profileSource === 'skill' ? resolveMagicProfileFromSkill(rankedMagicSkill.value) : resolveWarhammerMagicProfile(specializations.value, talents.value)));
+const profile = computed(() => (props.profileSource === 'skill' ? resolveMagicProfileFromSkill(rankedMagicSkill.value) : resolveWarhammerMagicProfile(specializations.value, talents.value, abilities.value)));
 
 const primarySkill = computed(() => {
 	const skillNames = getMagicSkillNameAliases(profile.value.primarySkillName).map((name) => name.toLowerCase());

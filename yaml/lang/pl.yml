@@ -150,11 +150,18 @@ Genesys:
     RawDamage: Obrażenia przed redukcją
     Soak: Redukcja
     Pierce: Przebicie
+    Penetration: Penetracja
     WoundsWithoutParry: Rany bez Parady
     StrainWithoutParry: Zmęczenie bez Parady
+    WoundsWithParry: Rany po Paradzie
+    StrainWithParry: Zmęczenie po Paradzie
     UseParry: Użyj Parady
     SkipParry: Nie używaj Parady
     Parry: Parada
+    ParryCost: Koszt Parady
+    ParryRequirementsMissing: Parada wymaga wyposażonej broni białej.
+    Strain: zmęczenia
+    Wounds: ran
     AppliedWounds: Zadane rany
     AppliedStrain: Zadane zmęczenie
     CauseCritical: Zadaj Uraz Krytyczny
@@ -186,6 +193,40 @@ Genesys:
     MissingData: Nie znaleziono danych ataku.
     MissingTarget: Nie znaleziono celu ataku.
     MissingCriticalTable: Nie znaleziono tabeli Urazów Krytycznych.
+
+  RacialAbilities:
+    Use: Użyj zdolności
+    Used: Wykorzystano
+    ResetUse: Zresetuj użycie
+    AlreadyUsed: Ta zdolność została już wykorzystana.
+    AlreadyPrepared: Ta zdolność oczekuje już na właściwy test.
+    AttunedPending: Zostanie zużyte przez następny test Oszustwa lub Ukrywania się.
+    ChaosMarkTitle: Piętno Chaosu
+    SelectDie: Wybierz kość do przerzutu
+    Reroll: Przerzuć
+    BlankFace: pusta ścianka
+    NoEligibleRoll: Nie znaleziono rzutu z kością, którą można przerzucić.
+    ReplaceResult: 'Zastąp wynik wybranej kości:'
+    CareerRestriction: '{archetype} nie może wybrać kariery {career}.'
+  CombatStatuses:
+    Title: Statusy bojowe
+    Add: Dodaj status
+    Empty: Brak aktywnych statusów i efektów bojowych.
+    Toggle: Włącz lub wyłącz efekt
+    Edit: Edytuj efekt
+    Remove: Usuń efekt
+    ManualSource: Dodano ręcznie
+    Disoriented: Zdezorientowanie
+    DisorientedDescription: Postać dodaje jedną kość utrudnienia do wszystkich wykonywanych testów.
+    Immobilized: Unieruchomienie
+    ImmobilizedDescription: Postać nie może wykonywać manewrów.
+    Staggered: Zamroczenie
+    StaggeredDescription: Postać nie może wykonywać akcji.
+    Prone: Powalony
+    ProneDescription: Postać leży na ziemi.
+    Burning: Płonie
+    BurningDescription: Postać otrzymuje obrażenia od ognia.
+    BurningDamage: '{damage} obrażeń na początku tury'
 
   SymbolSpending:
     Open: Wydaj symbole
@@ -295,6 +336,8 @@ Genesys:
       ManualChanges: Zmiany ręczne
       SelfEffects: 'Od siebie: '
       TargetEffects: 'Od celu: '
+      SilhouetteLargerTarget: 'Sylwetka {attacker} → {target}: większy cel, trudność -1'
+      SilhouetteSmallerTarget: 'Sylwetka {attacker} → {target}: mniejszy cel, trudność +1'
     ChanceToSucceed: 'Szansa powodzenia:'
     ChanceToSucceedByPermutationDisclaimer: Wyświetlane prawdopodobieństwo jest dokładne, chyba że pula kości zawiera supercechę.
     ChanceToSucceedBySimulationDisclaimer: Wyświetlane prawdopodobieństwo jest przybliżeniem obliczanym metodą Monte Carlo.
@@ -510,6 +553,7 @@ Genesys:
     Errors:
       CannotPurchaseCharacteristic: Nie można kupić tej cechy.
       SkillMaxRank: Ta umiejętność ma już maksymalną rangę.
+      RacialSkillRestriction: '{archetype} nie może rozwijać umiejętności {skill}.'
       DuplicateSpecialization: 'Postać ma już specjalizację "{name}".'
       FailedPurchase: Nie udało się kupić awansu.
       NoMatchingJournalEntry: Nie znaleziono pasującego wpisu dziennika PD.

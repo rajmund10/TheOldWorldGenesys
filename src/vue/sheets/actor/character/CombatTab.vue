@@ -12,7 +12,8 @@ import SkillDataModel from '@/item/data/SkillDataModel';
 import DicePrompt, { RollType } from '@/app/DicePrompt';
 import SkillRanks from '@/vue/components/character/SkillRanks.vue';
 import Tooltip from '@/vue/components/Tooltip.vue';
-import { CombatEffectKeys, getQualityCombatEffectValue, getQualityPoolModifications } from '@/combat/CombatEffects';
+import { CombatEffectKeys, getActorCombatEffectValue, getQualityCombatEffectValue, getQualityPoolModifications } from '@/combat/CombatEffects';
+import CombatEffects from '@/vue/components/character/CombatEffects.vue';
 
 const rootContext = inject<ActorSheetContext<CharacterDataModel>>(RootContext)!;
 
@@ -69,16 +70,23 @@ function skillForWeapon(weapon: GenesysItem<WeaponDataModel>): GenesysItem<Skill
 }
 
 function damageForWeapon(weapon: GenesysItem<WeaponDataModel>) {
-	if (weapon.systemData.damageCharacteristic === '-') {
-		return weapon.systemData.baseDamage;
+	let damage = weapon.systemData.baseDamage;
+	if (weapon.systemData.damageCharacteristic !== '-') {
+		damage += rootContext.data.actor.systemData.characteristics[weapon.systemData.damageCharacteristic];
 	}
 
-	return weapon.systemData.baseDamage + rootContext.data.actor.systemData.characteristics[weapon.systemData.damageCharacteristic];
+	if (weapon.systemData.range === 'engaged') {
+		damage += getActorCombatEffectValue(actor.value, CombatEffectKeys.AttackMeleeDamage);
+	}
+
+	return damage;
 }
 </script>
 
 <template>
 	<section class="tab-combat">
+		<CombatEffects />
+
 		<div class="block">
 			<div class="header"><Localized label="Genesys.Labels.Attacks" /></div>
 			<div class="weapons">

@@ -21,6 +21,7 @@ Actor:
       defense:
         melee: 0
         ranged: 0
+      silhouette: 1
       description: ''
       source: ''
       superCharacteristics: []
@@ -44,6 +45,8 @@ Actor:
       value: 0
       max: 0
     strain: *combat_pool
+    # Character silhouette. Most humanoids are silhouette 1.
+    silhouette: 1
     # Character illustration image path.
     illustration: 'icons/svg/mystery-man.svg'
     # Character Description fields

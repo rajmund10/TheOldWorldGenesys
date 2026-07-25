@@ -3,6 +3,7 @@ import { computed, inject, ref } from 'vue';
 import { ActorSheetContext, RootContext } from '@/vue/SheetContext';
 import CharacterDataModel from '@/actor/data/CharacterDataModel';
 import { specializationMatchesArchetype, specializationMatchesCareer, type CharacterCreationOption } from '@/actor/creation/CharacterCreationCatalog';
+import { isCareerAllowedForArchetype, isSkillAllowedForArchetype } from '@/actor/abilities/RacialAbilities';
 
 const context = inject<ActorSheetContext<CharacterDataModel>>(RootContext)!;
 const mode = ref<'welcome' | 'creator'>('welcome');
@@ -16,12 +17,15 @@ const catalog = computed(() => context.characterCreationCatalog);
 const selectedCareer = computed(() => catalog.value?.careers.find((career) => career.id === selectedCareerId.value));
 const selectedArchetype = computed(() => catalog.value?.archetypes.find((archetype) => archetype.id === selectedArchetypeId.value));
 const selectedSpecialization = computed(() => catalog.value?.specializations.find((specialization) => specialization.id === selectedSpecializationId.value));
+const availableCareers = computed(() =>
+	(catalog.value?.careers ?? []).filter((career) => isCareerAllowedForArchetype(selectedArchetype.value?.key ?? '', career.key)),
+);
 const availableCareerSkills = computed(() => {
 	const skills = [...(selectedCareer.value?.careerSkills ?? []), ...(selectedSpecialization.value?.careerSkills ?? [])];
 	const seen = new Set<string>();
 	return skills.filter((skill) => {
 		const normalizedName = skill.trim().toLocaleLowerCase();
-		if (!normalizedName || seen.has(normalizedName)) return false;
+		if (!normalizedName || seen.has(normalizedName) || !isSkillAllowedForArchetype(selectedArchetype.value?.key ?? '', skill)) return false;
 		seen.add(normalizedName);
 		return true;
 	}).sort((left, right) => left.localeCompare(right, 'pl', { sensitivity: 'base' }));
@@ -40,6 +44,7 @@ const hasCompleteCatalog = computed(() => !!catalog.value?.archetypes.length && 
 const canCreate = computed(() =>
 	!!selectedArchetypeId.value
 	&& !!selectedCareerId.value
+	&& availableCareers.value.some((career) => career.id === selectedCareerId.value)
 	&& !!selectedSpecializationId.value
 	&& selectedCareerSkills.value.length === requiredCareerSkills.value,
 );
@@ -56,6 +61,9 @@ function chooseCareer(career: CharacterCreationOption) {
 
 function chooseArchetype(archetype: CharacterCreationOption) {
 	selectedArchetypeId.value = archetype.id;
+	if (selectedCareer.value && !isCareerAllowedForArchetype(archetype.key, selectedCareer.value.key)) {
+		selectedCareerId.value = '';
+	}
 	selectedSpecializationId.value = '';
 	selectedCareerSkills.value = [];
 }
@@ -147,7 +155,7 @@ async function createCharacter() {
 					<h3>{{ t('Genesys.CharacterCreation.Career') }}</h3>
 					<div class="choice-grid">
 						<button
-							v-for="option in catalog!.careers"
+							v-for="option in availableCareers"
 							:key="option.id"
 							type="button"
 							:class="['choice-card', { selected: selectedCareerId === option.id }]"

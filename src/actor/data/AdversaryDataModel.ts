@@ -34,6 +34,7 @@ export default abstract class AdversaryDataModel extends foundry.abstract.DataMo
 	abstract characteristics: CharacteristicsContainer;
 	abstract soak: number;
 	abstract defense: Defense;
+	abstract silhouette: number;
 	abstract description: string;
 	abstract source: string;
 	abstract motivations: Motivations;
@@ -84,6 +85,7 @@ export default abstract class AdversaryDataModel extends foundry.abstract.DataMo
 				melee: new fields.NumberField({ integer: true, initial: 0 }),
 				ranged: new fields.NumberField({ integer: true, initial: 0 }),
 			}),
+			silhouette: new fields.NumberField({ integer: true, initial: 1, min: 0 }),
 			description: new fields.HTMLField(),
 			source: new fields.HTMLField(),
 			chaosManifestationModifier: new fields.NumberField({ integer: true, initial: 0 }),

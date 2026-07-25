@@ -17,6 +17,7 @@ import InventoryTab from '@/vue/sheets/actor/character/InventoryTab.vue';
 import CombatTab from '@/vue/sheets/actor/character/CombatTab.vue';
 import SpecializationDataModel from '@/item/data/SpecializationDataModel';
 import TalentDataModel from '@/item/data/TalentDataModel';
+import AbilityDataModel from '@/item/data/AbilityDataModel';
 import GenesysItem from '@/item/GenesysItem';
 import { resolveWarhammerMagicProfile } from '@/magic/MagicProfiles';
 import CharacterCreation from '@/vue/components/character/CharacterCreation.vue';
@@ -38,7 +39,11 @@ const talents = computed(() => {
 	context.renderKey;
 	return arrayFromItems<GenesysItem<TalentDataModel>>(actor.value.items).filter((item) => item.type === 'talent');
 });
-const hasMagicAccess = computed(() => resolveWarhammerMagicProfile(specializations.value, talents.value).enabled);
+const abilities = computed(() => {
+	context.renderKey;
+	return arrayFromItems<GenesysItem<AbilityDataModel>>(actor.value.items).filter((item) => item.type === 'ability');
+});
+const hasMagicAccess = computed(() => resolveWarhammerMagicProfile(specializations.value, talents.value, abilities.value).enabled);
 
 const effects = ref<any>([]);
 

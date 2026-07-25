@@ -6,8 +6,10 @@ import GenesysItem from '@/item/GenesysItem';
 
 export const CombatEffectKeys = {
 	AttackPierce: 'genesys.combat.attack.pierce',
+	AttackPenetration: 'genesys.combat.attack.penetration',
 	AttackMinimumBrawn: 'genesys.combat.attack.minimumBrawn',
 	AttackMinimumAgility: 'genesys.combat.attack.minimumAgility',
+	AttackMeleeDamage: 'genesys.combat.attack.meleeDamage',
 	AttackStunDamage: 'genesys.combat.attack.stunDamage',
 	CriticalVicious: 'genesys.combat.critical.vicious',
 	DefenseIgnorePierce: 'genesys.combat.defense.ignorePierce',
@@ -28,6 +30,8 @@ type CombatEffectLike = {
 		value: unknown;
 	}>;
 };
+
+const compendiumQualityItems = new Map<string, GenesysItem>();
 
 function normalizeName(name: string) {
 	return name.trim().toLocaleLowerCase();
@@ -57,8 +61,49 @@ function getTalentMultiplier(effect: GenesysEffect) {
 	return originItem.systemData.rank;
 }
 
-function findQualityItem(name: string) {
-	return game.items.find((item) => item.type === 'quality' && normalizeName(item.name) === normalizeName(name));
+export async function prepareQualityDefinitions() {
+	compendiumQualityItems.clear();
+
+	const pack = game.packs.get('genesys.itemy');
+	if (!pack) {
+		return;
+	}
+
+	const documents = (await pack.getDocuments()) as GenesysItem[];
+	for (const item of documents) {
+		if (item.type === 'quality') {
+			compendiumQualityItems.set(normalizeName(item.name), item);
+		}
+	}
+}
+
+export function findQualityItem(name: string) {
+	const normalizedName = normalizeName(name);
+	const worldItem = game.items.find((item) => item.type === 'quality' && normalizeName(item.name) === normalizedName);
+	return (worldItem as GenesysItem | undefined) ?? compendiumQualityItems.get(normalizedName);
+}
+
+function getUniqueQualityChanges(item: GenesysItem, key: string) {
+	const seen = new Set<string>();
+
+	return Array.from(item.effects).flatMap((effect) => {
+		if ((effect as { disabled?: boolean }).disabled) {
+			return [];
+		}
+
+		return effect.changes.filter((change) => {
+			if (change.key !== key) {
+				return false;
+			}
+
+			const signature = `${change.key}\u0000${String(change.value ?? '')}`;
+			if (seen.has(signature)) {
+				return false;
+			}
+			seen.add(signature);
+			return true;
+		});
+	});
 }
 
 export function getQualityPoolModifications(qualities: ContainedItemQuality[]) {
@@ -71,16 +116,9 @@ export function getQualityPoolModifications(qualities: ContainedItemQuality[]) {
 		}
 
 		const multiplier = quality.isRated ? Number(quality.rating ?? 1) : 1;
-		return Array.from(qualityItem.effects).flatMap((effect) => {
-			if ((effect as { disabled?: boolean }).disabled) {
-				return [];
-			}
-
-			return effect.changes
-				.filter((change) => change.key === poolEffectKey)
-				.flatMap((change) => String(change.value ?? '').repeat(multiplier).split(''))
-				.filter(Boolean);
-		});
+		return getUniqueQualityChanges(qualityItem, poolEffectKey)
+			.flatMap((change) => String(change.value ?? '').repeat(multiplier).split(''))
+			.filter(Boolean);
 	});
 }
 
@@ -103,7 +141,7 @@ export function getQualityCombatEffectValue(qualities: ContainedItemQuality[], k
 		}
 
 		const multiplier = quality.isRated ? Number(quality.rating ?? 1) : 1;
-		return total + Array.from(qualityItem.effects).reduce((effectTotal, effect) => effectTotal + getEffectValue(effect, key, multiplier), 0);
+		return total + getUniqueQualityChanges(qualityItem, key).reduce((effectTotal, change) => effectTotal + getNumericChangeValue(change.value) * multiplier, 0);
 	}, 0);
 }
 

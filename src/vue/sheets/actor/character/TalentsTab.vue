@@ -13,8 +13,15 @@ import ArchetypeDataModel from '@/item/data/ArchetypeDataModel';
 import { getProfessionTalentOffersForStep, type ProfessionTalentOffer } from '@/specialization/ProfessionTalentOffers';
 import { arrayFromItems } from '@/utils/collection';
 import { purchaseAdvance } from '@/actor/advancement/AdvancementPurchase';
+import {
+	isAutomatedRacialAbility,
+	isRacialAbilityUsed,
+	resetRacialAbilityUse,
+	useRacialAbility,
+} from '@/actor/abilities/RacialAbilities';
 
 const context = inject<ActorSheetContext<CharacterDataModel>>(RootContext)!;
+const isGM = game.user.isGM;
 const props = withDefaults(defineProps<{ showProfessionTalents?: boolean }>(), {
 	showProfessionTalents: false,
 });
@@ -317,6 +324,11 @@ async function deleteTalent(talent: GenesysItem<TalentDataModel>) {
 					:activation="ability.systemData.activation"
 					@open="openItem(ability)"
 					:can-delete="!archetypeAbilities.includes(ability.name)"
+					:can-use="isAutomatedRacialAbility(ability)"
+					:used="isRacialAbilityUsed(ability)"
+					:can-reset-use="isGM && isRacialAbilityUsed(ability)"
+					@use="useRacialAbility(ability)"
+					@reset-use="resetRacialAbilityUse(ability)"
 					@delete="ability.delete()"
 				/>
 
@@ -333,6 +345,11 @@ async function deleteTalent(talent: GenesysItem<TalentDataModel>) {
 						:activation="ability.systemData.activation"
 						@open="openItem(ability)"
 						:can-delete="!archetypeAbilities.includes(ability.name)"
+						:can-use="isAutomatedRacialAbility(ability)"
+						:used="isRacialAbilityUsed(ability)"
+						:can-reset-use="isGM && isRacialAbilityUsed(ability)"
+						@use="useRacialAbility(ability)"
+						@reset-use="resetRacialAbilityUse(ability)"
 						@delete="ability.delete()"
 					/>
 				</template>

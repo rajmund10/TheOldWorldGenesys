@@ -12,6 +12,7 @@ import SpecializationDataModel from '@/item/data/SpecializationDataModel';
 import CharacterSheet from '@/actor/sheets/CharacterSheet';
 import ContextMenu from '@/vue/components/ContextMenu.vue';
 import MenuItem from '@/vue/components/MenuItem.vue';
+import { getEffectiveSocialStatus } from '@/actor/abilities/RacialAbilities';
 
 const rootContext = inject<ActorSheetContext<CharacterDataModel, CharacterSheet>>(RootContext)!;
 const props = withDefaults(defineProps<{ showSpecializationFields?: boolean }>(), {
@@ -43,6 +44,11 @@ const specialization = computed(() => {
 	rootContext.renderKey;
 	return actor.value.items.find((i) => i.type === 'specialization') as GenesysItem<SpecializationDataModel> | undefined;
 });
+const effectiveSocialStatus = computed(() =>
+	specialization.value
+		? getEffectiveSocialStatus(actor.value, specialization.value.systemData.socialStatus)
+		: '',
+);
 
 async function openItemSheet(item?: GenesysItem) {
 	if (!item) {
@@ -172,6 +178,9 @@ async function removeSpecialization(specialization?: GenesysItem<SpecializationD
 
 						<a @click="openItemSheet(specialization)">
 							{{ specialization.systemData.socialStatus || noSocialStatusLabel }}
+							<template v-if="effectiveSocialStatus && effectiveSocialStatus !== specialization.systemData.socialStatus">
+								→ {{ effectiveSocialStatus }}
+							</template>
 							<i class="fas fa-arrow-up-right-from-square"></i>
 						</a>
 					</ContextMenu>

@@ -6,13 +6,14 @@ import type { ContainedItemQuality } from '@/item/data/BaseWeaponDataModel';
 import EquipmentDataModel, { EquipmentState } from '@/item/data/EquipmentDataModel';
 import ItemQualityDataModel from '@/item/data/ItemQualityDataModel';
 import GenesysItem from '@/item/GenesysItem';
-import { CombatEffectKeys, getActorCombatEffectValue, getHighestQualityCombatEffectValue, getQualityCombatEffectValue, hasActorCombatEffect, hasQualityCombatEffect } from '@/combat/CombatEffects';
+import { CombatEffectKeys, findQualityItem, getActorCombatEffectValue, getHighestQualityCombatEffectValue, getQualityCombatEffectValue, hasActorCombatEffect, hasQualityCombatEffect } from '@/combat/CombatEffects';
 import type { ChaosManifestationChatData } from '@/magic/ChaosManifestations';
 
 const FLAG_SCOPE = 'genesys';
 const ATTACK_FLAG_KEY = 'attackResolution';
 const CRITICAL_TABLE_NAME = 'Efekty Urazów Krytycznych';
 const VALID_TARGET_TYPES = ['character', 'minion', 'rival', 'nemesis'];
+const PARRY_STRAIN_COST = 3;
 
 type AttackMessageFlag = {
 	attackerUuid?: string;
@@ -59,12 +60,15 @@ type DefenseBreakdown = {
 	totalDamage: number;
 	baseSoak: number;
 	pierce: number;
+	penetration: number;
 	reinforced: boolean;
 	effectiveSoak: number;
 	canParry: boolean;
 	parryRank: number;
 	parryQuality: number;
 	parryReduction: number;
+	parryCost: number;
+	parryCostResource: string;
 	woundsWithoutParry: number;
 	woundsWithParry: number;
 	stunDamage: boolean;
@@ -175,7 +179,10 @@ function getSoak(actor: GenesysActor) {
 
 function canUseParry(actor: GenesysActor, range: AttackRollWeapon['systemData']['range']) {
 	const hasParry = hasActorCombatEffect(actor, CombatEffectKeys.DefenseCanParry);
-	if (!hasParry) {
+	const hasMeleeWeaponEquipped = getEquippedItems(actor).some(
+		(item) => item.type === 'weapon' && (item.systemData as { range?: string }).range === 'engaged',
+	);
+	if (!hasParry || !hasMeleeWeaponEquipped) {
 		return false;
 	}
 
@@ -186,17 +193,17 @@ function canUseParry(actor: GenesysActor, range: AttackRollWeapon['systemData'][
 	return hasActorCombatEffect(actor, CombatEffectKeys.DefenseCanBlockRanged) && hasActorCombatEffect(actor, CombatEffectKeys.DefenseShield);
 }
 
-function getWhisperRecipients(actor: GenesysActor) {
-	return game.users
-		.filter((user) => user.isGM || actor.testUserPermission(user, CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER))
-		.map((user) => user.id);
+function hasStrainPool(actor: GenesysActor) {
+	return typeof (actor.system as any).strain?.value === 'number';
 }
 
 function buildDefenseBreakdown(target: GenesysActor, flag: AttackMessageFlag): DefenseBreakdown {
 	const baseSoak = getSoak(target);
 	const reinforced = hasReinforcedArmor(target);
-	const pierce = reinforced ? 0 : Math.min(baseSoak, getQualityCombatEffectValue(flag.qualities, CombatEffectKeys.AttackPierce));
-	const effectiveSoak = Math.max(0, baseSoak - pierce);
+	const pierce = reinforced ? 0 : getQualityCombatEffectValue(flag.qualities, CombatEffectKeys.AttackPierce);
+	const penetration = reinforced ? 0 : getQualityCombatEffectValue(flag.qualities, CombatEffectKeys.AttackPenetration);
+	const ignoredSoak = Math.min(baseSoak, pierce + penetration * 10);
+	const effectiveSoak = Math.max(0, baseSoak - ignoredSoak);
 	const parryRank = Math.max(0, getActorCombatEffectValue(target, CombatEffectKeys.DefenseParryReduction));
 	const parryQuality = getHighestQualityCombatEffectValue(
 		getEquippedItems(target).filter((item) => item.type === 'weapon'),
@@ -204,6 +211,9 @@ function buildDefenseBreakdown(target: GenesysActor, flag: AttackMessageFlag): D
 	);
 	const canParry = canUseParry(target, flag.range);
 	const parryReduction = canParry ? 2 + parryRank + parryQuality : 0;
+	const parryCostResource = hasStrainPool(target)
+		? localize('Genesys.AttackResolution.Strain', 'strain')
+		: localize('Genesys.AttackResolution.Wounds', 'wounds');
 	const woundsWithoutParry = Math.max(0, flag.totalDamage - effectiveSoak);
 	const woundsWithParry = Math.max(0, flag.totalDamage - parryReduction - effectiveSoak);
 
@@ -213,12 +223,15 @@ function buildDefenseBreakdown(target: GenesysActor, flag: AttackMessageFlag): D
 		totalDamage: flag.totalDamage,
 		baseSoak,
 		pierce,
+		penetration,
 		reinforced,
 		effectiveSoak,
 		canParry,
 		parryRank,
 		parryQuality,
 		parryReduction,
+		parryCost: PARRY_STRAIN_COST,
+		parryCostResource,
 		woundsWithoutParry,
 		woundsWithParry,
 		stunDamage: flag.stunDamage,
@@ -234,19 +247,38 @@ async function applyWounds(target: GenesysActor, wounds: number) {
 	await target.update({ 'system.wounds.value': currentWounds + wounds });
 }
 
-async function applyDamage(target: GenesysActor, amount: number, stunDamage: boolean) {
-	if (amount <= 0) {
-		return;
+async function applyResolvedDamage(target: GenesysActor, amount: number, stunDamage: boolean, usedParry: boolean) {
+	const updates: Record<string, number> = {};
+	let wounds = Number((target.system as any).wounds?.value ?? 0);
+	let strain = Number((target.system as any).strain?.value ?? 0);
+	const targetHasStrainPool = hasStrainPool(target);
+
+	if (usedParry) {
+		if (targetHasStrainPool) {
+			strain += PARRY_STRAIN_COST;
+		} else {
+			wounds += PARRY_STRAIN_COST;
+		}
 	}
 
-	const targetHasStrainPool = typeof (target.system as any).strain?.value === 'number';
-	if (stunDamage && targetHasStrainPool) {
-		const currentStrain = Number((target.system as any).strain?.value ?? 0);
-		await target.update({ 'system.strain.value': currentStrain + amount });
-		return;
+	if (amount > 0) {
+		if (stunDamage && targetHasStrainPool) {
+			strain += amount;
+		} else {
+			wounds += amount;
+		}
 	}
 
-	await applyWounds(target, amount);
+	if (wounds !== Number((target.system as any).wounds?.value ?? 0)) {
+		updates['system.wounds.value'] = wounds;
+	}
+	if (targetHasStrainPool && strain !== Number((target.system as any).strain?.value ?? 0)) {
+		updates['system.strain.value'] = strain;
+	}
+
+	if (Object.keys(updates).length) {
+		await target.update(updates);
+	}
 }
 
 function getCriticalTable() {
@@ -311,7 +343,6 @@ async function createDefensePrompt(sourceMessage: ChatMessage, target: GenesysAc
 		user: game.user.id,
 		speaker: { actor: target.id },
 		content: html,
-		whisper: getWhisperRecipients(target),
 		flags: {
 			[FLAG_SCOPE]: {
 				[ATTACK_FLAG_KEY]: {
@@ -322,7 +353,7 @@ async function createDefensePrompt(sourceMessage: ChatMessage, target: GenesysAc
 	});
 }
 
-async function createDamageResolutionMessage(sourceMessage: ChatMessage, target: GenesysActor, flag: AttackMessageFlag, usedParry: boolean) {
+async function createDamageResolutionMessage(sourceMessage: ChatMessage, target: GenesysActor, flag: AttackMessageFlag, usedParry: boolean, defenseMessage?: ChatMessage) {
 	const breakdown = buildDefenseBreakdown(target, flag);
 	const finalWounds = usedParry ? breakdown.woundsWithParry : breakdown.woundsWithoutParry;
 	const netAdvantage = Math.max(0, flag.results.netAdvantage);
@@ -337,35 +368,44 @@ async function createDamageResolutionMessage(sourceMessage: ChatMessage, target:
 	};
 	const html = await renderTemplate('systems/genesys/templates/chat/attack-resolution.hbs', data);
 
-	await applyDamage(target, finalWounds, flag.stunDamage);
-	await ChatMessage.create({
-		user: game.user.id,
-		speaker: { actor: target.id },
-		content: html,
-		flags: {
-			[FLAG_SCOPE]: {
-				[ATTACK_FLAG_KEY]: {
-					sourceMessageUuid: sourceMessage.uuid,
-					targetUuid: target.uuid,
-					criticalAllowed: finalWounds > 0,
-					netAdvantage,
-					netThreat,
-					totalTriumph,
-					totalDespair,
-					critical: flag.critical,
-					weaponName: flag.weaponName,
-					qualities: flag.qualities,
-				} satisfies ResolutionMessageFlag,
+	await applyResolvedDamage(target, finalWounds, flag.stunDamage, usedParry);
+	const resolutionFlag = {
+		sourceMessageUuid: sourceMessage.uuid,
+		targetUuid: target.uuid,
+		criticalAllowed: finalWounds > 0,
+		netAdvantage,
+		netThreat,
+		totalTriumph,
+		totalDespair,
+		critical: flag.critical,
+		weaponName: flag.weaponName,
+		qualities: flag.qualities,
+	} satisfies ResolutionMessageFlag;
+
+	if (defenseMessage) {
+		await defenseMessage.update({
+			content: html,
+			[`flags.${FLAG_SCOPE}.${ATTACK_FLAG_KEY}`]: resolutionFlag,
+		});
+	} else {
+		await ChatMessage.create({
+			user: game.user.id,
+			speaker: { actor: target.id },
+			content: html,
+			flags: {
+				[FLAG_SCOPE]: {
+					[ATTACK_FLAG_KEY]: resolutionFlag,
+				},
 			},
-		},
-	});
+		});
+	}
 	await sourceMessage.setFlag(FLAG_SCOPE, `${ATTACK_FLAG_KEY}.damageResolved`, true);
 }
 
 async function resolveDamage(defenseMessage: ChatMessage, usedParry: boolean) {
 	const defenseFlag = defenseMessage.getFlag(FLAG_SCOPE, ATTACK_FLAG_KEY) as DefenseMessageFlag | undefined;
 	if (!defenseFlag || defenseFlag.resolved) {
-		return;
+		return false;
 	}
 
 	const sourceMessage = (await fromUuid(defenseFlag.sourceMessageUuid)) as ChatMessage | null;
@@ -373,11 +413,21 @@ async function resolveDamage(defenseMessage: ChatMessage, usedParry: boolean) {
 	const target = attackFlag ? ((await fromUuid(attackFlag.targetUuid)) as GenesysActor | null) : null;
 	if (!sourceMessage || !attackFlag || !target) {
 		ui.notifications.warn(localize('Genesys.AttackResolution.MissingData', 'Attack data could not be found.'));
-		return;
+		return false;
+	}
+	if (usedParry && !buildDefenseBreakdown(target, attackFlag).canParry) {
+		ui.notifications.warn(localize('Genesys.AttackResolution.ParryRequirementsMissing', 'Parry requires an equipped melee weapon.'));
+		return false;
 	}
 
-	await createDamageResolutionMessage(sourceMessage, target, attackFlag, usedParry);
 	await defenseMessage.setFlag(FLAG_SCOPE, `${ATTACK_FLAG_KEY}.resolved`, true);
+	try {
+		await createDamageResolutionMessage(sourceMessage, target, attackFlag, usedParry, defenseMessage);
+	} catch (error) {
+		await defenseMessage.setFlag(FLAG_SCOPE, `${ATTACK_FLAG_KEY}.resolved`, false);
+		throw error;
+	}
+	return true;
 }
 
 async function createCriticalMessage(target: GenesysActor, data: CriticalBreakdown) {
@@ -456,10 +506,6 @@ export async function resolveCritical(message: ChatMessage, extraAdvantages = 0)
 		injuryFallbackHtml: injury ? undefined : getCriticalResultFallbackHtml(result),
 	});
 	await message.setFlag(FLAG_SCOPE, `${ATTACK_FLAG_KEY}.criticalResolved`, true);
-}
-
-function findQualityItem(name: string) {
-	return game.items.find((item) => item.type === 'quality' && normalizeName(item.name) === normalizeName(name));
 }
 
 function getActiveQualitySpendOptions(qualities: ContainedItemQuality[]) {
@@ -825,8 +871,18 @@ export function registerAttackResolution() {
 
 		html.find('[data-action="resolve-attack-defense"]').on('click', async (event) => {
 			event.preventDefault();
+			const defenseButtons = html.find('[data-action="resolve-attack-defense"]');
+			defenseButtons.prop('disabled', true);
 			const usedParry = event.currentTarget instanceof HTMLElement && event.currentTarget.dataset.useParry === 'true';
-			await resolveDamage(message, usedParry);
+			try {
+				const resolved = await resolveDamage(message, usedParry);
+				if (!resolved) {
+					defenseButtons.prop('disabled', false);
+				}
+			} catch (error) {
+				defenseButtons.prop('disabled', false);
+				throw error;
+			}
 		});
 
 		html.find('[data-action="critical-injury"]').on('click', async (event) => {

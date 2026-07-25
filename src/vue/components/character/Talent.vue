@@ -22,10 +22,16 @@ const props = withDefaults(
 		effectiveTier?: number;
 		canDelete?: boolean;
 		canUpgrade?: boolean;
+		canUse?: boolean;
+		used?: boolean;
+		canResetUse?: boolean;
 	}>(),
 	{
 		canDelete: false,
 		canUpgrade: false,
+		canUse: false,
+		used: false,
+		canResetUse: false,
 		ranked: false,
 		scalesWithRank: false,
 		rank: 0,
@@ -36,6 +42,8 @@ const emit = defineEmits<{
 	(e: 'open'): void;
 	(e: 'upgrade'): void;
 	(e: 'delete'): void;
+	(e: 'use'): void;
+	(e: 'reset-use'): void;
 }>();
 
 const rootContext = inject<ActorSheetContext<CharacterDataModel>>(RootContext)!;
@@ -43,7 +51,7 @@ const rootContext = inject<ActorSheetContext<CharacterDataModel>>(RootContext)!;
 const expanded = ref(false);
 const talentRef = ref<HTMLElement | null>(null);
 const canDeleteTalent = computed(() => props.canDelete && rootContext.data.editable);
-const canOpenActionsMenu = computed(() => (props.ranked && props.canUpgrade) || rootContext.data.editable || canDeleteTalent.value);
+const canOpenActionsMenu = computed(() => (props.ranked && props.canUpgrade) || rootContext.data.editable || canDeleteTalent.value || props.canResetUse);
 
 async function sendToChat() {
 	const enrichedDescription = await TextEditor.enrichHTML(props.description, { async: true });
@@ -108,6 +116,11 @@ async function sendToChat() {
 					<template v-slot:icon><i class="fas fa-trash"></i></template>
 					<Localized label="Genesys.Labels.Delete" />
 				</MenuItem>
+
+				<MenuItem v-if="canResetUse" @click="emit('reset-use')">
+					<template v-slot:icon><i class="fas fa-rotate-left"></i></template>
+					<Localized label="Genesys.RacialAbilities.ResetUse" />
+				</MenuItem>
 			</template>
 
 			<a><i class="fas fa-ellipsis-vertical"></i></a>
@@ -118,6 +131,11 @@ async function sendToChat() {
 			</div>
 
 			<Enriched class="desc" :value="description"></Enriched>
+
+			<button v-if="canUse" type="button" class="use-ability" :disabled="used" @click="emit('use')">
+				<i :class="used ? 'fas fa-check' : 'fas fa-bolt'"></i>
+				<Localized :label="used ? 'Genesys.RacialAbilities.Used' : 'Genesys.RacialAbilities.Use'" />
+			</button>
 
 			<div v-if="source" class="source">{{ source }}</div>
 		</div>
@@ -192,6 +210,14 @@ async function sendToChat() {
 			font-family: 'Roboto', sans-serif;
 			font-style: italic;
 			font-size: 0.8em;
+		}
+
+		.use-ability {
+			display: inline-flex;
+			width: auto;
+			align-items: center;
+			gap: 0.4em;
+			margin: 0.5em 0;
 		}
 	}
 }

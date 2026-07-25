@@ -1,5 +1,6 @@
 import GenesysActor from '@/actor/GenesysActor';
 import { resolveCritical } from '@/combat/AttackResolution';
+import { findQualityItem } from '@/combat/CombatEffects';
 import type { GenesysRollResults } from '@/dice/GenesysRoller';
 import type { ContainedItemQuality } from '@/item/data/BaseWeaponDataModel';
 import ItemQualityDataModel from '@/item/data/ItemQualityDataModel';
@@ -120,10 +121,6 @@ function canSpendPositive(actor: GenesysActor) {
 
 function canSpendNegative() {
 	return game.user.isGM;
-}
-
-function findQualityItem(name: string) {
-	return game.items.find((item) => item.type === 'quality' && normalizeName(item.name) === normalizeName(name));
 }
 
 function getActiveQualitySpendOptions(qualities: ContainedItemQuality[] = []) {

@@ -22,6 +22,7 @@ import { Characteristic as CharacteristicType } from '@/data/Characteristics';
 import InjuryDataModel from '@/item/data/InjuryDataModel';
 import { DragTransferData, constructDragTransferTypeFromData } from '@/data/DragTransferData';
 import { CombatEffectKeys, getQualityCombatEffectValue, getQualityPoolModifications } from '@/combat/CombatEffects';
+import CombatStat from '@/vue/components/character/CombatStat.vue';
 
 const context = inject<ActorSheetContext<AdversaryDataModel>>(RootContext)!;
 const system = computed(() => toRaw(context.data.actor).systemData);
@@ -341,6 +342,7 @@ onBeforeUpdate(updateEffects);
 					</div>
 
 					<div class="stats-row">
+						<CombatStat label="Genesys.Labels.Silhouette" name="system.silhouette" :value="system.silhouette" edit-primary />
 						<slot name="stats">Stats Row Not Populated</slot>
 					</div>
 

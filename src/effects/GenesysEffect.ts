@@ -11,7 +11,8 @@ import TalentDataModel from '@/item/data/TalentDataModel';
 
 export default class GenesysEffect extends ActiveEffect {
 	override get isSuppressed() {
-		return this.disabled;
+		const duration = this.duration as unknown as { expired?: boolean; remaining?: number | null };
+		return this.disabled || duration.expired === true || (typeof duration.remaining === 'number' && duration.remaining <= 0);
 	}
 
 	// Prefix string used to identify active effects that are supposed to modify a dice pool.
@@ -44,11 +45,13 @@ export default class GenesysEffect extends ActiveEffect {
 
 		if (originItem && originItem.systemData instanceof TalentDataModel) {
 			const talentData = <TalentDataModel>originItem.systemData;
+			const isManuallyResolvedCombatEffect = change.key.startsWith('genesys.combat.');
 
-			const rank = talentData.rank;
-			const value = parseInt(change.value) * rank;
-			if (!isNaN(value)) {
-				change.value = value.toString();
+			if (talentData.scalesWithRank === 'yes' && !isManuallyResolvedCombatEffect) {
+				const value = parseInt(change.value) * talentData.rank;
+				if (!isNaN(value)) {
+					change.value = value.toString();
+				}
 			}
 		}
 

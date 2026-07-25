@@ -7457,7 +7457,53 @@
 										"Gnom"
 									]
 								}
-							}
+							},
+							"effects": [
+								{
+									"name": "Niewielki",
+									"img": "icons/svg/aura.svg",
+									"transfer": true,
+									"disabled": false,
+									"changes": [
+										{
+											"key": "system.silhouette",
+											"mode": 5,
+											"value": "0",
+											"priority": 20
+										}
+									],
+									"flags": {
+										"genesys": {
+											"racialAbility": true,
+											"abilityEffect": {
+												"ability": "Niewielki",
+												"detail": ""
+											}
+										}
+									},
+									"_id": "KPfy1Qv9xSPiLagX",
+									"type": "base",
+									"system": {},
+									"duration": {
+										"startTime": null,
+										"combat": null
+									},
+									"description": "",
+									"origin": null,
+									"tint": "#ffffff",
+									"statuses": [],
+									"sort": 0,
+									"_stats": {
+										"compendiumSource": null,
+										"duplicateSource": null,
+										"exportSource": null,
+										"coreVersion": "14.365",
+										"systemId": "genesys",
+										"systemVersion": "1.1.3",
+										"lastModifiedBy": null
+									}
+								}
+							]
 						}
 					],
 					"gameProfiles": [
@@ -7974,7 +8020,65 @@
 										"Imperialny Ogr"
 									]
 								}
-							}
+							},
+							"effects": [
+								{
+									"name": "Przerażający",
+									"img": "icons/svg/aura.svg",
+									"transfer": true,
+									"disabled": false,
+									"changes": [
+										{
+											"key": "genesys.pool.skill.self.Przymuszanie",
+											"mode": 2,
+											"value": "B",
+											"priority": 20
+										},
+										{
+											"key": "genesys.pool.skill.self.Przywództwo",
+											"mode": 2,
+											"value": "B",
+											"priority": 20
+										},
+										{
+											"key": "genesys.pool.skill.self.Urok Osobisty",
+											"mode": 2,
+											"value": "S",
+											"priority": 20
+										}
+									],
+									"flags": {
+										"genesys": {
+											"racialAbility": true,
+											"abilityEffect": {
+												"ability": "Przerażający",
+												"detail": "Nie stosuj podczas interakcji z imperialnymi ogrami."
+											}
+										}
+									},
+									"_id": "2Ho1FlYq2HyJ5uV9",
+									"type": "base",
+									"system": {},
+									"duration": {
+										"startTime": null,
+										"combat": null
+									},
+									"description": "",
+									"origin": null,
+									"tint": "#ffffff",
+									"statuses": [],
+									"sort": 0,
+									"_stats": {
+										"compendiumSource": null,
+										"duplicateSource": null,
+										"exportSource": null,
+										"coreVersion": "14.365",
+										"systemId": "genesys",
+										"systemVersion": "1.1.3",
+										"lastModifiedBy": null
+									}
+								}
+							]
 						},
 						{
 							"name": "Ogromny",
@@ -7996,7 +8100,59 @@
 										"Imperialny Ogr"
 									]
 								}
-							}
+							},
+							"effects": [
+								{
+									"name": "Ogromny",
+									"img": "icons/svg/aura.svg",
+									"transfer": true,
+									"disabled": false,
+									"changes": [
+										{
+											"key": "system.silhouette",
+											"mode": 5,
+											"value": "2",
+											"priority": 20
+										},
+										{
+											"key": "system.encumbrance.threshold",
+											"mode": 2,
+											"value": "2",
+											"priority": 20
+										}
+									],
+									"flags": {
+										"genesys": {
+											"racialAbility": true,
+											"abilityEffect": {
+												"ability": "Ogromny",
+												"detail": ""
+											}
+										}
+									},
+									"_id": "Dy9pdhxnCrlS9263",
+									"type": "base",
+									"system": {},
+									"duration": {
+										"startTime": null,
+										"combat": null
+									},
+									"description": "",
+									"origin": null,
+									"tint": "#ffffff",
+									"statuses": [],
+									"sort": 0,
+									"_stats": {
+										"compendiumSource": null,
+										"duplicateSource": null,
+										"exportSource": null,
+										"coreVersion": "14.365",
+										"systemId": "genesys",
+										"systemVersion": "1.1.3",
+										"lastModifiedBy": null
+									}
+								}
+							]
 						},
 						{
 							"name": "Pasibrzuch",
@@ -8018,7 +8174,53 @@
 										"Imperialny Ogr"
 									]
 								}
-							}
+							},
+							"effects": [
+								{
+									"name": "Pasibrzuch",
+									"img": "icons/svg/aura.svg",
+									"transfer": true,
+									"disabled": false,
+									"changes": [
+										{
+											"key": "genesys.combat.attack.meleeDamage",
+											"mode": 2,
+											"value": "1",
+											"priority": 20
+										}
+									],
+									"flags": {
+										"genesys": {
+											"racialAbility": true,
+											"abilityEffect": {
+												"ability": "Pasibrzuch",
+												"detail": "+1 do obrażeń ataków w zwarciu, dopóki postać jest odpowiednio odżywiona."
+											}
+										}
+									},
+									"_id": "3IrHu13c66Sma9o1",
+									"type": "base",
+									"system": {},
+									"duration": {
+										"startTime": null,
+										"combat": null
+									},
+									"description": "",
+									"origin": null,
+									"tint": "#ffffff",
+									"statuses": [],
+									"sort": 0,
+									"_stats": {
+										"compendiumSource": null,
+										"duplicateSource": null,
+										"exportSource": null,
+										"coreVersion": "14.365",
+										"systemId": "genesys",
+										"systemVersion": "1.1.3",
+										"lastModifiedBy": null
+									}
+								}
+							]
 						},
 						{
 							"name": "Prostoduszny",
@@ -9979,7 +10181,56 @@
 										"Krasnolud"
 									]
 								}
-							}
+							},
+							"effects": [
+								{
+									"name": "Odporność na Magię",
+									"img": "icons/svg/aura.svg",
+									"transfer": true,
+									"disabled": false,
+									"changes": [
+										{
+											"key": "genesys.pool.check.target.",
+											"mode": 2,
+											"value": "*",
+											"priority": 20
+										}
+									],
+									"flags": {
+										"genesys": {
+											"racialAbility": true,
+											"abilityEffect": {
+												"ability": "Odporność na Magię",
+												"detail": "Automatycznie wzmacnia trudność testu magii wymierzonego w krasnoluda."
+											},
+											"poolCondition": {
+												"type": "magic-check"
+											}
+										}
+									},
+									"_id": "LqKG9s7mMTFXUtgr",
+									"type": "base",
+									"system": {},
+									"duration": {
+										"startTime": null,
+										"combat": null
+									},
+									"description": "",
+									"origin": null,
+									"tint": "#ffffff",
+									"statuses": [],
+									"sort": 0,
+									"_stats": {
+										"compendiumSource": null,
+										"duplicateSource": null,
+										"exportSource": null,
+										"coreVersion": "14.365",
+										"systemId": "genesys",
+										"systemVersion": "1.1.3",
+										"lastModifiedBy": null
+									}
+								}
+							]
 						}
 					],
 					"gameProfiles": [
@@ -10821,7 +11072,65 @@
 										"Leśny Elf"
 									]
 								}
-							}
+							},
+							"effects": [
+								{
+									"name": "Błogosławieństwo Ishy (las)",
+									"img": "icons/svg/aura.svg",
+									"transfer": true,
+									"disabled": true,
+									"changes": [
+										{
+											"key": "genesys.pool.char.self.brawn",
+											"mode": 2,
+											"value": "B",
+											"priority": 20
+										},
+										{
+											"key": "genesys.pool.char.self.agility",
+											"mode": 2,
+											"value": "B",
+											"priority": 20
+										},
+										{
+											"key": "genesys.pool.char.self.willpower",
+											"mode": 2,
+											"value": "B",
+											"priority": 20
+										}
+									],
+									"flags": {
+										"genesys": {
+											"racialAbility": true,
+											"abilityEffect": {
+												"ability": "Błogosławieństwo Ishy",
+												"detail": "Włącz efekt, gdy postać przebywa w lesie."
+											}
+										}
+									},
+									"_id": "1bJd5o6aAXhZKfUl",
+									"type": "base",
+									"system": {},
+									"duration": {
+										"startTime": null,
+										"combat": null
+									},
+									"description": "",
+									"origin": null,
+									"tint": "#ffffff",
+									"statuses": [],
+									"sort": 0,
+									"_stats": {
+										"compendiumSource": null,
+										"duplicateSource": null,
+										"exportSource": null,
+										"coreVersion": "14.365",
+										"systemId": "genesys",
+										"systemVersion": "1.1.3",
+										"lastModifiedBy": null
+									}
+								}
+							]
 						}
 					],
 					"gameProfiles": [
@@ -13708,6 +14017,51 @@
 			}
 		},
 		{
+			"key": "!items.effects!Z5GBjeeWXdv2bCkd.NclnoscAutoFx001",
+			"value": {
+				"name": "Auto: Niecelność",
+				"img": "icons/svg/aura.svg",
+				"transfer": false,
+				"disabled": false,
+				"changes": [
+					{
+						"key": "genesys.pool.check.self.",
+						"mode": 2,
+						"value": "S",
+						"priority": 20
+					}
+				],
+				"flags": {
+					"genesys": {
+						"qualityImport": {
+							"combatAutomation": true
+						}
+					}
+				},
+				"_id": "NclnoscAutoFx001",
+				"type": "base",
+				"system": {},
+				"duration": {
+					"startTime": null,
+					"combat": null
+				},
+				"description": "",
+				"origin": null,
+				"tint": "#ffffff",
+				"statuses": [],
+				"sort": 0,
+				"_stats": {
+					"compendiumSource": null,
+					"duplicateSource": null,
+					"exportSource": null,
+					"coreVersion": "14.365",
+					"systemId": "genesys",
+					"systemVersion": "1.1.3",
+					"lastModifiedBy": null
+				}
+			}
+		},
+		{
 			"key": "!items!Z5GBjeeWXdv2bCkd",
 			"value": {
 				"name": "Niecelność",
@@ -14538,7 +14892,56 @@
 										"Niziołek"
 									]
 								}
-							}
+							},
+							"effects": [
+								{
+									"name": "Strażnik Pól",
+									"img": "icons/svg/aura.svg",
+									"transfer": true,
+									"disabled": false,
+									"changes": [
+										{
+											"key": "genesys.pool.check.self.",
+											"mode": 2,
+											"value": "^",
+											"priority": 20
+										}
+									],
+									"flags": {
+										"genesys": {
+											"racialAbility": true,
+											"abilityEffect": {
+												"ability": "Strażnik Pól",
+												"detail": "Automatycznie wzmacnia atak wręcz przeciw celowi o większej sylwetce."
+											},
+											"poolCondition": {
+												"type": "larger-target"
+											}
+										}
+									},
+									"_id": "OJOXRutSEDYRJZak",
+									"type": "base",
+									"system": {},
+									"duration": {
+										"startTime": null,
+										"combat": null
+									},
+									"description": "",
+									"origin": null,
+									"tint": "#ffffff",
+									"statuses": [],
+									"sort": 0,
+									"_stats": {
+										"compendiumSource": null,
+										"duplicateSource": null,
+										"exportSource": null,
+										"coreVersion": "14.365",
+										"systemId": "genesys",
+										"systemVersion": "1.1.3",
+										"lastModifiedBy": null
+									}
+								}
+							]
 						},
 						{
 							"name": "Niewielki",
@@ -14561,7 +14964,53 @@
 										"Gnom"
 									]
 								}
-							}
+							},
+							"effects": [
+								{
+									"name": "Niewielki",
+									"img": "icons/svg/aura.svg",
+									"transfer": true,
+									"disabled": false,
+									"changes": [
+										{
+											"key": "system.silhouette",
+											"mode": 5,
+											"value": "0",
+											"priority": 20
+										}
+									],
+									"flags": {
+										"genesys": {
+											"racialAbility": true,
+											"abilityEffect": {
+												"ability": "Niewielki",
+												"detail": ""
+											}
+										}
+									},
+									"_id": "KPfy1Qv9xSPiLagX",
+									"type": "base",
+									"system": {},
+									"duration": {
+										"startTime": null,
+										"combat": null
+									},
+									"description": "",
+									"origin": null,
+									"tint": "#ffffff",
+									"statuses": [],
+									"sort": 0,
+									"_stats": {
+										"compendiumSource": null,
+										"duplicateSource": null,
+										"exportSource": null,
+										"coreVersion": "14.365",
+										"systemId": "genesys",
+										"systemVersion": "1.1.3",
+										"lastModifiedBy": null
+									}
+								}
+							]
 						},
 						{
 							"name": "Odporność na Chaos",
@@ -16792,6 +17241,51 @@
 					"iq3idhPcJxg8GuwZ": 3
 				},
 				"sort": 0
+			}
+		},
+		{
+			"key": "!items.effects!Qn2ql39yayDUgFzI.PntracjaAutoFx01",
+			"value": {
+				"name": "Auto: Penetracja",
+				"img": "icons/svg/aura.svg",
+				"transfer": false,
+				"disabled": false,
+				"changes": [
+					{
+						"key": "genesys.combat.attack.penetration",
+						"mode": 2,
+						"value": "1",
+						"priority": 20
+					}
+				],
+				"flags": {
+					"genesys": {
+						"qualityImport": {
+							"combatAutomation": true
+						}
+					}
+				},
+				"_id": "PntracjaAutoFx01",
+				"type": "base",
+				"system": {},
+				"duration": {
+					"startTime": null,
+					"combat": null
+				},
+				"description": "",
+				"origin": null,
+				"tint": "#ffffff",
+				"statuses": [],
+				"sort": 0,
+				"_stats": {
+					"compendiumSource": null,
+					"duplicateSource": null,
+					"exportSource": null,
+					"coreVersion": "14.365",
+					"systemId": "genesys",
+					"systemVersion": "1.1.3",
+					"lastModifiedBy": null
+				}
 			}
 		},
 		{
@@ -29839,6 +30333,371 @@
 					"iq3idhPcJxg8GuwZ": 3
 				},
 				"sort": 0
+			}
+		},
+		{
+			"key": "!items.effects!vCsjg6PRu54QbrfH.KPfy1Qv9xSPiLagX",
+			"value": {
+				"name": "Niewielki",
+				"img": "icons/svg/aura.svg",
+				"transfer": true,
+				"disabled": false,
+				"changes": [
+					{
+						"key": "system.silhouette",
+						"mode": 5,
+						"value": "0",
+						"priority": 20
+					}
+				],
+				"flags": {
+					"genesys": {
+						"racialAbility": true,
+						"abilityEffect": {
+							"ability": "Niewielki",
+							"detail": ""
+						}
+					}
+				},
+				"_id": "KPfy1Qv9xSPiLagX",
+				"type": "base",
+				"system": {},
+				"duration": {
+					"startTime": null,
+					"combat": null
+				},
+				"description": "",
+				"origin": null,
+				"tint": "#ffffff",
+				"statuses": [],
+				"sort": 0,
+				"_stats": {
+					"compendiumSource": null,
+					"duplicateSource": null,
+					"exportSource": null,
+					"coreVersion": "14.365",
+					"systemId": "genesys",
+					"systemVersion": "1.1.3",
+					"lastModifiedBy": null
+				}
+			}
+		},
+		{
+			"key": "!items.effects!sD6Yro1L2ePsGXr0.Dy9pdhxnCrlS9263",
+			"value": {
+				"name": "Ogromny",
+				"img": "icons/svg/aura.svg",
+				"transfer": true,
+				"disabled": false,
+				"changes": [
+					{
+						"key": "system.silhouette",
+						"mode": 5,
+						"value": "2",
+						"priority": 20
+					},
+					{
+						"key": "system.encumbrance.threshold",
+						"mode": 2,
+						"value": "2",
+						"priority": 20
+					}
+				],
+				"flags": {
+					"genesys": {
+						"racialAbility": true,
+						"abilityEffect": {
+							"ability": "Ogromny",
+							"detail": ""
+						}
+					}
+				},
+				"_id": "Dy9pdhxnCrlS9263",
+				"type": "base",
+				"system": {},
+				"duration": {
+					"startTime": null,
+					"combat": null
+				},
+				"description": "",
+				"origin": null,
+				"tint": "#ffffff",
+				"statuses": [],
+				"sort": 0,
+				"_stats": {
+					"compendiumSource": null,
+					"duplicateSource": null,
+					"exportSource": null,
+					"coreVersion": "14.365",
+					"systemId": "genesys",
+					"systemVersion": "1.1.3",
+					"lastModifiedBy": null
+				}
+			}
+		},
+		{
+			"key": "!items.effects!1aJYVudUcOGdxQIR.3IrHu13c66Sma9o1",
+			"value": {
+				"name": "Pasibrzuch",
+				"img": "icons/svg/aura.svg",
+				"transfer": true,
+				"disabled": false,
+				"changes": [
+					{
+						"key": "genesys.combat.attack.meleeDamage",
+						"mode": 2,
+						"value": "1",
+						"priority": 20
+					}
+				],
+				"flags": {
+					"genesys": {
+						"racialAbility": true,
+						"abilityEffect": {
+							"ability": "Pasibrzuch",
+							"detail": "+1 do obrażeń ataków w zwarciu, dopóki postać jest odpowiednio odżywiona."
+						}
+					}
+				},
+				"_id": "3IrHu13c66Sma9o1",
+				"type": "base",
+				"system": {},
+				"duration": {
+					"startTime": null,
+					"combat": null
+				},
+				"description": "",
+				"origin": null,
+				"tint": "#ffffff",
+				"statuses": [],
+				"sort": 0,
+				"_stats": {
+					"compendiumSource": null,
+					"duplicateSource": null,
+					"exportSource": null,
+					"coreVersion": "14.365",
+					"systemId": "genesys",
+					"systemVersion": "1.1.3",
+					"lastModifiedBy": null
+				}
+			}
+		},
+		{
+			"key": "!items.effects!kKvlAJBVxOaFzBEw.2Ho1FlYq2HyJ5uV9",
+			"value": {
+				"name": "Przerażający",
+				"img": "icons/svg/aura.svg",
+				"transfer": true,
+				"disabled": false,
+				"changes": [
+					{
+						"key": "genesys.pool.skill.self.Przymuszanie",
+						"mode": 2,
+						"value": "B",
+						"priority": 20
+					},
+					{
+						"key": "genesys.pool.skill.self.Przywództwo",
+						"mode": 2,
+						"value": "B",
+						"priority": 20
+					},
+					{
+						"key": "genesys.pool.skill.self.Urok Osobisty",
+						"mode": 2,
+						"value": "S",
+						"priority": 20
+					}
+				],
+				"flags": {
+					"genesys": {
+						"racialAbility": true,
+						"abilityEffect": {
+							"ability": "Przerażający",
+							"detail": "Nie stosuj podczas interakcji z imperialnymi ogrami."
+						}
+					}
+				},
+				"_id": "2Ho1FlYq2HyJ5uV9",
+				"type": "base",
+				"system": {},
+				"duration": {
+					"startTime": null,
+					"combat": null
+				},
+				"description": "",
+				"origin": null,
+				"tint": "#ffffff",
+				"statuses": [],
+				"sort": 0,
+				"_stats": {
+					"compendiumSource": null,
+					"duplicateSource": null,
+					"exportSource": null,
+					"coreVersion": "14.365",
+					"systemId": "genesys",
+					"systemVersion": "1.1.3",
+					"lastModifiedBy": null
+				}
+			}
+		},
+		{
+			"key": "!items.effects!UQKxaBkJ16gy1zWk.1bJd5o6aAXhZKfUl",
+			"value": {
+				"name": "Błogosławieństwo Ishy (las)",
+				"img": "icons/svg/aura.svg",
+				"transfer": true,
+				"disabled": true,
+				"changes": [
+					{
+						"key": "genesys.pool.char.self.brawn",
+						"mode": 2,
+						"value": "B",
+						"priority": 20
+					},
+					{
+						"key": "genesys.pool.char.self.agility",
+						"mode": 2,
+						"value": "B",
+						"priority": 20
+					},
+					{
+						"key": "genesys.pool.char.self.willpower",
+						"mode": 2,
+						"value": "B",
+						"priority": 20
+					}
+				],
+				"flags": {
+					"genesys": {
+						"racialAbility": true,
+						"abilityEffect": {
+							"ability": "Błogosławieństwo Ishy",
+							"detail": "Włącz efekt, gdy postać przebywa w lesie."
+						}
+					}
+				},
+				"_id": "1bJd5o6aAXhZKfUl",
+				"type": "base",
+				"system": {},
+				"duration": {
+					"startTime": null,
+					"combat": null
+				},
+				"description": "",
+				"origin": null,
+				"tint": "#ffffff",
+				"statuses": [],
+				"sort": 0,
+				"_stats": {
+					"compendiumSource": null,
+					"duplicateSource": null,
+					"exportSource": null,
+					"coreVersion": "14.365",
+					"systemId": "genesys",
+					"systemVersion": "1.1.3",
+					"lastModifiedBy": null
+				}
+			}
+		},
+		{
+			"key": "!items.effects!o65YQpM608PhJGpy.OJOXRutSEDYRJZak",
+			"value": {
+				"name": "Strażnik Pól",
+				"img": "icons/svg/aura.svg",
+				"transfer": true,
+				"disabled": false,
+				"changes": [
+					{
+						"key": "genesys.pool.check.self.",
+						"mode": 2,
+						"value": "^",
+						"priority": 20
+					}
+				],
+				"flags": {
+					"genesys": {
+						"racialAbility": true,
+						"abilityEffect": {
+							"ability": "Strażnik Pól",
+							"detail": "Automatycznie wzmacnia atak wręcz przeciw celowi o większej sylwetce."
+						},
+						"poolCondition": {
+							"type": "larger-target"
+						}
+					}
+				},
+				"_id": "OJOXRutSEDYRJZak",
+				"type": "base",
+				"system": {},
+				"duration": {
+					"startTime": null,
+					"combat": null
+				},
+				"description": "",
+				"origin": null,
+				"tint": "#ffffff",
+				"statuses": [],
+				"sort": 0,
+				"_stats": {
+					"compendiumSource": null,
+					"duplicateSource": null,
+					"exportSource": null,
+					"coreVersion": "14.365",
+					"systemId": "genesys",
+					"systemVersion": "1.1.3",
+					"lastModifiedBy": null
+				}
+			}
+		},
+		{
+			"key": "!items.effects!VmzWnzV6xHJsiaPn.LqKG9s7mMTFXUtgr",
+			"value": {
+				"name": "Odporność na Magię",
+				"img": "icons/svg/aura.svg",
+				"transfer": true,
+				"disabled": false,
+				"changes": [
+					{
+						"key": "genesys.pool.check.target.",
+						"mode": 2,
+						"value": "*",
+						"priority": 20
+					}
+				],
+				"flags": {
+					"genesys": {
+						"racialAbility": true,
+						"abilityEffect": {
+							"ability": "Odporność na Magię",
+							"detail": "Automatycznie wzmacnia trudność testu magii wymierzonego w krasnoluda."
+						},
+						"poolCondition": {
+							"type": "magic-check"
+						}
+					}
+				},
+				"_id": "LqKG9s7mMTFXUtgr",
+				"type": "base",
+				"system": {},
+				"duration": {
+					"startTime": null,
+					"combat": null
+				},
+				"description": "",
+				"origin": null,
+				"tint": "#ffffff",
+				"statuses": [],
+				"sort": 0,
+				"_stats": {
+					"compendiumSource": null,
+					"duplicateSource": null,
+					"exportSource": null,
+					"coreVersion": "14.365",
+					"systemId": "genesys",
+					"systemVersion": "1.1.3",
+					"lastModifiedBy": null
+				}
 			}
 		}
 	]

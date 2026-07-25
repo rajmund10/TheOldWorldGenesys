@@ -8,6 +8,16 @@
 		<span>{{baseSoak}}</span>
 		<span>{{localize 'Genesys.AttackResolution.Pierce'}}</span>
 		<span>{{pierce}}</span>
+		{{#if penetration}}
+			<span>{{localize 'Genesys.AttackResolution.Penetration'}}</span>
+			<span>{{penetration}}</span>
+		{{/if}}
+		{{#if canParry}}
+			<span>{{localize 'Genesys.AttackResolution.Parry'}}</span>
+			<span>-{{parryReduction}}</span>
+			<span>{{localize 'Genesys.AttackResolution.ParryCost'}}</span>
+			<span>+{{parryCost}} {{parryCostResource}}</span>
+		{{/if}}
 		<span>
 			{{#if stunDamage}}
 				{{localize 'Genesys.AttackResolution.StrainWithoutParry'}}
@@ -16,11 +26,21 @@
 			{{/if}}
 		</span>
 		<span>{{woundsWithoutParry}}</span>
+		{{#if canParry}}
+			<span>
+				{{#if stunDamage}}
+					{{localize 'Genesys.AttackResolution.StrainWithParry'}}
+				{{else}}
+					{{localize 'Genesys.AttackResolution.WoundsWithParry'}}
+				{{/if}}
+			</span>
+			<span>{{woundsWithParry}}</span>
+		{{/if}}
 	</div>
 	<div class="attack-resolution-actions">
 		{{#if canParry}}
 			<button type="button" data-action="resolve-attack-defense" data-use-parry="true">
-				{{localize 'Genesys.AttackResolution.UseParry'}} (-{{parryReduction}})
+				{{localize 'Genesys.AttackResolution.UseParry'}}
 			</button>
 		{{/if}}
 		<button type="button" data-action="resolve-attack-defense" data-use-parry="false">

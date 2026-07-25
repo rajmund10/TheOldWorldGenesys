@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { inject, onMounted, ref, toRaw } from 'vue';
+import { inject, onBeforeUnmount, onMounted, ref, toRaw } from 'vue';
 import { DicePromptContext, type AttackRollData, RollType, type InitiativeRollData, CALCULATE_CHANCE_WORKER_NAME } from '@/app/DicePrompt';
 import { Characteristic } from '@/data/Characteristics';
 import GenesysRoller from '@/dice/GenesysRoller';
@@ -18,6 +18,7 @@ import { GenesysPoolGradeOperation } from '@/dice/types/GenesysPoolGradeOperatio
 import { GenesysPoolModifications, PoolModGlyphPattern } from '@/dice/types/GenesysPoolModifications';
 import GenesysEffect from '@/effects/GenesysEffect';
 import { CombatEffectKeys, getEquippedQualityCombatEffectValue } from '@/combat/CombatEffects';
+import { getSilhouetteDifficultyModification } from '@/combat/Silhouette';
 
 type AlsoNone<T> = T | undefined;
 type PartialRecord<K extends keyof any, T> = Partial<Record<K, T>>;
@@ -43,6 +44,8 @@ type DicePoolModifications = {
 		name: string;
 		enabled: boolean;
 		mods: string[];
+		effectId?: string;
+		oneShot?: boolean;
 	}>;
 };
 
@@ -96,6 +99,7 @@ let previousDicePool: DicePool = {
 	symbols: {},
 	usesSuperCharacteristic: false,
 };
+let targetTokenHook: ((user: User) => void) | undefined;
 
 onMounted(() => {
 	const actor = toRaw(context.actor);
@@ -114,6 +118,21 @@ onMounted(() => {
 
 	calculatePoolModificationsForSkill();
 	buildDicePool();
+
+	targetTokenHook = (user: User) => {
+		if (user.id !== game.user.id) {
+			return;
+		}
+		calculatePoolModificationsForSkill();
+		buildDicePool();
+	};
+	Hooks.on('targetToken', targetTokenHook);
+});
+
+onBeforeUnmount(() => {
+	if (targetTokenHook) {
+		Hooks.off('targetToken', targetTokenHook);
+	}
 });
 
 // Helper function for sorting dice pool modifications. These are sorted according to the steps used for modifying a
@@ -168,9 +187,36 @@ function applyDicePoolModifications(dicePool: DicePool, modifierTokens: string[]
 	}
 }
 
+function effectMatchesPoolCondition(effect: GenesysEffect) {
+	const condition = effect.getFlag('genesys', 'poolCondition') as { type?: string } | undefined;
+	if (!condition?.type) {
+		return true;
+	}
+
+	if (condition.type === 'larger-target') {
+		if (context.rollType !== RollType.Attack || game.user.targets.size !== 1 || !context.actor) {
+			return false;
+		}
+		const weapon = (context.rollData as AttackRollData | undefined)?.weapon;
+		if (weapon?.systemData.range !== 'engaged') {
+			return false;
+		}
+		const [target] = game.user.targets;
+		const selfSilhouette = Number((context.actor.system as { silhouette?: number }).silhouette ?? 1);
+		const targetSilhouette = Number((target.actor?.system as { silhouette?: number } | undefined)?.silhouette ?? 1);
+		return targetSilhouette > selfSilhouette;
+	}
+
+	if (condition.type === 'magic-check') {
+		return selectedSkill.value?.systemData.category === 'magic';
+	}
+
+	return true;
+}
+
 function aggregatePoolModifications(effects: foundry.abstract.EmbeddedCollection<GenesysEffect>, changeKeys: string[], namePrefix: string) {
 	return effects.reduce<DicePoolModifications['effects']>((modifications, effect) => {
-		if (!effect.isSuppressed) {
+		if (!effect.isSuppressed && effectMatchesPoolCondition(effect)) {
 			let effectRank = effect.originItem?.system?.scalesWithRank === 'yes' ? effect.originItem?.system?.rank ?? 1 : 1;
 
 			// Find all the changes inside this effect related to the passed criteria.
@@ -188,6 +234,8 @@ function aggregatePoolModifications(effects: foundry.abstract.EmbeddedCollection
 					name: namePrefix + effect.name,
 					enabled: CONFIG.genesys.settings.autoApplyPoolModifications,
 					mods: relevantChanges.sort(sortPoolModifications),
+					effectId: effect.id,
+					oneShot: Boolean(effect.getFlag('genesys', 'racialAbilityOneShot')),
 				});
 			}
 		}
@@ -224,6 +272,23 @@ function calculatePoolModificationsForSkill() {
 				);
 
 				if (context.rollType === RollType.Attack) {
+					const silhouette = getSilhouetteDifficultyModification(actor, chosenTarget.actor as GenesysActor);
+					if (silhouette.adjustment !== 0) {
+						relevantModifications.push({
+							name: game.i18n.format(
+								silhouette.adjustment < 0
+									? 'Genesys.DicePrompt.PoolModifications.SilhouetteLargerTarget'
+									: 'Genesys.DicePrompt.PoolModifications.SilhouetteSmallerTarget',
+								{
+									attacker: silhouette.attackerSilhouette,
+									target: silhouette.targetSilhouette,
+								},
+							),
+							enabled: true,
+							mods: silhouette.modifications,
+						});
+					}
+
 					const defenseType = (context.rollData as AttackRollData).weapon.systemData.range === 'engaged' ? 'melee' : 'ranged';
 					const totalDefense =
 						chosenTarget.actor!.type === 'character'
@@ -488,6 +553,13 @@ async function rollPool() {
 
 		default:
 			await GenesysRoller.skillRoll(baseRollData);
+	}
+
+	const oneShotEffectIds = poolModifications.value.effects
+		.filter((effect) => effect.enabled && effect.oneShot && effect.effectId)
+		.map((effect) => effect.effectId!);
+	if (context.actor && oneShotEffectIds.length) {
+		await toRaw(context.actor).deleteEmbeddedDocuments('ActiveEffect', oneShotEffectIds);
 	}
 
 	await context.app.close();
